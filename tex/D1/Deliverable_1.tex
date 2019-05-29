@@ -30,13 +30,14 @@ With real-time sound frequency detection, real-time feedbacks on a intuitive UI,
 \subsection{General (A)}
 \begin{enumerate}
   \item A walk-through tutorial at first launch about features in the app
-  \item “Hamburger Menu” button on the top-left corner brings out a menu to select practice mode (can also be triggered by swiping from left)
-  \item “Help” button on the bottom-left corner to spawn a help page for each practice mode
+  \item "Left Menu” button on the top-left corner brings out a menu to select practice mode (can also be triggered by swiping from left)
+  \item “Help”(?) button on the bottom-left corner to spawn a help page for each practice mode
   \item “Play Sound” button on the top-right corner to play the “answer” note
-  \item “Custom Setting” button on the bottom-left corner to spawn a custom setting page where user can select the set of notes to practice
-  \item “More Menu” can be brought by swipe from right in any mode, it contains “History”, “FAQ”, “About us”, “Donate”, “Contact us” sections.
+  \item “Filter”(F) button on the bottom-left corner to spawn a custom setting page where user can select the set of notes to practice
+  \item “More Menu” can be accessed from "Left Menu", it contains “Summary”, "Music Theory", “FAQ”, “About us”, “Donate”, “Contact us” sections.
   \item Double tap on screen to skip to next question (next note(s)).
   \item Summary section in “More Menu” opens a page to reflect the accuracy of the notes you practiced and top ten notes you mastered and few notes on notes you should practice more often. 
+  \item "Setting Menu" can be accessed from "Left Menu" 
 \end{enumerate}
 
 \subsection{Note Practice Mode (B)}
@@ -58,7 +59,7 @@ With real-time sound frequency detection, real-time feedbacks on a intuitive UI,
 
 \subsection{Chord Practice Mode (D) }
 \begin{enumerate}
-  \item Generate a set of notes S on screen, where S contains notes from a chord H. For example, S is $\{C3, E3, G3\}$ when H is “major triad” with base note X “C3”.  (X,  H, S can be customized in “Custom Setting” button)
+  \item Generate a set of notes S on screen, where S contains notes from a chord H. For example, S is $\{C3, E3, G3\}$ when H is “major triad” with base note X “C3”.  (X,  H, S can be customized in “Filter” button)
 \end{enumerate}
 \subsection{Song Practice Mode (E) }
 \begin{enumerate}
@@ -116,14 +117,14 @@ With real-time sound frequency detection, real-time feedbacks on a intuitive UI,
 Say the user wants to practice random notes to improve their pitch accuracy in general, then they would want to open the app’s note practice mode. They would do this by swiping right on the screen or clicking the hamburger button to bring up the menu and selecting the node practice mode (A.2). Then the app would select a random note for them to try and match (A3, C4, … etc) (B.1). Once they sing a note, the app will analyze the note and see if they are correct (B.2). If they are not correct then give them an arrow to tell them to go higher or lower (The arrow will bounce faster as they are further to tell them to go much higher or lower). If they are correct then it will notify them (B.3). The user can also choose to let the app play the note they are asked to sing (A.7). Once they are correct or choose to skip the note by double tapping(B.3), they are given another note (B.2). This repeats until the user decides that they no longer want to be in note mode, in that case they can close the app. Their practice session information is saved in real time (A.8). They can view history in Summary Section in More Menu (A.6).
 
 \subsection{Use Case 2 - Interval Practice}
-Interval Practice mode can be switched in the Hamburger menu(A.2). The user interface of this mode is similar to that of note practice mode, the app will give the user a pitch name as well as a frequency interval higher or lower than it. For example, “D3 + M5” means the app is asking for the M5(major fifth interval) above D3(C.1). Then user needs to sing that note. System detects the frequency that user sings, and shows if the frequency they sing is higher or lower than the correct note using an arrow(C.2). There are four buttons in this page, which are the same as the note practice page.  Among these buttons, the play button behaves slightly different than note practice, that is when the user long press it, system plays the correct note sound; or single pressing let system plays the base note sound “D3” (A.4, C.4); the Help Button will prompt a help page that explains terminologies of music intervals(A.3). Moreover, user can press the custom button to customize the combinations of the base pitch and interval which they want to practice(A.5). 
+Interval Practice mode can be switched in the Left menu(A.2). The user interface of this mode is similar to that of note practice mode, the app will give the user a pitch name as well as a frequency interval higher or lower than it. For example, “D3 + M5” means the app is asking for the M5(major fifth interval) above D3(C.1). Then user needs to sing that note. System detects the frequency that user sings, and shows if the frequency they sing is higher or lower than the correct note using an arrow(C.2). There are four buttons in this page, which are the same as the note practice page.  Among these buttons, the play button behaves slightly different than note practice, that is when the user long press it, system plays the correct note sound; or single pressing let system plays the base note sound “D3” (A.4, C.4); the Help Button will prompt a help page that explains terminologies of music intervals(A.3). Moreover, user can press the custom button to customize the combinations of the base pitch and interval which they want to practice(A.5). 
 
 \subsection{Use Case 3 - Chord Practice}
-This mode has the same user interface as note practice. The mode can be selected from the Hamburger menu as well(A.2). In addition, user can also use Help Button to learn more about the music theory behind the chord(A.3). The main difference is that system will ask the user to sing a chord, which comprises 3 or more notes, instead of a note(D.1). The user can sing the notes in the chord in any order, but only correct notes will be marked by check mark in green, not-yet-correct notes will have a “...” text beside. Same as before, single tapping “Play button” will play the answer note(A.4). Custom button can be used to custom chords that users want to practice(A.5).
+This mode has the same user interface as note practice. The mode can be selected from the Left menu as well(A.2). In addition, user can also use Help Button to learn more about the music theory behind the chord(A.3). The main difference is that system will ask the user to sing a chord, which comprises 3 or more notes, instead of a note(D.1). The user can sing the notes in the chord in any order, but only correct notes will be marked by check mark in green, not-yet-correct notes will have a “...” text beside. Same as before, single tapping “Play button” will play the answer note(A.4). Custom button can be used to custom chords that users want to practice(A.5).
 \subsection{Use Case 4 - Song Practice}
 User clicks “Library” button on the left to select a song, the song will be played by grand piano with metronome. The text section on screen will show the current/previous/next note. A slider can also be used to adjust the progress. If the user is familiar enough with the song, the user can press “Play/Practice button” to switch submode. Then only the metronome will be played. After the user has sung the whole song (less than 30 seconds), a score and a comment will be displayed and score will be saved in Summary section in More Menu. 
       
 
-\includepdf[pages={1}]{./D1_p4.pdf}
+\includepdf[pages={1}]{./wireframes.pdf}
 
 \end{document}
