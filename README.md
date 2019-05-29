@@ -9,5 +9,5 @@ An Android app that helps user to train absolute and relative pitch
 
 
 
-## Where the name come from ?
+## Where does the name come from ?
 https://youtu.be/Ct6BUPvE2sM
