@@ -13,4 +13,4 @@ https://youtu.be/Ct6BUPvE2sM
 PPAP~dengdengdeng
 
 # Dev book
-[Dev book](./docs/index.html)
+[Dev book](https://alexlai97.github.io/Pitch-Perfectly-Accurately-Practice/)
