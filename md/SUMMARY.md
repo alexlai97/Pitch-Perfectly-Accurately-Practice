@@ -5,7 +5,14 @@
 
 # Plans
 - [plans](./plan.md)
-   - [UI plan](./plan/UI_plan.md)]
+   - [UI plan](./plan/UI_plan.md)
+      - [Practice Practice Modes](./plan/ui/modes/note_practice_mode.md)
+      - [Interval Practice Modes](./plan/ui/modes/interval_practice_mode.md)
+      - [Chord Practice Modes](./plan/ui/modes/chord_practice_mode.md)
+      - [Song Practice Modes](./plan/ui/modes/song_practice_mode.md)
+      - [Menus](./plan/ui/menus.md)
+      - [Buttons](./plan/ui/buttons.md)
+      - [Pages](./plan/ui/pages.md)
    - [branch plan](./plan/branch_plan.md)]
 
 # recommandation or links
