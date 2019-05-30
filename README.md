@@ -13,4 +13,4 @@ https://youtu.be/Ct6BUPvE2sM
 PPAP~dengdengdeng
 
 # Dev book
-[Dev book](./dev_book/book/index.html)
+[Dev book](./docs/index.html)
