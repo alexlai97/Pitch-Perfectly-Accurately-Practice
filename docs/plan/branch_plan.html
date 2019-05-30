@@ -3,9 +3,9 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>git commands - Developers' Guide</title>
+        <title>branch plan - Developers' Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="">
+        <meta name="description" content="PPAP">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
@@ -75,7 +75,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../index.html"><strong aria-hidden="true">1.</strong> index</a></li><li><a href="../plan.html"><strong aria-hidden="true">2.</strong> plans</a></li><li><ol class="section"><li><a href="../plan/UI_plan.html"><strong aria-hidden="true">2.1.</strong> UI plan</a></li><li><a href="../plan/branch_plan.html"><strong aria-hidden="true">2.2.</strong> branch plan</a></li></ol></li><li><a href="../recommand_or_links.html"><strong aria-hidden="true">3.</strong> recommandation or links</a></li><li><ol class="section"><li><a href="../recommand_or_links/git_commands.html" class="active"><strong aria-hidden="true">3.1.</strong> git commands</a></li><li><a href="../recommand_or_links/demo.html"><strong aria-hidden="true">3.2.</strong> demo</a></li><li><a href="../recommand_or_links/colors.html"><strong aria-hidden="true">3.3.</strong> colors</a></li></ol></li><li><a href="../changelogs.html"><strong aria-hidden="true">4.</strong> change logs</a></li><li><ol class="section"><li><a href="../changelogs/CHANGELOG_May28_Alex.html"><strong aria-hidden="true">4.1.</strong> May28 Alex</a></li></ol></li><li><a href="../deliverables.html"><strong aria-hidden="true">5.</strong> deliverables</a></li><li><ol class="section"><li><a href="../deliverables/deliverable_1.html"><strong aria-hidden="true">5.1.</strong> Deliverable 11</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="../index.html"><strong aria-hidden="true">1.</strong> index</a></li><li><a href="../plan.html"><strong aria-hidden="true">2.</strong> plans</a></li><li><ol class="section"><li><a href="../plan/UI_plan.html"><strong aria-hidden="true">2.1.</strong> UI plan</a></li><li><a href="../plan/branch_plan.html" class="active"><strong aria-hidden="true">2.2.</strong> branch plan</a></li></ol></li><li><a href="../recommand_or_links.html"><strong aria-hidden="true">3.</strong> recommandation or links</a></li><li><ol class="section"><li><a href="../recommand_or_links/git_commands.html"><strong aria-hidden="true">3.1.</strong> git commands</a></li><li><a href="../recommand_or_links/demo.html"><strong aria-hidden="true">3.2.</strong> demo</a></li><li><a href="../recommand_or_links/colors.html"><strong aria-hidden="true">3.3.</strong> colors</a></li></ol></li><li><a href="../changelogs.html"><strong aria-hidden="true">4.</strong> change logs</a></li><li><ol class="section"><li><a href="../changelogs/CHANGELOG_May28_Alex.html"><strong aria-hidden="true">4.1.</strong> May28 Alex</a></li></ol></li><li><a href="../deliverables.html"><strong aria-hidden="true">5.</strong> deliverables</a></li><li><ol class="section"><li><a href="../deliverables/deliverable_1.html"><strong aria-hidden="true">5.1.</strong> Deliverable 11</a></li></ol></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -140,15 +140,34 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#to-show-a-graph-of-nodes-commits" id="to-show-a-graph-of-nodes-commits"><h1>To show a graph of nodes (commits)</h1></a>
-<pre><code>git log --graph
-</code></pre>
-<a class="header" href="#common-git-commands" id="common-git-commands"><h1>Common git commands</h1></a>
-<pre><code>git add
-git commit -m &quot;blablabla&quot;
-git status
-git push 
-git pull
+                        <a class="header" href="#terminology" id="terminology"><h1>Terminology</h1></a>
+<ul>
+<li>origin (a name for remote repository)</li>
+<li>commit point (I made up, means the pointer to the snapshot of the content you commited, of course, after staging)</li>
+</ul>
+<a class="header" href="#main-branches-remotely-on-github" id="main-branches-remotely-on-github"><h1>Main Branches (remotely on github)</h1></a>
+<ul>
+<li>origin/master</li>
+<li>origin/Deliverable-1</li>
+<li>origin/Deliverable-2</li>
+<li>...</li>
+</ul>
+<a class="header" href="#local-branches" id="local-branches"><h1>Local Branches</h1></a>
+<ul>
+<li>do whatever you want</li>
+</ul>
+<a class="header" href="#an-example" id="an-example"><h1>An example</h1></a>
+<pre><code>$ git pull # sync
+$ git checkout Deliverable-1 # in Deliverable-1 local branch, git log see more info
+$ git branch test-branch # create a test1 branch locally, git log see more info
+$ git checkout test-branch # at test-branch locally, git log see more info
+$ # make some changes in test1
+$ git add all; git commit -ma &quot;Test Done&quot; # A new local commit point created say B, git log see more info
+$ git checkout Deliverable-1 # at Deliverable-1 local branch, git log see more info
+$ git merge test-branch  # merge Deliverable-1 from test-branch
+$ # solve conflicts
+$ # merge sucessful, git log see more info
+$ git push # git log shows: HEAD -&gt; Deliverable-1, origin/Deliverable-1, test-branch
 </code></pre>
 
                     </main>
@@ -156,13 +175,13 @@ git pull
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../recommand_or_links.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../plan/UI_plan.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../recommand_or_links/demo.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../recommand_or_links.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -174,13 +193,13 @@ git pull
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../recommand_or_links.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../plan/UI_plan.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../recommand_or_links/demo.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../recommand_or_links.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

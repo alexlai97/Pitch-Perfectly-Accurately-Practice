@@ -1,0 +1,10 @@
+[book]
+authors = ["Alex Lai"]
+multilingual = true
+src = "md"
+title = "Developers' Guide"
+description = "PPAP"
+
+
+[build]
+build-dir = "docs"
