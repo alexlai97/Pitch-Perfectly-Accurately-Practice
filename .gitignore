@@ -1,5 +1,6 @@
-# hide book.toml
+# Alex's build scripts
 book.toml
+alex_script.sh
 ### Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

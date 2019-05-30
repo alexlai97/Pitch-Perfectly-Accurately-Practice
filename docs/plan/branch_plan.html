@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <title>branch plan - Developers' Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="PPAP">
+        <meta name="description" content="Guide book for developers' design and progress">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
@@ -157,12 +157,12 @@
 <li>do whatever you want</li>
 </ul>
 <a class="header" href="#an-example" id="an-example"><h1>An example</h1></a>
-<pre><code>$ git pull # sync
+<pre><code class="language-shell">$ git pull # sync
 $ git checkout Deliverable-1 # in Deliverable-1 local branch, git log see more info
 $ git branch test-branch # create a test1 branch locally, git log see more info
 $ git checkout test-branch # at test-branch locally, git log see more info
 $ # make some changes in test1
-$ git add all; git commit -ma &quot;Test Done&quot; # A new local commit point created say B, git log see more info
+$ git add all; git commit -m &quot;Test Done&quot; # A new local commit point created say B, git log see more info
 $ git checkout Deliverable-1 # at Deliverable-1 local branch, git log see more info
 $ git merge test-branch  # merge Deliverable-1 from test-branch
 $ # solve conflicts

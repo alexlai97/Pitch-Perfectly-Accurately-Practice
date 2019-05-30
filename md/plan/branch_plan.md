@@ -12,13 +12,13 @@
 - do whatever you want
 
 # An example
-```
+```shell
 $ git pull # sync
 $ git checkout Deliverable-1 # in Deliverable-1 local branch, git log see more info
 $ git branch test-branch # create a test1 branch locally, git log see more info
 $ git checkout test-branch # at test-branch locally, git log see more info
 $ # make some changes in test1
-$ git add all; git commit -ma "Test Done" # A new local commit point created say B, git log see more info
+$ git add all; git commit -m "Test Done" # A new local commit point created say B, git log see more info
 $ git checkout Deliverable-1 # at Deliverable-1 local branch, git log see more info
 $ git merge test-branch  # merge Deliverable-1 from test-branch
 $ # solve conflicts
