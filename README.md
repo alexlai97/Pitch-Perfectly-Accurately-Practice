@@ -8,7 +8,7 @@ An Android app that helps user to train absolute and relative pitch
 - song practice mode
 
 ## Where does the name come from ?
-https://youtu.be/Ct6BUPvE2sM
+[You already know it.](https://youtu.be/Ct6BUPvE2sM)
 
 # Dev book
 [Dev book](https://alexlai97.github.io/Pitch-Perfectly-Accurately-Practice/)
