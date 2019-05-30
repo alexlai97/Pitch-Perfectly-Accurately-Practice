@@ -1,5 +1,5 @@
-# wireframe
-[wireframe.pdf](../../tex/D1/wireframes.pdf)
+# wireframe (overview)
+[wireframe.pdf](../tex/D1/wireframes.pdf)
 
 # Practice Modes
 ## Note Practice Mode
