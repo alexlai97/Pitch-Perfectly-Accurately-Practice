@@ -8,7 +8,9 @@ An Android app that helps user to train absolute and relative pitch
 - song practice mode
 
 
-
 ## Where does the name come from ?
 https://youtu.be/Ct6BUPvE2sM
 PPAP~dengdengdeng
+
+# Dev book
+[Dev book](./dev_book/book/index.html)
