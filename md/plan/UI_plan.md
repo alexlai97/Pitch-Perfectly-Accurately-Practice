@@ -1,5 +1,5 @@
 # wireframe (overview)
-[wireframe.pdf](../../tex/D1/wireframes.pdf)
+[wireframe.pdf](./wireframes.pdf)
 
 # Practice Modes
 ## Note Practice Mode
@@ -27,5 +27,3 @@
 ## Contact Us Page
 ## FAQ Page
 ## About us Page
-
-

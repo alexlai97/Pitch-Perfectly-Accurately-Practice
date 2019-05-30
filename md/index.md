@@ -11,4 +11,4 @@
 [Alex May 28 wireframe.pdf Changelog](./changelogs/CHANGELOG_May28_Alex.md)
 
 # Deliverables
-[D1.pdf](../../tex/D1/Deliverable_1.pdf)
+[D1.pdf](./deliverables/Deliverable_1.pdf)
