@@ -1,3 +1,5 @@
+# hide book.toml
+book.toml
 ### Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
