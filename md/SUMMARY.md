@@ -13,7 +13,7 @@
       - [Menus](./plan/ui/menus.md)
       - [Buttons](./plan/ui/buttons.md)
       - [Pages](./plan/ui/pages.md)
-   - [branch plan](./plan/branch_plan.md)]
+   - [branch plan](./plan/branch_plan.md)
 
 # recommandation or links
 - [recommandation or links](./recommand_or_links.md)
