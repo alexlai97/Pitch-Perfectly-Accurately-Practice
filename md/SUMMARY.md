@@ -3,6 +3,9 @@
 # Index 
 - [index](./index.md)
 
+# Functionalities
+- [Functionalities](./functionalities.md)
+
 # Plans
 - [plans](./plan.md)
    - [UI plan](./plan/UI_plan.md)
@@ -14,6 +17,10 @@
       - [Buttons](./plan/ui/buttons.md)
       - [Pages](./plan/ui/pages.md)
    - [branch plan](./plan/branch_plan.md)
+
+
+# Songs
+- [Song list](./songs.md)
 
 # recommandation or links
 - [recommandation or links](./recommand_or_links.md)
