@@ -140,8 +140,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#song-list" id="song-list"><h1>Song list</h1></a>
-<a class="header" href="#song-added" id="song-added"><h1>Song added</h1></a>
+                        <a class="header" href="#song-added" id="song-added"><h1>Song added</h1></a>
 <ul>
 <li>Auld Lang Syne (<a href="songs/auld_lang_syne/auld_lang_syne.pdf">pdf</a>, <a href="songs/auld_lang_syne/auld_lang_syne.midi">midi</a>, <a href="songs/auld_lang_syne/auld_lang_syne.ly">ly</a>)</li>
 <li>London Bridge Is Falling Down (<a href="songs/london_bridge_is_falling_down/london_bridge_is_falling_down.pdf">pdf</a>, <a href="songs/london_bridge_is_falling_down/london_bridge_is_falling_down.midi">midi</a>, <a href="songs/london_bridge_is_falling_down/london_bridge_is_falling_down.ly">ly</a>)</li>
@@ -149,21 +148,35 @@
 </ul>
 <a class="header" href="#songs-to-add-probably-no-need-to-worry-about-copyright" id="songs-to-add-probably-no-need-to-worry-about-copyright"><h2>Songs to add (probably no need to worry about copyright)</h2></a>
 <ul>
-<li></li>
+<li>Minuet in G major by Bach</li>
+<li>Fur Elise</li>
+<li>Marry has a little lamb</li>
+<li>Caro mio ben</li>
 </ul>
 <a class="header" href="#songs-to-add-copyright" id="songs-to-add-copyright"><h2>Songs to add (copyright?)</h2></a>
 <ul>
+<li>Do Re Mi (Sound of Music)</li>
 <li>我是一个粉刷匠 (I am a painting master)</li>
 <li>泡沫 (... bubbles ?)</li>
 <li>Dearly Beloved ( Kingdom Hearts )</li>
 <li>団子大家族 (Clanned)</li>
 <li>天空之城</li>
+<li>Heart and Soul</li>
 </ul>
-<a class="header" href="#compiling-and-playing-instruction" id="compiling-and-playing-instruction"><h1>Compiling and playing instruction</h1></a>
-<ol>
-<li>somefile.ly --(compile with <a href="http://lilypond.org/">lilypond</a>)--&gt; somefile.pdf and somefile.midi</li>
-<li>somefile.midi -&gt; play with any midi player (e.g. timidity, MIDI Opener on ios)</li>
-</ol>
+<a class="header" href="#compiling-and-playing-instructions" id="compiling-and-playing-instructions"><h1>Compiling and playing instructions</h1></a>
+<p>Users are encouraged to create their own pieces, it is not hard to write a music sheet using <a href="http://lilypond.org/">lilypond</a>. It can also output a midi file where you can use a midi player to play it.</p>
+<a class="header" href="#example" id="example"><h2>Example</h2></a>
+<pre><code class="language-shell">$ ls
+auld_lang_syne.ly
+$ lilypond auld_lang_syne.ly 
+$ ls
+auld_lang_syne.ly  auld_lang_syne.midi  auld_lang_syne.pdf
+</code></pre>
+<a class="header" href="#how-to-play-a-midi-file" id="how-to-play-a-midi-file"><h2>How to play a midi file</h2></a>
+<ul>
+<li>on ios, <a href="http://appstore.com/midi_opener">midi opener</a></li>
+<li>...</li>
+</ul>
 
                     </main>
 
