@@ -1,7 +1,5 @@
-# Summary
-
 # Index 
-- [index](./index.md)
+- [quicklinks](./quicklinks.md)
 
 # Functionalities
 - [Functionalities](./functionalities.md)

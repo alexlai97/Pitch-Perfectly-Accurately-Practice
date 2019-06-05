@@ -1,6 +1,6 @@
 # Alex's build scripts
-book.toml
 *alex*
+book
 ### Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
