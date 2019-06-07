@@ -2,10 +2,10 @@ language: minimal
 
 branches:
   only:
-    - gh-pages
+    - dev-book
 
 script:
-  - ./mdbook build
+  - ./scripts/mdbook build
 
 deploy:
   local_dir: book
