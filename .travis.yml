@@ -1,0 +1,17 @@
+language: minimal
+
+branches:
+  only:
+    - dev-book
+
+script:
+  - ./scripts/mdbook build
+
+deploy:
+  local_dir: book
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: gh-pages
