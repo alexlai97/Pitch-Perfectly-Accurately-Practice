@@ -2,16 +2,16 @@ language: minimal
 
 branches:
   only:
-    - gh-pages
+    - dev-book
 
 script:
   - ./scripts/mdbook build
-  - rsync -a book .
 
 deploy:
+  local_dir: book
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: false
+  keep_history: true
   on:
     branch: gh-pages
