@@ -1,0 +1,3 @@
+#!/bin/bash
+rm *.html *.css *.json *.png .nojekyll *.js
+rm css functionalities FontAwesome songs deliverables -r
