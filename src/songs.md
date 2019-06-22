@@ -2,6 +2,7 @@
 - Auld Lang Syne ([pdf](songs/auld_lang_syne/auld_lang_syne.pdf), [midi](songs/auld_lang_syne/auld_lang_syne.midi), [ly](songs/auld_lang_syne/auld_lang_syne.ly))
 - London Bridge Is Falling Down ([pdf](songs/london_bridge_is_falling_down/london_bridge_is_falling_down.pdf), [midi](songs/london_bridge_is_falling_down/london_bridge_is_falling_down.midi), [ly](songs/london_bridge_is_falling_down/london_bridge_is_falling_down.ly))
 - Twinkle Twinkle Little Star ([pdf](songs/twinkle_twinkle_little_star/twinkle_twinkle_little_star.pdf), [midi](songs/twinkle_twinkle_little_star/twinkle_twinkle_little_star.midi), [ly](songs/twinkle_twinkle_little_star/twinkle_twinkle_little_star.ly))
+- Carrying you ([pdf](songs/carrying_you/carrying_you.pdf), [midi](songs/carrying_you/carrying_you.midi), [ly](songs/carrying_you/carrying_you.ly))
 
 ## Songs to add (probably no need to worry about copyright)
 - Minuet in G major by Bach
@@ -15,7 +16,6 @@
 - 泡沫 (... bubbles ?)
 - Dearly Beloved ( Kingdom Hearts )
 - 団子大家族 (Clanned)
-- 天空之城
 - Heart and Soul
 
 # Compiling and playing instructions
