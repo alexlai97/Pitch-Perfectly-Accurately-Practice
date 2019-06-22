@@ -38,16 +38,25 @@
 
       bf4 af8 f~ f8 af bf c |  %17
       ef8 bf c4 af8 ef af bf | 
-      bf4 af8 f~ f8 bf af df | 
+      bf4 af8 f~ f8 bf af ef' | 
       c2 af,8 ef' af bf | 
 
       bf4 af8 f~ f8 af bf c |  %21 
       ef8 bf c4 af4 g | 
       f2 g4 af8 g~ | 
-      g2 af2  \bar "|."
+      g4 af2.  \bar "|."
     }
 
     \addlyrics {
+      だ -- ん ご だん ご |  %1
+      だん ご だん ご |
+      だ -- ん ご だん ご だ -- ん ご |
+      だ -- ん ご だん ご | 
+
+      だん ご だん ご | %5
+      だ -- ん ご だい か ぞ く |
+    %  やん ちゃ な焼（や）きだんご やさしいあんだんご
+      
     }
   }
 
