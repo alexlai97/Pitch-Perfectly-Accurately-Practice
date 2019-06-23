@@ -41,7 +41,7 @@ public class Note {
     char symbol = text.charAt(0);
     assert(symbol >= 'A' && symbol <= 'G');
 
-    int r = -2000;
+    int r = -2000; // To see error if anything goes wrong
 
     switch (symbol) {
       case 'A':
