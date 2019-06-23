@@ -26,7 +26,7 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
-
+    private static PlaySound theSound = new PlaySound();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int sampleRate = getValidSampleRates();
@@ -47,17 +47,17 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
+
         AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, sampleRate, 1024, pdh);
         dispatcher.addAudioProcessor(pitchProcessor);
 
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
     }
+
     public int getValidSampleRates() {
         for (int rate : new int[] {22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
-            Log.i(TAG, "Tried" + rate);
             int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
-            Log.i(TAG, "Tried" + bufferSize);
             if (bufferSize > 0) {
                 return rate;
             }
@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myToner(View view){
-        PlaySound theSound = new PlaySound();
-        theSound.genTone();
+        theSound.genTone(440, 1);
         theSound.playSound();
         Log.i(TAG, "PLAYED");
     }

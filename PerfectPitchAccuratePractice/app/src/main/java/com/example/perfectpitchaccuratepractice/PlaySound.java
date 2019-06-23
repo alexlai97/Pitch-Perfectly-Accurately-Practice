@@ -11,14 +11,8 @@ import android.media.AudioManager;
 public class PlaySound extends Activity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Steve Pomeroy <steve@staticfree.info>
-    private final int duration = 3; // seconds
-    private final int sampleRate = 8000;
-    private final int numSamples = duration * sampleRate;
-    private final double sample[] = new double[numSamples];
-    private final double freqOfTone = 440; // hz
-
-    private final byte generatedSnd[] = new byte[2 * numSamples];
-
+    private final int sampleRate = 44100;
+    byte generatedSnd[];
     Handler handler = new Handler();
 
     @Override
@@ -27,27 +21,12 @@ public class PlaySound extends Activity {
         setContentView(R.layout.activity_main);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Use a new tread as this can take a while
-        final Thread thread = new Thread(new Runnable() {
-            public void run() {
-                genTone();
-                handler.post(new Runnable() {
-
-                    public void run() {
-                        playSound();
-                    }
-                });
-            }
-        });
-        thread.start();
-    }
-
-    void genTone(){
+    void genTone(int freqOfTone, int duration){
         // fill out the array
+        int numSamples = duration * sampleRate;
+        double sample[] = new double[numSamples];
+        generatedSnd = new byte[2 * numSamples];
+
         for (int i = 0; i < numSamples; ++i) {
             sample[i] = Math.sin(2 * Math.PI * i / (sampleRate/freqOfTone));
         }
@@ -55,9 +34,12 @@ public class PlaySound extends Activity {
         // convert to 16 bit pcm sound array
         // assumes the sample buffer is normalised.
         int idx = 0;
+        int i = 0;
         for (final double dVal : sample) {
             // scale to maximum amplitude
-            final short val = (short) ((dVal * 32767));
+            i ++;
+            // Ramp down to avoid click
+            final short val = (short) ((dVal * 32767 * (sampleRate*duration - i) / sampleRate*duration));
             // in 16 bit wav PCM, first byte is the low order byte
             generatedSnd[idx++] = (byte) (val & 0x00ff);
             generatedSnd[idx++] = (byte) ((val & 0xff00) >>> 8);
