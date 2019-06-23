@@ -165,7 +165,12 @@ public class Note {
       String str = n.text(true);
       Note n1 = new Note(str);
       assert(n1.index() == i);
+      assert(n1.text(true) == str);
       System.out.println("  " + n.index() + " | " + str + " | " + n.frequency());
     }
+
+    Note n2 = new Note("A2#");
+    System.out.println( n2.index());
+    System.out.println(n2.text(true));
   }
 }
