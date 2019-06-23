@@ -10,6 +10,7 @@
   \new Staff  {
     \set Staff.midiInstrument = "acoustic grand"
 
+    \tempo "Andantino" 4=90
     \time 4/4
 
     \relative g'{

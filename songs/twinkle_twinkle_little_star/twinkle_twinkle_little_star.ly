@@ -11,6 +11,8 @@
     \set Staff.midiInstrument = "acoustic grand"
     \time 4/4
 
+    \tempo "Allegretto" 4=120
+
     \relative c' {
       c4 c g' g| % 1
       a4 a g2  |
