@@ -37,10 +37,13 @@
         android:layout_height="144dp"
         android:layout_marginStart="124dp"
         android:layout_marginTop="104dp"
-        android:text="Button"
+        android:layout_marginBottom="8dp"
         android:onClick="myToner"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/noteText" />
+        app:layout_constraintTop_toBottomOf="@+id/noteText"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
