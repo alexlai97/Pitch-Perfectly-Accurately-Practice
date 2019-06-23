@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -27,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AudioDispatcher dispatcher =  AudioDispatcherFactory.fromDefaultMicrophone(11025,1024,0);
+        int sampleRate = getValidSampleRates();
+        AudioDispatcher dispatcher =  AudioDispatcherFactory.fromDefaultMicrophone(sampleRate,1024,0);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -44,27 +47,29 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, 11025, 1024, pdh);
+        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, sampleRate, 1024, pdh);
         dispatcher.addAudioProcessor(pitchProcessor);
 
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
     }
-//    public void getValidSampleRates() {
-//        for (int rate : new int[] {44100, 22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
-//            int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
-//            if (bufferSize > 0) {
-//                return rate;
-//
-//            }
-//        }
-//    }
+    public int getValidSampleRates() {
+        for (int rate : new int[] {22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
+            Log.i(TAG, "Tried" + rate);
+            int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
+            Log.i(TAG, "Tried" + bufferSize);
+            if (bufferSize > 0) {
+                return rate;
+            }
+        }
+        return 0;
+    }
 
     public void myToner(View view){
         PlaySound theSound = new PlaySound();
         theSound.genTone();
         theSound.playSound();
-        Log.v(TAG, "PLAYED");
+        Log.i(TAG, "PLAYED");
     }
 
     public void processPitch(float pitchInHz) {

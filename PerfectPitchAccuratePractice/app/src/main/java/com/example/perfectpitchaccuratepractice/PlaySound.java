@@ -7,16 +7,6 @@ import android.os.Bundle;
 import android.media.AudioTrack;
 import android.media.AudioFormat;
 import android.media.AudioManager;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.activity.*;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 
 public class PlaySound extends Activity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
