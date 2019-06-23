@@ -10,6 +10,8 @@
   \new Staff  {
     \set Staff.midiInstrument = "acoustic grand"
 
+    \tempo "adagio" 4=72
+
     \key af \major
     \time 4/4
 
@@ -39,7 +41,7 @@
       bf4 af8 f~ f8 af bf c |  %17
       ef8 bf c4 af8 ef af bf | 
       bf4 af8 f~ f8 bf af ef' | 
-      c2 af,8 ef' af bf | 
+      c2 bf,8 ef af bf | 
 
       bf4 af8 f~ f8 af bf c |  %21 
       ef8 bf c4 af4 g | 
@@ -50,13 +52,33 @@
     \addlyrics {
       だ -- ん ご だん ご |  %1
       だん ご だん ご |
-      だ -- ん ご だん ご だ -- ん ご |
-      だ -- ん ご だん ご | 
+      だ -- ん ご だん ご |
+      だ -- ん ご |
 
-      だん ご だん ご | %5
-      だ -- ん ご だい か ぞ く |
-    %  やん ちゃ な焼（や）きだんご やさしいあんだんご
-      
+      だ -- ん ご だん ご | %5
+      だん ご だん ご | 
+      だ -- ん ご だい か |
+      ぞ く | 
+
+      あ か ちゃ ん _  だ ん ご |  % 9
+      は い つ も | 
+      し あ わ せ _ の な か |
+      で |
+
+      と し よ り _  だ ん ご | % 13
+      は め  を  ほ  そ  | % FIXME barcheck failed
+      め て る  | %15
+      _ _ _ _ _ な か よ |
+
+      し だ んご て を つ  |  % 17
+      な ぎ お お  き な  ま |
+      る い わ に な る | 
+      よ ま ち を つ | 
+
+      く り だん ご ほ し |  %21 
+      の う え みん な |
+      で わ らい あう | % FIXME barcheck failed
+      よ
     }
   }
 
