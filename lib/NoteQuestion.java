@@ -6,17 +6,19 @@ import java.util.Random;
  *  1. NoteQuestion nq = new NoteQuestion()
  *  2. nq.set_candidates(notes); // notes is an array of Note
  *  3. nq.generate_random_question(); // generate from candidates
- *  4. System.out.println(nq.text()); // print this question
+ *  4. System.out.println(nq.getText()); // print this question
  */
 class NoteQuestion extends Question {
   Note questionNote;
 
+  // generate question from candidate notes, remember to set candidate notes first
   public void generate_random_question() {
     int rnd = new Random().nextInt(candidate_notes.length);
     questionNote = candidate_notes[rnd];
-    text = questionNote.text(true);
+    text = questionNote.getText(true);
   }
 
+  // test example
   public static void main(String args[]) {
     NoteQuestion nq = new NoteQuestion();
     Note [] notes = { 
@@ -66,12 +68,10 @@ class NoteQuestion extends Question {
       new Note("G5#")
     };
     nq.set_candidates(notes);
-
-
     for (int i =0; i < notes.length; i++) {
-      // System.out.println(notes[i].text(true));
+      // System.out.println(notes[i].getText(true));
       nq.generate_random_question();
-      System.out.println(nq.text());
+      System.out.println(nq.getText());
     }
   }
 }

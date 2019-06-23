@@ -11,7 +11,7 @@ public abstract class Question {
     this.candidate_notes = notes;
   }
 
-  public String text() {
+  public String getText() {
     return this.text;
   }
 

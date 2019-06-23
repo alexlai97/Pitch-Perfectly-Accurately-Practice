@@ -8,6 +8,16 @@
  *  index:     0  12   24  36  48  60   72
  *  Freqency: 55 110  220 440 880 1760 3520 (Hz)
  *  String:   A1  A2   A3  A4  A5  A6   A7
+ *
+ * Constructors:
+ *  Note n = new  Note(1); // A1#
+ *  Note n = new  Note("A1#");
+ *
+ * Getters:
+ *  n.getText() -> A1#
+ *  n.getFrequency() -> 58.27047018976124
+ *  n.getIndex() -> 1
+ *  
  */
 public class Note {
   int index;  // actual range: [0, 72]
@@ -76,15 +86,17 @@ public class Note {
     }
   }
 
-  // TODO Do we need to construct with frequency ?
-  public Note(double frequency) {
-
-  }
+  /*
+   * TODO Do we need to construct with frequency ?
+   * public Note(double frequency) {
+   * }
+   */
 
   // Return the String representation of Note
-  // e.g. Note{1}.text(true) -> "A1#"
+  // e.g. Note(1).getText(true) -> "A1#"
   // FIXME only sharp representation for now
-  public String text(boolean sharp) {
+  // TODO  Note(1).getText(false) -> "B1b"
+  public String getText(boolean sharp) {
     int octave;
     int remainder = this.index % 12;
     boolean flag = false;
@@ -149,11 +161,11 @@ public class Note {
   }
 
   // Return the internal index (for debugging purpose)
-  public int index() {
+  public int getIndex() {
     return this.index;
   }
 
-  public double frequency() {
+  public double getFrequency() {
     return frequency_array[this.index];
   }
 
@@ -164,14 +176,14 @@ public class Note {
 
     for (int i= 0; i < NUM_OF_NOTES; i++) {
       Note n = new Note(i);
-      String str = n.text(true);
+      String str = n.getText(true);
       Note n1 = new Note(str);
-      assert(n1.index() == i);
-      assert(n1.text(true) == str);
-      System.out.println("  " + n.index() + " | " + str + " | " + n.frequency());
+      assert(n1.getIndex() == i);
+      assert(n1.getText(true) == str);
+      System.out.println("  " + n.getIndex() + " | " + str + " | " + n.getFrequency());
     }
 
     Note n1 = new Note("A3");
-    System.out.println(n1.text(true));
+    System.out.println(n1.getText(true));
   }
 }
