@@ -9,6 +9,8 @@
   \new Staff  {
     \set Staff.midiInstrument = "acoustic grand"
 
+    \tempo "Allegretto" 4=112
+
     \key g \major
     \time 4/4
 
