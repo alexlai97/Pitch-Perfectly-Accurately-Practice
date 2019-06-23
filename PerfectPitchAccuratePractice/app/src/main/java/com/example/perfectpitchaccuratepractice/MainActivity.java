@@ -15,6 +15,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.widget.ImageView;
+
+import android.animation.ObjectAnimator;
+import android.view.animation.Animation;
+import android.animation.AnimatorSet;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -27,11 +34,14 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
+
+    private ImageView arrow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int sampleRate = 8000;
 
-        for (int rate : new int[] {22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
+        for (int rate : new int[]{22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
             int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
             if (bufferSize > 0) {
                 sampleRate = rate;
@@ -39,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        AudioDispatcher dispatcher =  AudioDispatcherFactory.fromDefaultMicrophone(sampleRate,1024,0);
+        AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, 1024, 0);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
-            public void handlePitch(PitchDetectionResult res, AudioEvent e){
+            public void handlePitch(PitchDetectionResult res, AudioEvent e) {
                 final float pitchInHz = res.getPitch();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -62,8 +72,24 @@ public class MainActivity extends AppCompatActivity {
 
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
+
+        arrow = findViewById(R.id.arrow);
+        handleAnimation();
     }
-    
+
+    public void handleAnimation() {
+        Animation mAnimation = new TranslateAnimation(
+                TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.RELATIVE_TO_SELF, 1f,
+                TranslateAnimation.RELATIVE_TO_SELF, 1.3f);
+        mAnimation.setDuration(300);
+        mAnimation.setRepeatCount(-1);
+        mAnimation.setRepeatMode(Animation.REVERSE);
+        mAnimation.setInterpolator(new LinearInterpolator());
+        arrow.setAnimation(mAnimation);
+
+    }
 
     public void myToner(View view){
         theSound.genTone(440, 1);
@@ -76,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         pitchText.setText("" + pitchInHz);
         TextView noteText = findViewById(R.id.noteText);
         // So far only for pitches on lower octave
+
         if(pitchInHz >= 110 && pitchInHz < 123.47) {
             //A
             noteText.setText("A");

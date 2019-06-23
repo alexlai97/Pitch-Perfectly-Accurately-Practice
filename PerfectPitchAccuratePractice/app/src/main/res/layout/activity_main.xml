@@ -4,46 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8BC34A"
     tools:context="com.example.perfectpitchaccuratepractice.MainActivity">
 
     <TextView
         android:id="@+id/pitchText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
         android:text="TextView"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/noteText"
-        android:layout_width="264dp"
-        android:layout_height="213dp"
+        android:layout_width="267dp"
+        android:layout_height="235dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="188dp"
         android:layout_marginEnd="8dp"
+        android:autoSizeMaxTextSize="100sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
         android:text="TextView"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pitchText" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="157dp"
-        android:layout_height="144dp"
-        android:layout_marginStart="124dp"
+        android:layout_width="35dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="360dp"
         android:layout_marginTop="104dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/pineapple"
         android:onClick="myToner"
-        android:text="Button"
+        android:src="@drawable/pineapple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteText"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.96" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="107dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/downarrow"
+        tools:layout_editor_absoluteY="135dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

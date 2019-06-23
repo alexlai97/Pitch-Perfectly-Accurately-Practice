@@ -10,7 +10,7 @@ import android.media.AudioManager;
 
 public class PlaySound extends Activity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
-    // and modified by Steve Pomeroy <steve@staticfree.info>
+    // and modified by Jialin Shan for pitch perfect
     private final int sampleRate = 44100;
     byte generatedSnd[];
     Handler handler = new Handler();
