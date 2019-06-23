@@ -69,6 +69,8 @@ public class Note {
 
     if (octave == 1) {
       this.index = r; 
+    } else if (symbol == 'A' || symbol == 'B') {
+      this.index = r + (octave-1) * 12; 
     } else {
       this.index = r + (octave-2) * 12; 
     }
@@ -169,8 +171,7 @@ public class Note {
       System.out.println("  " + n.index() + " | " + str + " | " + n.frequency());
     }
 
-    Note n2 = new Note("A2#");
-    System.out.println( n2.index());
-    System.out.println(n2.text(true));
+    Note n1 = new Note("A3");
+    System.out.println(n1.text(true));
   }
 }
