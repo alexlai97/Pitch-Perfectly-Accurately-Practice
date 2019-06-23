@@ -29,7 +29,16 @@ public class MainActivity extends AppCompatActivity {
     private static PlaySound theSound = new PlaySound();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int sampleRate = getValidSampleRates();
+        int sampleRate = 8000;
+
+        for (int rate : new int[] {22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
+            int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
+            if (bufferSize > 0) {
+                sampleRate = rate;
+                break;
+            }
+        }
+
         AudioDispatcher dispatcher =  AudioDispatcherFactory.fromDefaultMicrophone(sampleRate,1024,0);
 
         super.onCreate(savedInstanceState);
@@ -54,16 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
     }
-
-    public int getValidSampleRates() {
-        for (int rate : new int[] {22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
-            int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
-            if (bufferSize > 0) {
-                return rate;
-            }
-        }
-        return 0;
-    }
+    
 
     public void myToner(View view){
         theSound.genTone(440, 1);
