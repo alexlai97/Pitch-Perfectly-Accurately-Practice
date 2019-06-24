@@ -17,5 +17,3 @@
 # recommandation or links
 - [recommandation or links](./recommand_or_links.md)
 
-# Deliverables
-- [deliverables](./deliverables.md)
