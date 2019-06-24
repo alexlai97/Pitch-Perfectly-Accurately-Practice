@@ -9,9 +9,15 @@
  *  Freqency: 55 110  220 440 880 1760 3520 (Hz)
  *  String:   A1  A2   A3  A4  A5  A6   A7
  *
+ *
  * Constructors:
  *  Note n = new  Note(1); // A1#
  *  Note n = new  Note("A1#");
+ *
+ * Setter:
+ *  Note n = new Note(1)
+ *  n.setTo(1);
+ *  n.setTo("A1#");
  *
  * Getters:
  *  n.getText() -> A1#
@@ -36,6 +42,9 @@ public class Note {
   // e.g. i = 0  => Note is A1, 
   //      i = 12 => Note is A2
   public Note(int i) {
+    this.setTo(i);
+  }
+  public void setTo(int i) {
     this.index = i;
   }
 
@@ -43,6 +52,9 @@ public class Note {
   // FIXME only support sharp right now
   // only accepting: A A# B C C# D D# E F F# G G# 
   public Note(String text) {
+    this.setTo(text);
+  }
+  public void setTo(String text) {
     int len = text.length();
     assert (len == 2 || len == 3);
     boolean flag = len == 3? true: false;

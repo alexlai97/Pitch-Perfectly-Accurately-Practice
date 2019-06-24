@@ -11,6 +11,14 @@ public abstract class Question {
     this.candidate_notes = notes;
   }
 
+  public void set_candidates_with_range(int lower, int upper) {
+    int num = upper - lower + 1;
+    candidate_notes = new Note[num];
+    for (int i =0; i < num; i++) {
+      candidate_notes[i].setTo(lower + i);
+    }
+  }
+
   public String getText() {
     return this.text;
   }

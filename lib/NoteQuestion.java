@@ -18,6 +18,10 @@ class NoteQuestion extends Question {
     text = questionNote.getText(true);
   }
 
+  public Note getQuestionNote() {
+      return questionNote;
+  }
+
   // test example
   public static void main(String args[]) {
     NoteQuestion nq = new NoteQuestion();
