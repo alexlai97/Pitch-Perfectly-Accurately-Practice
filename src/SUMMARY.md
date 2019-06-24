@@ -19,4 +19,3 @@
 
 # Deliverables
 - [deliverables](./deliverables.md)
-    - [Deliverable 1](./deliverables/deliverable_1.md)
