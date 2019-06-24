@@ -1,8 +1,8 @@
 ## LSP
 .settings
 workspace
-.idea
 
+# dev-book branch
 book
 ### Core latex/pdflatex auxiliary files:
 *.aux
