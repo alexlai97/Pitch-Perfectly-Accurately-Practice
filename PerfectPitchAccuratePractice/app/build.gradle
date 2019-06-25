@@ -31,4 +31,5 @@ dependencies {
     implementation files('libs\\junit-4.11.jar')
     implementation files('libs\\pdj.jar')
     implementation files('libs\\TarsosDSP-2.4.jar')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

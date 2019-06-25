@@ -1,5 +1,6 @@
 package com.example.perfectpitchaccuratepractice;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -131,5 +132,9 @@ public class MainActivity extends AppCompatActivity {
             //G
             noteText.setText("G");
         }
+    }
+
+    public void openFilter(View view){
+        startActivity(new Intent(this, FilterActivity.class));
     }
 }
