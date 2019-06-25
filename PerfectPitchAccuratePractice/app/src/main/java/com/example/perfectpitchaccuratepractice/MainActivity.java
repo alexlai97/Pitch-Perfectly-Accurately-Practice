@@ -23,13 +23,6 @@ import android.animation.AnimatorSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.io.android.AudioDispatcherFactory;
-import be.tarsos.dsp.pitch.PitchDetectionHandler;
-import be.tarsos.dsp.pitch.PitchDetectionResult;
-import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
@@ -42,19 +35,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-        int sampleRate = 8000;
-
-        for (int rate : new int[]{22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
-            int bufferSize = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_CONFIGURATION_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);
-            if (bufferSize > 0) {
-                sampleRate = rate;
-                break;
-            }
-        }
-
-        AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, 1024, 0);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,24 +43,8 @@ public class MainActivity extends AppCompatActivity {
         model.setQuestionTextView((TextView) findViewById(R.id.questionTextView));
         model.next_question();
 
-        PitchDetectionHandler pdh = new PitchDetectionHandler() {
-            @Override
-            public void handlePitch(PitchDetectionResult res, AudioEvent e) {
-                final float pitchInHz = res.getPitch();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        model.processFrequency(pitchInHz);
-                    }
-                });
-            }
-        };
-
-        AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, sampleRate, 1024, pdh);
-        dispatcher.addAudioProcessor(pitchProcessor);
-
-        Thread audioThread = new Thread(dispatcher, "Audio Thread");
-        audioThread.start();
+        VoiceListener voicelistener = new VoiceListener(model);
+        voicelistener.startListening();
 
 //        arrow = findViewById(R.id.arrowsTextView);
 //        handleAnimation();
@@ -97,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         mAnimation.setRepeatMode(Animation.REVERSE);
         mAnimation.setInterpolator(new LinearInterpolator());
         arrow.setAnimation(mAnimation);
-
     }
 
     public void myToner(View view){
@@ -106,40 +69,4 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "PLAYED");
     }
 
-
-    public void processPitch(float pitchInHz) {
-        TextView pitchText = findViewById(R.id.frequencyTextView);
-        pitchText.setText("" + pitchInHz);
-        TextView noteText = findViewById(R.id.questionTextView);
-        // So far only for pitches on lower octave
-
-        if(pitchInHz >= 110 && pitchInHz < 123.47) {
-            //A
-            noteText.setText("A");
-        }
-        else if(pitchInHz >= 123.47 && pitchInHz < 130.81) {
-            //B
-            noteText.setText("B");
-        }
-        else if(pitchInHz >= 130.81 && pitchInHz < 146.83) {
-            //C
-            noteText.setText("C");
-        }
-        else if(pitchInHz >= 146.83 && pitchInHz < 164.81) {
-            //D
-            noteText.setText("D");
-        }
-        else if(pitchInHz >= 164.81 && pitchInHz <= 174.61) {
-            //E
-            noteText.setText("E");
-        }
-        else if(pitchInHz >= 174.61 && pitchInHz < 185) {
-            //F
-            noteText.setText("F");
-        }
-        else if(pitchInHz >= 185 && pitchInHz < 196) {
-            //G
-            noteText.setText("G");
-        }
-    }
 }
