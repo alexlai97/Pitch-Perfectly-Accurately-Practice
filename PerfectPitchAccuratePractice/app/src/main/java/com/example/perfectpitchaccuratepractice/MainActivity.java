@@ -37,8 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView arrow;
 
+    private Model model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         int sampleRate = 8000;
 
         for (int rate : new int[]{22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
@@ -54,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        model = new Model(new Config());
+        model.setArrowTextView((TextView) findViewById(R.id.arrowsTextView));
+        model.setQuestionTextView((TextView) findViewById(R.id.questionTextView));
+        model.next_question();
+
         PitchDetectionHandler pdh = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult res, AudioEvent e) {
@@ -61,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        processPitch(pitchInHz);
+                        model.processFrequency(pitchInHz);
                     }
                 });
             }
@@ -73,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
 
-        arrow = findViewById(R.id.arrow);
-        handleAnimation();
+//        arrow = findViewById(R.id.arrowsTextView);
+//        handleAnimation();
     }
 
     public void handleAnimation() {
@@ -97,10 +106,11 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "PLAYED");
     }
 
+
     public void processPitch(float pitchInHz) {
-        TextView pitchText = findViewById(R.id.pitchText);
+        TextView pitchText = findViewById(R.id.frequencyTextView);
         pitchText.setText("" + pitchInHz);
-        TextView noteText = findViewById(R.id.noteText);
+        TextView noteText = findViewById(R.id.questionTextView);
         // So far only for pitches on lower octave
 
         if(pitchInHz >= 110 && pitchInHz < 123.47) {

@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 
 public abstract class Question {
   String text;
@@ -15,7 +16,7 @@ public abstract class Question {
     int num = upper - lower + 1;
     candidate_notes = new Note[num];
     for (int i =0; i < num; i++) {
-      candidate_notes[i].setTo(lower + i);
+      candidate_notes[i] = new Note(lower + i);
     }
   }
 

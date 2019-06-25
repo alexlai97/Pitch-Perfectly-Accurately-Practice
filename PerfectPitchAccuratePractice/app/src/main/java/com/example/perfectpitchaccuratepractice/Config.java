@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 // configurations that the user can set
 class Config {
   // Δt: the user need to stay in error range for at least Δt ms

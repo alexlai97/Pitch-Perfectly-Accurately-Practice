@@ -1,3 +1,9 @@
+package com.example.perfectpitchaccuratepractice;
+
+import android.widget.TextView;
+
+import static org.junit.Assert.assertNotNull;
+
 public class Model {
   double current_frequency = -2000;
   Question current_question;
@@ -7,13 +13,14 @@ public class Model {
   boolean isInErrorRange = false;
   boolean firstTimeProcessFreq = true;
 
+  TextView questionText;
+  TextView arrowText;
 
   public Model(Config c) {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    current_question.set_candidates_with_range(24,48);
-    next_question();
+    current_question.set_candidates_with_range(24,36);
   }
 
 
@@ -52,16 +59,37 @@ public class Model {
     return current_config;
   }
 
-  // TODO next question, or specific to different modes
-  void next_question() {
+  public void next_question() {
     current_question.generate_random_question();
-    System.out.println("Next Question Generated");
-    System.out.println("Update view after new Question");
+    updateQuestionTextView(current_question.getText());
+  }
+
+  public void setQuestionTextView(TextView tv) {
+    assertNotNull(tv);
+    questionText = tv;
+    assertNotNull(questionText);
+  }
+
+  public void setArrowTextView(TextView tv) {
+    assertNotNull(tv);
+    arrowText = tv;
+    assertNotNull(arrowText);
+  }
+
+
+  public void updateQuestionTextView(String str) {
+    assertNotNull(questionText);
+    questionText.setText(str);
+  }
+
+  public void updateArrowTextView(String str) {
+    assertNotNull(arrowText);
+    arrowText.setText(str);
   }
 
   // TODO
   void show_in_arrow_textbox(String str) {
-    System.out.println("Arrow: " + str);
+      updateArrowTextView(str);
   }
 
   // Called by run in PitchDetectionHandler

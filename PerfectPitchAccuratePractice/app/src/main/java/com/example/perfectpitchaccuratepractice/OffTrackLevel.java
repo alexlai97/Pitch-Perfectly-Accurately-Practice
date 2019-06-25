@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 public enum OffTrackLevel {
   InErrorRange, LittleHigh, TooHigh, LittleLow, TooLow, NoSound;
 
