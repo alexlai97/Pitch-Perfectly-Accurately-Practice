@@ -8,6 +8,11 @@ import android.media.AudioTrack;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 
+/**
+ * plays sound activity
+ * <p>
+ * FIXME currently crashes after around 10 times of playing sound
+ */
 public class PlaySound extends Activity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Jialin Shan for pitch perfect

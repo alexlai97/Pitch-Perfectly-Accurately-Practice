@@ -24,6 +24,9 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
 
+/**
+ * Main activity
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
