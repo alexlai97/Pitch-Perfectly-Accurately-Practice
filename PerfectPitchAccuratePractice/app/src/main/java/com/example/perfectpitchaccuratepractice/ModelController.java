@@ -19,6 +19,8 @@ public class ModelController {
 
   private TextView questionText;
   private TextView arrowText;
+  private TextView frequencyText;
+  private TextView currentPitchText;
 
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
@@ -76,17 +78,25 @@ public class ModelController {
   }
 
   void setQuestionTextView(TextView tv) {
-    assertNotNull(tv);
     questionText = tv;
-    assertNotNull(questionText);
+  }
+  void setFrequencyTextView(TextView tv) {
+    frequencyText = tv;
+  }
+  void setCurrentPitchTextView(TextView tv) {
+    currentPitchText = tv;
   }
 
   void setArrowTextView(TextView tv) {
-    assertNotNull(tv);
     arrowText = tv;
-    assertNotNull(arrowText);
   }
 
+  void updateFrequencyTextView(String str) {
+    frequencyText.setText(str);
+  }
+  void updateCurrentPitchTextView(String str) {
+    currentPitchText.setText(str);
+  }
 
   void updateQuestionTextView(String str) {
     questionText.setText(str);
@@ -116,6 +126,8 @@ public class ModelController {
       firstTimeProcessFreq = false;
     }
     current_frequency = freq;
+    updateFrequencyTextView(""+Math.round(current_frequency) +" Hz");
+    updateCurrentPitchTextView("U: " + (new Note(current_frequency)).getText(true));
     double expected_freq = get_Answer_Frequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);

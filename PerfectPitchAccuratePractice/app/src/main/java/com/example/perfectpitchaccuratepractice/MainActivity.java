@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         modelController = new ModelController(new Config());
         modelController.setArrowTextView((TextView) findViewById(R.id.arrowsTextView));
         modelController.setQuestionTextView((TextView) findViewById(R.id.questionTextView));
+        modelController.setFrequencyTextView((TextView) findViewById(R.id.frequencyTextView));
+        modelController.setCurrentPitchTextView((TextView) findViewById(R.id.currentPitchTextView));
         modelController.next_question();
 
         VoiceListener voicelistener = new VoiceListener(modelController);

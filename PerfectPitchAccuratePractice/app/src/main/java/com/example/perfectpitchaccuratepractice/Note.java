@@ -99,17 +99,17 @@ public class Note {
     }
   }
 
-  /*
-   * TODO Do we need to construct with frequency ?
-   * public Note(double frequency) {
-   * }
-   */
+  public Note(double frequency) {
+     double tmp = Math.log(frequency / FREQ_OF_A1) / Math.log(2) * 12;
+     index = (int) Math.round(tmp);
+  }
 
   // Return the String representation of Note
   // e.g. Note(1).getText(true) -> "A1#"
   // FIXME only sharp representation for now
   // TODO  Note(1).getText(false) -> "B1b"
   String getText(boolean sharp) {
+    if (index < 0 || index > 72) { return "??"; }
     int octave;
     int remainder = this.index % 12;
     boolean flag = false;
