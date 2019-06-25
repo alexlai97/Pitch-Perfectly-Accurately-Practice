@@ -53,6 +53,11 @@ public class ModelController {
     }
   }
 
+  // for note practice mode only
+  double get_Answer_Frequency() {
+    return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
+  }
+
 
   // please do:
   // 1. Config cc = model.get_current_config();
@@ -111,7 +116,7 @@ public class ModelController {
       firstTimeProcessFreq = false;
     }
     current_frequency = freq;
-    double expected_freq = ((NoteQuestion)current_question).getQuestionNote().getFrequency();
+    double expected_freq = get_Answer_Frequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();
