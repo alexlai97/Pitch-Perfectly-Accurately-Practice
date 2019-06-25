@@ -27,11 +27,11 @@ package com.example.perfectpitchaccuratepractice;
  *  
  */
 public class Note {
-  int index;  // actual range: [0, 72]
+  private int index;  // actual range: [0, 72]
 
-  final static int    NUM_OF_NOTES = 73;
-  final static double FREQ_OF_A1 = 55.0; // Hz
-  final static double[] frequency_array;
+  private final static int    NUM_OF_NOTES = 73;
+  private final static double FREQ_OF_A1 = 55.0; // Hz
+  private final static double[] frequency_array;
   static {
     frequency_array = new double[NUM_OF_NOTES];
     for (int i = 0; i< NUM_OF_NOTES; i++) {
@@ -42,20 +42,20 @@ public class Note {
   // Constructing Note with i
   // e.g. i = 0  => Note is A1, 
   //      i = 12 => Note is A2
-  public Note(int i) {
+  Note(int i) {
     this.setTo(i);
   }
-  public void setTo(int i) {
+  void setTo(int i) {
     this.index = i;
   }
 
   // Constructing Note via String text (e.g. "A4#")
   // FIXME only support sharp right now
   // only accepting: A A# B C C# D D# E F F# G G# 
-  public Note(String text) {
+  Note(String text) {
     this.setTo(text);
   }
-  public void setTo(String text) {
+  void setTo(String text) {
     int len = text.length();
     assert (len == 2 || len == 3);
     boolean flag = len == 3? true: false;
@@ -109,7 +109,7 @@ public class Note {
   // e.g. Note(1).getText(true) -> "A1#"
   // FIXME only sharp representation for now
   // TODO  Note(1).getText(false) -> "B1b"
-  public String getText(boolean sharp) {
+  String getText(boolean sharp) {
     int octave;
     int remainder = this.index % 12;
     boolean flag = false;
@@ -174,11 +174,11 @@ public class Note {
   }
 
   // Return the internal index (for debugging purpose)
-  public int getIndex() {
+  int getIndex() {
     return this.index;
   }
 
-  public double getFrequency() {
+  double getFrequency() {
     return frequency_array[this.index];
   }
 

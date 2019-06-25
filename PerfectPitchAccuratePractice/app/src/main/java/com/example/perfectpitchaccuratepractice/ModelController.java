@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import static org.junit.Assert.assertNotNull;
 
-public class Model {
+public class ModelController {
   private double current_frequency = -2000;
   private Question current_question;
   private Mode current_Mode;
@@ -22,7 +22,7 @@ public class Model {
 
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
-  Model(Config c) {
+  ModelController(Config c) {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
@@ -152,6 +152,6 @@ public class Model {
   // test example
   public static void main(String args[]) {
     Config c = new Config();
-    Model m = new Model(c);
+    ModelController mc = new ModelController(c);
   }
 }

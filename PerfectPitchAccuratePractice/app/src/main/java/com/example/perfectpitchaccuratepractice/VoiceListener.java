@@ -13,10 +13,10 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 
 public class VoiceListener extends Activity {
 
-  private Model model;
+  private ModelController modelController;
 
-  public VoiceListener(Model m) {
-    model = m;
+  public VoiceListener(ModelController mc) {
+    modelController = mc;
   }
 
   public void startListening() {
@@ -39,7 +39,7 @@ public class VoiceListener extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        model.processFrequency(pitchInHz);
+                        modelController.processFrequency(pitchInHz);
                     }
                 });
             }

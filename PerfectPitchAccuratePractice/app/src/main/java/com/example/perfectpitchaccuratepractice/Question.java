@@ -4,15 +4,15 @@ public abstract class Question {
   String text;
   Note[] candidate_notes;
 
-  public Question() {
+  Question() {
     this.text = "n/a";
   }
 
-  public void set_candidates(Note [] notes) {
+  void set_candidates(Note [] notes) {
     this.candidate_notes = notes;
   }
 
-  public void set_candidates_with_range(int lower, int upper) {
+  void set_candidates_with_range(int lower, int upper) {
     int num = upper - lower + 1;
     candidate_notes = new Note[num];
     for (int i =0; i < num; i++) {
@@ -20,7 +20,7 @@ public abstract class Question {
     }
   }
 
-  public String getText() {
+  String getText() {
     return this.text;
   }
 

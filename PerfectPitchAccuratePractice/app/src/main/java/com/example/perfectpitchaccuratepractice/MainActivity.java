@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView arrow;
 
-    private Model model;
+    private ModelController modelController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        model = new Model(new Config());
-        model.setArrowTextView((TextView) findViewById(R.id.arrowsTextView));
-        model.setQuestionTextView((TextView) findViewById(R.id.questionTextView));
-        model.next_question();
+        modelController = new ModelController(new Config());
+        modelController.setArrowTextView((TextView) findViewById(R.id.arrowsTextView));
+        modelController.setQuestionTextView((TextView) findViewById(R.id.questionTextView));
+        modelController.next_question();
 
-        VoiceListener voicelistener = new VoiceListener(model);
+        VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
 
 //        arrow = findViewById(R.id.arrowsTextView);
