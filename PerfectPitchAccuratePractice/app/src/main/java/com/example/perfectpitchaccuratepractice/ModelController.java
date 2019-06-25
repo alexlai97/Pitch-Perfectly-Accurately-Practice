@@ -1,6 +1,8 @@
 package com.example.perfectpitchaccuratepractice;
 
+import android.graphics.Color;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.TextView;
 
 import static org.junit.Assert.assertNotNull;
@@ -21,6 +23,7 @@ public class ModelController {
   private TextView arrowText;
   private TextView frequencyText;
   private TextView currentPitchText;
+  private View backGoundView; // FIXME failed
 
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
@@ -80,6 +83,12 @@ public class ModelController {
   void setQuestionTextView(TextView tv) {
     questionText = tv;
   }
+
+  void setBackGroundView(View v) {
+    backGoundView = v;
+  }
+
+
   void setFrequencyTextView(TextView tv) {
     frequencyText = tv;
   }
@@ -109,7 +118,7 @@ public class ModelController {
 
   void show_correct() {
     show_in_arrow_textbox("Correct");
-    // TODO change background
+    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
 
@@ -141,6 +150,7 @@ public class ModelController {
       } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) {
         // do nothing
       } else {
+          backGoundView.setBackgroundColor(Color.GREEN);
           next_question();
           answerCorrect = false;
       }

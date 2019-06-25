@@ -1,5 +1,6 @@
 package com.example.perfectpitchaccuratepractice;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         modelController = new ModelController(new Config());
+        modelController.setBackGroundView(getWindow().getDecorView()); // FIXME cannot change colour
         modelController.setArrowTextView((TextView) findViewById(R.id.arrowsTextView));
         modelController.setQuestionTextView((TextView) findViewById(R.id.questionTextView));
         modelController.setFrequencyTextView((TextView) findViewById(R.id.frequencyTextView));
