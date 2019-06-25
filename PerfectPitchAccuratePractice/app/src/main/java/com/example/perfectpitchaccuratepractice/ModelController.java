@@ -1,5 +1,6 @@
 package com.example.perfectpitchaccuratepractice;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.view.View;
@@ -27,11 +28,18 @@ public class ModelController {
 
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
-  ModelController(Config c) {
+  public Activity activity;
+
+  ModelController(Config c, Activity ac) {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
     current_question.set_candidates_with_range(24,36);
+    activity = ac;
+    frequencyText = this.activity.findViewById(R.id.frequencyTextView);
+    questionText = this.activity.findViewById(R.id.questionTextView);
+    arrowText = this.activity.findViewById(R.id.arrowsTextView);
+    currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
   }
 
 
@@ -77,50 +85,13 @@ public class ModelController {
 
   void next_question() {
     current_question.generate_random_question();
-    updateQuestionTextView(current_question.getText());
-  }
-
-  void setQuestionTextView(TextView tv) {
-    questionText = tv;
-  }
-
-  void setBackGroundView(View v) {
-    backGoundView = v;
-  }
-
-
-  void setFrequencyTextView(TextView tv) {
-    frequencyText = tv;
-  }
-  void setCurrentPitchTextView(TextView tv) {
-    currentPitchText = tv;
-  }
-
-  void setArrowTextView(TextView tv) {
-    arrowText = tv;
-  }
-
-  void updateFrequencyTextView(String str) {
-    frequencyText.setText(str);
-  }
-  void updateCurrentPitchTextView(String str) {
-    currentPitchText.setText(str);
-  }
-
-  void updateQuestionTextView(String str) {
-    questionText.setText(str);
-  }
-
-
-  void show_in_arrow_textbox(String str) {
-    arrowText.setText(str);
+    questionText.setText(current_question.getText());
   }
 
   void show_correct() {
-    show_in_arrow_textbox("Correct");
-    backGoundView.setBackgroundColor(Color.BLUE);
+    arrowText.setText("Correct");
+//    backGoundView.setBackgroundColor(Color.BLUE);
   }
-
 
   // Called by run in PitchDetectionHandler
   // things it will do:
@@ -135,8 +106,8 @@ public class ModelController {
       firstTimeProcessFreq = false;
     }
     current_frequency = freq;
-    updateFrequencyTextView(""+Math.round(current_frequency) +" Hz");
-    updateCurrentPitchTextView("U: " + (new Note(current_frequency)).getText(true));
+    frequencyText.setText(""+Math.round(current_frequency) +" Hz");
+    currentPitchText.setText("U: " + (new Note(current_frequency)).getText(true));
     double expected_freq = get_Answer_Frequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
@@ -150,7 +121,7 @@ public class ModelController {
       } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) {
         // do nothing
       } else {
-          backGoundView.setBackgroundColor(Color.GREEN);
+//          backGoundView.setBackgroundColor(Color.GREEN);
           next_question();
           answerCorrect = false;
       }
@@ -163,7 +134,7 @@ public class ModelController {
             hasShownCorrect = false;
 //          next_question();
         } else { 
-          show_in_arrow_textbox("...");
+          arrowText.setText("...");
         }
       } else { // was out of error range
         t_enter = now;
@@ -172,13 +143,12 @@ public class ModelController {
     } else {
       isInErrorRange = false;
       t_out = now;
-      show_in_arrow_textbox(arrow);
+      arrowText.setText(arrow);
     }
   }
 
   // test example
   public static void main(String args[]) {
     Config c = new Config();
-    ModelController mc = new ModelController(c);
   }
 }
