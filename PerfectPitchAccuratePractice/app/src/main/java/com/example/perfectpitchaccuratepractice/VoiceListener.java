@@ -11,14 +11,27 @@ import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
+/**
+ * uses Tarsos library functions to spawn a frequency detection thread 
+ *
+ */
 public class VoiceListener extends Activity {
 
+  /**
+   * modelController
+   */
   private ModelController modelController;
 
+  /**
+   * Constructor for VoiceListener
+   */
   public VoiceListener(ModelController mc) {
     modelController = mc;
   }
 
+  /**
+   * runs a thread to detect frequency
+   */
   public void startListening() {
         int sampleRate = 8000;
 
@@ -53,6 +66,4 @@ public class VoiceListener extends Activity {
 
   }
 
-  public static void main(String args[]) {
-  }
 }

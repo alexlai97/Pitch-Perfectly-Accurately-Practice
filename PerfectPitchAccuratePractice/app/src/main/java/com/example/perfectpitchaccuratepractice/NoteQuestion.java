@@ -1,13 +1,8 @@
 package com.example.perfectpitchaccuratepractice;
 import java.util.Random;
 
-/*
- * NoteQuestion
- *  Example of how to use ?
- *  1. NoteQuestion nq = new NoteQuestion()
- *  2. nq.set_candidates(notes); // notes is an array of Note
- *  3. nq.generate_random_question(); // generate from candidates
- *  4. System.out.println(nq.getText()); // print this question
+/**
+ * A Question in Note practice mode
  */
 class NoteQuestion extends Question {
   Note questionNote;

@@ -1,15 +1,38 @@
 package com.example.perfectpitchaccuratepractice;
+
+/**
+ * shows how close is the expected frequency and the current frequency
+ * <p>
+ * 6 types: InErrorRange, LittleHigh, TooHigh, LittleLow, TooLow, NoSound;
+ * <p>
+ * Say expected frequency is a, second error range factor is c
+ * <p>
+ * error range is [lb1, ub1] = [a * 2^(-Ɛ/12), a * 2^(Ɛ/12)]
+ * <p>
+ * second error range is [lb2, ub2] = [c * a * 2^(-Ɛ/12), c * a * 2^(Ɛ/12)]
+ */
+
 public enum OffTrackLevel {
   InErrorRange, LittleHigh, TooHigh, LittleLow, TooLow, NoSound;
 
-  final static int RANGE_FACTOR = 6; // FIXME edit me
+  /**
+   * control the size of second error range centered at expected frequency
+   */
+  final static int SECOND_ERROR_RANGE_FACTOR = 6; 
+
+  /**
+   * frequency that is recognized as NO SOUND
+   */
   final static int LOWEST_RECOGNIZED_FREQ = 10;
 
-  public static OffTrackLevel get_OffTrackLevel(double expected_freq, double actual_freq, double error_allowance_rate) {
+  /**
+   * compares actual frequency with expected frequency, and gives how far it is from first and second error range
+   */
+  static OffTrackLevel get_OffTrackLevel(double expected_freq, double actual_freq, double error_allowance_rate) {
     double ub1 = expected_freq * Math.pow(2, error_allowance_rate/12);
     double lb1 = expected_freq * Math.pow(2, -error_allowance_rate/12);
-    double ub2 = expected_freq * Math.pow(2, RANGE_FACTOR * error_allowance_rate/12);
-    double lb2 = expected_freq * Math.pow(2, -RANGE_FACTOR * error_allowance_rate/12);
+    double ub2 = expected_freq * Math.pow(2, SECOND_ERROR_RANGE_FACTOR * error_allowance_rate/12);
+    double lb2 = expected_freq * Math.pow(2, -SECOND_ERROR_RANGE_FACTOR * error_allowance_rate/12);
     if  (actual_freq < LOWEST_RECOGNIZED_FREQ) {
       return NoSound;
     } else if (actual_freq <= lb2) {
@@ -25,6 +48,9 @@ public enum OffTrackLevel {
     }
   }
 
+  /**
+   * give arrows that guides the user to adjust his/her voice
+   */
   public String get_ArrowSuggestion() {
     switch (this) {
       case NoSound:
@@ -44,7 +70,9 @@ public enum OffTrackLevel {
     }
   }
 
-  // test example
+  /**
+   * test (ignore me)
+   */
   public static void main(String args[]) {
     double freq = 444;
     OffTrackLevel ofl = get_OffTrackLevel(440, freq, 1);

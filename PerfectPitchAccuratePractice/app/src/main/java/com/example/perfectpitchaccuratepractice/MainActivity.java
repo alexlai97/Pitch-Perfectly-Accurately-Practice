@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     // FIXME  crashes after several plays
     public void myToner(View view){
-        theSound.genTone((int)modelController.get_Answer_Frequency(), 1);
+        theSound.genTone((int)modelController.getExpectedFrequency(), 1);
         theSound.playSound();
         Log.i(TAG, "PLAYED");
     }

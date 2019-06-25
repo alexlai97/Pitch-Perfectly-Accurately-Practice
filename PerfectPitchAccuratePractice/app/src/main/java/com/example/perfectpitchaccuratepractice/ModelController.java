@@ -8,28 +8,95 @@ import android.widget.TextView;
 
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Stores states and controls views
+ */
+
 public class ModelController {
   private double current_frequency = -2000;
+  /**
+   * Stores current question
+   */
   private Question current_question;
+  /**
+   * Stores current practice mode
+   */
   private Mode current_Mode;
+  /**
+   * Stores current user configuration
+   */
   private Config current_config;
-  private long t_enter, t_in, t_out, t_correct;
+  /**
+   * last time pitch enter error range
+   */
+  private long t_enter;
+  /**
+   * if in error range, t_in is now
+   */
+  private long t_in; 
+  /**
+   * if out of error range, t_out is now
+   */
+  private long t_out;
+  /**
+   * the moment just when user passes the question (stay in error range for least stable time)
+   */
+  private long t_correct;
+  /**
+   * stores whether is(was) in error range
+   */
   private boolean isInErrorRange = false;
+  /**
+   * used to setup t's correctly at the first time
+   */
   private boolean firstTimeProcessFreq = true;
 
+
+  /**
+   * stores whether the user has passed the question
+   */
   private boolean answerCorrect = false;
+  /**
+   * used to show correct (do things when user passed question) for once
+   */
   private boolean hasShownCorrect = false;
 
+  /**
+   * stores questionTextView
+   */
   private TextView questionText;
+  /**
+   * stores arrowsTextView
+   */
   private TextView arrowText;
+  /**
+   * stores frequencyTextView
+   */
   private TextView frequencyText;
+  /**
+   * stores currentPitchTextView
+   */
   private TextView currentPitchText;
-  private View backGoundView; // FIXME failed
+  /**
+   * stores backgroundView
+   * <p>
+   * FIXME failed
+   */
+  private View backGoundView; 
 
+  /**
+   * how long between the user pass the question and next question
+   */
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
-  public Activity activity;
+  /**
+   * stores MainActivity
+   */
+  private Activity activity;
 
+  /**
+   * setup config, question, activity, textviews
+   */
   ModelController(Config c, Activity ac) {
     current_config = c;
     // generate NoteQuestion 
@@ -43,10 +110,10 @@ public class ModelController {
   }
 
 
-  // set_current_Mode(Mode m):
-  // 1. set this.current_Mode
-  // 2. set this.current_question
-  public void set_current_Mode(Mode m) {
+  /**
+   * do things when changing pratice mode
+   */
+  public void changeCurrentMode(Mode m) {
     current_Mode = m;
     switch (current_Mode) {
       case NotePractice:
@@ -66,36 +133,59 @@ public class ModelController {
     }
   }
 
-  // for note practice mode only
-  double get_Answer_Frequency() {
+  /**
+   * get answer frequency to the note practice question
+   * <p>
+   * FIXME only used in note pratice mode, not for future use
+   *
+   */
+  double getExpectedFrequency() {
     return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
   }
 
 
-  // please do:
-  // 1. Config cc = model.get_current_config();
-  // 2. cc.set_xx_parameter(xxxx);
-  // 3. model.set_current_config(cc);
+  /**
+   * setter for current configuration
+   * <p>
+   * for best pratice, please do:
+   * <p>
+   * 1. Config cc = model.get_current_config();
+   * <p>
+   * 2. cc.set_xx_parameter(xxxx);
+   * <p>
+   * 3. model.set_current_config(cc);
+   */
   public void set_current_config(Config c) {
     current_config = c;
   }
+  /**
+   * getter for current configuration
+   */
   public Config get_current_config() {
     return current_config;
   }
 
+  /**
+   * generate a random question, update questionTextView
+   */
   void next_question() {
     current_question.generate_random_question();
     questionText.setText(current_question.getText());
   }
 
+  /**
+   * update arrowsTextView, can do other things (e.g. change background)
+   */
   void show_correct() {
     arrowText.setText("Correct");
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
-  // Called by run in PitchDetectionHandler
-  // things it will do:
-  // 1. 
+  /**
+   * process frequency PitchDetectionHandler feeds in and responds with:
+   * <p>
+   * updating views 
+   */
   void processFrequency(double freq) {
     long now = System.currentTimeMillis();
     // assume all in error range at first time
@@ -108,7 +198,7 @@ public class ModelController {
     current_frequency = freq;
     frequencyText.setText(""+Math.round(current_frequency) +" Hz");
     currentPitchText.setText("U: " + (new Note(current_frequency)).getText(true));
-    double expected_freq = get_Answer_Frequency();
+    double expected_freq = getExpectedFrequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();
@@ -132,7 +222,6 @@ public class ModelController {
             t_correct = now;
             answerCorrect = true;
             hasShownCorrect = false;
-//          next_question();
         } else { 
           arrowText.setText("...");
         }
@@ -147,8 +236,4 @@ public class ModelController {
     }
   }
 
-  // test example
-  public static void main(String args[]) {
-    Config c = new Config();
-  }
 }
