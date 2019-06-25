@@ -1,7 +1,7 @@
 // configurations that the user can set
 class Config {
   // Δt: the user need to stay in error range for at least Δt ms
-  long least_stable_time_in_milliseconds = 1; 
+  long least_stable_time_in_milliseconds = 1000; 
 
   // Ɛ
   // expected note: a
@@ -9,11 +9,11 @@ class Config {
   // a = 440Hz, Ɛ = 1 means error range: [G4#, A4#]
   double error_allowance_rate = 0.8; 
 
-  public set_least_stable_time_in_milliseconds(double t) {
+  public void set_least_stable_time_in_milliseconds(long t) {
     least_stable_time_in_milliseconds = t;
   }
 
-  public set_error_allowance_rate(double e) {
+  public void set_error_allowance_rate(double e) {
     error_allowance_rate = e;
   }
 
