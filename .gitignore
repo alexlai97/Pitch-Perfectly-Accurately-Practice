@@ -1,6 +1,7 @@
 ## LSP
 .settings
 workspace
+.DS_Store
 
 # dev-book branch
 book

@@ -1,36 +1,50 @@
-/*
- * A Note can represent a note (in frequency, and String)
+package com.example.perfectpitchaccuratepractice;
+/**
+ * A Note can represent a note (in frequency, and String, and internal index)
  *
+ *  <p>
  * Restriction:
- *  - range [A1 - A7] 6 * 12 + 1
+ *  <p>
+ *   range from A1 to A7 (73 total notes)
+ *  <p>
  *
- * Example: 
- *  index:     0  12   24  36  48  60   72
- *  Freqency: 55 110  220 440 880 1760 3520 (Hz)
- *  String:   A1  A2   A3  A4  A5  A6   A7
- *
- *
- * Constructors:
- *  Note n = new  Note(1); // A1#
- *  Note n = new  Note("A1#");
- *
- * Setter:
- *  Note n = new Note(1)
- *  n.setTo(1);
- *  n.setTo("A1#");
- *
- * Getters:
- *  n.getText() -> A1#
- *  n.getFrequency() -> 58.27047018976124
- *  n.getIndex() -> 1
- *  
+ * Example:
+ *  <table border="1">
+ *   <tr>
+ *     <td> index </td> 
+ *  <td> 0  </td> <td> 12 </td> <td> 24 </td> <td> 36 </td> <td> 48 </td> <td> 60 </td> <td> 72 </td>
+ *   </tr>
+ *   <tr>
+ *     <td> frequency (Hz)</td>
+ * <td> 55   </td> <td> 110  </td> <td> 220  </td> <td> 440  </td> <td> 880  </td> <td> 1760 </td> <td> 3520 </td> 
+ *   </tr>
+ *   <tr>
+ *     <td> string </td> 
+ * <td> A1   </td> <td> A2   </td> <td> A3   </td> <td> A4   </td> <td> A5   </td> <td> A6   </td> <td> A7   </td>
+ *   </tr>
+ * </table>
  */
-public class Note {
-  int index;  // actual range: [0, 72]
 
-  final static int    NUM_OF_NOTES = 73;
-  final static double FREQ_OF_A1 = 55.0; // Hz
-  final static double[] frequency_array;
+public class Note {
+  /**
+   * internal index where actual range is [0, 72]
+   */
+  private int index;  
+
+  /**
+   * number of notes in actual range which is 72+1 = 73
+   */
+  private final static int    NUM_OF_NOTES = 73;
+  /**
+   * frequency of A1, which is 55 Hz
+   */
+  private final static double FREQ_OF_A1 = 55.0; // Hz
+  /**
+   * stores the frequencies from A1 to A7
+   */
+  private final static double[] frequency_array;
+
+  // initialize frequency_array
   static {
     frequency_array = new double[NUM_OF_NOTES];
     for (int i = 0; i< NUM_OF_NOTES; i++) {
@@ -38,23 +52,47 @@ public class Note {
     }
   }
 
-  // Constructing Note with i
-  // e.g. i = 0  => Note is A1, 
-  //      i = 12 => Note is A2
-  public Note(int i) {
+  /**
+   * Construct A Note with index
+   * <p>
+   *
+   * e.g. i = 0  gives Note A1,
+   * <p>
+   *      i = 12 gives Note is A2
+   *
+   */
+  Note(int i) {
     this.setTo(i);
   }
-  public void setTo(int i) {
+
+  /**
+   * Set Note's index to i
+   */
+  void setTo(int i) {
     this.index = i;
   }
 
-  // Constructing Note via String text (e.g. "A4#")
-  // FIXME only support sharp right now
-  // only accepting: A A# B C C# D D# E F F# G G# 
-  public Note(String text) {
+  /**
+   * Constructing Note via String text (e.g. "A4#")
+   * <p>
+   * FIXME only support sharp right now
+   * <p>
+   * only accepting: A A# B C C# D D# E F F# G G# 
+   *
+   */
+  Note(String text) {
     this.setTo(text);
   }
-  public void setTo(String text) {
+
+  /**
+   * Set Note's index via String (e.g "A4#")
+   * <p>
+   * FIXME only support sharp right now
+   * <p>
+   * only accepting: A A# B C C# D D# E F F# G G# 
+   *
+   */
+  void setTo(String text) {
     int len = text.length();
     assert (len == 2 || len == 3);
     boolean flag = len == 3? true: false;
@@ -98,17 +136,27 @@ public class Note {
     }
   }
 
-  /*
-   * TODO Do we need to construct with frequency ?
-   * public Note(double frequency) {
-   * }
+  /**
+   * Construct A Note from frequency
+   * <p>
+   * Error within a semitone
    */
+  Note(double frequency) {
+     double tmp = Math.log(frequency / FREQ_OF_A1) / Math.log(2) * 12;
+     index = (int) Math.round(tmp);
+  }
 
-  // Return the String representation of Note
-  // e.g. Note(1).getText(true) -> "A1#"
-  // FIXME only sharp representation for now
-  // TODO  Note(1).getText(false) -> "B1b"
-  public String getText(boolean sharp) {
+  /**
+   * Return the String representation of Note
+   * <p>
+   * e.g. Note(1).getText(true) gives  "A1#"
+   * <p>
+   * FIXME only sharp representation for now
+   * <p>
+   * TODO  Note(1).getText(false) gives "B1b"
+   */
+  String getText(boolean sharp) {
+    if (index < 0 || index > 72) { return "??"; }
     int octave;
     int remainder = this.index % 12;
     boolean flag = false;
@@ -172,17 +220,24 @@ public class Note {
     return "" + symbol + octave + sharp_symbol;
   }
 
-  // Return the internal index (for debugging purpose)
-  public int getIndex() {
+  /**
+   * get the internal index 
+   */
+  int getIndex() {
     return this.index;
   }
 
-  public double getFrequency() {
+  /**
+   * compute the frequency from internal index
+   */
+  double getFrequency() {
     return frequency_array[this.index];
   }
 
 
-  // test example
+  /**
+   * test (ignore me)
+   */
   public static void main(String[] args) {
     System.out.println("index | string | frequency ");
 

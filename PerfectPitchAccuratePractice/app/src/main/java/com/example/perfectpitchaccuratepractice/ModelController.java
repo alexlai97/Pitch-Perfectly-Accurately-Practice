@@ -1,0 +1,239 @@
+package com.example.perfectpitchaccuratepractice;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.SystemClock;
+import android.view.View;
+import android.widget.TextView;
+
+import static org.junit.Assert.assertNotNull;
+
+/**
+ * Stores states and controls views
+ */
+
+public class ModelController {
+  private double current_frequency = -2000;
+  /**
+   * Stores current question
+   */
+  private Question current_question;
+  /**
+   * Stores current practice mode
+   */
+  private Mode current_Mode;
+  /**
+   * Stores current user configuration
+   */
+  private Config current_config;
+  /**
+   * last time pitch enter error range
+   */
+  private long t_enter;
+  /**
+   * if in error range, t_in is now
+   */
+  private long t_in; 
+  /**
+   * if out of error range, t_out is now
+   */
+  private long t_out;
+  /**
+   * the moment just when user passes the question (stay in error range for least stable time)
+   */
+  private long t_correct;
+  /**
+   * stores whether is(was) in error range
+   */
+  private boolean isInErrorRange = false;
+  /**
+   * used to setup t's correctly at the first time
+   */
+  private boolean firstTimeProcessFreq = true;
+
+
+  /**
+   * stores whether the user has passed the question
+   */
+  private boolean answerCorrect = false;
+  /**
+   * used to show correct (do things when user passed question) for once
+   */
+  private boolean hasShownCorrect = false;
+
+  /**
+   * stores questionTextView
+   */
+  private TextView questionText;
+  /**
+   * stores arrowsTextView
+   */
+  private TextView arrowText;
+  /**
+   * stores frequencyTextView
+   */
+  private TextView frequencyText;
+  /**
+   * stores currentPitchTextView
+   */
+  private TextView currentPitchText;
+  /**
+   * stores backgroundView
+   * <p>
+   * FIXME failed
+   */
+  private View backGoundView; 
+
+  /**
+   * how long between the user pass the question and next question
+   */
+  private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
+
+  /**
+   * stores MainActivity
+   */
+  private Activity activity;
+
+  /**
+   * setup config, question, activity, textviews
+   */
+  ModelController(Config c, Activity ac) {
+    current_config = c;
+    // generate NoteQuestion 
+    current_question = new NoteQuestion();
+    current_question.set_candidates_with_range(24,36);
+    activity = ac;
+    frequencyText = this.activity.findViewById(R.id.frequencyTextView);
+    questionText = this.activity.findViewById(R.id.questionTextView);
+    arrowText = this.activity.findViewById(R.id.arrowsTextView);
+    currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
+  }
+
+
+  /**
+   * do things when changing pratice mode
+   */
+  public void changeCurrentMode(Mode m) {
+    current_Mode = m;
+    switch (current_Mode) {
+      case NotePractice:
+        next_question();
+        break;
+      case IntervalPractice: 
+        //FIXME not implemented
+        // current_question = new IntervalQuestion();
+        break;
+      case ChordPractice: 
+        //FIXME not implemented
+        // current_question = new ChordQuestion();
+        break;
+      case SongPractice: 
+        //FIXME not implemented
+        break;
+    }
+  }
+
+  /**
+   * get answer frequency to the note practice question
+   * <p>
+   * FIXME only used in note pratice mode, not for future use
+   *
+   */
+  double getExpectedFrequency() {
+    return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
+  }
+
+
+  /**
+   * setter for current configuration
+   * <p>
+   * for best pratice, please do:
+   * <p>
+   * 1. Config cc = model.get_current_config();
+   * <p>
+   * 2. cc.set_xx_parameter(xxxx);
+   * <p>
+   * 3. model.set_current_config(cc);
+   */
+  public void set_current_config(Config c) {
+    current_config = c;
+  }
+  /**
+   * getter for current configuration
+   */
+  public Config get_current_config() {
+    return current_config;
+  }
+
+  /**
+   * generate a random question, update questionTextView
+   */
+  void next_question() {
+    current_question.generate_random_question();
+    questionText.setText(current_question.getText());
+  }
+
+  /**
+   * update arrowsTextView, can do other things (e.g. change background)
+   */
+  void show_correct() {
+    arrowText.setText("Correct");
+//    backGoundView.setBackgroundColor(Color.BLUE);
+  }
+
+  /**
+   * process frequency PitchDetectionHandler feeds in and responds with:
+   * <p>
+   * updating views 
+   */
+  void processFrequency(double freq) {
+    long now = System.currentTimeMillis();
+    // assume all in error range at first time
+    if (firstTimeProcessFreq) {
+      t_enter = now;
+      t_in = now;
+      t_out = now;
+      firstTimeProcessFreq = false;
+    }
+    current_frequency = freq;
+    frequencyText.setText(""+Math.round(current_frequency) +" Hz");
+    currentPitchText.setText("U: " + (new Note(current_frequency)).getText(true));
+    double expected_freq = getExpectedFrequency();
+    double error_allowance_rate = current_config.get_error_allowance_rate();
+    OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
+    String arrow = ofl.get_ArrowSuggestion();
+    long dT = current_config.get_least_stable_time_in_milliseconds();
+
+    if (answerCorrect) {
+      if (!hasShownCorrect) {
+          show_correct();
+         hasShownCorrect = true;
+      } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) {
+        // do nothing
+      } else {
+//          backGoundView.setBackgroundColor(Color.GREEN);
+          next_question();
+          answerCorrect = false;
+      }
+    } else if (ofl == OffTrackLevel.InErrorRange) {
+      t_in = now;
+      if (isInErrorRange) { // was in error range
+        if ((t_enter > t_out) && (t_in - t_enter > dT)) {
+            t_correct = now;
+            answerCorrect = true;
+            hasShownCorrect = false;
+        } else { 
+          arrowText.setText("...");
+        }
+      } else { // was out of error range
+        t_enter = now;
+      }
+      isInErrorRange = true;
+    } else {
+      isInErrorRange = false;
+      t_out = now;
+      arrowText.setText(arrow);
+    }
+  }
+
+}
