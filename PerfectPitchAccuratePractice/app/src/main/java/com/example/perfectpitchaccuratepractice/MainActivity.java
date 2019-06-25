@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
 
-    private ImageView arrow;
+    private TextView arrow;
 
     private ModelController modelController;
 
@@ -46,10 +46,12 @@ public class MainActivity extends AppCompatActivity {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
 
-//        arrow = findViewById(R.id.arrowsTextView);
-//        handleAnimation();
+        // FIXME ...
+        arrow = findViewById(R.id.arrowsTextView);
+        handleAnimation();
     }
 
+    // FIXME adjust according to closeness
     public void handleAnimation() {
         Animation mAnimation = new TranslateAnimation(
                 TranslateAnimation.ABSOLUTE, 0f,
