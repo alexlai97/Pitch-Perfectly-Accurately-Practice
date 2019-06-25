@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         voicelistener.startListening();
 
         // FIXME ...
-        arrow = findViewById(R.id.arrowsTextView);
+        arrow = findViewById(R.id.arrowTextView);
         handleAnimation();
     }
 

@@ -103,9 +103,9 @@ public class ModelController {
     current_question = new NoteQuestion();
     current_question.set_candidates_with_range(24,36);
     activity = ac;
-    frequencyText = this.activity.findViewById(R.id.frequencyTextView);
+    frequencyText = this.activity.findViewById(R.id.currentFrequencyTextView);
     questionText = this.activity.findViewById(R.id.questionTextView);
-    arrowText = this.activity.findViewById(R.id.arrowsTextView);
+    arrowText = this.activity.findViewById(R.id.arrowTextView);
     currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
   }
 

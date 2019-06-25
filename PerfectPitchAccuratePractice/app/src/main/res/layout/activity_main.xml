@@ -8,12 +8,11 @@
     tools:context="com.example.perfectpitchaccuratepractice.MainActivity">
 
     <TextView
-        android:id="@+id/pitchText"
-        android:layout_width="157dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:id="@+id/currentFrequencyTextView"
+        android:layout_width="108dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="84dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="12sp"
@@ -21,14 +20,13 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/arrow"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/arrowTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/noteText"
+        android:id="@+id/questionTextView"
         android:layout_width="252dp"
         android:layout_height="234dp"
         android:layout_marginStart="8dp"
@@ -46,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/filterButton"
         android:layout_width="35dp"
         android:layout_height="54dp"
         android:layout_marginEnd="16dp"
@@ -57,31 +55,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
-        android:id="@+id/arrow"
-        android:layout_width="101dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/noteText"
+    <TextView
+        android:id="@+id/arrowTextView"
+        android:layout_width="112dp"
+        android:layout_height="58dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/questionTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/downarrow" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/playSoundButton"
         android:layout_width="44dp"
         android:layout_height="53dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/icons8_play_50"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="myToner"/>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/helpButton"
         android:layout_width="39dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -91,7 +86,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/naviButton"
         android:layout_width="43dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
@@ -99,6 +94,20 @@
         android:background="@drawable/icons8_menu_50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/currentPitchTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/filterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toEndOf="@+id/currentFrequencyTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.176" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
