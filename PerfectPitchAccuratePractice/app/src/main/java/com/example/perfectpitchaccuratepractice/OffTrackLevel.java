@@ -54,7 +54,7 @@ public enum OffTrackLevel {
   public String get_ArrowSuggestion() {
     switch (this) {
       case NoSound:
-        return "ns"; // No sound
+        return ""; // No sound
       case InErrorRange:
         return "✓";
       case TooLow:

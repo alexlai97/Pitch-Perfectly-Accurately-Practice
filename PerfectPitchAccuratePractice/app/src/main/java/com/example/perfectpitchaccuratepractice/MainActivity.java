@@ -33,14 +33,15 @@ import org.junit.runner.manipulation.Filterable;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
-
     private TextView arrow;
 
     private ModelController modelController;
-
+    private boolean created = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        Log.e(TAG, "s"
+                + created);
+        created = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -50,23 +51,16 @@ public class MainActivity extends AppCompatActivity {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
 
-        // FIXME ...
-        arrow = findViewById(R.id.arrowTextView);
-        handleAnimation();
+        Log.w(TAG, "ONCREATE");
+//        // FIXME ...
+//        arrow = findViewById(R.id.arrowTextView);
+//        handleAnimation(300);
     }
 
-    // FIXME adjust according to closeness
-    public void handleAnimation() {
-        Animation mAnimation = new TranslateAnimation(
-                TranslateAnimation.ABSOLUTE, 0f,
-                TranslateAnimation.ABSOLUTE, 0f,
-                TranslateAnimation.RELATIVE_TO_SELF, 1f,
-                TranslateAnimation.RELATIVE_TO_SELF, 1.3f);
-        mAnimation.setDuration(300);
-        mAnimation.setRepeatCount(-1);
-        mAnimation.setRepeatMode(Animation.REVERSE);
-        mAnimation.setInterpolator(new LinearInterpolator());
-        arrow.setAnimation(mAnimation);
+
+    protected void onRestart() {
+        super.onRestart();
+        Log.w(TAG, "ONRESTART");
     }
 
     // FIXME  crashes after several plays

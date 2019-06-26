@@ -59,9 +59,15 @@
         android:id="@+id/arrowTextView"
         android:layout_width="112dp"
         android:layout_height="58dp"
-        android:text="TextView"
+        android:layout_marginBottom="36dp"
+        android:autoSizeMaxTextSize="40sp"
+        android:autoSizeMinTextSize="30sp"
+        android:autoSizeTextType="uniform"
+        android:text=""
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/questionTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
+import android.util.Log;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -13,6 +17,8 @@ import static org.junit.Assert.assertNotNull;
  */
 
 public class ModelController {
+  private static final String TAG = "MODEL";
+
   private double current_frequency = -2000;
   /**
    * Stores current question
@@ -51,6 +57,10 @@ public class ModelController {
    */
   private boolean firstTimeProcessFreq = true;
 
+  /*
+   * used to check how long it has been since the last check
+   */
+  private long firstStart;
 
   /**
    * stores whether the user has passed the question
@@ -107,6 +117,7 @@ public class ModelController {
     questionText = this.activity.findViewById(R.id.questionTextView);
     arrowText = this.activity.findViewById(R.id.arrowTextView);
     currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
+    Animation arrowAnimation;
   }
 
 
@@ -181,6 +192,19 @@ public class ModelController {
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
+  // FIXME adjust according to closeness
+  public void handleAnimation(int speed) {
+    Animation arrowAnimation = new TranslateAnimation(
+            TranslateAnimation.ABSOLUTE, 0f,
+            TranslateAnimation.ABSOLUTE, 0f,
+            TranslateAnimation.RELATIVE_TO_SELF, 0.7f,
+            TranslateAnimation.RELATIVE_TO_SELF, 1.2f);
+    arrowAnimation.setDuration(speed);
+    arrowAnimation.setRepeatCount(-1);
+    arrowAnimation.setRepeatMode(Animation.REVERSE);
+    arrowAnimation.setInterpolator(new LinearInterpolator());
+    arrowText.setAnimation(arrowAnimation);
+  }
   /**
    * process frequency PitchDetectionHandler feeds in and responds with:
    * <p>
@@ -194,6 +218,7 @@ public class ModelController {
       t_in = now;
       t_out = now;
       firstTimeProcessFreq = false;
+      firstStart = now;
     }
     current_frequency = freq;
     frequencyText.setText(""+Math.round(current_frequency) +" Hz");
@@ -222,7 +247,7 @@ public class ModelController {
             t_correct = now;
             answerCorrect = true;
             hasShownCorrect = false;
-        } else { 
+        } else {
           arrowText.setText("...");
         }
       } else { // was out of error range
@@ -233,6 +258,17 @@ public class ModelController {
       isInErrorRange = false;
       t_out = now;
       arrowText.setText(arrow);
+    }
+
+    if (now - firstStart > 500){
+      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
+        handleAnimation(500);
+        Log.i(TAG,"little");
+      }else{
+        handleAnimation(250);
+        Log.i(TAG, "ALOT");
+      }
+      firstStart = now;
     }
   }
 
