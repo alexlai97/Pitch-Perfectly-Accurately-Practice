@@ -177,7 +177,7 @@ public class ModelController {
    * update arrowsTextView, can do other things (e.g. change background)
    */
   void show_correct() {
-    arrowText.setText("Correct");
+    arrowText.setText("✓");
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
