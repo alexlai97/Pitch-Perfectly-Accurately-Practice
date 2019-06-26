@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Button;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.widget.ImageView;
@@ -25,7 +26,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
 import org.junit.runner.manipulation.Filterable;
-
+import android.widget.TableLayout;
 
 /**
  * Main activity
@@ -47,6 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
         modelController = new ModelController(new Config(), this);
         modelController.next_question();
+
+        Button parentLayout;
+        parentLayout = findViewById(R.id.helpButton);
+        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
+
+            @Override
+            public boolean onLongClick(View v) {
+                modelController.next_question();
+                return false;
+            }
+        });
 
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();

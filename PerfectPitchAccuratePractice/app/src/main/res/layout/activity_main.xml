@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FA9A	"
+    android:background="#00FA9A"
     tools:context="com.example.perfectpitchaccuratepractice.MainActivity">
 
     <TextView
@@ -41,10 +41,10 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.591"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowTextView"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.284" />
 
     <Button
         android:id="@+id/filterButton"
@@ -60,15 +60,17 @@
 
     <TextView
         android:id="@+id/arrowTextView"
+        android:layout_width="81dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="164dp"
         android:autoSizeMaxTextSize="40sp"
         android:autoSizeMinTextSize="30sp"
         android:autoSizeTextType="uniform"
+        android:textAlignment="center"
         android:text=""
-        android:layout_width="51dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="172dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -92,7 +92,17 @@ public class ModelController {
    * <p>
    * FIXME failed
    */
-  private View backGoundView; 
+  private View backGoundView;
+
+  /**
+   * animation
+   */
+  private Animation arrowAnimation;
+
+  /**
+   * currentAnimeSpeed
+   */
+  private int currentAnimeSpeed;
 
   /**
    * how long between the user pass the question and next question
@@ -117,7 +127,16 @@ public class ModelController {
     questionText = this.activity.findViewById(R.id.questionTextView);
     arrowText = this.activity.findViewById(R.id.arrowTextView);
     currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
-    Animation arrowAnimation;
+    arrowAnimation = new TranslateAnimation(
+            TranslateAnimation.RELATIVE_TO_SELF, 0f,
+            TranslateAnimation.RELATIVE_TO_SELF, 0f,
+            TranslateAnimation.RELATIVE_TO_SELF, 0.7f,
+            TranslateAnimation.RELATIVE_TO_SELF, 1.2f);
+    arrowAnimation.setFillAfter(true);
+    currentAnimeSpeed = 0;
+    arrowAnimation.setRepeatCount(-1);
+    arrowAnimation.setRepeatMode(Animation.REVERSE);
+    arrowAnimation.setInterpolator(new LinearInterpolator());
   }
 
 
@@ -194,15 +213,7 @@ public class ModelController {
 
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
-    Animation arrowAnimation = new TranslateAnimation(
-            TranslateAnimation.ABSOLUTE, 0f,
-            TranslateAnimation.ABSOLUTE, 0f,
-            TranslateAnimation.RELATIVE_TO_SELF, 0.7f,
-            TranslateAnimation.RELATIVE_TO_SELF, 1.2f);
     arrowAnimation.setDuration(speed);
-    arrowAnimation.setRepeatCount(-1);
-    arrowAnimation.setRepeatMode(Animation.REVERSE);
-    arrowAnimation.setInterpolator(new LinearInterpolator());
     arrowText.setAnimation(arrowAnimation);
   }
   /**
@@ -219,6 +230,7 @@ public class ModelController {
       t_out = now;
       firstTimeProcessFreq = false;
       firstStart = now;
+
     }
     current_frequency = freq;
     frequencyText.setText(""+Math.round(current_frequency) +" Hz");
@@ -260,13 +272,17 @@ public class ModelController {
       arrowText.setText(arrow);
     }
 
-    if (now - firstStart > 500){
+    if (now - firstStart > 1000){
       if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
-        handleAnimation(500);
-        Log.i(TAG,"little");
+        if(currentAnimeSpeed != 600){
+          handleAnimation(600);
+          Log.i(TAG,"little");
+        }
       }else{
-        handleAnimation(250);
-        Log.i(TAG, "ALOT");
+        if(currentAnimeSpeed != 300) {
+          handleAnimation(300);
+          Log.i(TAG, "ALOT");
+        }
       }
       firstStart = now;
     }
