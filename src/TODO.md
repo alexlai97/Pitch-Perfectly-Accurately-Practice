@@ -9,9 +9,12 @@
 - how to make current playing note from midi and current displaying (internal notes) synchronized (for song practice)
 
 # TODO (functionality)
-- playsound by midi
+- play correct
+  - play check mark sound then, then correct sound(toggle)
+  - change background colour to different colour
+- can play (multiple) notes by midi
 - note practice mode
-  - NotePracticeFilter  filter
+  - NotePracticeFilter filter
 - interval practice mode
   - Interval class
   - IntervalQuestion class
@@ -22,6 +25,7 @@
     - error allowance rate
     - second rate
     - debugging mode
+    - auto playback answer  when correct
   - save config when closed the app, reload it when open the app
 - chord practice mode
   - chord library 
@@ -31,12 +35,20 @@
   - songPlayingSubmode
   - songPracticeSubmode
   - Library page
+- store history of played notes
+  - database of notes
+  - SUMMARY page
 
 # UI improvement
 - better icon, UI
   - button
   - icon for app
   - colour
+- colour scheme, (customize)
+  - default
+  - dark
+  - ppap
+- random generate button icon (pineapple, penpinapple, applepen, ppap)
 
 # Alex
 - talk to everyone and settle down the pages, and update wireframe (blueprint)
