@@ -121,7 +121,7 @@ public class ModelController {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    current_question.set_candidates_with_range(24,36);
+    current_question.set_candidates_with_range(12,36);
     activity = ac;
     frequencyText = this.activity.findViewById(R.id.currentFrequencyTextView);
     questionText = this.activity.findViewById(R.id.questionTextView);
