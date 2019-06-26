@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.591"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowTextView"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <Button
         android:id="@+id/filterButton"
@@ -60,12 +60,13 @@
 
     <TextView
         android:id="@+id/arrowTextView"
-        android:layout_width="51dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="172dp"
-        android:text="Correct"
+        android:layout_width="45dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="136dp"
+        android:text="Sing"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
