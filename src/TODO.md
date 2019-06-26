@@ -19,6 +19,7 @@
   - Interval class
   - IntervalQuestion class
   - IntervalPracticeFilter filter
+  - play sound, long press, short tap
 - Global Settings
   - setting page
     - least stable time
@@ -31,6 +32,7 @@
   - chord library 
   - ChordPracticeFilter filter
   - put together
+  - play sound, long press, short tap
 - song practice mode
   - songPlayingSubmode
   - songPracticeSubmode
@@ -38,17 +40,35 @@
 - store history of played notes
   - database of notes
   - SUMMARY page
+    - report top/bottom 10 notes
+    - a sentence to cheer up user
 
-# UI improvement
+# User Experience improvement
+- Help pages
+  - note help page
+  - interval help page
+  - chord help page
+  - song help page
+    - how to create a song and put it in app
+- about us page
+- user-guide
+  - first launch tutorial
+  - user-guide group (on github)
+  - in app user-guide book
+- gestures
+  - swipe left, swipe right to prev/next question
+  - ...
+
+# User Interface improvement
 - better icon, UI
   - button
   - icon for app
   - colour
+  - font, text colour
+  - font size, image size to fit to different devices
 - colour scheme, (customize)
   - default
   - dark
   - ppap
 - random generate button icon (pineapple, penpinapple, applepen, ppap)
 
-# Alex
-- talk to everyone and settle down the pages, and update wireframe (blueprint)
