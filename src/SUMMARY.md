@@ -1,19 +1,22 @@
 # Index 
 - [quicklinks](./quicklinks.md)
 
-# Functionalities
-- [Functionalities](./functionalities.md)
-  - [Practice Practice Modes](./functionalities/modes/note_practice_mode.md)
-  - [Interval Practice Modes](./functionalities/modes/interval_practice_mode.md)
-  - [Chord Practice Modes](./functionalities/modes/chord_practice_mode.md)
-  - [Song Practice Modes](./functionalities/modes/song_practice_mode.md)
-  - [Menus](./functionalities/menus.md)
-  - [Buttons](./functionalities/buttons.md)
-  - [Pages](./functionalities/pages.md)
+# TODO
+- [PLAN, TODO and progress](./TODO.md)
+  - [Practice Practice Mode](./plan/modes/note_practice_mode.md)
+  - [Interval Practice Mode](./plan/modes/interval_practice_mode.md)
+  - [Chord Practice Mode](./plan/modes/chord_practice_mode.md)
+  - [Song Practice Mode](./plan/modes/song_practice_mode.md)
+  - [Menus](./plan/menus.md)
+  - [Buttons](./plan/buttons.md)
+  - [Pages](./plan/pages.md)
+  
+# Deliverables
+- [Deliverables](./Deliverables.md)
 
 # Songs
 - [Song list](./songs.md)
 
-# recommandation or links
-- [recommandation or links](./recommand_or_links.md)
+# Useful links
+- [Useful links](./links.md)
 
