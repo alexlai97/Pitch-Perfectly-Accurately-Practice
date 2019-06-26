@@ -29,8 +29,8 @@ public enum OffTrackLevel {
    * compares actual frequency with expected frequency, and gives how far it is from first and second error range
    */
   static OffTrackLevel get_OffTrackLevel(double expected_freq, double actual_freq, double error_allowance_rate) {
-    double ub1 = expected_freq * Math.pow(2, error_allowance_rate/12);
-    double lb1 = expected_freq * Math.pow(2, -error_allowance_rate/12);
+    double ub1 = expected_freq * Math.pow(2, error_allowance_rate/12); //ub-> upper bound
+    double lb1 = expected_freq * Math.pow(2, -error_allowance_rate/12); // lb->lower bound
     double ub2 = expected_freq * Math.pow(2, SECOND_ERROR_RANGE_FACTOR * error_allowance_rate/12);
     double lb2 = expected_freq * Math.pow(2, -SECOND_ERROR_RANGE_FACTOR * error_allowance_rate/12);
     if  (actual_freq < LOWEST_RECOGNIZED_FREQ) {
@@ -54,7 +54,7 @@ public enum OffTrackLevel {
   public String get_ArrowSuggestion() {
     switch (this) {
       case NoSound:
-        return "ns"; // No sound
+        return ""; // No sound
       case InErrorRange:
         return "✓";
       case TooLow:
