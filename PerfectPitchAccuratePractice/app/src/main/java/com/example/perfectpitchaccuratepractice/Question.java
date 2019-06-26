@@ -45,6 +45,6 @@ public abstract class Question {
   /**
    * abstract function, currently only for note question
    */
-  public void generate_random_question() {
+  void generate_random_question() {
   }
 }
