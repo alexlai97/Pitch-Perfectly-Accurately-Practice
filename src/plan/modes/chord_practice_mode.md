@@ -1,20 +1,5 @@
 # Chord Practice Modes
 
-## Chord Class
-```
-Fields:
-- chord: Note[]
-- numOfNotes: int
-```
-
-## ChordQuestion Class
-```
-Fields:
-- questionChord: Note[]
-- candidate_notes: Note[]
-- a set of options
-```
-
 ## ChordPracticeFilter Page
 - key signature selection
 - basic (multiple choice)
