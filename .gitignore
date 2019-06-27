@@ -2,6 +2,7 @@
 .settings
 workspace
 .DS_Store
+/.idea
 
 # dev-book branch
 book
