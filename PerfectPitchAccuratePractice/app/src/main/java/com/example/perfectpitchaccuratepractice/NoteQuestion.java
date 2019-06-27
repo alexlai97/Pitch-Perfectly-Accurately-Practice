@@ -74,7 +74,7 @@ class NoteQuestion extends Question {
       new Note("G5"),
       new Note("G5#")
     };
-    nq.set_candidates(notes);
+    nq.set_candidates_notes(notes);
     for (int i =0; i < notes.length; i++) {
       // System.out.println(notes[i].getText(true));
       nq.generate_random_question();
