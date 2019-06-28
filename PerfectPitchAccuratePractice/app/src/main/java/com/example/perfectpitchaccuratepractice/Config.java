@@ -9,6 +9,7 @@ class Config {
    */
   private long least_stable_time_in_milliseconds = 1000;
 
+
   /**
    * error allowance rate (Ɛ)
    * <p>
@@ -22,6 +23,11 @@ class Config {
    *
    */
   private double error_allowance_rate = 0.8;
+
+  /**
+   * frequency that is recognized as NO SOUND
+   */
+  public final static int LOWEST_RECOGNIZED_FREQ = 10;
 
   /**
    * setter for Δt in milliseconds 

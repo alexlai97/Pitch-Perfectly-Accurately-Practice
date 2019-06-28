@@ -65,13 +65,14 @@ public class Interval {
   /**
    * generate a set of intervals given lower, upper range indexs
    */
-  static Note [] generateIntervalsWithRange(int from_index, int to_index) {
-    int num = upper - lower + 1;
-    intervals = new Interval[num];
+  static Interval [] generateIntervalsWithRange(int from_index, int to_index) {
+    assert(from_index < to_index && from_index >= -12 && to_index <=12);
+    int num = to_index - from_index + 1;
+    Interval[] intervals = new Interval[num];
     for (int i =0; i < num; i++) {
-      intervals[i] = new Interval(lower + i);
+      intervals[i] = new Interval(from_index + i);
     }
-    return notes;
+    return intervals;
   }
 
 
@@ -83,6 +84,11 @@ public class Interval {
     for (int i = -12; i <= 12; i++) {
       Interval itv = new Interval (i);
       System.out.println("" + itv.getIndex() + " " + itv.getText());
+    }
+
+    Interval [] intervals = generateIntervalsWithRange(-12,12);
+    for (int i = -12; i <= 12; i++) {
+      System.out.println("" + intervals[i].getIndex() + " " + intervals[i].getText());
     }
   }
 }

@@ -20,10 +20,6 @@ public enum OffTrackLevel {
    */
   final static int SECOND_ERROR_RANGE_FACTOR = 6; 
 
-  /**
-   * frequency that is recognized as NO SOUND
-   */
-  final static int LOWEST_RECOGNIZED_FREQ = 10;
 
   /**
    * compares actual frequency with expected frequency, and gives how far it is from first and second error range

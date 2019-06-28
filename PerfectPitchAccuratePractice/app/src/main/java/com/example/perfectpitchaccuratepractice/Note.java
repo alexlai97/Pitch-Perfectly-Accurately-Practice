@@ -1,4 +1,5 @@
 package com.example.perfectpitchaccuratepractice;
+
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
  *
@@ -69,6 +70,7 @@ class Note {
    * Set Note's index to i
    */
   void setTo(int i) {
+    assert(i >= 0 && i < NUM_OF_NOTES);
     this.index = i;
   }
 
@@ -142,8 +144,12 @@ class Note {
    * Error within a semitone
    */
   Note(double frequency) {
+    if (frequency < Config.LOWEST_RECOGNIZED_FREQ) {
+      index = -1;
+    } else {
      double tmp = Math.log(frequency / FREQ_OF_A1) / Math.log(2) * 12;
      index = (int) Math.round(tmp);
+    }
   }
 
   /**
@@ -231,6 +237,7 @@ class Note {
    * compute the frequency from internal index
    */
   double getFrequency() {
+    assert(index >= 0 && index < NUM_OF_NOTES);
     return frequency_array[this.index];
   }
 
@@ -238,10 +245,10 @@ class Note {
    * generate a set of notes given lower, upper range 
    */
   static Note [] generateNotesWithRange(int from_index, int to_index) {
-    int num = upper - lower + 1;
-    notes = new Note[num];
+    int num = from_index - to_index + 1;
+    Note[] notes = new Note[num];
     for (int i =0; i < num; i++) {
-      notes[i] = new Note(lower + i);
+      notes[i] = new Note(from_index + i);
     }
     return notes;
   }
@@ -261,7 +268,7 @@ class Note {
       System.out.println("  " + n.getIndex() + " | " + str + " | " + n.getFrequency());
     }
 
-    Note n1 = new Note("A3");
-    System.out.println(n1.getText(true));
+    Note [] notes = generateNotesWithRange(0, 72);
+    assert(notes.length == 73);
   }
 }

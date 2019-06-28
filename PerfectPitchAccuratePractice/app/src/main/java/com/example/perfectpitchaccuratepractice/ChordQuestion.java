@@ -9,7 +9,12 @@ class ChordQuestion {
    * remember to set candidate notes first
     */
   void generate_random_question() {
-    // TODO
+    questionChord = Chord.generate_random_question(Note.generateNotesWithRange(0,72),3);
+    text = questionChord.getText();
+  }
+
+  Chord getQuestionChord() {
+    return questionChord;
   }
 
   public static void main(String args[]) {
