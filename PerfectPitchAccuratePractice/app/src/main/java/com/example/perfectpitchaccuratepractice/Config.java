@@ -27,7 +27,7 @@ class Config {
   /**
    * frequency that is recognized as NO SOUND
    */
-  public final static int LOWEST_RECOGNIZED_FREQ = 10;
+  final static int LOWEST_RECOGNIZED_FREQ = 10;
 
   /**
    * setter for Δt in milliseconds 

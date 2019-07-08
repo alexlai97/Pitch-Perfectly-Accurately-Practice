@@ -8,11 +8,11 @@ class NoteQuestion extends Question {
   private Note questionNote;
 
   /**
-   * generate question from candidate notes, remember to set candidate notes first
+   * generate question from note pool, remember to set note pool first
     */
   void generate_random_question() {
-    int rnd = new Random().nextInt(candidate_notes.length);
-    questionNote = candidate_notes[rnd];
+    int rnd = new Random().nextInt(notePool.length);
+    questionNote = notePool[rnd];
     text = questionNote.getText(true);
   }
 
@@ -29,7 +29,7 @@ class NoteQuestion extends Question {
   public static void main(String args[]) {
     NoteQuestion nq = new NoteQuestion();
     Note [] notes = Note.generateNotesWithRange(0,72);
-    nq.set_candidates_notes(notes);
+    nq.setNotePool(notes);
     for (int i =0; i < notes.length; i++) {
       nq.generate_random_question();
       System.out.println(nq.getText());

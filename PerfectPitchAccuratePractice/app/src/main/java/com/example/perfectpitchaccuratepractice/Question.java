@@ -1,10 +1,17 @@
+package com.example.perfectpitchaccuratepractice;
 
 /**
  * an abstract class of Question
  */
 public abstract class Question {
+  /**
+   * the text of the question
+   */
   String text;
-  Note[] candidate_notes;
+  /**
+   * the note pool, which is can be generated from the filter page
+   */
+  Note[] notePool;
 
   /**
    * Constructor, at default text "n/a"
@@ -15,10 +22,10 @@ public abstract class Question {
 
 
   /**
-   * Setter for candidate notes
+   * Setter for note pool
    */ 
-  void set_candidates_notes(Note [] notes) {
-    this.candidate_notes = notes;
+  void setNotePool(Note [] notes) {
+    this.notePool = notes;
   }
 
 

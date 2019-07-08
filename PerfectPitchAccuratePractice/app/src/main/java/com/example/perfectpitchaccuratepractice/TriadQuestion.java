@@ -1,12 +1,10 @@
-package com.example.perfectpitchaccuratepractice;
 
-class ChordQuestion extends Question{
-  Chord questionChord;
+class TriadQuestion extends Question{
 
   /**
-   * generate question from candidate notes
+   * generate question from note pool
    * <p>
-   * remember to set candidate notes first
+   * remember to set note pool first
     */
   void generate_random_question() {
     questionChord = Chord.generate_random_question(Note.generateNotesWithRange(0,72),3);

@@ -5,26 +5,26 @@ class IntervalQuestion extends Question {
   private Note questionNote;
   private Interval questionInterval;
   private Note answerNote;
-  private Interval[] candidate_intervals;
+  private Interval[] intervalPool;
 
   /**
-   * Setter for candidate intervals
+   * Setter for interval pool
    */ 
-  void set_candidates_intervals(Interval [] intervals) {
-    this.candidate_intervals = intervals;
+  void setIntervalPool(Interval [] intervals) {
+    this.intervalPool = intervals;
   }
 
   /**
-   * generate random question from candidate notes and candidate intervals
+   * generate random question from note pool and interval pool
    * <p>
-   * remember to set candidate notes and candidate intervals first
+   * remember to set notes pool and interval pool first
    */
   void generate_random_question() {
     Random r = new Random();
-    int rnd = r.nextInt(candidate_intervals.length);
-    questionInterval = candidate_intervals[rnd];
-    rnd = r.nextInt(candidate_notes.length);
-    questionNote = candidate_notes[rnd];
+    int rnd = r.nextInt(intervalPool.length);
+    questionInterval = intervalPool[rnd];
+    rnd = r.nextInt(notePool.length);
+    questionNote = notePool[rnd];
     text = questionNote.getText(true) + " " +  questionInterval.getText();
   }
 
@@ -33,8 +33,8 @@ class IntervalQuestion extends Question {
    */
   public static void main(String args[]) {
     IntervalQuestion iq = new IntervalQuestion();
-    iq.set_candidates_notes(Note.generateNotesWithRange(24,36));
-    iq.set_candidates_intervals(Interval.generateIntervalsWithRange(-12,12));
+    iq.setNotePool(Note.generateNotesWithRange(24,36));
+    iq.setIntervalPool(Interval.generateIntervalsWithRange(-12,12));
 
     int some_num = 100;
     System.out.println("Printing " + some_num + " random interval questions");
