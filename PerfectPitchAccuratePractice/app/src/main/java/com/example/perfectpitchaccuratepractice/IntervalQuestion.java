@@ -1,11 +1,11 @@
-package com.example.com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice;
 import java.util.Random;
 
-class IntervalQuestion {
-  Note questionNote;
-  Interval questionInterval;
-  Note answerNote;
-  Interval [] candidate_intervals;
+class IntervalQuestion extends Question {
+  private Note questionNote;
+  private Interval questionInterval;
+  private Note answerNote;
+  private Interval[] candidate_intervals;
 
   /**
    * Setter for candidate intervals
@@ -31,9 +31,9 @@ class IntervalQuestion {
   /**
    * test (ignore me)
    */
-  public static void main(String args[]) {
-    IntervalQuestion iq = new IntervalQuestion();
-    iq.set_candidates_notes(Note.generate_random_question(24,36));
-    iq.set_intervals(24,36);
-  }
+    public static void main(String args[]) {
+//      IntervalQuestion iq = new IntervalQuestion();
+//      iq.set_candidates_notes(Note.generate_random_question(24,36));
+//      iq.set_intervals(24,36);
+    }
 }

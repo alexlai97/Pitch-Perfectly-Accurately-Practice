@@ -244,9 +244,9 @@ class Note {
   /**
    * generate a set of notes given lower, upper range 
    */
-  static Note [] generateNotesWithRange(int from_index, int to_index) {
-    int num = from_index - to_index + 1;
-    Note[] notes = new Note[num];
+  static Note [] generateNotesWithRange(int lower, int upper) {
+    int num = upper - lower + 1;
+    Note notes[] = new Note[num];
     for (int i =0; i < num; i++) {
       notes[i] = new Note(from_index + i);
     }

@@ -1,6 +1,6 @@
 package com.example.perfectpitchaccuratepractice;
 
-class ChordQuestion {
+class ChordQuestion extends Question{
   Chord questionChord;
 
   /**

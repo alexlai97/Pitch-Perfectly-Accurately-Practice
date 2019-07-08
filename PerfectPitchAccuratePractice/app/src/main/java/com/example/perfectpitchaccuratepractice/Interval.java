@@ -65,10 +65,9 @@ public class Interval {
   /**
    * generate a set of intervals given lower, upper range indexs
    */
-  static Interval [] generateIntervalsWithRange(int from_index, int to_index) {
-    assert(from_index < to_index && from_index >= -12 && to_index <=12);
-    int num = to_index - from_index + 1;
-    Interval[] intervals = new Interval[num];
+  static Interval [] generateIntervalsWithRange(int lower, int upper) {
+    int num = upper - lower + 1;
+    Interval intervals[] = new Interval[num];
     for (int i =0; i < num; i++) {
       intervals[i] = new Interval(from_index + i);
     }

@@ -1,5 +1,4 @@
 package com.example.perfectpitchaccuratepractice;
-import java.util.Random;
 
 /**
  * A Chord can represent a chord, basically an array of ordered Note 
@@ -20,9 +19,9 @@ class Chord {
   /**
    * getter for the number of notes in the chord
    */
-  int getNumOfNotes() {
-    return notes.length();
-  }
+//  int getNumOfNotes(Note[] notes) {
+//    return notes.length();
+//  }
 
   /**
    * generatae a chord randomly from notes
