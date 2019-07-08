@@ -65,13 +65,13 @@ public class Interval {
   /**
    * generate a set of intervals given lower, upper range indexs
    */
-  static Note [] generateIntervalsWithRange(int from_index, int to_index) {
+  static Interval [] generateIntervalsWithRange(int lower, int upper) {
     int num = upper - lower + 1;
-    intervals = new Interval[num];
+    Interval intervals[] = new Interval[num];
     for (int i =0; i < num; i++) {
       intervals[i] = new Interval(lower + i);
     }
-    return notes;
+    return intervals;
   }
 
 

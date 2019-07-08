@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 
 /**
  * A Chord can represent a chord, basically an array of ordered Note 
@@ -18,9 +19,9 @@ class Chord {
   /**
    * getter for the number of notes in the chord
    */
-  int getNumOfNotes() {
-    return notes.length();
-  }
+//  int getNumOfNotes(Note[] notes) {
+//    return notes.length();
+//  }
 
   /**
    * test (ignore me)
