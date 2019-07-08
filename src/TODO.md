@@ -16,9 +16,11 @@
 - note practice mode
   - NotePracticeFilter filter
 - interval practice mode
-  - Interval class
-  - IntervalQuestion class
   - IntervalPracticeFilter filter
+  - play sound, long press, short tap
+- triad practice mode
+  - ChordPracticeFilter filter
+  - put together
   - play sound, long press, short tap
 - Global Settings
   - setting page
@@ -28,11 +30,6 @@
     - debugging mode
     - auto playback answer  when correct
   - save config when closed the app, reload it when open the app
-- chord practice mode
-  - chord library 
-  - ChordPracticeFilter filter
-  - put together
-  - play sound, long press, short tap
 - song practice mode
   - songPlayingSubmode
   - songPracticeSubmode
@@ -72,3 +69,11 @@
   - ppap
 - random generate button icon (pineapple, penpinapple, applepen, ppap)
 
+
+# Alex
+1. Note Filter Page
+2. Can switch mode
+3. Interval Functional
+4. Interval Filter Page
+5. Triad Functional 
+6. Triad Filter Page 
