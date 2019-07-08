@@ -1,5 +1,5 @@
-package com.example.perfectpitchaccuratepractice;
 
+package com.example.perfectpitchaccuratepractice;
 /**
  * configurations that the user can set
  */

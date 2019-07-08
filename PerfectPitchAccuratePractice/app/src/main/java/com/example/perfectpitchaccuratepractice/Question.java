@@ -7,19 +7,17 @@ public abstract class Question {
   /**
    * the text of the question
    */
-  String text;
+  String[] texts;
   /**
    * the note pool, which is can be generated from the filter page
    */
   Note[] notePool;
 
   /**
-   * Constructor, at default text "n/a"
+   * Constructor
    */
   Question() {
-    this.text = "n/a";
   }
-
 
   /**
    * Setter for note pool
@@ -28,12 +26,21 @@ public abstract class Question {
     this.notePool = notes;
   }
 
-
   /**
    * getter of the text of the question
    */
-  String getText() {
-    return this.text;
+  String[] getTexts() {
+    return this.texts;
+  }
+
+  /**
+   * print texts separated by space in stdout
+   */
+  void print_question_texts() {
+    for (String t: this.getTexts()) {
+      System.out.print(t + " ");
+    }
+    System.out.println();
   }
 
   /**

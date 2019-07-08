@@ -12,8 +12,9 @@ class NoteQuestion extends Question {
     */
   void generate_random_question() {
     int rnd = new Random().nextInt(notePool.length);
-    questionNote = notePool[rnd];
-    text = questionNote.getText(true);
+    this.questionNote = notePool[rnd];
+    this.texts = new String[1];
+    this.texts[0] = questionNote.getText();
   }
 
   /**
@@ -32,7 +33,7 @@ class NoteQuestion extends Question {
     nq.setNotePool(notes);
     for (int i =0; i < notes.length; i++) {
       nq.generate_random_question();
-      System.out.println(nq.getText());
+      nq.print_question_texts();
     }
   }
 }

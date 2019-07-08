@@ -7,6 +7,8 @@ class IntervalQuestion extends Question {
   private Note answerNote;
   private Interval[] intervalPool;
 
+  private static Random random = new Random();
+
   /**
    * Setter for interval pool
    */ 
@@ -20,12 +22,13 @@ class IntervalQuestion extends Question {
    * remember to set notes pool and interval pool first
    */
   void generate_random_question() {
-    Random r = new Random();
-    int rnd = r.nextInt(intervalPool.length);
+    int rnd = random.nextInt(intervalPool.length);
     questionInterval = intervalPool[rnd];
-    rnd = r.nextInt(notePool.length);
+    rnd = random.nextInt(notePool.length);
     questionNote = notePool[rnd];
-    text = questionNote.getText(true) + " " +  questionInterval.getText();
+    this.texts = new String[2];
+    this.texts[0] = questionNote.getText();
+    this.texts[1] = questionInterval.getText();
   }
 
   /**
@@ -40,7 +43,7 @@ class IntervalQuestion extends Question {
     System.out.println("Printing " + some_num + " random interval questions");
     for (int i = 0; i < some_num; i++) {
       iq.generate_random_question();
-      System.out.println(iq.getText());
+      iq.print_question_texts();
     }
   }
 }

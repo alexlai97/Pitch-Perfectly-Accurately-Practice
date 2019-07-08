@@ -1,5 +1,5 @@
-package com.example.perfectpitchaccuratepractice;
 
+package com.example.perfectpitchaccuratepractice;
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
  *
@@ -155,13 +155,11 @@ class Note {
   /**
    * Return the String representation of Note
    * <p>
-   * e.g. Note(1).getText(true) gives  "A1#"
+   * e.g. Note(1).getText() gives  "A1#"
    * <p>
    * FIXME only sharp representation for now
-   * <p>
-   * TODO  Note(1).getText(false) gives "B1b"
    */
-  String getText(boolean sharp) {
+  String getText() {
     if (index < 0 || index > 72) { return "??"; }
     int octave;
     int remainder = this.index % 12;
@@ -261,10 +259,10 @@ class Note {
 
     for (int i= 0; i < NUM_OF_NOTES; i++) {
       Note n = new Note(i);
-      String str = n.getText(true);
+      String str = n.getText();
       Note n1 = new Note(str);
       assert(n1.getIndex() == i);
-      assert(n1.getText(true) == str);
+      assert(n1.getText() == str);
       System.out.println("  " + n.getIndex() + " | " + str + " | " + n.getFrequency());
     }
 
@@ -273,7 +271,7 @@ class Note {
     Note [] notes = generateNotesWithRange(0, 72);
     assert(notes.length == 73);
     for (int i=0; i< 73; i++) {
-      System.out.println("  " + notes[i].getIndex() + " | " + notes[i].getText(true) + " | " + notes[i].getFrequency());
+      System.out.println("  " + notes[i].getIndex() + " | " + notes[i].getText() + " | " + notes[i].getFrequency());
     }
   }
 }
