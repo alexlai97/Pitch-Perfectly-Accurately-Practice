@@ -21,7 +21,7 @@ package com.example.perfectpitchaccuratepractice;
  */
 public class Interval {
   /**
-   * internal index where actuall range is [-12, 12]
+   * internal index where actual range is [-12, 12]
    */
   private int index;
 
@@ -32,13 +32,18 @@ public class Interval {
    */
   private final static String [] INTERVAL_STRINGS = { 
     "U", "m2", "M3", "m3", "M3", "P4", "A4", /* 0-6*/
-    "P5", "m6", "M6", "m7", "M7", "O"  /*7-12*/
+    "P5", "m6", "M6", "m7", "M7", "P8"  /*7-12*/
   };
 
   /**
-   * just store a string to indicate it is a minus
+   * a minus sign
    */
   private final static String NEGATIVE_STRING = "- ";
+
+  /**
+   * a plus sign
+   */
+  private final static String POSITIVE_STRING = "+ ";
 
   /**
    * constructor for Inteval from index
@@ -59,14 +64,14 @@ public class Interval {
    */
   String getText() {
     String text = INTERVAL_STRINGS[Math.abs(index)];
-    return (index <0)? NEGATIVE_STRING + text:text;
+    return (index <0)? NEGATIVE_STRING + text: POSITIVE_STRING + text;
   }
 
   /**
-   * generate a set of intervals given lower, upper range indexs
+   * generate a set of intervals given indexes of a range
    */
-  static Interval [] generateIntervalsWithRange(int lower, int upper) {
-    int num = upper - lower + 1;
+  static Interval [] generateIntervalsWithRange(int from_index, int to_index) {
+    int num = to_index - from_index + 1;
     Interval intervals[] = new Interval[num];
     for (int i =0; i < num; i++) {
       intervals[i] = new Interval(from_index + i);
@@ -82,12 +87,12 @@ public class Interval {
     System.out.println("index | text");
     for (int i = -12; i <= 12; i++) {
       Interval itv = new Interval (i);
-      System.out.println("" + itv.getIndex() + " " + itv.getText());
+      System.out.println("" + itv.getIndex() + " | " + itv.getText());
     }
 
     Interval [] intervals = generateIntervalsWithRange(-12,12);
-    for (int i = -12; i <= 12; i++) {
-      System.out.println("" + intervals[i].getIndex() + " " + intervals[i].getText());
+    for (int i = 0; i < 25; i++) {
+      System.out.println("" + intervals[i].getIndex() + " | " + intervals[i].getText());
     }
   }
 }

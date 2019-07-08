@@ -242,10 +242,10 @@ class Note {
   }
 
   /**
-   * generate a set of notes given lower, upper range 
+   * generate a set of notes given index range 
    */
-  static Note [] generateNotesWithRange(int lower, int upper) {
-    int num = upper - lower + 1;
+  static Note [] generateNotesWithRange(int from_index, int to_index) {
+    int num = to_index - from_index + 1;
     Note notes[] = new Note[num];
     for (int i =0; i < num; i++) {
       notes[i] = new Note(from_index + i);
@@ -268,7 +268,12 @@ class Note {
       System.out.println("  " + n.getIndex() + " | " + str + " | " + n.getFrequency());
     }
 
+    System.out.println("Using generateNotesWithRange");
+
     Note [] notes = generateNotesWithRange(0, 72);
     assert(notes.length == 73);
+    for (int i=0; i< 73; i++) {
+      System.out.println("  " + notes[i].getIndex() + " | " + notes[i].getText(true) + " | " + notes[i].getFrequency());
+    }
   }
 }

@@ -18,22 +18,29 @@ class IntervalQuestion extends Question {
    * generate random question from candidate notes and candidate intervals
    * <p>
    * remember to set candidate notes and candidate intervals first
-    */
+   */
   void generate_random_question() {
     Random r = new Random();
     int rnd = r.nextInt(candidate_intervals.length);
     questionInterval = candidate_intervals[rnd];
     rnd = r.nextInt(candidate_notes.length);
     questionNote = candidate_notes[rnd];
-    text = questionNote.getText() + " " +  questionInterval.getText();
+    text = questionNote.getText(true) + " " +  questionInterval.getText();
   }
 
   /**
    * test (ignore me)
    */
-    public static void main(String args[]) {
-//      IntervalQuestion iq = new IntervalQuestion();
-//      iq.set_candidates_notes(Note.generate_random_question(24,36));
-//      iq.set_intervals(24,36);
+  public static void main(String args[]) {
+    IntervalQuestion iq = new IntervalQuestion();
+    iq.set_candidates_notes(Note.generateNotesWithRange(24,36));
+    iq.set_candidates_intervals(Interval.generateIntervalsWithRange(-12,12));
+
+    int some_num = 100;
+    System.out.println("Printing " + some_num + " random interval questions");
+    for (int i = 0; i < some_num; i++) {
+      iq.generate_random_question();
+      System.out.println(iq.getText());
     }
+  }
 }

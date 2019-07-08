@@ -1,4 +1,3 @@
-package com.example.perfectpitchaccuratepractice;
 
 /**
  * an abstract class of Question
