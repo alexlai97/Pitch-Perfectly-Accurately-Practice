@@ -1,16 +1,13 @@
 # Index 
 - [quicklinks](./quicklinks.md)
 
+# Design and architecture 
+- [Design and architecture](./design_and_architecture.md)
+  - [filter & pipe architecture](./design_and_architecture/filter_and_pipe_architecture.md)
+
 # TODO
 - [PLAN, TODO and progress](./TODO.md)
-  - [Practice Practice Mode](./plan/modes/note_practice_mode.md)
-  - [Interval Practice Mode](./plan/modes/interval_practice_mode.md)
-  - [Chord Practice Mode](./plan/modes/chord_practice_mode.md)
-  - [Song Practice Mode](./plan/modes/song_practice_mode.md)
-  - [Menus](./plan/menus.md)
-  - [Buttons](./plan/buttons.md)
-  - [Pages](./plan/pages.md)
-  
+
 # Deliverables
 - [Deliverables](./Deliverables.md)
 
