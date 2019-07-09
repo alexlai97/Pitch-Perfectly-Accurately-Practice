@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 class NotesBitMap {
   private boolean[] bitmap; // size: NUM_OF_NOTES (73)
 
@@ -21,6 +22,10 @@ class NotesBitMap {
     this.bitmap = new boolean[Note.NUM_OF_NOTES]; // primitive type default to be false
   }
 
+  NotesBitMap(boolean[] bitmap) {
+    this.bitmap = bitmap; 
+  }
+
   /**
    * print bitmap to stdout  (debugging)
    */
@@ -29,6 +34,14 @@ class NotesBitMap {
       System.out.println((new Note(i)).getText() + " " + (this.bitmap[i]? "1":"0") + " ");
     }
     System.out.println();
+  }
+
+  static NotesBitMap getFullSetNotesBitMap() {
+    NotesBitMap nbm = new NotesBitMap();
+    for (int i = 0; i < Note.NUM_OF_NOTES; i++) {
+      nbm.bitmap[i] = true;
+    }
+    return nbm;
   }
 
   static NotesBitMap getBitMapFromRange(Note from_note, Note to_note) {
@@ -65,6 +78,24 @@ class NotesBitMap {
     }
 
     return nbm;
+  }
+
+  static NotesBitMap bitmapAnd(NotesBitMap bm1, NotesBitMap bm2) {
+    boolean[] result_bitmap = new boolean[Note.NUM_OF_NOTES];
+    for (int i = 0; i< Note.NUM_OF_NOTES; i++) {
+      result_bitmap[i] = bm1.bitmap[i] && bm2.bitmap[i];
+    }
+    return new NotesBitMap(result_bitmap);
+  }
+
+  ArrayList<Note> toNotes() {
+    ArrayList<Note> notes = new ArrayList<Note>();
+
+    for (int i = 0; i < Note.NUM_OF_NOTES; i ++) {
+      if (this.bitmap[i]) notes.add(new Note(i));
+    }
+
+    return notes;
   }
 
   public static void main(String args[]) {
