@@ -1,8 +1,18 @@
 package com.example.perfectpitchaccuratepractice;
-abstract class Filter {
-  NotesBitMap bitmap;
 
-  NotesBitMap applyFilterTo(NotesBitMap input_bitmap) {
-    return NotesBitMap.bitmapAnd(this.bitmap, input_bitmap);
+/**
+ * A filter that defines that cannot pass through
+ */
+abstract class Filter {
+  /**
+   * A bitmap can be NotesBitmap or IntervalsBitmap
+   */
+  Bitmap bitmap;
+
+  /**
+   * Apply this filter to an input data, return the output data
+   */
+  Bitmap applyFilterTo(Bitmap input_bitmap) {
+    return Bitmap.bitmapAnd(this.bitmap, input_bitmap);
   }
 }

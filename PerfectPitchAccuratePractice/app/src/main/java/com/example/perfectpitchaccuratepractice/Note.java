@@ -34,10 +34,14 @@ class Note {
    */
   private int index;  
 
+
   /**
    * number of notes in actual range which is 72+1 = 73
    */
   final static int NUM_OF_NOTES = 73;
+
+  final static int INDEX_LOWER_BOUND = 0;
+  final static int INDEX_UPPER_BOUND = NUM_OF_NOTES - 1;
   /**
    * frequency of A1, which is 55 Hz
    */
@@ -234,6 +238,21 @@ class Note {
   }
 
   /**
+   * 
+   */
+  static int getIndex(Note note) {
+    return note.getIndex();
+  }
+
+  /**
+   * 
+   */
+  static int getIndex(String str) {
+    Note n = new Note(str);
+    return n.getIndex();
+  }
+
+  /**
    * compute the frequency from internal index
    */
   double getFrequency() {
@@ -254,7 +273,7 @@ class Note {
   }
 
   /**
-   * test (ignore me)
+   * A way to use this class, will print a table of notes
    */
   public static void main(String[] args) {
     System.out.println("index | string | frequency ");

@@ -1,27 +1,58 @@
 package com.example.perfectpitchaccuratepractice;
 import java.util.Random;
 
+/**
+ * Triad is a subset of Chord, it has 3 notes, 4 type of scales
+ */
 class Triad {
+  /**
+   * A static Random
+   */
   private static Random random = new Random();
 
+  /**
+   * TriadScale: Major, Minor, Diminished, Augmented
+   */
   enum TriadScale {
     Major, Minor, Diminished, Augmented;
   }
 
+  /**
+   * return a random TriadScale among those four triad scales
+   */
   static TriadScale getRandomTriadScale() {
     return TriadScale.values()[random.nextInt(TriadScale.values().length)];
   }
 
+  /**
+   * NOT IMPLMENTING SO FAR
+   */
   enum TriadInversion { // FIXME not implmented
     None, FirstInversion, SecondInversion;
   }
 
+  /**
+   * root note of a triad
+   */
   private Note rootNote;
+  /**
+   * scale of a triad
+   */
   private TriadScale scale;
+  /**
+   * NOT IMPLMENTING SO FAR
+   */
   private TriadInversion inversion;
+  /**
+   * 3 notes stored in side the Triad from low to high
+   */
   private Note[] notes; // from low to high
 
+  /**
+   * Constructor given root note and triad scale
+   */
   Triad(Note root, TriadScale scale) {
+
     this.rootNote = root;
     this.scale = scale;
     this.inversion = inversion; // FIXME not implmented
@@ -50,11 +81,18 @@ class Triad {
     }
   }
 
+
+  /**
+   * get notes array inside Triad
+   */
   Note[] getNotes() {
     return notes;
   }
 
 
+  /**
+   * A way to use this class
+   */
   public static void main(String args[]) {
     Triad t = new Triad(new Note("C3"), TriadScale.Diminished);
     Note [] notes = t.getNotes();
