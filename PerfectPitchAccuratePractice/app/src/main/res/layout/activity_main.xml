@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowTextView"
-        app:layout_constraintVertical_bias="0.284" />
+        app:layout_constraintVertical_bias="0.13999999" />
 
     <Button
         android:id="@+id/filterButton"
