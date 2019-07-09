@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 import java.util.ArrayList;
 class NotesBitMap {
   private boolean[] bitmap; // size: NUM_OF_NOTES (73)
