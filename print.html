@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="TODO.html"><strong aria-hidden="true">2.</strong> PLAN, TODO and progress</a></li><li><ol class="section"><li><a href="plan/modes/note_practice_mode.html"><strong aria-hidden="true">2.1.</strong> Practice Practice Mode</a></li><li><a href="plan/modes/interval_practice_mode.html"><strong aria-hidden="true">2.2.</strong> Interval Practice Mode</a></li><li><a href="plan/modes/chord_practice_mode.html"><strong aria-hidden="true">2.3.</strong> Chord Practice Mode</a></li><li><a href="plan/modes/song_practice_mode.html"><strong aria-hidden="true">2.4.</strong> Song Practice Mode</a></li><li><a href="plan/menus.html"><strong aria-hidden="true">2.5.</strong> Menus</a></li><li><a href="plan/buttons.html"><strong aria-hidden="true">2.6.</strong> Buttons</a></li><li><a href="plan/pages.html"><strong aria-hidden="true">2.7.</strong> Pages</a></li></ol></li><li><a href="Deliverables.html"><strong aria-hidden="true">3.</strong> Deliverables</a></li><li><a href="songs.html"><strong aria-hidden="true">4.</strong> Song list</a></li><li><a href="links.html"><strong aria-hidden="true">5.</strong> Useful links</a></li></ol>
+            <ol class="chapter"><li><a href="quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="design_and_architecture.html"><strong aria-hidden="true">2.</strong> Design and architecture</a></li><li><ol class="section"><li><a href="design_and_architecture/filter_and_pipe_architecture.html"><strong aria-hidden="true">2.1.</strong> filter &amp; pipe architecture</a></li></ol></li><li><a href="TODO.html"><strong aria-hidden="true">3.</strong> PLAN, TODO and progress</a></li><li><a href="Deliverables.html"><strong aria-hidden="true">4.</strong> Deliverables</a></li><li><a href="songs.html"><strong aria-hidden="true">5.</strong> Song list</a></li><li><a href="links.html"><strong aria-hidden="true">6.</strong> Useful links</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -144,6 +144,13 @@
 <ul>
 <li><a href="./doc-book/index.html">doc-book</a> (might not be up to date)</li>
 </ul>
+<a class="header" href="#design-and-architecture" id="design-and-architecture"><h1>Design and architecture</h1></a>
+<a class="header" href="#filter--pipe-architecture" id="filter--pipe-architecture"><h1>Filter &amp; Pipe Architecture</h1></a>
+<p>This architecture is used in get the note pool (sink) from XX (source) by applying filters.</p>
+<a class="header" href="#example" id="example"><h2>Example</h2></a>
+<p><img src="../images/filter_notes_idea.jpg" alt="alt text" title="filter example" /></p>
+<a class="header" href="#class-overview" id="class-overview"><h2>Class Overview</h2></a>
+<p><img src="../images/filter_bitmap_class_overview.jpg" alt="alt text" title="filter and bitmap class overview" /></p>
 <a class="header" href="#to-fix" id="to-fix"><h1>TO FIX</h1></a>
 <ul>
 <li>ask for permission for microphone</li>
@@ -274,63 +281,6 @@
 <li>Triad Functional</li>
 <li>Triad Filter Page</li>
 </ol>
-<a class="header" href="#note-practice-modes" id="note-practice-modes"><h1>Note Practice Modes</h1></a>
-<a class="header" href="#notepracticefilter-page" id="notepracticefilter-page"><h2>NotePracticeFilter Page</h2></a>
-<ul>
-<li>key signature</li>
-<li>scale
-<ul>
-<li>major</li>
-<li>melodic minor</li>
-<li>natural minor</li>
-<li>harmonic minor</li>
-</ul>
-</li>
-</ul>
-<a class="header" href="#interval-practice-modes" id="interval-practice-modes"><h1>Interval Practice Modes</h1></a>
-<a class="header" href="#intervalpracticefilter-page" id="intervalpracticefilter-page"><h2>IntervalPracticeFilter Page</h2></a>
-<ul>
-<li>key? note selection</li>
-<li>interval selection
-<ul>
-<li>using a box (will put it here later)</li>
-</ul>
-</li>
-</ul>
-<a class="header" href="#chord-practice-modes" id="chord-practice-modes"><h1>Chord Practice Modes</h1></a>
-<a class="header" href="#chordpracticefilter-page" id="chordpracticefilter-page"><h2>ChordPracticeFilter Page</h2></a>
-<ul>
-<li>key signature selection</li>
-<li>basic (multiple choice)
-<ul>
-<li>major</li>
-<li>minor</li>
-</ul>
-</li>
-<li>advanced (multiple choice)
-<ul>
-<li>dim</li>
-<li>aug5</li>
-<li>sus2</li>
-<li>sus4</li>
-<li>7</li>
-<li>maj7</li>
-<li>9</li>
-<li>11</li>
-<li>13</li>
-</ul>
-</li>
-<li>jazz ?</li>
-</ul>
-<a class="header" href="#song-practice-modes" id="song-practice-modes"><h1>Song Practice Modes</h1></a>
-<a class="header" href="#song-class" id="song-class"><h2>Song Class</h2></a>
-<ul>
-<li>midifile ?</li>
-<li>Note[] ?</li>
-</ul>
-<a class="header" href="#menus" id="menus"><h1>Menus</h1></a>
-<a class="header" href="#buttons" id="buttons"><h1>Buttons</h1></a>
-<a class="header" href="#pages" id="pages"><h1>Pages</h1></a>
 <a class="header" href="#deliverables" id="deliverables"><h1>Deliverables</h1></a>
 <ul>
 <li>D1 (<a href="./deliverables/D1/Deliverable_1.pdf">D1 pdf</a>) (<a href="./deliverables/D1/slides.pdf">slides</a>) (<a href="./deliverables/D1/wireframes.pdf">wireframe</a>)</li>

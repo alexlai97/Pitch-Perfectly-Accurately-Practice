@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Buttons - Developers' Guide</title>
+        <title>filter &amp; pipe architecture - Developers' Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="Guide book of PPAP for developers' design and progress">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="../quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="../TODO.html"><strong aria-hidden="true">2.</strong> PLAN, TODO and progress</a></li><li><ol class="section"><li><a href="../plan/modes/note_practice_mode.html"><strong aria-hidden="true">2.1.</strong> Practice Practice Mode</a></li><li><a href="../plan/modes/interval_practice_mode.html"><strong aria-hidden="true">2.2.</strong> Interval Practice Mode</a></li><li><a href="../plan/modes/chord_practice_mode.html"><strong aria-hidden="true">2.3.</strong> Chord Practice Mode</a></li><li><a href="../plan/modes/song_practice_mode.html"><strong aria-hidden="true">2.4.</strong> Song Practice Mode</a></li><li><a href="../plan/menus.html"><strong aria-hidden="true">2.5.</strong> Menus</a></li><li><a href="../plan/buttons.html" class="active"><strong aria-hidden="true">2.6.</strong> Buttons</a></li><li><a href="../plan/pages.html"><strong aria-hidden="true">2.7.</strong> Pages</a></li></ol></li><li><a href="../Deliverables.html"><strong aria-hidden="true">3.</strong> Deliverables</a></li><li><a href="../songs.html"><strong aria-hidden="true">4.</strong> Song list</a></li><li><a href="../links.html"><strong aria-hidden="true">5.</strong> Useful links</a></li></ol>
+            <ol class="chapter"><li><a href="../quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="../design_and_architecture.html"><strong aria-hidden="true">2.</strong> Design and architecture</a></li><li><ol class="section"><li><a href="../design_and_architecture/filter_and_pipe_architecture.html" class="active"><strong aria-hidden="true">2.1.</strong> filter &amp; pipe architecture</a></li></ol></li><li><a href="../TODO.html"><strong aria-hidden="true">3.</strong> PLAN, TODO and progress</a></li><li><a href="../Deliverables.html"><strong aria-hidden="true">4.</strong> Deliverables</a></li><li><a href="../songs.html"><strong aria-hidden="true">5.</strong> Song list</a></li><li><a href="../links.html"><strong aria-hidden="true">6.</strong> Useful links</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -136,20 +136,25 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="#buttons" id="buttons"><h1>Buttons</h1></a>
+                        <a class="header" href="#filter--pipe-architecture" id="filter--pipe-architecture"><h1>Filter &amp; Pipe Architecture</h1></a>
+<p>This architecture is used in get the note pool (sink) from XX (source) by applying filters.</p>
+<a class="header" href="#example" id="example"><h2>Example</h2></a>
+<p><img src="../images/filter_notes_idea.jpg" alt="alt text" title="filter example" /></p>
+<a class="header" href="#class-overview" id="class-overview"><h2>Class Overview</h2></a>
+<p><img src="../images/filter_bitmap_class_overview.jpg" alt="alt text" title="filter and bitmap class overview" /></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../plan/menus.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../design_and_architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../plan/pages.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../TODO.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -161,13 +166,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../plan/menus.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../design_and_architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../plan/pages.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../TODO.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
