@@ -1,7 +1,7 @@
-package com.example.perfectpitchaccuratepractice;
 import java.util.ArrayList;
-class NotesBitMap {
-  private boolean[] bitmap; // size: NUM_OF_NOTES (73)
+
+class NotesBitmap extends Bitmap {
+  private final static int size = Note.NUM_OF_NOTES;
 
   final static boolean[] template_major;
   final static boolean[] template_HarmonicMinor;
@@ -19,49 +19,49 @@ class NotesBitMap {
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
   }
 
-  NotesBitMap() {
-    this.bitmap = new boolean[Note.NUM_OF_NOTES]; // primitive type default to be false
+  NotesBitmap() {
+    this.bitmap = new boolean[this.size]; // primitive type default to be false
   }
 
-  NotesBitMap(boolean[] bitmap) {
+  NotesBitmap(boolean[] bitmap) {
     this.bitmap = bitmap; 
   }
+
 
   /**
    * print bitmap to stdout  (debugging)
    */
-  private void printBitMap() {
-    for (int i = 0; i < Note.NUM_OF_NOTES; i++) {
+  void printBitmap() {
+    for (int i = 0; i < this.size; i++) {
       System.out.println((new Note(i)).getText() + " " + (this.bitmap[i]? "1":"0") + " ");
     }
     System.out.println();
   }
+  
 
-  static NotesBitMap getFullSetNotesBitMap() {
-    NotesBitMap nbm = new NotesBitMap();
-    for (int i = 0; i < Note.NUM_OF_NOTES; i++) {
+  static NotesBitmap getNotesBitmapFromRange(Note from_note, Note to_note) {
+    int from_index = from_note.getIndex();
+    int to_index = to_note.getIndex();
+    NotesBitmap nbm = new NotesBitmap();
+    for (int i = from_index; i <= to_index; i++) {
       nbm.bitmap[i] = true;
     }
     return nbm;
   }
 
-  static NotesBitMap getBitMapFromRange(Note from_note, Note to_note) {
-    NotesBitMap nbm = new NotesBitMap();
-    for (int i = from_note.getIndex(); i <= to_note.getIndex(); i++) {
-      nbm.bitmap[i] = true;
-    }
-    return nbm;
+  static NotesBitmap getAllTrueNotesBitmap() {
+    return getNotesBitmapFromRange(new Note(0), new Note(size-1));
   }
 
-  static private boolean[] apply_template_to_whole_bitmap(boolean[] template, boolean[] whole, int start_index) {
-    for (int i = 0; i < Note.NUM_OF_NOTES; i++) {
+  private static boolean[] apply_template_to_whole_bitmap(boolean[] template, boolean[] whole, int start_index) {
+    for (int i = 0; i < size; i++) {
       whole[i] = template[(12 - start_index+i) % 12];
     }
     return whole;
   }
 
-  static NotesBitMap getBitMapFromScale(Note key_note, NotesScale scale) {
-    NotesBitMap nbm = new NotesBitMap();
+  static NotesBitmap getNotesBitmapFromScale(Note key_note, NotesScale scale) {
+    NotesBitmap nbm = new NotesBitmap();
 
     switch (scale) {
       case Major:
@@ -81,18 +81,18 @@ class NotesBitMap {
     return nbm;
   }
 
-  static NotesBitMap bitmapAnd(NotesBitMap bm1, NotesBitMap bm2) {
-    boolean[] result_bitmap = new boolean[Note.NUM_OF_NOTES];
-    for (int i = 0; i< Note.NUM_OF_NOTES; i++) {
+  static NotesBitmap bitmapAnd(NotesBitmap bm1, NotesBitmap bm2) {
+    boolean[] result_bitmap = new boolean [size];
+    for (int i = 0; i< size; i++) {
       result_bitmap[i] = bm1.bitmap[i] && bm2.bitmap[i];
     }
-    return new NotesBitMap(result_bitmap);
+    return new NotesBitmap(result_bitmap);
   }
 
   ArrayList<Note> toNotes() {
     ArrayList<Note> notes = new ArrayList<Note>();
 
-    for (int i = 0; i < Note.NUM_OF_NOTES; i ++) {
+    for (int i = 0; i < this.size; i ++) {
       if (this.bitmap[i]) notes.add(new Note(i));
     }
 
@@ -100,17 +100,17 @@ class NotesBitMap {
   }
 
   public static void main(String args[]) {
-    NotesBitMap m1 = getBitMapFromRange(new Note(0),new Note(72));
+    NotesBitmap m1 = getNotesBitmapFromRange(new Note(Note.INDEX_LOWER_BOUND),new Note(Note.INDEX_UPPER_BOUND));
     System.out.println("Printing m1");
-    m1.printBitMap();
-    NotesBitMap m2 = getBitMapFromRange(new Note(10),new Note(62));
+    m1.printBitmap();
+    NotesBitmap m2 = getNotesBitmapFromRange(new Note(10),new Note(62));
     System.out.println("Printing m2");
-    m2.printBitMap();
-    NotesBitMap m3 = getBitMapFromScale(new Note("C1"), NotesScale.NaturalMinor);
+    m2.printBitmap();
+    NotesBitmap m3 = getNotesBitmapFromScale(new Note("C1"), NotesScale.NaturalMinor);
     System.out.println("C Natural Minor Scale");
-    m3.printBitMap();
-    NotesBitMap m4 = getBitMapFromScale(new Note("C2"), NotesScale.Major);
+    m3.printBitmap();
+    NotesBitmap m4 = getNotesBitmapFromScale(new Note("C2"), NotesScale.Major);
     System.out.println("C Major Scale");
-    m4.printBitMap();
+    m4.printBitmap();
   }
 }

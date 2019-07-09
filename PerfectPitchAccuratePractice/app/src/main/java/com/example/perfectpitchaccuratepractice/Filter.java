@@ -1,8 +1,7 @@
-package com.example.perfectpitchaccuratepractice;
 abstract class Filter {
-  NotesBitMap bitmap;
+  Bitmap bitmap;
 
-  NotesBitMap applyFilterTo(NotesBitMap input_bitmap) {
-    return NotesBitMap.bitmapAnd(this.bitmap, input_bitmap);
+  Bitmap applyFilterTo(Bitmap input_bitmap) {
+    return Bitmap.bitmapAnd(this.bitmap, input_bitmap);
   }
 }

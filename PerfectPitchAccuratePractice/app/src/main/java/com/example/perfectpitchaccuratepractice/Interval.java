@@ -1,29 +1,24 @@
-package com.example.perfectpitchaccuratepractice;
 /**
  * A Interval can represent an interval (in String and interval index)
  * <p>
  * Restriction:
  * <p>
- *  range from -Octave (-12) to Octave (12)
+ *  range from -Octave (0) to Octave (24)
  * <p>
- * When index is non-negative
- * <table border="1">
- * <tr>
- *  <td> index </td>
- * <td>0</td> <td>1</td> <td>2</td> <td>3</td> <td>4</td> <td>5</td> <td>6</td> <td>7</td> <td>8</td> <td>9</td> <td>10</td> <td>11</td> <td>12</td> 
- * </tr>
- * <tr>
- * <td> string </td> 
- * <td>U</td> <td>m2</td> <td>M2</td> <td>m3</td> <td>M3</td> <td>P4</td> <td>A4</td> <td>P5</td> <td>m6</td> <td>M6</td> <td>m7</td> <td>M7</td> <td>O</td>
- * </tr>
- * </table>
- *
  */
 public class Interval {
   /**
-   * internal index where actual range is [-12, 12]
+   * internal index where actual range is [0, 24]
    */
   private int index;
+
+  /**
+   * number of intervals: 
+   */
+  final static int NUM_OF_INTERVALS = 25;
+
+  final static int INDEX_LOWER_BOUND = 0;
+  final static int INDEX_UPPER_BOUND = NUM_OF_INTERVALS - 1;
 
   /**
    * all interval strings, hardcoded
@@ -63,8 +58,8 @@ public class Interval {
    * getter for the text of the interval
    */
   String getText() {
-    String text = INTERVAL_STRINGS[Math.abs(index)];
-    return (index <0)? NEGATIVE_STRING + text: POSITIVE_STRING + text;
+    String text = INTERVAL_STRINGS[Math.abs(index-12)];
+    return (index - 12<0)? NEGATIVE_STRING + text: POSITIVE_STRING + text;
   }
 
   /**
@@ -85,13 +80,15 @@ public class Interval {
    */
   public static void main(String args[]) {
     System.out.println("index | text");
-    for (int i = -12; i <= 12; i++) {
+    for (int i = Interval.INDEX_LOWER_BOUND; i <= Interval.INDEX_UPPER_BOUND; i++) {
       Interval itv = new Interval (i);
       System.out.println("" + itv.getIndex() + " | " + itv.getText());
     }
 
-    Interval [] intervals = generateIntervalsWithRange(-12,12);
-    for (int i = 0; i < 25; i++) {
+    System.out.println();
+    System.out.println("index | text");
+    Interval [] intervals = generateIntervalsWithRange(Interval.INDEX_LOWER_BOUND, Interval.INDEX_UPPER_BOUND);
+    for (int i = Interval.INDEX_LOWER_BOUND; i <= Interval.INDEX_UPPER_BOUND; i++) {
       System.out.println("" + intervals[i].getIndex() + " | " + intervals[i].getText());
     }
   }
