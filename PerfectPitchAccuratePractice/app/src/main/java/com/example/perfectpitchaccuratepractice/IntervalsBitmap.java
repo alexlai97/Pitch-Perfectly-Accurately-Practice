@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 class IntervalsBitmap extends Bitmap {
   private final static int size = Interval.NUM_OF_INTERVALS;
 

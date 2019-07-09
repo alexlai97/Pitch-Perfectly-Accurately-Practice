@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 import java.util.ArrayList;
 class FilterHandler {
   Filter[] filters;

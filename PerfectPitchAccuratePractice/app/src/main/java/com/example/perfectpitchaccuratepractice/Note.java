@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 
 /**
  * A Note can represent a note (in frequency, and String, and internal index)

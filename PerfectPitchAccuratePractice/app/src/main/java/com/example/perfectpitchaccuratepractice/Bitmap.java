@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 
 abstract class Bitmap {
   boolean[] bitmap; 

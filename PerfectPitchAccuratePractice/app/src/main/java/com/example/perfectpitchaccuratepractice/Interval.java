@@ -1,3 +1,4 @@
+package com.example.perfectpitchaccuratepractice;
 /**
  * A Interval can represent an interval (in String and interval index)
  * <p>
