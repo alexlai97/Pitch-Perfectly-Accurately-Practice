@@ -273,7 +273,7 @@ class Note {
   }
 
   /**
-   * test (ignore me)
+   * A way to use this class, will print a table of notes
    */
   public static void main(String[] args) {
     System.out.println("index | string | frequency ");

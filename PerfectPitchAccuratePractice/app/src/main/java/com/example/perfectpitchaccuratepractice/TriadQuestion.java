@@ -1,11 +1,19 @@
 package com.example.perfectpitchaccuratepractice;
 import java.util.Random;
 
+/**
+ * A Question in Triad practice mode
+ */
 class TriadQuestion extends Question{
 
-
+  /**
+   * The triad that will be questioned 
+   */
   Triad questionTriad;
   
+  /**
+   * a static Random
+   */
   private static Random random = new Random();
 
   /**
@@ -25,6 +33,9 @@ class TriadQuestion extends Question{
   }
 
 
+  /**
+   * a way to use this class
+   */
   public static void main(String args[]) {
     TriadQuestion tq = new TriadQuestion();
     tq.setNotePool(Note.generateNotesWithRange(24,36));

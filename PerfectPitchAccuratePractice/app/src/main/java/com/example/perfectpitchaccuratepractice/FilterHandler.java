@@ -1,28 +1,56 @@
 package com.example.perfectpitchaccuratepractice;
 import java.util.ArrayList;
+
+/**
+ * A convenience class to handle filters
+ */
 class FilterHandler {
+  /**
+   * An array of filters, order should matter (but not matter so far in current filters)
+   */
   Filter[] filters;
-  
+
+  /**
+   * current data stored in the handler
+   */
   Bitmap current_bitmap;
 
+  /**
+   * set the current data, should be used at first
+   * @param bm
+   */
   void setInitialBitmap(Bitmap bm) {
     current_bitmap = bm;
   }
 
+  /**
+   * set filters in handler
+   * @param filters
+   */
   void setFilters(Filter[] filters) {
     this.filters = filters;
   }
 
+  /**
+   * apply filters in handler
+   */
   void applyFilters() {
     for (Filter f: this.filters) {
       current_bitmap = f.applyFilterTo(current_bitmap);
     }
   }
 
+  /**
+   * get current data inside handler
+   * @return Bitmap
+   */
   Bitmap getResultBitmap() {
     return current_bitmap;
   }
 
+  /**
+   * a way to use this class
+   */
   public static void main(String args[]) {
     // Filtering Notes
     int num_of_filters = 2;

@@ -1,12 +1,30 @@
 package com.example.perfectpitchaccuratepractice;
 import java.util.Random;
 
+/**
+ * A Question in Interval practice mode
+ */
 class IntervalQuestion extends Question {
+  /**
+   * The base note in the question
+   */
   private Note questionNote;
+  /**
+   * The interval in the question
+   */
   private Interval questionInterval;
+  /**
+   * The answer of the question
+   */
   private Note answerNote;
+  /**
+   * interval pool, similar to note pool, is a set of intervals that can be used to form a question
+   */
   private Interval[] intervalPool;
 
+  /**
+   * static Random
+   */
   private static Random random = new Random();
 
   /**
@@ -32,7 +50,7 @@ class IntervalQuestion extends Question {
   }
 
   /**
-   * test (ignore me)
+   * a way to use this class, can print all intervals in a table
    */
   public static void main(String args[]) {
     IntervalQuestion iq = new IntervalQuestion();

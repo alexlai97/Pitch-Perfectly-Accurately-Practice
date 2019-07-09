@@ -5,11 +5,11 @@ package com.example.perfectpitchaccuratepractice;
  */
 public abstract class Question {
   /**
-   * the text of the question
+   * an array of texts that constitute the question
    */
   String[] texts;
   /**
-   * the note pool, which is can be generated from the filter page
+   * the note pool, which can be generated from the filter page, used to form a question
    */
   Note[] notePool;
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script is used for removing and inserting the str below on the first line
 
 str='package com.example.perfectpitchaccuratepractice;'
 

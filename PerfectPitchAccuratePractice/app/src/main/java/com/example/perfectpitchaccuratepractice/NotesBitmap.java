@@ -1,14 +1,34 @@
 package com.example.perfectpitchaccuratepractice;
 import java.util.ArrayList;
 
+
+/**
+ * Bitmap of representing all the notes
+ */
 class NotesBitmap extends Bitmap {
+  /**
+   * size of boolean array 
+   */
   private final static int size = Note.NUM_OF_NOTES;
 
+  /**
+   * template bitmap for major scale
+   */
   final static boolean[] template_major;
+  /**
+   * template bitmap for harmonic minor scale
+   */
   final static boolean[] template_HarmonicMinor;
+  /**
+   * template bitmap for natural minor scale
+   */
   final static boolean[] template_NaturalMinor;
+  /**
+   * template bitmap for melodic minor scale
+   */
   final static boolean[] template_MelodicMinor;
 
+  // initializing those templates above
   static {
     template_major = new boolean[]
     { true/*0*/, false/*1*/, true/*2*/, false/*3*/, true/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
@@ -20,10 +40,16 @@ class NotesBitmap extends Bitmap {
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
   }
 
+  /**
+   * constructor, default to all 0 in the bitmap
+   */
   NotesBitmap() {
     this.bitmap = new boolean[this.size]; // primitive type default to be false
   }
 
+  /**
+   * constructor, takes the boolean array as setter
+   */
   NotesBitmap(boolean[] bitmap) {
     this.bitmap = bitmap; 
   }
@@ -39,7 +65,9 @@ class NotesBitmap extends Bitmap {
     System.out.println();
   }
   
-
+  /**
+   * return a NotesBitmap given a low Note and high Note as parameters
+   */
   static NotesBitmap getNotesBitmapFromRange(Note from_note, Note to_note) {
     int from_index = from_note.getIndex();
     int to_index = to_note.getIndex();
@@ -50,10 +78,16 @@ class NotesBitmap extends Bitmap {
     return nbm;
   }
 
+  /**
+   * return a NotesBitmap of all 1
+   */
   static NotesBitmap getAllTrueNotesBitmap() {
     return getNotesBitmapFromRange(new Note(0), new Note(size-1));
   }
 
+  /**
+   * apply the template defined above to the entire bitmap and returns the modified bitmap
+   */
   private static boolean[] apply_template_to_whole_bitmap(boolean[] template, boolean[] whole, int start_index) {
     for (int i = 0; i < size; i++) {
       whole[i] = template[(12 - start_index+i) % 12];
@@ -61,6 +95,9 @@ class NotesBitmap extends Bitmap {
     return whole;
   }
 
+  /**
+   * return a NotesBitmap given key signature note and scale pairs
+   */
   static NotesBitmap getNotesBitmapFromScale(Note key_note, NotesScale scale) {
     NotesBitmap nbm = new NotesBitmap();
 
@@ -82,6 +119,9 @@ class NotesBitmap extends Bitmap {
     return nbm;
   }
 
+  /**
+   * bit wise 'and' operation on two Notesbitmap and return the result NotesBitmap
+   */
   static NotesBitmap bitmapAnd(NotesBitmap bm1, NotesBitmap bm2) {
     boolean[] result_bitmap = new boolean [size];
     for (int i = 0; i< size; i++) {
@@ -90,6 +130,9 @@ class NotesBitmap extends Bitmap {
     return new NotesBitmap(result_bitmap);
   }
 
+  /**
+   * convert bitmap to array of notes that are true (1) in bitmap, return the array, useful for implementing the buttons in NotesFilterPage
+   */
   ArrayList<Note> toNotes() {
     ArrayList<Note> notes = new ArrayList<Note>();
 
@@ -100,6 +143,9 @@ class NotesBitmap extends Bitmap {
     return notes;
   }
 
+  /**
+   * A way to use the class
+   */
   public static void main(String args[]) {
     NotesBitmap m1 = getNotesBitmapFromRange(new Note(Note.INDEX_LOWER_BOUND),new Note(Note.INDEX_UPPER_BOUND));
     System.out.println("Printing m1");

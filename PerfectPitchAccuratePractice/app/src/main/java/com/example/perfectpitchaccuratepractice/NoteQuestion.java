@@ -5,6 +5,9 @@ import java.util.Random;
  * A Question in Note practice mode
  */
 class NoteQuestion extends Question {
+  /**
+   * The note that will be questioned 
+   */
   private Note questionNote;
 
   /**
