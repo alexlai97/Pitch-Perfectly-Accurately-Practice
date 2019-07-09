@@ -121,7 +121,7 @@ public class ModelController {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    current_question.set_candidates_with_range(12,36);
+    current_question.setNotePool(Note.generateNotesWithRange(12,36));
     activity = ac;
     frequencyText = this.activity.findViewById(R.id.currentFrequencyTextView);
     questionText = this.activity.findViewById(R.id.questionTextView);
@@ -151,11 +151,9 @@ public class ModelController {
         break;
       case IntervalPractice: 
         //FIXME not implemented
-        // current_question = new IntervalQuestion();
         break;
-      case ChordPractice: 
+      case TriadPractice:
         //FIXME not implemented
-        // current_question = new ChordQuestion();
         break;
       case SongPractice: 
         //FIXME not implemented
@@ -200,7 +198,7 @@ public class ModelController {
    */
   void next_question() {
     current_question.generate_random_question();
-    questionText.setText(current_question.getText());
+    questionText.setText(current_question.getTexts()[0]);
   }
 
   /**
@@ -234,7 +232,7 @@ public class ModelController {
     }
     current_frequency = freq;
     frequencyText.setText(""+Math.round(current_frequency) +" Hz");
-    currentPitchText.setText("U: " + (new Note(current_frequency)).getText(true));
+    currentPitchText.setText("U: " + (new Note(current_frequency)).getText());
     double expected_freq = getExpectedFrequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
