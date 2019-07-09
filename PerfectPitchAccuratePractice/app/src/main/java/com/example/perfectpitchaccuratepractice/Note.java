@@ -1,5 +1,4 @@
 
-package com.example.perfectpitchaccuratepractice;
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
  *
@@ -27,6 +26,8 @@ package com.example.perfectpitchaccuratepractice;
  */
 
 class Note {
+  
+
   /**
    * internal index where actual range is [0, 72]
    */
@@ -35,7 +36,7 @@ class Note {
   /**
    * number of notes in actual range which is 72+1 = 73
    */
-  private final static int    NUM_OF_NOTES = 73;
+  final static int NUM_OF_NOTES = 73;
   /**
    * frequency of A1, which is 55 Hz
    */

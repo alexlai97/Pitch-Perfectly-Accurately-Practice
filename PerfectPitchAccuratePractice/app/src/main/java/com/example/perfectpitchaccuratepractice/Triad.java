@@ -6,8 +6,8 @@ class Triad {
 
   enum TriadScale {
     Major, Minor, Diminished, Augmented;
-
   }
+
   static TriadScale getRandomTriadScale() {
     return TriadScale.values()[random.nextInt(TriadScale.values().length)];
   }
