@@ -23,6 +23,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
+
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.widget.ImageView;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
     private TextView arrow;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
@@ -81,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mDrawerList = (ListView) findViewById(R.id.myNavi);
+        addDrawerItems();
+
         modelController = new ModelController(new Config(), this);
         modelController.next_question();
 
@@ -104,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
 //        handleAnimation(300);
     }
 
+    private void addDrawerItems() {
+        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
+        Log.w(TAG, Integer.toString(mAdapter.getCount()) );
+
+        mDrawerList.setAdapter(mAdapter);
+    }
 
     protected void onRestart() {
         super.onRestart();
