@@ -1,6 +1,8 @@
 package com.example.perfectpitchaccuratepractice;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -9,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -40,12 +44,39 @@ public class MainActivity extends AppCompatActivity {
     private static PlaySound theSound = new PlaySound();
     private TextView arrow;
 
+    private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
+
     private ModelController modelController;
     private boolean created = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e(TAG, "s"
                 + created);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.RECORD_AUDIO)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        MY_PERMISSIONS_REQUEST_AUDIO);
+            }
+            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+
+        } else {
+            // Permission has already been granted
+        }
+
         created = true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -87,6 +118,29 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openFilter(View view){
         startActivity(new Intent(this, FilterActivity.class));
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_AUDIO: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+
+                } else {
+                    // permission denied
+
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 
 }
