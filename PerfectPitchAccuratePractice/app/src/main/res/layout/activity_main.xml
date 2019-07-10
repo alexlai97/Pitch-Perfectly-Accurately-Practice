@@ -14,7 +14,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#00FA9A"
+        android:background="#E6FBBA"
         tools:context="com.example.perfectpitchaccuratepractice.MainActivity">
 
         <TextView
