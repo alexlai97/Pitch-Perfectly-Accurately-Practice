@@ -1,4 +1,5 @@
 package com.example.perfectpitchaccuratepractice;
+
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
  *
@@ -25,16 +26,22 @@ package com.example.perfectpitchaccuratepractice;
  * </table>
  */
 
-public class Note {
+class Note {
+  
+
   /**
    * internal index where actual range is [0, 72]
    */
   private int index;  
 
+
   /**
    * number of notes in actual range which is 72+1 = 73
    */
-  private final static int    NUM_OF_NOTES = 73;
+  final static int NUM_OF_NOTES = 73;
+
+  final static int INDEX_LOWER_BOUND = 0;
+  final static int INDEX_UPPER_BOUND = NUM_OF_NOTES - 1;
   /**
    * frequency of A1, which is 55 Hz
    */
@@ -69,6 +76,7 @@ public class Note {
    * Set Note's index to i
    */
   void setTo(int i) {
+    assert(i >= 0 && i < NUM_OF_NOTES);
     this.index = i;
   }
 
@@ -142,20 +150,22 @@ public class Note {
    * Error within a semitone
    */
   Note(double frequency) {
+    if (frequency < Config.LOWEST_RECOGNIZED_FREQ) {
+      index = -1;
+    } else {
      double tmp = Math.log(frequency / FREQ_OF_A1) / Math.log(2) * 12;
      index = (int) Math.round(tmp);
+    }
   }
 
   /**
    * Return the String representation of Note
    * <p>
-   * e.g. Note(1).getText(true) gives  "A1#"
+   * e.g. Note(1).getText() gives  "A1#"
    * <p>
    * FIXME only sharp representation for now
-   * <p>
-   * TODO  Note(1).getText(false) gives "B1b"
    */
-  String getText(boolean sharp) {
+  String getText() {
     if (index < 0 || index > 72) { return "??"; }
     int octave;
     int remainder = this.index % 12;
@@ -228,29 +238,61 @@ public class Note {
   }
 
   /**
+   * 
+   */
+  static int getIndex(Note note) {
+    return note.getIndex();
+  }
+
+  /**
+   * 
+   */
+  static int getIndex(String str) {
+    Note n = new Note(str);
+    return n.getIndex();
+  }
+
+  /**
    * compute the frequency from internal index
    */
   double getFrequency() {
+    assert(index >= 0 && index < NUM_OF_NOTES);
     return frequency_array[this.index];
   }
 
+  /**
+   * generate a set of notes given index range 
+   */
+  static Note [] generateNotesWithRange(int from_index, int to_index) {
+    int num = to_index - from_index + 1;
+    Note notes[] = new Note[num];
+    for (int i =0; i < num; i++) {
+      notes[i] = new Note(from_index + i);
+    }
+    return notes;
+  }
 
   /**
-   * test (ignore me)
+   * A way to use this class, will print a table of notes
    */
   public static void main(String[] args) {
     System.out.println("index | string | frequency ");
 
     for (int i= 0; i < NUM_OF_NOTES; i++) {
       Note n = new Note(i);
-      String str = n.getText(true);
+      String str = n.getText();
       Note n1 = new Note(str);
       assert(n1.getIndex() == i);
-      assert(n1.getText(true) == str);
+      assert(n1.getText() == str);
       System.out.println("  " + n.getIndex() + " | " + str + " | " + n.getFrequency());
     }
 
-    Note n1 = new Note("A3");
-    System.out.println(n1.getText(true));
+    System.out.println("Using generateNotesWithRange");
+
+    Note [] notes = generateNotesWithRange(0, 72);
+    assert(notes.length == 73);
+    for (int i=0; i< 73; i++) {
+      System.out.println("  " + notes[i].getIndex() + " | " + notes[i].getText() + " | " + notes[i].getFrequency());
+    }
   }
 }

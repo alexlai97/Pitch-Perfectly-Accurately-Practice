@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00FA9A"
+    android:background="#E6FBBA"
     tools:context="com.example.perfectpitchaccuratepractice.MainActivity">
 
     <TextView
@@ -27,8 +29,8 @@
 
     <TextView
         android:id="@+id/questionTextView"
-        android:layout_width="214dp"
-        android:layout_height="144dp"
+        android:layout_width="350dp"
+        android:layout_height="272dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -44,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowTextView"
-        app:layout_constraintVertical_bias="0.284" />
+        app:layout_constraintVertical_bias="0.13999999" />
 
     <Button
         android:id="@+id/filterButton"
@@ -76,32 +78,32 @@
 
     <Button
         android:id="@+id/playSoundButton"
-        android:layout_width="44dp"
-        android:layout_height="53dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/icons8_play_50"
+        android:background="@drawable/baseline_play_circle_filled_black_18dp"
+        android:onClick="myToner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="myToner"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/helpButton"
-        android:layout_width="39dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/icons8_help_50"
+        android:background="@drawable/baseline_help_outline_black_18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/naviButton"
-        android:layout_width="43dp"
-        android:layout_height="44dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/icons8_menu_50"
+        android:background="@drawable/baseline_menu_black_18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

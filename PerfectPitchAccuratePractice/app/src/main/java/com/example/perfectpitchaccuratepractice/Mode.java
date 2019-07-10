@@ -6,7 +6,7 @@ package com.example.perfectpitchaccuratepractice;
 public enum Mode {
   NotePractice,
   IntervalPractice,
-  ChordPractice,
+  TriadPractice,
   SongPractice;
 }
 

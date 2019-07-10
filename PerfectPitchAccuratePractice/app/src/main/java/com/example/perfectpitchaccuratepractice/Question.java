@@ -4,46 +4,47 @@ package com.example.perfectpitchaccuratepractice;
  * an abstract class of Question
  */
 public abstract class Question {
-  String text;
-  Note[] candidate_notes;
+  /**
+   * an array of texts that constitute the question
+   */
+  String[] texts;
+  /**
+   * the note pool, which can be generated from the filter page, used to form a question
+   */
+  Note[] notePool;
 
   /**
-   * Constructor, at default text "n/a"
+   * Constructor
    */
   Question() {
-    this.text = "n/a";
-  }
-
-
-  /**
-   * Setter for Candidate notes
-   */ 
-  void set_candidates(Note [] notes) {
-    this.candidate_notes = notes;
   }
 
   /**
-   * generate candidate notes using lower note index and upper note index
-   * <p>
-   * E.g.  0 - 13 means A1 - A2
+   * Setter for note pool
    */ 
-  void set_candidates_with_range(int lower, int upper) {
-    int num = upper - lower + 1;
-    candidate_notes = new Note[num];
-    for (int i =0; i < num; i++) {
-      candidate_notes[i] = new Note(lower + i);
-    }
+  void setNotePool(Note [] notes) {
+    this.notePool = notes;
   }
 
   /**
    * getter of the text of the question
    */
-  String getText() {
-    return this.text;
+  String[] getTexts() {
+    return this.texts;
   }
 
   /**
-   * abstract function, currently only for note question
+   * print texts separated by space in stdout
+   */
+  void print_question_texts() {
+    for (String t: this.getTexts()) {
+      System.out.print(t + " ");
+    }
+    System.out.println();
+  }
+
+  /**
+   * abstract function to generate random question given current fields
    */
   void generate_random_question() {
   }
