@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements
 
         switch(id){
             case R.string.note_mode:
-                Intent 
+                break;
             case R.string.interval_mode:
                 break;
             case R.string.chord_mode:
