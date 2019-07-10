@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
     private TextView arrow;
-    private ListView mDrawerList;
-    private ArrayAdapter<String> mAdapter;
+
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
@@ -95,9 +94,6 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wrapper);
 
-        mDrawerList = (ListView) findViewById(R.id.myNavi);
-        addDrawerItems();
-
         modelController = new ModelController(new Config(), this);
         modelController.next_question();
 
@@ -134,14 +130,6 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void addDrawerItems() {
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
-        Log.w(TAG, Integer.toString(mAdapter.getCount()) );
-
-        mDrawerList.setAdapter(mAdapter);
     }
 
     protected void onRestart() {
