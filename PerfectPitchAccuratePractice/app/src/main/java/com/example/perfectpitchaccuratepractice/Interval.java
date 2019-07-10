@@ -14,7 +14,7 @@ public class Interval {
   private int index;
 
   /**
-   * number of intervals: 
+   * number of intervals: lololol 
    */
   final static int NUM_OF_INTERVALS = 25;
 
