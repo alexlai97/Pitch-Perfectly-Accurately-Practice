@@ -56,7 +56,7 @@ class FilterHandler {
     int num_of_filters = 2;
     Filter[] filters  = new Filter[num_of_filters];
     filters[0] = new NotesRangeFilter(new Note("A2"), new Note("C4"));
-    filters[1] = new NotesScaleFilter(new Note("C1"), NotesScale.Major);
+    filters[1] = new NotesScaleFilter(new Note("C1"), NotesScale.HarmonicMinor);
 
     FilterHandler fh = new FilterHandler();
     fh.setInitialBitmap(NotesBitmap.getAllTrueNotesBitmap());
