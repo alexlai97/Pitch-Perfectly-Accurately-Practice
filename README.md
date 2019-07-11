@@ -1,5 +1,3 @@
-hello this is irvine....
-this is johnny....
 # Pitch-Perfectly-Accurately-Practice (PPAP)
 An Android app that cultivates user to have perfect earworm.
 
@@ -15,5 +13,5 @@ An Android app that cultivates user to have perfect earworm.
 - note practice mode
 - interval practice mode
 - chord practice mode
-- song practice mode
+(- song practice mode -- if time allowed)
 
