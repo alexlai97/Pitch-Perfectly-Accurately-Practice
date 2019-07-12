@@ -2,11 +2,16 @@ package com.example.perfectpitchaccuratepractice;
 
 import android.app.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 
@@ -159,13 +164,16 @@ public class FilterActivity extends Activity {
                 Log.i(TAG, "keySig (on nothing) select item ");
             }
         });
+
+
     }
 
     void update_using_note_pool() {
+        // just print them out
         for (Note note: note_pool) {
             Log.i(TAG, note.getText());
         }
-        // TODO generate and Note pool and view
+        // TODO generate buttons and Note pool and view
     }
 
 
