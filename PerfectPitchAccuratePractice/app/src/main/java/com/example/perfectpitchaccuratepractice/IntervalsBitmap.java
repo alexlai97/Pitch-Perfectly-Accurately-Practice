@@ -6,7 +6,7 @@ class IntervalsBitmap extends Bitmap {
   /**
    * size of boolean array 
    */
-  private final static int size = Interval.NUM_OF_INTERVALS;
+  private static int size = Interval.NUM_OF_INTERVALS;
 
   
   /**
@@ -57,10 +57,11 @@ class IntervalsBitmap extends Bitmap {
   /**
    * bit wise 'and' operation on two Intervalsbitmap and return the result IntervalsBitmap
    */
-  static IntervalsBitmap bitmapAnd(IntervalsBitmap bm1, IntervalsBitmap bm2) {
-    boolean[] result_bitmap = new boolean [size];
+  IntervalsBitmap bitmapAnd(Bitmap new_bitmap) {
+    System.out.println("Interval Bitmap add");
+    boolean[] result_bitmap = new boolean [this.size];
     for (int i = 0; i< size; i++) {
-      result_bitmap[i] = bm1.bitmap[i] && bm2.bitmap[i];
+      result_bitmap[i] = this.bitmap[i] && new_bitmap.bitmap[i];
     }
     return new IntervalsBitmap(result_bitmap);
   }

@@ -15,12 +15,14 @@ class FilterHandler {
    */
   Bitmap current_bitmap;
 
+  Bitmap initial_bitmap;
+
   /**
    * set the current data, should be used at first
    * @param bm
    */
   void setInitialBitmap(Bitmap bm) {
-    current_bitmap = bm;
+    initial_bitmap = bm;
   }
 
   /**
@@ -31,10 +33,27 @@ class FilterHandler {
     this.filters = filters;
   }
 
+  void updateFilterAt(int i, Filter f) {
+    if (i<0 || i > filters.length) {
+      throw new AssertionError("invalid index");
+    }
+    filters[i] = f;
+  }
+
+  FilterHandler() {
+
+  }
+
+  FilterHandler(Bitmap initialData, Filter[] filters) {
+    setInitialBitmap(initialData);
+    this.filters = filters;
+  }
+
   /**
    * apply filters in handler
    */
   void applyFilters() {
+      current_bitmap = initial_bitmap;
     for (Filter f: this.filters) {
       current_bitmap = f.applyFilterTo(current_bitmap);
     }
@@ -55,12 +74,15 @@ class FilterHandler {
     // Filtering Notes
     int num_of_filters = 2;
     Filter[] filters  = new Filter[num_of_filters];
-    filters[0] = new NotesRangeFilter(new Note("A2"), new Note("C4"));
-    filters[1] = new NotesScaleFilter(new Note("C1"), NotesScale.HarmonicMinor);
-
     FilterHandler fh = new FilterHandler();
-    fh.setInitialBitmap(NotesBitmap.getAllTrueNotesBitmap());
+    /*
+    filters[0] = new NotesRangeFilter(new Note("A2"), new Note("C4"));
+    filters[1] = new NotesScaleFilter(new Note("C1"), NotesScale.Major);
+
+    NotesBitmap initialData = NotesBitmap.getAllTrueNotesBitmap();
+    fh.setInitialBitmap(initialData);
     fh.setFilters(filters);
+//    fh.filters[1].bitmap.printBitmap();
     fh.applyFilters();
     ArrayList<Note> result = ((NotesBitmap) fh.getResultBitmap()).toNotes();
 
@@ -68,15 +90,33 @@ class FilterHandler {
       System.out.println(n.getText());
     }
 
+    */
 
     // Filtering Intervals
+    /*
     num_of_filters = 1;
     filters  = new Filter[num_of_filters];
     filters[0] = new IntervalsFilter(IntervalsBitmap.getIntervalsBitmapFromRange(new Interval(1), new Interval(23)));
     fh = new FilterHandler();
     fh.setInitialBitmap(IntervalsBitmap.getAllTrueIntervalsBitmap());
     fh.setFilters(filters);
+//    System.out.println(filters.length);
     fh.applyFilters();
-    ((IntervalsBitmap) fh.getResultBitmap()).printBitmap();
+    fh.getResultBitmap().printBitmap();
+    */
+
+    // test
+    System.out.println("testing");
+    NotesRangeFilter rangeFilter = new NotesRangeFilter(new Note("A1"), new Note("A2"));
+    NotesScaleFilter scaleFilter = new NotesScaleFilter(new Note("C"), NotesScale.Major);
+    scaleFilter.bitmap.printBitmap();
+    fh = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
+    filters = new Filter[]{rangeFilter, scaleFilter};
+    fh.setFilters(filters);
+    fh.applyFilters();
+    Note[] notes_result = ((NotesBitmap) fh.getResultBitmap()).toNotes();
+    for (Note n: notes_result) {
+      System.out.println(n.getText());
+    }
   }
 }

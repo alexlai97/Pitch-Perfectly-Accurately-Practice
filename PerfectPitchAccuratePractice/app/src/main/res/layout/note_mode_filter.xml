@@ -9,7 +9,7 @@
     tools:context=".FilterActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/fromTextView"
         android:layout_width="143dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/fromSpinner"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginTop="65dp"
@@ -30,17 +30,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/toSpinner"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/fromSpinner" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/scaleSpinner"
         android:layout_width="173dp"
         android:layout_height="42dp"
         android:layout_marginTop="16dp"
@@ -48,20 +48,20 @@
         android:spinnerMode="dropdown"
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/toSpinner" />
 
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/keySigSpinner"
         android:layout_width="110dp"
         android:layout_height="44dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintTop_toBottomOf="@+id/scaleSpinner" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/toTextView"
         android:layout_width="130dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
@@ -69,10 +69,10 @@
         android:text="@string/to"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/fromTextView" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/scaleTextView"
         android:layout_width="133dp"
         android:layout_height="43dp"
         android:layout_marginStart="16dp"
@@ -80,10 +80,10 @@
         android:text="@string/scale"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/toTextView" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/keySigTextView"
         android:layout_width="224dp"
         android:layout_height="46dp"
         android:layout_marginStart="16dp"
@@ -91,7 +91,7 @@
         android:text="@string/keySig"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/scaleTextView" />
 
     <Button
         android:id="@+id/backButton"
