@@ -1,5 +1,4 @@
 package com.example.perfectpitchaccuratepractice;
-import java.util.ArrayList;
 
 /**
  * A convenience class to handle filters
@@ -84,7 +83,7 @@ class FilterHandler {
     fh.setFilters(filters);
 //    fh.filters[1].bitmap.printBitmap();
     fh.applyFilters();
-    ArrayList<Note> result = ((NotesBitmap) fh.getResultBitmap()).toNotes();
+    Note[] result = ((NotesBitmap) fh.getResultBitmap()).toNotes();
 
     for (Note n: result) {
       System.out.println(n.getText());

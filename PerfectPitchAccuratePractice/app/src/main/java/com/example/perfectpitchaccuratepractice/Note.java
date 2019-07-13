@@ -2,6 +2,7 @@ package com.example.perfectpitchaccuratepractice;
 
 
 import android.icu.text.CaseMap;
+import android.util.Log;
 
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
@@ -328,6 +329,41 @@ class Note {
         strings[i] = notes[i].getText();
     }
     return strings;
+  }
+
+  /**
+   * notes to ints, for parsing as intent
+   * @param notes
+   * @return
+   */
+   static int[] NotesToInts(Note[] notes) {
+    int [] ints = new int[notes.length];
+    for (int i =0; i < notes.length; i++) {
+      ints[i] = notes[i].getIndex();
+    }
+    return ints;
+  }
+
+  static Note[] IntsToNotes(int[] ints) {
+    Note [] notes = new Note[ints.length];
+    for (int i =0; i < ints.length; i++) {
+      notes[i] = new Note(ints[i]);
+    }
+    return notes;
+  }
+
+  /**
+   * log the notes
+   * @param tag
+   * @param notes
+   */
+  static void logNotes(String tag, Note[] notes) {
+    String[] strings = getStringsFromNotes(notes);
+    String text = "";
+    for (String s: strings) {
+      text += s + ",";
+    }
+    Log.i(tag, text);
   }
 
   /**

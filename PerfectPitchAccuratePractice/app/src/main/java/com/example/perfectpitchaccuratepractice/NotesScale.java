@@ -3,7 +3,7 @@ package com.example.perfectpitchaccuratepractice;
  * The scale options in filter page when selecting 'scale'
  */
 enum NotesScale {
-  Major, NaturalMinor, HarmonicMinor, MelodicMinor;
+  None, Major, NaturalMinor, HarmonicMinor, MelodicMinor;
 
   static String[] getAllNotesScales() {
     NotesScale[] values =  NotesScale.values();
@@ -13,6 +13,4 @@ enum NotesScale {
     }
     return strings;
   }
-
-
 }

@@ -14,7 +14,7 @@ class NotesBitmap extends Bitmap {
   /**
    * template bitmap for major scale
    */
-  final static boolean[] template_major;
+  final static boolean[] template_Major;
   /**
    * template bitmap for harmonic minor scale
    */
@@ -28,9 +28,13 @@ class NotesBitmap extends Bitmap {
    */
   final static boolean[] template_MelodicMinor;
 
+  final static boolean[] template_None;
+
   // initializing those templates above
   static {
-    template_major = new boolean[]
+    template_None = new boolean[]
+    { true/*0*/, true/*1*/, true/*2*/, true/*3*/, true/*4*/, true/*5*/, true/*6*/, true/*7*/, true/*8*/, true/*9*/, true/*10*/, true/*11*/ };
+    template_Major = new boolean[]
     { true/*0*/, false/*1*/, true/*2*/, false/*3*/, true/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
     template_HarmonicMinor = new boolean[]
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, true/*8*/, false/*9*/, false/*10*/, true/*11*/ };
@@ -56,6 +60,27 @@ class NotesBitmap extends Bitmap {
    */
   NotesBitmap(boolean[] bitmap) {
     this.bitmap = bitmap;
+  }
+
+  /**
+   * construct NotesBitmap given notes
+   * @param notes
+   */
+  NotesBitmap(Note[] notes) {
+    this.bitmap = new boolean[this.size]; // primitive type default to be false
+
+    for (Note n: notes) {
+        this.bitmap[n.getIndex()] = true;
+    }
+  }
+
+  /**
+   * toggle note in the bitmap
+   * @param note
+   */
+  void toggleNote(Note note) {
+    int index = note.getIndex();
+    this.bitmap[index] = ! this.bitmap[index];
   }
 
 
@@ -106,8 +131,11 @@ class NotesBitmap extends Bitmap {
     NotesBitmap nbm = new NotesBitmap();
 
     switch (scale) {
+      case None:
+        nbm.bitmap = apply_template_to_whole_bitmap(template_None, nbm.bitmap, key_note.getIndex());
+        break;
       case Major:
-        nbm.bitmap = apply_template_to_whole_bitmap(template_major, nbm.bitmap, key_note.getIndex());
+        nbm.bitmap = apply_template_to_whole_bitmap(template_Major, nbm.bitmap, key_note.getIndex());
         break;
       case NaturalMinor:
         nbm.bitmap = apply_template_to_whole_bitmap(template_NaturalMinor, nbm.bitmap, key_note.getIndex());

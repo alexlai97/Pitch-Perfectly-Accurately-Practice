@@ -95,6 +95,15 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.wrapper);
 
         modelController = new ModelController(new Config(), this);
+        Intent notes_ints_intent = getIntent();
+        int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
+        if (notes_ints != null) {
+            if (notes_ints.length == 0) {
+                modelController.setNotePool(Note.getAllNotes());
+            } else {
+                modelController.setNotePool(Note.IntsToNotes(notes_ints));
+            }
+        }
         modelController.next_question();
 
         Button parentLayout;
@@ -144,7 +153,9 @@ public class MainActivity extends AppCompatActivity implements
         Log.i(TAG, "PLAYED");
     }
     public void openFilter(View view){
-        startActivity(new Intent(this, FilterActivity.class));
+        Intent filter_intent = new Intent(this, NotePracticeModeFilterActivity.class);
+//        filter_intent.putExtra("modelController", modelController);
+        startActivity(filter_intent);
     }
 
     // handle drawer closing
