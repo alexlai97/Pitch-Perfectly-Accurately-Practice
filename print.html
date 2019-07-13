@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="design_and_architecture.html"><strong aria-hidden="true">2.</strong> Design and architecture</a></li><li><ol class="section"><li><a href="design_and_architecture/filter_and_pipe_architecture.html"><strong aria-hidden="true">2.1.</strong> filter &amp; pipe architecture</a></li></ol></li><li><a href="TODO.html"><strong aria-hidden="true">3.</strong> PLAN, TODO and progress</a></li><li><a href="Deliverables.html"><strong aria-hidden="true">4.</strong> Deliverables</a></li><li><a href="songs.html"><strong aria-hidden="true">5.</strong> Song list</a></li><li><a href="links.html"><strong aria-hidden="true">6.</strong> Useful links</a></li></ol>
+            <ol class="chapter"><li><a href="quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="design_and_architecture.html"><strong aria-hidden="true">2.</strong> Design and architecture</a></li><li><ol class="section"><li><a href="design_and_architecture/filter_and_pipe_architecture.html"><strong aria-hidden="true">2.1.</strong> filter &amp; pipe architecture</a></li><li><a href="design_and_architecture/classes.html"><strong aria-hidden="true">2.2.</strong> classes</a></li></ol></li><li><a href="TODO.html"><strong aria-hidden="true">3.</strong> PLAN, TODO and progress</a></li><li><a href="pages.html"><strong aria-hidden="true">4.</strong> Pages</a></li><li><ol class="section"><li><a href="pages/help_page.html"><strong aria-hidden="true">4.1.</strong> Help Pages</a></li><li><a href="pages/faq_page.html"><strong aria-hidden="true">4.2.</strong> FAQ Pages</a></li></ol></li><li><a href="Deliverables.html"><strong aria-hidden="true">5.</strong> Deliverables</a></li><li><a href="songs.html"><strong aria-hidden="true">6.</strong> Song list</a></li><li><a href="links.html"><strong aria-hidden="true">7.</strong> Useful links</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -151,6 +151,7 @@
 <p><img src="../images/filter_notes_idea.jpg" alt="alt text" title="filter example" /></p>
 <a class="header" href="#class-overview" id="class-overview"><h2>Class Overview</h2></a>
 <p><img src="../images/filter_bitmap_class_overview.jpg" alt="alt text" title="filter and bitmap class overview" /></p>
+<a class="header" href="#classes" id="classes"><h1>classes</h1></a>
 <a class="header" href="#to-fix" id="to-fix"><h1>TO FIX</h1></a>
 <ul>
 <li>ask for permission for microphone</li>
@@ -172,11 +173,6 @@
 </ul>
 </li>
 <li>can play (multiple) notes by midi</li>
-<li>note practice mode
-<ul>
-<li>NotePracticeFilter filter</li>
-</ul>
-</li>
 <li>interval practice mode
 <ul>
 <li>IntervalPracticeFilter filter</li>
@@ -186,7 +182,6 @@
 <li>triad practice mode
 <ul>
 <li>ChordPracticeFilter filter</li>
-<li>put together</li>
 <li>play sound, long press, short tap</li>
 </ul>
 </li>
@@ -272,15 +267,52 @@
 </li>
 <li>random generate button icon (pineapple, penpinapple, applepen, ppap)</li>
 </ul>
-<a class="header" href="#alex" id="alex"><h1>Alex</h1></a>
+<a class="header" href="#johnny-and-irvine" id="johnny-and-irvine"><h1>Johnny and Irvine</h1></a>
 <ol>
-<li>Note Filter Page</li>
-<li>Can switch mode</li>
-<li>Interval Functional</li>
-<li>Interval Filter Page</li>
-<li>Triad Functional</li>
-<li>Triad Filter Page</li>
+<li>change app icon</li>
+<li>icon for buttons</li>
+<li>filter page UI (button, change button background when toggle, stroller cover entire page instead</li>
+<li>read code and beatify code, add documentation (ask Alex if don’t understand). Provide documentation guide for TA.</li>
+<li>help page for different mode</li>
+<li>setting page</li>
+<li>more page</li>
+<li>change play correct behavior (e.g. when auto play back is on, play correct note, change background color)</li>
 </ol>
+<a class="header" href="#alex" id="alex"><h1>Alex:</h1></a>
+<ol>
+<li>put code in different folders</li>
+<li>modify high level logic, clean code</li>
+<li>interval mode</li>
+<li>triad mode</li>
+</ol>
+<a class="header" href="#pages" id="pages"><h1>Pages</h1></a>
+<a class="header" href="#help-pages" id="help-pages"><h1>Help Pages</h1></a>
+<a class="header" href="#note-practice-mode-help-page" id="note-practice-mode-help-page"><h2>Note Practice Mode Help Page</h2></a>
+<p>Please sing the note that is showing on the screen.</p>
+<p>If you don't understand music notation, please visit <a href="https://www.musictheory.net/lessons/21">the major scale</a>.</p>
+<p>You can skip this question by long press on screen.</p>
+<p>You can play the sound by tapping the play sound button on right top corner.</p>
+<a class="header" href="#interval-practice-mode-help-page" id="interval-practice-mode-help-page"><h2>Interval Practice Mode Help Page</h2></a>
+<p>Please sing the note plus/minus the interval.</p>
+<p>If you don't understand music notation, please visit <a href="https://www.musictheory.net/lessons/21">the major scale</a> and <a href="https://www.musictheory.net/lessons/30">generic intervals</a>.</p>
+<p>You can skip this question by long press on screen.</p>
+<a class="header" href="#triad-practice-mode-help-page" id="triad-practice-mode-help-page"><h2>Triad Practice Mode Help Page</h2></a>
+<p>Please sing the note plus/minus the interval.</p>
+<p>If you don't understand music notation, please visit <a href="https://www.musictheory.net/lessons/40">introduction to chords</a>.</p>
+<p>You can skip this question by long press on screen.</p>
+<a class="header" href="#faq-pages" id="faq-pages"><h1>FAQ Pages</h1></a>
+<a class="header" href="#why-icon-is-a4" id="why-icon-is-a4"><h2>Why icon is A4#?</h2></a>
+<p>Well, A4 is 440Hz, but that’s too standard, so maybe A4# looks smarter.</p>
+<a class="header" href="#where-do-you-recommend-to-learn-music-theory-in-a-short-time" id="where-do-you-recommend-to-learn-music-theory-in-a-short-time"><h2>Where do you recommend to learn music theory in a short time?</h2></a>
+<p>Definitely <a href="https://www.musictheory.net">this website</a></p>
+<a class="header" href="#what-is-special-about-this-app-compared-to-all-other-app-that-also-trains-singinglistening-skills-" id="what-is-special-about-this-app-compared-to-all-other-app-that-also-trains-singinglistening-skills-"><h2>What is special about this app compared to all other app that also trains singing/listening skills ?</h2></a>
+<ol>
+<li>This app’s goal is let the user get confidence</li>
+</ol>
+<a class="header" href="#note-question-help-page" id="note-question-help-page"><h1>Note Question Help Page</h1></a>
+<p>You are supposed to sing the question note shown on screen with in error range for at least dT time, where error allowance rate and dT can both be set in global setting.</p>
+<p>For what does e.g. A4# mean, visit <a href="https://www.musictheory.net">this website</a>.</p>
+<a class="header" href="#interval-question-help-page" id="interval-question-help-page"><h1>Interval Question Help Page</h1></a>
 <a class="header" href="#deliverables" id="deliverables"><h1>Deliverables</h1></a>
 <ul>
 <li>D1 (<a href="./deliverables/D1/Deliverable_1.pdf">D1 pdf</a>) (<a href="./deliverables/D1/slides.pdf">slides</a>) (<a href="./deliverables/D1/wireframes.pdf">wireframe</a>)</li>
