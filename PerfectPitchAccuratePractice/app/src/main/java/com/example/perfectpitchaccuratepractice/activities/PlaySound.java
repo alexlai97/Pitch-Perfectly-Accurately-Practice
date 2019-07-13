@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.activities;
 
 import android.app.Activity;
 import android.os.Handler;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.media.AudioTrack;
 import android.media.AudioFormat;
 import android.media.AudioManager;
+
+import com.example.perfectpitchaccuratepractice.R;
 
 /**
  * plays sound activity
@@ -26,7 +28,7 @@ public class PlaySound extends Activity {
         setContentView(R.layout.activity_main);
     }
 
-    void genTone(int freqOfTone, int duration){
+    public void genTone(int freqOfTone, int duration){
         // fill out the array
         int numSamples = duration * sampleRate;
         double sample[] = new double[numSamples];
@@ -52,7 +54,7 @@ public class PlaySound extends Activity {
         }
     }
 
-    void playSound(){
+    public void playSound(){
         final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                 sampleRate, AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT, generatedSnd.length,

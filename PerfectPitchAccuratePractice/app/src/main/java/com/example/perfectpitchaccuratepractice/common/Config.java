@@ -1,9 +1,9 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.common;
 
 /**
  * configurations that the user can set
  */
-class Config {
+public class Config {
   /**
    * least stable time (Δt): the user need to stay in error range for at least Δt ms
    */
@@ -27,7 +27,7 @@ class Config {
   /**
    * frequency that is recognized as NO SOUND
    */
-  final static int LOWEST_RECOGNIZED_FREQ = 10;
+  public final static int LOWEST_RECOGNIZED_FREQ = 10;
 
   /**
    * setter for Δt in milliseconds 
@@ -46,14 +46,14 @@ class Config {
   /**
    * getter for Ɛ
    */
-  double get_error_allowance_rate() {
+  public double get_error_allowance_rate() {
     return error_allowance_rate;
   }
 
   /**
    * getter for Δt in milliseconds 
    */
-  long get_least_stable_time_in_milliseconds() {
+  public long get_least_stable_time_in_milliseconds() {
     return least_stable_time_in_milliseconds;
   }
 

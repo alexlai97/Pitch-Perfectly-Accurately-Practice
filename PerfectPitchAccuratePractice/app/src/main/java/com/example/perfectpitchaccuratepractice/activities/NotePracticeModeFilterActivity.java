@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.activities;
 
 import android.app.Activity;
 
@@ -17,6 +17,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
+import com.example.perfectpitchaccuratepractice.R;
+import com.example.perfectpitchaccuratepractice.bitmap.NotesBitmap;
+import com.example.perfectpitchaccuratepractice.filter.Filter;
+import com.example.perfectpitchaccuratepractice.filter.FilterHandler;
+import com.example.perfectpitchaccuratepractice.filter.NotesRangeFilter;
+import com.example.perfectpitchaccuratepractice.filter.NotesScaleFilter;
+import com.example.perfectpitchaccuratepractice.note.Note;
+import com.example.perfectpitchaccuratepractice.note.NotesScale;
+
 
 public class NotePracticeModeFilterActivity extends Activity {
 
@@ -27,7 +36,7 @@ public class NotePracticeModeFilterActivity extends Activity {
     LayoutInflater layoutInflater;
     TableLayout notesTableView;
 
-    Note [] generated_notes;
+    Note[] generated_notes;
     NotesBitmap tmpData = NotesBitmap.getAllTrueNotesBitmap();
     Spinner fromSpinner  ;
     Spinner toSpinner    ;

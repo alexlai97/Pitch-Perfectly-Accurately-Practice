@@ -1,10 +1,12 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.question;
+import com.example.perfectpitchaccuratepractice.note.Note;
+
 import java.util.Random;
 
 /**
  * A Question in Note practice mode
  */
-class NoteQuestion extends Question {
+public class NoteQuestion extends Question {
   /**
    * The note that will be questioned 
    */
@@ -13,7 +15,7 @@ class NoteQuestion extends Question {
   /**
    * generate question from note pool, remember to set note pool first
     */
-  void generate_random_question() {
+  public void generate_random_question() {
     int rnd = new Random().nextInt(notePool.length);
     this.questionNote = notePool[rnd];
     this.texts = new String[1];
@@ -23,7 +25,7 @@ class NoteQuestion extends Question {
   /**
    * getter for questionNote
    */
-  Note getQuestionNote() {
+  public Note getQuestionNote() {
       return questionNote;
   }
 

@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.common;
 
 /**
  * shows how close is the expected frequency and the current frequency

@@ -1,4 +1,6 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.filter;
+
+import com.example.perfectpitchaccuratepractice.bitmap.IntervalsBitmap;
 
 /**
  * Currently a concrete class used to filter intervals
@@ -7,7 +9,7 @@ class IntervalsFilter extends Filter {
   /**
    * contructor given a IntervalsBitmap
    */
-  IntervalsFilter(IntervalsBitmap bm) {
+  public IntervalsFilter(IntervalsBitmap bm) {
     this.bitmap = bm;
   }
 

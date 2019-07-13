@@ -1,50 +1,31 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.activities;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.perfectpitchaccuratepractice.R;
+import com.example.perfectpitchaccuratepractice.common.Config;
+import com.example.perfectpitchaccuratepractice.common.ModelController;
+import com.example.perfectpitchaccuratepractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.util.Log;
 
-import android.view.Gravity;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.widget.ImageView;
-
-import android.animation.ObjectAnimator;
-import android.view.animation.Animation;
-import android.animation.AnimatorSet;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
-
-import org.junit.runner.manipulation.Filterable;
-import android.widget.TableLayout;
 
 /**
  * Main activity

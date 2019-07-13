@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.interval;
 /**
  * A Interval can represent an interval (in String and interval index)
  * <p>
@@ -16,10 +16,10 @@ public class Interval {
   /**
    * number of intervals: 
    */
-  final static int NUM_OF_INTERVALS = 25;
+  public final static int NUM_OF_INTERVALS = 25;
 
-  final static int INDEX_LOWER_BOUND = 0;
-  final static int INDEX_UPPER_BOUND = NUM_OF_INTERVALS - 1;
+  public final static int INDEX_LOWER_BOUND = 0;
+  public final static int INDEX_UPPER_BOUND = NUM_OF_INTERVALS - 1;
 
   /**
    * all interval strings, hardcoded
@@ -44,21 +44,21 @@ public class Interval {
   /**
    * constructor for Inteval from index
    */
-  Interval(int index) {
+  public Interval(int index) {
     this.index = index;
   }
 
   /**
    * getter for internal index
    */
-  int getIndex() {
+  public int getIndex() {
     return index;
   }
 
   /**
    * getter for the text of the interval
    */
-  String getText() {
+  public String getText() {
     String text = INTERVAL_STRINGS[Math.abs(index-12)];
     return (index - 12<0)? NEGATIVE_STRING + text: POSITIVE_STRING + text;
   }
@@ -66,7 +66,7 @@ public class Interval {
   /**
    * generate a set of intervals given indexes of a range
    */
-  static Interval [] generateIntervalsWithRange(int from_index, int to_index) {
+  public static Interval [] generateIntervalsWithRange(int from_index, int to_index) {
     int num = to_index - from_index + 1;
     Interval intervals[] = new Interval[num];
     for (int i =0; i < num; i++) {

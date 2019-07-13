@@ -1,11 +1,15 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.bitmap;
+
+import com.example.perfectpitchaccuratepractice.note.Note;
+import com.example.perfectpitchaccuratepractice.note.NotesScale;
+
 import java.util.ArrayList;
 
 
 /**
  * Bitmap of representing all the notes
  */
-class NotesBitmap extends Bitmap {
+public class NotesBitmap extends Bitmap {
   /**
    * size of boolean array 
    */
@@ -44,21 +48,21 @@ class NotesBitmap extends Bitmap {
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
   }
 
-  int getSize() {
+  public int getSize() {
     return size;
   }
 
   /**
    * constructor, default to all 0 in the bitmap
    */
-  NotesBitmap() {
+  public NotesBitmap() {
     this.bitmap = new boolean[this.size]; // primitive type default to be false
   }
 
   /**
    * constructor, takes the boolean array as setter
    */
-  NotesBitmap(boolean[] bitmap) {
+  public NotesBitmap(boolean[] bitmap) {
     this.bitmap = bitmap;
   }
 
@@ -66,7 +70,7 @@ class NotesBitmap extends Bitmap {
    * construct NotesBitmap given notes
    * @param notes
    */
-  NotesBitmap(Note[] notes) {
+  public NotesBitmap(Note[] notes) {
     this.bitmap = new boolean[this.size]; // primitive type default to be false
 
     for (Note n: notes) {
@@ -78,7 +82,7 @@ class NotesBitmap extends Bitmap {
    * toggle note in the bitmap
    * @param note
    */
-  void toggleNote(Note note) {
+  public void toggleNote(Note note) {
     int index = note.getIndex();
     this.bitmap[index] = ! this.bitmap[index];
   }
@@ -97,7 +101,7 @@ class NotesBitmap extends Bitmap {
   /**
    * return a NotesBitmap given a low Note and high Note as parameters
    */
-  static NotesBitmap getNotesBitmapFromRange(Note from_note, Note to_note) {
+  public static NotesBitmap getNotesBitmapFromRange(Note from_note, Note to_note) {
     int from_index = from_note.getIndex();
     int to_index = to_note.getIndex();
     NotesBitmap nbm = new NotesBitmap();
@@ -110,7 +114,7 @@ class NotesBitmap extends Bitmap {
   /**
    * return a NotesBitmap of all 1
    */
-  static NotesBitmap getAllTrueNotesBitmap() {
+  public static NotesBitmap getAllTrueNotesBitmap() {
     return getNotesBitmapFromRange(new Note(0), new Note(size-1));
   }
 
@@ -127,7 +131,7 @@ class NotesBitmap extends Bitmap {
   /**
    * return a NotesBitmap given key signature note and scale pairs
    */
-  static NotesBitmap getNotesBitmapFromScale(Note key_note, NotesScale scale) {
+  public static NotesBitmap getNotesBitmapFromScale(Note key_note, NotesScale scale) {
     NotesBitmap nbm = new NotesBitmap();
 
     switch (scale) {
@@ -155,7 +159,7 @@ class NotesBitmap extends Bitmap {
    * bit wise 'and' operation on two Notesbitmap and return the result NotesBitmap
    * FIXME delete it as well as bitmapAnd in Interval
    */
-  NotesBitmap bitmapAnd(Bitmap new_bitmap) {
+  public NotesBitmap bitmapAnd(Bitmap new_bitmap) {
     boolean[] result_bitmap = new boolean [this.size];
     for (int i = 0; i< size; i++) {
       result_bitmap[i] = this.bitmap[i] && new_bitmap.bitmap[i];
@@ -166,7 +170,7 @@ class NotesBitmap extends Bitmap {
   /**
    * convert bitmap to array of notes that are true (1) in bitmap, return the array, useful for implementing the buttons in NotesFilterPage
    */
-  Note[] toNotes() {
+  public Note[] toNotes() {
     ArrayList<Note> notes_arr = new ArrayList<Note>();
 
     for (int i = 0; i < this.size; i ++) {

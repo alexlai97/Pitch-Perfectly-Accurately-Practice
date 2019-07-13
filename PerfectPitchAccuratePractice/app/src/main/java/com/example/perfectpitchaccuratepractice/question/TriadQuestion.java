@@ -1,10 +1,13 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.question;
+import com.example.perfectpitchaccuratepractice.note.Note;
+import com.example.perfectpitchaccuratepractice.triad.Triad;
+
 import java.util.Random;
 
 /**
  * A Question in Triad practice mode
  */
-class TriadQuestion extends Question{
+public class TriadQuestion extends Question{
 
   /**
    * The triad that will be questioned 
@@ -21,7 +24,7 @@ class TriadQuestion extends Question{
    * <p>
    * remember to set note pool first
     */
-  void generate_random_question() {
+  public void generate_random_question() {
     int rnd = random.nextInt(notePool.length);
     Note root = notePool[rnd];
     this.questionTriad = new Triad(root, Triad.getRandomTriadScale());

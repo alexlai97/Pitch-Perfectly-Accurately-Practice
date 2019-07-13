@@ -1,4 +1,6 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.question;
+
+import com.example.perfectpitchaccuratepractice.note.Note;
 
 /**
  * an abstract class of Question
@@ -16,20 +18,20 @@ public abstract class Question {
   /**
    * Constructor
    */
-  Question() {
+  public Question() {
   }
 
   /**
    * Setter for note pool
    */ 
-  void setNotePool(Note [] notes) {
+  public void setNotePool(Note [] notes) {
     this.notePool = notes;
   }
 
   /**
    * getter of the text of the question
    */
-  String[] getTexts() {
+  public String[] getTexts() {
     return this.texts;
   }
 
@@ -46,6 +48,6 @@ public abstract class Question {
   /**
    * abstract function to generate random question given current fields
    */
-  void generate_random_question() {
+  public void generate_random_question() {
   }
 }

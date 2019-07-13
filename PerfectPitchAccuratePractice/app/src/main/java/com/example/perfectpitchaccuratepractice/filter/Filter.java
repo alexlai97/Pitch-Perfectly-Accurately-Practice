@@ -1,9 +1,11 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.filter;
+
+import com.example.perfectpitchaccuratepractice.bitmap.Bitmap;
 
 /**
  * A filter that defines that cannot pass through
  */
-abstract class Filter {
+public abstract class Filter {
   /**
    * A bitmap can be NotesBitmap or IntervalsBitmap
    */
@@ -12,7 +14,7 @@ abstract class Filter {
   /**
    * Apply this filter to an input data, return the output data
    */
-  Bitmap applyFilterTo(Bitmap input_bitmap) {
+  public Bitmap applyFilterTo(Bitmap input_bitmap) {
     return bitmap.bitmapAnd(input_bitmap);
   }
 }

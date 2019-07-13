@@ -1,10 +1,12 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.question;
+import com.example.perfectpitchaccuratepractice.note.Note;
+import com.example.perfectpitchaccuratepractice.interval.*;
 import java.util.Random;
 
 /**
  * A Question in Interval practice mode
  */
-class IntervalQuestion extends Question {
+public class IntervalQuestion extends Question {
   /**
    * The base note in the question
    */
@@ -30,7 +32,7 @@ class IntervalQuestion extends Question {
   /**
    * Setter for interval pool
    */ 
-  void setIntervalPool(Interval [] intervals) {
+  public void setIntervalPool(Interval [] intervals) {
     this.intervalPool = intervals;
   }
 
@@ -39,7 +41,7 @@ class IntervalQuestion extends Question {
    * <p>
    * remember to set notes pool and interval pool first
    */
-  void generate_random_question() {
+  public void generate_random_question() {
     int rnd = random.nextInt(intervalPool.length);
     questionInterval = intervalPool[rnd];
     rnd = random.nextInt(notePool.length);

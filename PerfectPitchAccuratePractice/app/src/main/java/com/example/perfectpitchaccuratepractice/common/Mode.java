@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.common;
 
 /**
  * Different practice modes

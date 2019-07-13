@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.common;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -9,6 +9,11 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.util.Log;
+
+import com.example.perfectpitchaccuratepractice.R;
+import com.example.perfectpitchaccuratepractice.note.Note;
+import com.example.perfectpitchaccuratepractice.question.NoteQuestion;
+import com.example.perfectpitchaccuratepractice.question.Question;
 
 import java.io.Serializable;
 
@@ -27,7 +32,7 @@ public class ModelController {
    */
   private Question current_question;
 
-  void setNotePool(Note[] notes) {
+  public void setNotePool(Note[] notes) {
     current_question.setNotePool(notes);
   }
 
@@ -124,7 +129,7 @@ public class ModelController {
   /**
    * setup config, question, activity, textviews
    */
-  ModelController(Config c, Activity ac) {
+  public ModelController(Config c, Activity ac) {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
@@ -174,7 +179,7 @@ public class ModelController {
    * FIXME only used in note pratice mode, not for future use
    *
    */
-  double getExpectedFrequency() {
+  public double getExpectedFrequency() {
     return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
   }
 
@@ -203,7 +208,7 @@ public class ModelController {
   /**
    * generate a random question, update questionTextView
    */
-  void next_question() {
+  public void next_question() {
     current_question.generate_random_question();
     questionText.setText(current_question.getTexts()[0]);
   }
@@ -226,7 +231,7 @@ public class ModelController {
    * <p>
    * updating views 
    */
-  void processFrequency(double freq) {
+  public void processFrequency(double freq) {
     long now = System.currentTimeMillis();
     // assume all in error range at first time
     if (firstTimeProcessFreq) {

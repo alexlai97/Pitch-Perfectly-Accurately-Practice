@@ -1,8 +1,11 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.bitmap;
+
+import com.example.perfectpitchaccuratepractice.interval.Interval;
+
 /**
  * Bitmap of representing all the intervals
  */
-class IntervalsBitmap extends Bitmap {
+public class IntervalsBitmap extends Bitmap {
   /**
    * size of boolean array 
    */
@@ -12,7 +15,7 @@ class IntervalsBitmap extends Bitmap {
   /**
    * constructor, default to all 0 in the bitmap
    */
-  IntervalsBitmap() {
+  public IntervalsBitmap() {
     this.bitmap = new boolean[this.size]; // primitive type default to be false
 
   }
@@ -20,14 +23,14 @@ class IntervalsBitmap extends Bitmap {
   /**
    * constructor, takes the boolean array as setter
    */
-  IntervalsBitmap(boolean[] bitmap) {
+  public IntervalsBitmap(boolean[] bitmap) {
     this.bitmap = bitmap; 
   }
 
   /**
    * return a IntervalsBitmap given a low Interval and high Interval as parameters
    */
-  static IntervalsBitmap getIntervalsBitmapFromRange(Interval from_interval, Interval to_interval) {
+  public static IntervalsBitmap getIntervalsBitmapFromRange(Interval from_interval, Interval to_interval) {
     int from_index = from_interval.getIndex();
     int to_index = to_interval.getIndex();
     IntervalsBitmap ibm = new IntervalsBitmap();
@@ -40,7 +43,7 @@ class IntervalsBitmap extends Bitmap {
   /**
    * return a IntervalsBitmap of all 1
    */
-  static IntervalsBitmap getAllTrueIntervalsBitmap() {
+  public static IntervalsBitmap getAllTrueIntervalsBitmap() {
     return getIntervalsBitmapFromRange(new Interval(0), new Interval(size-1));
   }
 
@@ -57,7 +60,7 @@ class IntervalsBitmap extends Bitmap {
   /**
    * bit wise 'and' operation on two Intervalsbitmap and return the result IntervalsBitmap
    */
-  IntervalsBitmap bitmapAnd(Bitmap new_bitmap) {
+  public IntervalsBitmap bitmapAnd(Bitmap new_bitmap) {
     System.out.println("Interval Bitmap add");
     boolean[] result_bitmap = new boolean [this.size];
     for (int i = 0; i< size; i++) {

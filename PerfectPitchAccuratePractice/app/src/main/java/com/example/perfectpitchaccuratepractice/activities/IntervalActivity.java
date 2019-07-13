@@ -1,15 +1,17 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.activities;
 
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class TriadActivity extends AppCompatActivity {
+import com.example.perfectpitchaccuratepractice.R;
+
+public class IntervalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.triad_layout);
+        setContentView(R.layout.interval_layout);
     }
 
     public void myToner(View view) {

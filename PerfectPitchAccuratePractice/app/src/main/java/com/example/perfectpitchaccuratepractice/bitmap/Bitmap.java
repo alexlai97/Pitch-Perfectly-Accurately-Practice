@@ -1,11 +1,10 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.bitmap;
 
-import android.icu.text.SymbolTable;
 
 /**
  * An abstract class, its children are: NotesBitmap, IntervalsBitmap
  */
-abstract class Bitmap {
+public abstract class Bitmap {
   /**
    * A boolean array
    */
@@ -22,7 +21,7 @@ abstract class Bitmap {
    * bit wise 'and' operation on two bitmap and return the result Bitmap
    */
   // just a template
-  Bitmap bitmapAnd(Bitmap new_bitmap) {
+  public Bitmap bitmapAnd(Bitmap new_bitmap) {
     return new_bitmap;
   }
 

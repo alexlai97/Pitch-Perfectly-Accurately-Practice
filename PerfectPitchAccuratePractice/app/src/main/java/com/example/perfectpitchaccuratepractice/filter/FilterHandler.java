@@ -1,9 +1,14 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.filter;
+
+import com.example.perfectpitchaccuratepractice.bitmap.Bitmap;
+import com.example.perfectpitchaccuratepractice.bitmap.NotesBitmap;
+import com.example.perfectpitchaccuratepractice.note.Note;
+import com.example.perfectpitchaccuratepractice.note.NotesScale;
 
 /**
  * A convenience class to handle filters
  */
-class FilterHandler {
+public class FilterHandler {
   /**
    * An array of filters, order should matter (but not matter so far in current filters)
    */
@@ -20,7 +25,7 @@ class FilterHandler {
    * set the current data, should be used at first
    * @param bm
    */
-  void setInitialBitmap(Bitmap bm) {
+  public void setInitialBitmap(Bitmap bm) {
     initial_bitmap = bm;
   }
 
@@ -28,22 +33,22 @@ class FilterHandler {
    * set filters in handler
    * @param filters
    */
-  void setFilters(Filter[] filters) {
+  public void setFilters(Filter[] filters) {
     this.filters = filters;
   }
 
-  void updateFilterAt(int i, Filter f) {
+  public void updateFilterAt(int i, Filter f) {
     if (i<0 || i > filters.length) {
       throw new AssertionError("invalid index");
     }
     filters[i] = f;
   }
 
-  FilterHandler() {
+  public FilterHandler() {
 
   }
 
-  FilterHandler(Bitmap initialData, Filter[] filters) {
+  public FilterHandler(Bitmap initialData, Filter[] filters) {
     setInitialBitmap(initialData);
     this.filters = filters;
   }
@@ -51,7 +56,7 @@ class FilterHandler {
   /**
    * apply filters in handler
    */
-  void applyFilters() {
+  public void applyFilters() {
       current_bitmap = initial_bitmap;
     for (Filter f: this.filters) {
       current_bitmap = f.applyFilterTo(current_bitmap);
@@ -62,7 +67,7 @@ class FilterHandler {
    * get current data inside handler
    * @return Bitmap
    */
-  Bitmap getResultBitmap() {
+  public Bitmap getResultBitmap() {
     return current_bitmap;
   }
 
@@ -108,7 +113,7 @@ class FilterHandler {
     System.out.println("testing");
     NotesRangeFilter rangeFilter = new NotesRangeFilter(new Note("A1"), new Note("A2"));
     NotesScaleFilter scaleFilter = new NotesScaleFilter(new Note("C"), NotesScale.Major);
-    scaleFilter.bitmap.printBitmap();
+//    scaleFilter.bitmap.printBitmap();
     fh = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     filters = new Filter[]{rangeFilter, scaleFilter};
     fh.setFilters(filters);

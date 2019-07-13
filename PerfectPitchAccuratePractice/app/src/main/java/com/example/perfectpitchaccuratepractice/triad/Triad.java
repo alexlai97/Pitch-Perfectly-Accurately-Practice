@@ -1,10 +1,12 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.perfectpitchaccuratepractice.triad;
+import com.example.perfectpitchaccuratepractice.note.Note;
+
 import java.util.Random;
 
 /**
  * Triad is a subset of Chord, it has 3 notes, 4 type of scales
  */
-class Triad {
+public class Triad {
   /**
    * A static Random
    */
@@ -13,21 +15,21 @@ class Triad {
   /**
    * TriadScale: Major, Minor, Diminished, Augmented
    */
-  enum TriadScale {
+  public enum TriadScale {
     Major, Minor, Diminished, Augmented;
   }
 
   /**
    * return a random TriadScale among those four triad scales
    */
-  static TriadScale getRandomTriadScale() {
+  public static TriadScale getRandomTriadScale() {
     return TriadScale.values()[random.nextInt(TriadScale.values().length)];
   }
 
   /**
    * NOT IMPLMENTING SO FAR
    */
-  enum TriadInversion { // FIXME not implmented
+  public enum TriadInversion { // FIXME not implmented
     None, FirstInversion, SecondInversion;
   }
 
@@ -51,7 +53,7 @@ class Triad {
   /**
    * Constructor given root note and triad scale
    */
-  Triad(Note root, TriadScale scale) {
+  public Triad(Note root, TriadScale scale) {
 
     this.rootNote = root;
     this.scale = scale;
@@ -85,7 +87,7 @@ class Triad {
   /**
    * get notes array inside Triad
    */
-  Note[] getNotes() {
+  public Note[] getNotes() {
     return notes;
   }
 
