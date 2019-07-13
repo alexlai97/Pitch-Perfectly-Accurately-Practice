@@ -13,14 +13,11 @@
   - play check mark sound then, then correct sound(toggle)
   - change background colour to different colour
 - can play (multiple) notes by midi
-- note practice mode
-  - NotePracticeFilter filter
 - interval practice mode
   - IntervalPracticeFilter filter
   - play sound, long press, short tap
 - triad practice mode
   - ChordPracticeFilter filter
-  - put together
   - play sound, long press, short tap
 - Global Settings
   - setting page
@@ -69,11 +66,20 @@
   - ppap
 - random generate button icon (pineapple, penpinapple, applepen, ppap)
 
+# Johnny and Irvine
+1. change app icon
+2. icon for buttons
+3. filter page UI (button, change button background when toggle, stroller cover entire page instead
+4. read code and beatify code, add documentation (ask Alex if don’t understand). Provide documentation guide for TA.
+5. help page for different mode
+6. setting page
+7. more page
+8. change play correct behavior (e.g. when auto play back is on, play correct note, change background color)
 
-# Alex
-1. Note Filter Page
-2. Can switch mode
-3. Interval Functional
-4. Interval Filter Page
-5. Triad Functional 
-6. Triad Filter Page 
+
+# Alex:
+1. put code in different folders
+2. modify high level logic, clean code
+3. interval mode
+4. triad mode
+
