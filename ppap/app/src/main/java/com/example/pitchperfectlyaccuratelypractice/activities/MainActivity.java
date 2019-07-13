@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Button;
 
 /**
- * Main activity
+ * NotePracticeMode Activity
  */
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -36,78 +36,28 @@ public class MainActivity extends AppCompatActivity implements
     private static PlaySound theSound = new PlaySound();
     private TextView arrow;
 
-
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
     private ModelController modelController;
     private boolean created = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG, "s"
-                + created);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        MY_PERMISSIONS_REQUEST_AUDIO);
-            }
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-
-        } else {
-            // Permission has already been granted
-        }
-
-        created = true;
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.wrapper);
-
-        modelController = new ModelController(new Config(), this);
-        Intent notes_ints_intent = getIntent();
-        int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-        if (notes_ints != null) {
-            if (notes_ints.length == 0) {
-                modelController.setNotePool(Note.getAllNotes());
-            } else {
-                modelController.setNotePool(Note.IntsToNotes(notes_ints));
-            }
-        }
-        modelController.next_question();
-
+    void setupButtons() {
         Button parentLayout;
         parentLayout = findViewById(R.id.helpButton);
         parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
-
             @Override
             public boolean onLongClick(View v) {
                 modelController.next_question();
                 return false;
             }
         });
-
+    }
+    void setupVoiceListener() {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
+    }
 
-        Log.w(TAG, "ONCREATE");
-//        // FIXME ...
-//        arrow = findViewById(R.id.arrowTextView);
-//        handleAnimation(300);
-
-
-
+    void setupNaviMenu() {
         // add listener on hamburger button to open drawer
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -122,6 +72,27 @@ public class MainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        Log.e(TAG, "s" + created);
+
+        checkMicrophonePermission();
+
+        created = true;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.navi_wrapper);
+
+        modelController = new ModelController(new Config(), this);
+        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
+        modelController.next_question();
+
+        setupButtons();
+        setupVoiceListener();
+
+        Log.w(TAG, "ONCREATE");
+        setupNaviMenu();
+    }
+
     protected void onRestart() {
         super.onRestart();
         Log.w(TAG, "ONRESTART");
@@ -133,9 +104,9 @@ public class MainActivity extends AppCompatActivity implements
         theSound.playSound();
         Log.i(TAG, "PLAYED");
     }
-    public void openFilter(View view){
+
+    public void openFilterPage(View view){
         Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
-//        filter_intent.putExtra("modelController", modelController);
         startActivity(filter_intent);
     }
 
@@ -195,4 +166,51 @@ public class MainActivity extends AppCompatActivity implements
             // permissions this app might request.
         }
     }
+
+    /**
+     * check Microphone Permission and handle it
+     */
+    void checkMicrophonePermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.RECORD_AUDIO)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO},
+                        MY_PERMISSIONS_REQUEST_AUDIO);
+            }
+            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+
+        } else {
+            // Permission has already been granted
+        }
+
+    }
+
+    /**
+     * handle events from e.g. NoteModeFilterPageActivity
+     */
+    void handleIntents() {
+        Intent notes_ints_intent = getIntent();
+        int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
+        if (notes_ints != null) {
+            if (notes_ints.length == 0) {
+                modelController.setNotePool(Note.getAllNotes());
+            } else {
+                modelController.setNotePool(Note.IntsToNotes(notes_ints));
+            }
+        }
+    }
+
 }
