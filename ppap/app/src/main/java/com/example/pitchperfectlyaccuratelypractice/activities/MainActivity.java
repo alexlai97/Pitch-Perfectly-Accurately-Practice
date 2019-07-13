@@ -9,12 +9,17 @@ import android.os.Bundle;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Config;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,8 +34,6 @@ import android.view.View;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
 
 /**
  * NotePracticeMode Activity
@@ -54,46 +57,37 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(TAG, "s" + created);
+
+        checkMicrophonePermission();
+
+        created = true;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wrapper);
+        setContentView(R.layout.navi_wrapper);
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, new NoteFragment()).commit();
 
-        Log.e(TAG, "s" + created);
-
-
-
-        created = true;
-    }
-
-//        mDrawerList = (ListView) findViewById(R.id.myNavi);
-//        addDrawerItems();
 
 //        modelController = new ModelController(new Config(), this);
+//        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
 //        modelController.next_question();
 //
-//        Button parentLayout;
-//        parentLayout = findViewById(R.id.helpButton);
-//        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
-//
-//            @Override
-//            public boolean onLongClick(View v) {
-//                modelController.next_question();
-//                return false;
-//            }
-//        });
-//
-//        VoiceListener voicelistener = new VoiceListener(modelController);
-//        voicelistener.startListening();
+//        setupButtons();
+//        setupVoiceListener();
+
+        Log.w(TAG, "ONCREATE");
+        setupNaviMenu();
+    }
+
     void setupButtons() {
         Button parentLayout;
         parentLayout = findViewById(R.id.helpButton);
@@ -125,35 +119,6 @@ public class MainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-//    private void addDrawerItems() {
-//        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
-//        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
-//        Log.w(TAG, Integer.toString(mAdapter.getCount()) );
-//
-//        mDrawerList.setAdapter(mAdapter);
-//    }
-//
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG, "s" + created);
-
-        checkMicrophonePermission();
-
-        created = true;
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.navi_wrapper);
-
-        modelController = new ModelController(new Config(), this);
-        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
-        modelController.next_question();
-
-        setupButtons();
-        setupVoiceListener();
-
-        Log.w(TAG, "ONCREATE");
-        setupNaviMenu();
-    }
->>>>>>> dev:ppap/app/src/main/java/com/example/pitchperfectlyaccuratelypractice/activities/MainActivity.java
 
     protected void onRestart() {
         super.onRestart();
@@ -182,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         DrawerLayout mDrawer = findViewById(R.id.drawer_layout);
@@ -269,13 +235,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-<<<<<<< HEAD:PerfectPitchAccuratePractice/app/src/main/java/com/example/perfectpitchaccuratepractice/MainActivity.java
     @Override
     public void onFragmentInteraction(Uri uri) {
         //used to communicate between fragments
 
     }
-=======
     /**
      * check Microphone Permission and handle it
      */
@@ -322,5 +286,4 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
->>>>>>> dev:ppap/app/src/main/java/com/example/pitchperfectlyaccuratelypractice/activities/MainActivity.java
 }

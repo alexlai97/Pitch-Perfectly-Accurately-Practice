@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,17 +9,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NoteFragment.OnFragmentInteractionListener} interface
+ * {@link TriadFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NoteFragment#newInstance} factory method to
+ * Use the {@link TriadFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NoteFragment extends Fragment {
+public class TriadFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +32,7 @@ public class NoteFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NoteFragment() {
+    public TriadFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +42,11 @@ public class NoteFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NoteFragment.
+     * @return A new instance of fragment TriadFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NoteFragment newInstance(String param1, String param2) {
-        NoteFragment fragment = new NoteFragment();
+    public static TriadFragment newInstance(String param1, String param2) {
+        TriadFragment fragment = new TriadFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +66,7 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_note, container, false);
+        return inflater.inflate(R.layout.fragment_triad, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

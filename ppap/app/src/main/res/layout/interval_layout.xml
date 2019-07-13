@@ -3,12 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD:PerfectPitchAccuratePractice/app/src/main/res/layout/interval_layout.xml
     android:background="#BDE8D8">
-=======
-    android:background="#BDE8D8"
-    tools:context="com.example.pitchperfectlyaccuratelypractice.IntervalActivity">
->>>>>>> dev:ppap/app/src/main/res/layout/interval_layout.xml
 
     <TextView
         android:id="@+id/currentFrequencyTextView"

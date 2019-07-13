@@ -1,4 +1,4 @@
-package com.example.perfectpitchaccuratepractice;
+package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,17 +9,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TriadFragment.OnFragmentInteractionListener} interface
+ * {@link IntervalFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TriadFragment#newInstance} factory method to
+ * Use the {@link IntervalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TriadFragment extends Fragment {
+public class IntervalFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +32,7 @@ public class TriadFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public TriadFragment() {
+    public IntervalFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +42,11 @@ public class TriadFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TriadFragment.
+     * @return A new instance of fragment IntervalFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TriadFragment newInstance(String param1, String param2) {
-        TriadFragment fragment = new TriadFragment();
+    public static IntervalFragment newInstance(String param1, String param2) {
+        IntervalFragment fragment = new IntervalFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +66,7 @@ public class TriadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chord, container, false);
+        return inflater.inflate(R.layout.fragment_interval, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
