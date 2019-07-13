@@ -3,6 +3,8 @@ package com.example.perfectpitchaccuratepractice;
 import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.util.Log;
+
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
@@ -17,6 +19,7 @@ import be.tarsos.dsp.pitch.PitchProcessor;
  */
 public class VoiceListener extends Activity {
 
+    private static final String TAG = "VoiceListener";
   /**
    * modelController
    */
@@ -42,6 +45,8 @@ public class VoiceListener extends Activity {
                 break;
             }
         }
+
+//      Log.i(TAG, "I have been here.");
 
         AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, 1024, 0);
 

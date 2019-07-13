@@ -1,5 +1,9 @@
 package com.example.perfectpitchaccuratepractice;
 
+
+import android.icu.text.CaseMap;
+import android.util.Log;
+
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
  *
@@ -76,7 +80,9 @@ class Note {
    * Set Note's index to i
    */
   void setTo(int i) {
-    assert(i >= 0 && i < NUM_OF_NOTES);
+    if (index < 0 || index >= NUM_OF_NOTES) {
+      throw new AssertionError("index ERROR");
+    }
     this.index = i;
   }
 
@@ -92,6 +98,8 @@ class Note {
     this.setTo(text);
   }
 
+  private boolean isValidSymbol(char s) { return s >= 'A' && s <= 'G'; }
+  private boolean isValidOctave(char o) { return o >= '1' && o <= '7'; }
   /**
    * Set Note's index via String (e.g "A4#")
    * <p>
@@ -101,13 +109,31 @@ class Note {
    *
    */
   void setTo(String text) {
+    int octave;
+    boolean flag;
     int len = text.length();
-    assert (len == 2 || len == 3);
-    boolean flag = len == 3? true: false;
-    char tmp_char = text.charAt(1);
-    int octave = Character.getNumericValue(tmp_char);
+    if (len < 1 || len >3) {
+      throw new AssertionError("setTo length should be in {1,2,3}");
+    }
     char symbol = text.charAt(0);
-    assert(symbol >= 'A' && symbol <= 'G');
+    if (! isValidSymbol(symbol)) {
+      throw new AssertionError("symbol not in ['A', 'G']");
+    }
+    if (len == 1) {
+        octave = 1;
+        flag = false;
+    } else {
+      char tmp_char = text.charAt(1);
+      if (isValidOctave(tmp_char)) {
+        octave = Character.getNumericValue(tmp_char);
+        flag = len == 3;
+      } else if (tmp_char == '#') {
+        octave = 1;
+        flag = true;
+      } else {
+        throw new AssertionError("cannot parse second char in setTo");
+      }
+    }
 
     int r = -2000; // To see error if anything goes wrong
 
@@ -230,6 +256,11 @@ class Note {
     return "" + symbol + octave + sharp_symbol;
   }
 
+  static String[] getAllKeySignatures() {
+    return new String[]{"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" };
+  }
+
+
   /**
    * get the internal index 
    */
@@ -244,6 +275,21 @@ class Note {
     return note.getIndex();
   }
 
+  static String getText(Note note) {
+    return note.getText();
+  }
+
+  static String getText(int index) {
+    return new Note(index).getText();
+  }
+
+  static Note getLowestNote() {
+    return new Note(INDEX_LOWER_BOUND);
+  }
+  static Note getHighestNote() {
+    return new Note(INDEX_UPPER_BOUND);
+  }
+
   /**
    * 
    */
@@ -256,7 +302,9 @@ class Note {
    * compute the frequency from internal index
    */
   double getFrequency() {
-    assert(index >= 0 && index < NUM_OF_NOTES);
+    if (index < 0 || index >= NUM_OF_NOTES) {
+      throw new AssertionError("index ERROR");
+    }
     return frequency_array[this.index];
   }
 
@@ -271,6 +319,57 @@ class Note {
     }
     return notes;
   }
+
+  /**
+   * convert notes to strings
+   */
+  static String[] getStringsFromNotes(Note[] notes) {
+    String[] strings = new String[notes.length];
+    for (int i = 0; i < notes.length; i ++ ) {
+        strings[i] = notes[i].getText();
+    }
+    return strings;
+  }
+
+  /**
+   * notes to ints, for parsing as intent
+   * @param notes
+   * @return
+   */
+   static int[] NotesToInts(Note[] notes) {
+    int [] ints = new int[notes.length];
+    for (int i =0; i < notes.length; i++) {
+      ints[i] = notes[i].getIndex();
+    }
+    return ints;
+  }
+
+  static Note[] IntsToNotes(int[] ints) {
+    Note [] notes = new Note[ints.length];
+    for (int i =0; i < ints.length; i++) {
+      notes[i] = new Note(ints[i]);
+    }
+    return notes;
+  }
+
+  /**
+   * log the notes
+   * @param tag
+   * @param notes
+   */
+  static void logNotes(String tag, Note[] notes) {
+    String[] strings = getStringsFromNotes(notes);
+    String text = "";
+    for (String s: strings) {
+      text += s + ",";
+    }
+    Log.i(tag, text);
+  }
+
+  /**
+   * get all strings
+   */
+  static Note[] getAllNotes(){ return generateNotesWithRange(Note.INDEX_LOWER_BOUND, Note.INDEX_UPPER_BOUND); }
 
   /**
    * A way to use this class, will print a table of notes
@@ -290,9 +389,13 @@ class Note {
     System.out.println("Using generateNotesWithRange");
 
     Note [] notes = generateNotesWithRange(0, 72);
+    String[] strings = getStringsFromNotes(notes);
     assert(notes.length == 73);
     for (int i=0; i< 73; i++) {
-      System.out.println("  " + notes[i].getIndex() + " | " + notes[i].getText() + " | " + notes[i].getFrequency());
+      System.out.println("  " + notes[i].getIndex() + " | " + strings[i] + " | " + notes[i].getFrequency());
     }
+
+    Note n = new Note("A#");
+    System.out.println(n.getText());
   }
 }

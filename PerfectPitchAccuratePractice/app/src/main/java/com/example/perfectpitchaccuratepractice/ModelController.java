@@ -10,6 +10,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.util.Log;
 
+import java.io.Serializable;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -24,6 +26,11 @@ public class ModelController {
    * Stores current question
    */
   private Question current_question;
+
+  void setNotePool(Note[] notes) {
+    current_question.setNotePool(notes);
+  }
+
   /**
    * Stores current practice mode
    */

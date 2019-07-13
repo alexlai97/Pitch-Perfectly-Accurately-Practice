@@ -9,12 +9,12 @@ class NotesBitmap extends Bitmap {
   /**
    * size of boolean array 
    */
-  private final static int size = Note.NUM_OF_NOTES;
+  private static int size = Note.NUM_OF_NOTES;
 
   /**
    * template bitmap for major scale
    */
-  final static boolean[] template_major;
+  final static boolean[] template_Major;
   /**
    * template bitmap for harmonic minor scale
    */
@@ -28,9 +28,13 @@ class NotesBitmap extends Bitmap {
    */
   final static boolean[] template_MelodicMinor;
 
+  final static boolean[] template_None;
+
   // initializing those templates above
   static {
-    template_major = new boolean[]
+    template_None = new boolean[]
+    { true/*0*/, true/*1*/, true/*2*/, true/*3*/, true/*4*/, true/*5*/, true/*6*/, true/*7*/, true/*8*/, true/*9*/, true/*10*/, true/*11*/ };
+    template_Major = new boolean[]
     { true/*0*/, false/*1*/, true/*2*/, false/*3*/, true/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
     template_HarmonicMinor = new boolean[]
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, true/*8*/, false/*9*/, false/*10*/, true/*11*/ };
@@ -38,6 +42,10 @@ class NotesBitmap extends Bitmap {
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, true/*8*/, false/*9*/, true/*10*/, false/*11*/ };
     template_MelodicMinor = new boolean[]
     { true/*0*/, false/*1*/, true/*2*/, true/*3*/, false/*4*/, true/*5*/, false/*6*/, true/*7*/, false/*8*/, true/*9*/, false/*10*/, true/*11*/ };
+  }
+
+  int getSize() {
+    return size;
   }
 
   /**
@@ -51,7 +59,28 @@ class NotesBitmap extends Bitmap {
    * constructor, takes the boolean array as setter
    */
   NotesBitmap(boolean[] bitmap) {
-    this.bitmap = bitmap; 
+    this.bitmap = bitmap;
+  }
+
+  /**
+   * construct NotesBitmap given notes
+   * @param notes
+   */
+  NotesBitmap(Note[] notes) {
+    this.bitmap = new boolean[this.size]; // primitive type default to be false
+
+    for (Note n: notes) {
+        this.bitmap[n.getIndex()] = true;
+    }
+  }
+
+  /**
+   * toggle note in the bitmap
+   * @param note
+   */
+  void toggleNote(Note note) {
+    int index = note.getIndex();
+    this.bitmap[index] = ! this.bitmap[index];
   }
 
 
@@ -90,7 +119,7 @@ class NotesBitmap extends Bitmap {
    */
   private static boolean[] apply_template_to_whole_bitmap(boolean[] template, boolean[] whole, int start_index) {
     for (int i = 0; i < size; i++) {
-      whole[i] = template[(12 - start_index+i) % 12];
+      whole[i] = template[(72 - start_index+i) % 12];
     }
     return whole;
   }
@@ -102,8 +131,11 @@ class NotesBitmap extends Bitmap {
     NotesBitmap nbm = new NotesBitmap();
 
     switch (scale) {
+      case None:
+        nbm.bitmap = apply_template_to_whole_bitmap(template_None, nbm.bitmap, key_note.getIndex());
+        break;
       case Major:
-        nbm.bitmap = apply_template_to_whole_bitmap(template_major, nbm.bitmap, key_note.getIndex());
+        nbm.bitmap = apply_template_to_whole_bitmap(template_Major, nbm.bitmap, key_note.getIndex());
         break;
       case NaturalMinor:
         nbm.bitmap = apply_template_to_whole_bitmap(template_NaturalMinor, nbm.bitmap, key_note.getIndex());
@@ -121,11 +153,12 @@ class NotesBitmap extends Bitmap {
 
   /**
    * bit wise 'and' operation on two Notesbitmap and return the result NotesBitmap
+   * FIXME delete it as well as bitmapAnd in Interval
    */
-  static NotesBitmap bitmapAnd(NotesBitmap bm1, NotesBitmap bm2) {
-    boolean[] result_bitmap = new boolean [size];
+  NotesBitmap bitmapAnd(Bitmap new_bitmap) {
+    boolean[] result_bitmap = new boolean [this.size];
     for (int i = 0; i< size; i++) {
-      result_bitmap[i] = bm1.bitmap[i] && bm2.bitmap[i];
+      result_bitmap[i] = this.bitmap[i] && new_bitmap.bitmap[i];
     }
     return new NotesBitmap(result_bitmap);
   }
@@ -133,11 +166,17 @@ class NotesBitmap extends Bitmap {
   /**
    * convert bitmap to array of notes that are true (1) in bitmap, return the array, useful for implementing the buttons in NotesFilterPage
    */
-  ArrayList<Note> toNotes() {
-    ArrayList<Note> notes = new ArrayList<Note>();
+  Note[] toNotes() {
+    ArrayList<Note> notes_arr = new ArrayList<Note>();
 
     for (int i = 0; i < this.size; i ++) {
-      if (this.bitmap[i]) notes.add(new Note(i));
+      if (this.bitmap[i]) notes_arr.add(new Note(i));
+    }
+
+    int length = notes_arr.size();
+    Note[] notes = new Note[length];
+    for (int i = 0; i < length; i++) {
+       notes[i] = notes_arr.get(i);
     }
 
     return notes;
@@ -150,13 +189,13 @@ class NotesBitmap extends Bitmap {
     NotesBitmap m1 = getNotesBitmapFromRange(new Note(Note.INDEX_LOWER_BOUND),new Note(Note.INDEX_UPPER_BOUND));
     System.out.println("Printing m1");
     m1.printBitmap();
-    NotesBitmap m2 = getNotesBitmapFromRange(new Note(10),new Note(62));
+    NotesBitmap m2 = getNotesBitmapFromRange(new Note("A2"),new Note("A2"));
     System.out.println("Printing m2");
     m2.printBitmap();
     NotesBitmap m3 = getNotesBitmapFromScale(new Note("C1"), NotesScale.NaturalMinor);
     System.out.println("C Natural Minor Scale");
     m3.printBitmap();
-    NotesBitmap m4 = getNotesBitmapFromScale(new Note("C2"), NotesScale.Major);
+    NotesBitmap m4 = getNotesBitmapFromScale(new Note("C"), NotesScale.Major);
     System.out.println("C Major Scale");
     m4.printBitmap();
   }

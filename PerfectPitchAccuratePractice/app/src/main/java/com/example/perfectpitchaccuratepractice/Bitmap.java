@@ -1,5 +1,7 @@
 package com.example.perfectpitchaccuratepractice;
 
+import android.icu.text.SymbolTable;
+
 /**
  * An abstract class, its children are: NotesBitmap, IntervalsBitmap
  */
@@ -12,21 +14,25 @@ abstract class Bitmap {
   /**
    * the size of boolean array
    */
-  private final static int size=-1;
+  private int size=-1;
+
 
 
   /**
    * bit wise 'and' operation on two bitmap and return the result Bitmap
    */
   // just a template
-  static Bitmap bitmapAnd(Bitmap bm1, Bitmap bm2) {
-    return bm1;
+  Bitmap bitmapAnd(Bitmap new_bitmap) {
+    return new_bitmap;
   }
 
   /**
    * print bitmap to stdout  (debugging)
    */
   void printBitmap() {
-
   }
+
+  public static void main() {
+  }
+
 }
