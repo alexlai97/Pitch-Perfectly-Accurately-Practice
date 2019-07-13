@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw320dp-v13/values-sw320dp-v13.xml",
+            "map": [
+                {
+                    "source": "/home/alex/.gradle/caches/transforms-2/files-2.1/5737a463c2e7902f4b7c29c1a8d471a0/res/values-sw320dp-v13/values-sw320dp-v13.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,109",
+                        "endColumns": "53,60",
+                        "endOffsets": "104,165"
+                    }
+                }
+            ]
+        }
+    ]
+}

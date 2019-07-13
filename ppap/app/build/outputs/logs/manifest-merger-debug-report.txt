@@ -1,0 +1,215 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta2] /home/alex/.gradle/caches/transforms-2/files-2.1/d4c6433081fccfe4b57e4a2431d1a391/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/alex/.gradle/caches/transforms-2/files-2.1/5737a463c2e7902f4b7c29c1a8d471a0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.github.AppIntro:AppIntro:v5.1.0] /home/alex/.gradle/caches/transforms-2/files-2.1/8c410ed05dd4dc5adb903f5657a6dc84/AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.appcompat:appcompat:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/ce9696c7b733beefb05310f6860fa85e/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/9f280f8217db13d642faff7645a01683/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/d2ae51d78fefc41710a9f85a28bc8358/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /home/alex/.gradle/caches/transforms-2/files-2.1/37d6d143ee95b6d5ee6e733ded6ff974/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/271abfb8a1aa501715aea95b418c2282/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/1cbb146d8f3f279a511aff914983b02c/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/f7547d9e79fd8fad7365b12af5324aa2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/c47c528fd39a41e05df7a2d180419d39/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01] /home/alex/.gradle/caches/transforms-2/files-2.1/9bcb5a0efc5599d9916b36564328ff46/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/a823c76101afbd119c6e9c427a50d36c/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.1] /home/alex/.gradle/caches/transforms-2/files-2.1/f04a53e7626ee8a04fd0b99402af936f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/43828d542f34bcbfdbb7fcf6a9ac9c74/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/4168a75c0406008e84025aa3487d4607/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/ce93fd3f63a926f185526ae80da5486c/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/f9baa9ab6c39e267a501a2cdd96c47e2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/8bd8e46f29e63bc5f2d201261b2fec5f/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0-beta02] /home/alex/.gradle/caches/transforms-2/files-2.1/200485b2501f29363764b0307b843e26/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0-beta02] /home/alex/.gradle/caches/transforms-2/files-2.1/0b6168c61bc85dacc7fe4940429c6733/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/a53d72f8b1b49f3553e24836535bc83d/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha05] /home/alex/.gradle/caches/transforms-2/files-2.1/c5ebd25a095c9ba38b1494fae8c417db/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/5631508b2389623617722f6e682c9acc/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/bd5a282aba859209f99f0d011b811abe/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/af562fcb5fb6b16dc2ece0e654a150b0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/4be8a0bf53c598d86fb7cfeae5f52b62/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/208149bd3b6e04b20fd28ba9a47acc12/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/6072b484ae37e411013ec85cedb2f31e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/448d9e18763f3cce19fd059fd745fc1a/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/895b037a0c79d2fa3a64543a6fc5e4f3/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/20b47badd8f0cd5ebb2fa03cf7976a03/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/52b190ed9060e01eb923101b9f0da721/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/110bfbb5d757c2b12e30f0f631aaba3d/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/fd8e3030881ef4867e094f74c1e0fe56/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/a2d79368902afe2f7fc15380e0787fef/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.0.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/c83b75f67521f19fd9a9ef7972f995ea/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/b8ff6c0a9de76b3d260419e0240e2d5f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/139a43f4289c5e2c99bb12406827e513/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/eb2e081fe9953146fa18123cda20692d/AndroidManifest.xml:17:1-22:12
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+	package
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:3:5-59
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:1-34:12
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:5:5-71
+	android:name
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:5:22-68
+application
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:7:5-32:19
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta2] /home/alex/.gradle/caches/transforms-2/files-2.1/d4c6433081fccfe4b57e4a2431d1a391/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta2] /home/alex/.gradle/caches/transforms-2/files-2.1/d4c6433081fccfe4b57e4a2431d1a391/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/alex/.gradle/caches/transforms-2/files-2.1/5737a463c2e7902f4b7c29c1a8d471a0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/alex/.gradle/caches/transforms-2/files-2.1/5737a463c2e7902f4b7c29c1a8d471a0/AndroidManifest.xml:22:5-20
+MERGED from [com.github.AppIntro:AppIntro:v5.1.0] /home/alex/.gradle/caches/transforms-2/files-2.1/8c410ed05dd4dc5adb903f5657a6dc84/AndroidManifest.xml:11:5-20
+MERGED from [com.github.AppIntro:AppIntro:v5.1.0] /home/alex/.gradle/caches/transforms-2/files-2.1/8c410ed05dd4dc5adb903f5657a6dc84/AndroidManifest.xml:11:5-20
+MERGED from [androidx.core:core:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/4be8a0bf53c598d86fb7cfeae5f52b62/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/4be8a0bf53c598d86fb7cfeae5f52b62/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/448d9e18763f3cce19fd059fd745fc1a/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/448d9e18763f3cce19fd059fd745fc1a/AndroidManifest.xml:24:5-25:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/4be8a0bf53c598d86fb7cfeae5f52b62/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:12:9-35
+	android:label
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:10:9-41
+	android:roundIcon
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:11:9-50
+	android:icon
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:9:9-43
+	android:allowBackup
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:8:9-35
+	android:theme
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:13:9-52
+activity#com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:14:9-20:20
+	android:parentActivityName
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:16:13-66
+	android:name
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:15:13-66
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:17:13-19:60
+	android:value
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:19:17-57
+	android:name
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:18:17-63
+activity#com.example.pitchperfectlyaccuratelypractice.activities.MainActivity
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:21:9-30:20
+	android:label
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:23:13-45
+	android:name
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:22:13-52
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:25:13-29:29
+action#android.intent.action.MAIN
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:26:17-69
+	android:name
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:26:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:28:17-77
+	android:name
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml:28:27-74
+uses-sdk
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta2] /home/alex/.gradle/caches/transforms-2/files-2.1/d4c6433081fccfe4b57e4a2431d1a391/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta2] /home/alex/.gradle/caches/transforms-2/files-2.1/d4c6433081fccfe4b57e4a2431d1a391/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/alex/.gradle/caches/transforms-2/files-2.1/5737a463c2e7902f4b7c29c1a8d471a0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /home/alex/.gradle/caches/transforms-2/files-2.1/5737a463c2e7902f4b7c29c1a8d471a0/AndroidManifest.xml:20:5-44
+MERGED from [com.github.AppIntro:AppIntro:v5.1.0] /home/alex/.gradle/caches/transforms-2/files-2.1/8c410ed05dd4dc5adb903f5657a6dc84/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.AppIntro:AppIntro:v5.1.0] /home/alex/.gradle/caches/transforms-2/files-2.1/8c410ed05dd4dc5adb903f5657a6dc84/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.appcompat:appcompat:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/ce9696c7b733beefb05310f6860fa85e/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/ce9696c7b733beefb05310f6860fa85e/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/9f280f8217db13d642faff7645a01683/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/9f280f8217db13d642faff7645a01683/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/d2ae51d78fefc41710a9f85a28bc8358/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/d2ae51d78fefc41710a9f85a28bc8358/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /home/alex/.gradle/caches/transforms-2/files-2.1/37d6d143ee95b6d5ee6e733ded6ff974/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /home/alex/.gradle/caches/transforms-2/files-2.1/37d6d143ee95b6d5ee6e733ded6ff974/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/271abfb8a1aa501715aea95b418c2282/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/271abfb8a1aa501715aea95b418c2282/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/1cbb146d8f3f279a511aff914983b02c/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/1cbb146d8f3f279a511aff914983b02c/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/f7547d9e79fd8fad7365b12af5324aa2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/f7547d9e79fd8fad7365b12af5324aa2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/c47c528fd39a41e05df7a2d180419d39/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/c47c528fd39a41e05df7a2d180419d39/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01] /home/alex/.gradle/caches/transforms-2/files-2.1/9bcb5a0efc5599d9916b36564328ff46/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01] /home/alex/.gradle/caches/transforms-2/files-2.1/9bcb5a0efc5599d9916b36564328ff46/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/a823c76101afbd119c6e9c427a50d36c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/a823c76101afbd119c6e9c427a50d36c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.1] /home/alex/.gradle/caches/transforms-2/files-2.1/f04a53e7626ee8a04fd0b99402af936f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.1] /home/alex/.gradle/caches/transforms-2/files-2.1/f04a53e7626ee8a04fd0b99402af936f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/43828d542f34bcbfdbb7fcf6a9ac9c74/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/43828d542f34bcbfdbb7fcf6a9ac9c74/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/4168a75c0406008e84025aa3487d4607/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/4168a75c0406008e84025aa3487d4607/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/ce93fd3f63a926f185526ae80da5486c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/ce93fd3f63a926f185526ae80da5486c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/f9baa9ab6c39e267a501a2cdd96c47e2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/f9baa9ab6c39e267a501a2cdd96c47e2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/8bd8e46f29e63bc5f2d201261b2fec5f/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/8bd8e46f29e63bc5f2d201261b2fec5f/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0-beta02] /home/alex/.gradle/caches/transforms-2/files-2.1/200485b2501f29363764b0307b843e26/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0-beta02] /home/alex/.gradle/caches/transforms-2/files-2.1/200485b2501f29363764b0307b843e26/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0-beta02] /home/alex/.gradle/caches/transforms-2/files-2.1/0b6168c61bc85dacc7fe4940429c6733/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0-beta02] /home/alex/.gradle/caches/transforms-2/files-2.1/0b6168c61bc85dacc7fe4940429c6733/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/a53d72f8b1b49f3553e24836535bc83d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/a53d72f8b1b49f3553e24836535bc83d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha05] /home/alex/.gradle/caches/transforms-2/files-2.1/c5ebd25a095c9ba38b1494fae8c417db/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha05] /home/alex/.gradle/caches/transforms-2/files-2.1/c5ebd25a095c9ba38b1494fae8c417db/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/5631508b2389623617722f6e682c9acc/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/5631508b2389623617722f6e682c9acc/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/bd5a282aba859209f99f0d011b811abe/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/bd5a282aba859209f99f0d011b811abe/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/af562fcb5fb6b16dc2ece0e654a150b0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/af562fcb5fb6b16dc2ece0e654a150b0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/4be8a0bf53c598d86fb7cfeae5f52b62/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/4be8a0bf53c598d86fb7cfeae5f52b62/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/208149bd3b6e04b20fd28ba9a47acc12/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/208149bd3b6e04b20fd28ba9a47acc12/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/6072b484ae37e411013ec85cedb2f31e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/6072b484ae37e411013ec85cedb2f31e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/448d9e18763f3cce19fd059fd745fc1a/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-rc01] /home/alex/.gradle/caches/transforms-2/files-2.1/448d9e18763f3cce19fd059fd745fc1a/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/895b037a0c79d2fa3a64543a6fc5e4f3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/895b037a0c79d2fa3a64543a6fc5e4f3/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/20b47badd8f0cd5ebb2fa03cf7976a03/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/20b47badd8f0cd5ebb2fa03cf7976a03/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/52b190ed9060e01eb923101b9f0da721/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/52b190ed9060e01eb923101b9f0da721/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/110bfbb5d757c2b12e30f0f631aaba3d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/110bfbb5d757c2b12e30f0f631aaba3d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/fd8e3030881ef4867e094f74c1e0fe56/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/fd8e3030881ef4867e094f74c1e0fe56/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/a2d79368902afe2f7fc15380e0787fef/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/a2d79368902afe2f7fc15380e0787fef/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.0.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/c83b75f67521f19fd9a9ef7972f995ea/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.0.0-beta01] /home/alex/.gradle/caches/transforms-2/files-2.1/c83b75f67521f19fd9a9ef7972f995ea/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/b8ff6c0a9de76b3d260419e0240e2d5f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/b8ff6c0a9de76b3d260419e0240e2d5f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/139a43f4289c5e2c99bb12406827e513/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/139a43f4289c5e2c99bb12406827e513/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/eb2e081fe9953146fa18123cda20692d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/alex/.gradle/caches/transforms-2/files-2.1/eb2e081fe9953146fa18123cda20692d/AndroidManifest.xml:20:5-44
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		ADDED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml
+		INJECTED from /home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/src/main/AndroidManifest.xml

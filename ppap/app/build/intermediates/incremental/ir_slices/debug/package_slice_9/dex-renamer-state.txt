@@ -1,0 +1,4 @@
+#Sat Jul 13 15:38:26 EDT 2019
+base.0=/home/alex/myrepos/Pitch-Perfectly-Accurately-Practice/ppap/app/build/intermediates/transforms/dexMerger/debug/9
+path.0=classes.dex
+renamed.0=classes.dex
