@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ppap_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activities.NoteModeFilterPageActivity"
             android:parentActivityName=".activities.MainActivity">
@@ -20,16 +20,14 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="@string/app_name">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.IntervalModeMainActivity"/>
-        <activity android:name=".activities.TriadModeMainActivity"/>
 
     </application>
 
