@@ -3,11 +3,10 @@ package com.example.perfectpitchaccuratepractice;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,37 +18,26 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 
-import android.view.Gravity;
 import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 
-import android.media.AudioFormat;
-import android.media.AudioRecord;
-import android.widget.ImageView;
-
-import android.animation.ObjectAnimator;
-import android.view.animation.Animation;
-import android.animation.AnimatorSet;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
-
-import org.junit.runner.manipulation.Filterable;
-import android.widget.TableLayout;
-
 /**
  * Main activity
  */
 public class MainActivity extends AppCompatActivity implements
+        NoteFragment.OnFragmentInteractionListener,
+        IntervalFragment.OnFragmentInteractionListener,
+        TriadFragment.OnFragmentInteractionListener,
+//        NavigationDrawerFragment.NavigationDrawerCallbacks,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
@@ -62,8 +50,23 @@ public class MainActivity extends AppCompatActivity implements
     private ModelController modelController;
     private boolean created = false;
 
+    private ActionBarDrawerToggle drawerToggle;
+    private Toolbar toolbar;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.wrapper);
+
+        // Set a Toolbar to replace the ActionBar.
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, new NoteFragment()).commit();
+
         Log.e(TAG, "s"
                 + created);
         if (ContextCompat.checkSelfPermission(this,
@@ -91,29 +94,28 @@ public class MainActivity extends AppCompatActivity implements
             // Permission has already been granted
         }
 
+
         created = true;
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.wrapper);
 
-        mDrawerList = (ListView) findViewById(R.id.myNavi);
-        addDrawerItems();
+//        mDrawerList = (ListView) findViewById(R.id.myNavi);
+//        addDrawerItems();
 
-        modelController = new ModelController(new Config(), this);
-        modelController.next_question();
-
-        Button parentLayout;
-        parentLayout = findViewById(R.id.helpButton);
-        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
-
-            @Override
-            public boolean onLongClick(View v) {
-                modelController.next_question();
-                return false;
-            }
-        });
-
-        VoiceListener voicelistener = new VoiceListener(modelController);
-        voicelistener.startListening();
+//        modelController = new ModelController(new Config(), this);
+//        modelController.next_question();
+//
+//        Button parentLayout;
+//        parentLayout = findViewById(R.id.helpButton);
+//        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
+//
+//            @Override
+//            public boolean onLongClick(View v) {
+//                modelController.next_question();
+//                return false;
+//            }
+//        });
+//
+//        VoiceListener voicelistener = new VoiceListener(modelController);
+//        voicelistener.startListening();
 
         Log.w(TAG, "ONCREATE");
 //        // FIXME ...
@@ -123,26 +125,26 @@ public class MainActivity extends AppCompatActivity implements
 
 
         // add listener on hamburger button to open drawer
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        Button nav_button = findViewById(R.id.naviButton);
-        nav_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+//        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+//        Button nav_button = findViewById(R.id.naviButton);
+//        nav_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                drawer.openDrawer(GravityCompat.START);
+//            }
+//        });
 
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void addDrawerItems() {
-        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
-        Log.w(TAG, Integer.toString(mAdapter.getCount()) );
-
-        mDrawerList.setAdapter(mAdapter);
-    }
+//    private void addDrawerItems() {
+//        String[] osArray = { "Android", "iOS", "Windows", "OS X", "Linux" };
+//        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
+//        Log.w(TAG, Integer.toString(mAdapter.getCount()) );
+//
+//        mDrawerList.setAdapter(mAdapter);
+//    }
 
     protected void onRestart() {
         super.onRestart();
@@ -169,29 +171,69 @@ public class MainActivity extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        DrawerLayout mDrawer = findViewById(R.id.drawer_layout);
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     // listener to handle selected item
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
+        // Create a new fragment and specify the fragment to show based on nav item clicked
+        Fragment fragment = null;
+        Class fragmentClass;
 
+        int id = item.getItemId();
+        Log.d(TAG, "onNavigationItemSelected: " + id);
         switch(id){
-            case R.string.note_mode:
+            case R.id.note_mode:
+                Log.d(TAG, "onNavigationItemSelected: notemode");
+                fragmentClass = NoteFragment.class;
                 break;
-            case R.string.interval_mode:
+            case R.id.interval_mode:
+                Log.d(TAG, "onNavigationItemSelected: intervalmode");
+                fragmentClass = IntervalFragment.class;
                 break;
-            case R.string.chord_mode:
+            case R.id.chord_mode:
+                Log.d(TAG, "onNavigationItemSelected: chordmode");
+                fragmentClass = TriadFragment.class;
                 break;
-            case R.string.song_mode:
-                break;
+//            case R.id.song_mode:
+//                break;
             default:
-                break;
+                Log.d(TAG, "onNavigationItemSelected: default");
+                fragmentClass = NoteFragment.class;
         }
 
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+
+        // Highlight the selected item has been done by NavigationView
+        item.setChecked(true);
+        // Set action bar title
+        setTitle(item.getTitle());
+
+        // Close the navigation drawer
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return false;
+        drawer.closeDrawers();
+        return true;
     }
 
     @Override
@@ -214,5 +256,11 @@ public class MainActivity extends AppCompatActivity implements
             // other 'case' lines to check for other
             // permissions this app might request.
         }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //used to communicate between fragments
+
     }
 }

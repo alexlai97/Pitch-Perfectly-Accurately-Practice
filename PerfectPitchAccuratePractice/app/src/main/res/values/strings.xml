@@ -16,4 +16,7 @@
     <string name="song_mode">Music</string>
     <string name="summary">Summary</string>
     <string name="contact">Contact</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
