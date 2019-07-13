@@ -11,7 +11,7 @@
             android:title="@string/note_mode" />
         <item
             android:id="@+id/interval_mode"
-            android:icon="@drawable/interval"
+            android:icon="@drawable/trans_interval"
             android:title="@string/interval_mode" />
         <item
             android:id="@+id/chord_mode"
