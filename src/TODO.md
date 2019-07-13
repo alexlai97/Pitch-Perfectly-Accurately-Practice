@@ -78,7 +78,6 @@
 
 
 # Alex:
-1. put code in different folders
 2. modify high level logic, clean code
 3. interval mode
 4. triad mode
