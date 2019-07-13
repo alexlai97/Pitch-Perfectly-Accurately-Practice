@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Pitch Perfectly Accurately Practice</string>
+    <string name="action_settings">Settings</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="scale">Scale</string>
+    <string name="keySig">Key Signature</string>
+    <string name="noteMode">Note Practice</string>
+    <string name="inteMode">Interval Practice</string>
+    <string name="chordMode">Chord Practice</string>
+    <string name="songMode">Song Practice</string>
+
+    <string name="note_mode">Note</string>
+    <string name="interval_mode">Interval</string>
+    <string name="chord_mode">Chord</string>
+    <string name="song_mode">Music</string>
+    <string name="summary">Summary</string>
+    <string name="contact">Contact</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
