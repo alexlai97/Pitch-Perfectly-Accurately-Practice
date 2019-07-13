@@ -21,22 +21,22 @@ import be.tarsos.dsp.pitch.PitchProcessor;
 public class VoiceListener extends Activity {
 
     private static final String TAG = "VoiceListener";
-  /**
-   * modelController
-   */
-  private ModelController modelController;
+    /**
+     * modelController
+     */
+    private ModelController modelController;
 
-  /**
-   * Constructor for VoiceListener
-   */
-  public VoiceListener(ModelController mc) {
-    modelController = mc;
-  }
+    /**
+     * Constructor for VoiceListener
+     */
+    public VoiceListener(ModelController mc) {
+        modelController = mc;
+    }
 
-  /**
-   * runs a thread to detect frequency
-   */
-  public void startListening() {
+    /**
+     * runs a thread to detect frequency
+     */
+    public void startListening() {
         int sampleRate = 8000;
 
         for (int rate : new int[]{22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
@@ -70,6 +70,6 @@ public class VoiceListener extends Activity {
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
 
-  }
+    }
 
 }
