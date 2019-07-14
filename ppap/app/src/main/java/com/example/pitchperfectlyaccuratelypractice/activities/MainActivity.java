@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements
         updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
-    private static final int REQUEST_CODE_FROM_FILTER = 1;
+    public static final int REQUEST_CODE_FROM_FILTER = 1;
     private static NotePlayer notePlayer = new NotePlayer();
     private TextView arrow;
 
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         modelController.next_question();
 
-//        setupButtons();
         setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
@@ -125,17 +124,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    void setupButtons() {
-        Button parentLayout;
-        parentLayout = findViewById(R.id.helpButton);
-        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                modelController.next_question();
-                return false;
-            }
-        });
-    }
+
     void setupVoiceListener() {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
@@ -156,25 +145,19 @@ public class MainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public ModelController getModelController() {
+        return modelController;
+    }
+
+    public NotePlayer getNotePlayer() {
+        return notePlayer;
+    }
 
     protected void onRestart() {
         super.onRestart();
         Log.w(TAG, "ONRESTART");
     }
 
-    // FIXME  crashes after several plays
-    public void myToner(View view){
-        notePlayer.genTone((int)modelController.getExpectedFrequency(), 1);
-        notePlayer.playSound();
-        Log.i(TAG, "PLAYED");
-    }
-
-    public void openFilterPage(View view){
-        Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
-//        filter_intent.putExtra("modelController", this.modelController);
-
-        startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
-    }
 
     // handle drawer closing
     @Override

@@ -31,7 +31,6 @@ public class NoteModeFilterPageActivity extends Activity {
 
     private static final String TAG = "NOTE FILTER";
 
-//    ModelController modelController;
 
     LayoutInflater layoutInflater;
     TableLayout notesTableView;
@@ -68,9 +67,6 @@ public class NoteModeFilterPageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_mode_filter);
 
-//        Intent recevied_modelController_intent = getIntent();
-//        modelController = (ModelController) recevied_modelController_intent.getSerializableExtra("modelController");
-
         layoutInflater = LayoutInflater.from(this);
         notesTableView = findViewById(R.id.note_pool_table);
 
@@ -98,6 +94,10 @@ public class NoteModeFilterPageActivity extends Activity {
         toSpinner.setAdapter(all_notes_string_adapter);
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
+
+        fromSpinner.setSelection(Note.getIndex("A3"));
+        toSpinner.setSelection(Note.getIndex("A6"));
+        scaleSpinner.setSelection(1); // Major
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -260,7 +260,6 @@ public class NoteModeFilterPageActivity extends Activity {
     void backToMain(View view){
         Note[] notes_to_return = tmpData.toNotes();
         Note.logNotes(TAG, notes_to_return);
-        // TODO update ModelController
         Intent note_pool_intent = new Intent(this, MainActivity.class);
         note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
         setResult(RESULT_OK, note_pool_intent);

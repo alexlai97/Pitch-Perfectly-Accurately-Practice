@@ -20,6 +20,7 @@ public class NotePlayer extends Activity {
     // and modified by Jialin Shan for pitch perfect
     private final int sampleRate = 44100;
     byte generatedSnd[];
+    int PLAY_NOTE_DURATION = 1;
     Handler handler = new Handler();
 
     @Override
@@ -61,5 +62,10 @@ public class NotePlayer extends Activity {
                 AudioTrack.MODE_STATIC);
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
+    }
+
+    public void playOneNote(int freq) {
+        genTone(freq, PLAY_NOTE_DURATION);
+        playSound();
     }
 }
