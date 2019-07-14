@@ -244,8 +244,9 @@ public class ModelController implements Serializable {
     callback.updateQuestionText(current_question.getTexts()[0]);
 
     current_frequency = freq;
-    callback.updateFrequencyText(""+Math.round(current_frequency) +" Hz");
+    callback.updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
     callback.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
+
     double expected_freq = getExpectedFrequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);

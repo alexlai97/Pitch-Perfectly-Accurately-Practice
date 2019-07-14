@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -194,6 +196,18 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        Button button = getView().findViewById(R.id.naviButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+        super.onResume();
+    }
 
 
     /**
@@ -211,9 +225,9 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void updateFrequencyText(String myString){
+    public void updateFrequencyText(Long freq, Double expected){
         if(!onCreated) return;
-        frequencyText.setText(myString);
+        frequencyText.setText(Long.toString(freq) + " Hz");
     }
 
     public void updateArrowText(String myString){

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -28,9 +32,10 @@ import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterfa
  * create an instance of this fragment.
  */
 
-public class NoteFragment extends GeneralFragment {
 
+public class NoteFragment extends GeneralFragment {
     public NoteFragment() {
         resource = R.layout.fragment_note;
     }
+
 }
