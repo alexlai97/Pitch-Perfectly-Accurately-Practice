@@ -10,6 +10,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Config;
 import com.example.pitchperfectlyaccuratelypractice.common.Mode;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
@@ -41,11 +42,9 @@ import android.widget.Button;
  * NotePracticeMode Activity
  */
 public class MainActivity extends AppCompatActivity implements
-        NoteFragment.OnFragmentInteractionListener,
-        IntervalFragment.OnFragmentInteractionListener,
-        TriadFragment.OnFragmentInteractionListener,
+        GeneralFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
-        MyCallback,
+        updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
@@ -61,12 +60,8 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationView navigationView;
 
     private Mode curMode = Mode.NotePractice;
-    private Fragment fragment;
+    private GeneralFragment curFragment;
 
-    private NoteFragment noteFragment;
-    private IntervalFragment intervalFragment;
-    private TriadFragment triadFragment;
-    private Class fragmentClass = NoteFragment.class;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +82,12 @@ public class MainActivity extends AppCompatActivity implements
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        noteFragment = new NoteFragment();
-        if( noteFragment.getView() == null ){
+        curFragment = new NoteFragment();
+        if( curFragment.getView() == null ){
             Log.w(TAG, "athings");
         }
 
-        fragmentManager.beginTransaction().replace(R.id.flContent, noteFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
         fragmentManager.executePendingTransactions();
 
         modelController = new  ModelController(new Config(), this);
@@ -184,56 +179,37 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        fragment = null;
+        curFragment = null;
 
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
         switch(id){
             case R.id.note_mode:
                 Log.d(TAG, "onNavigationItemSelected: notemode");
-                fragmentClass = NoteFragment.class;
+                curFragment = new NoteFragment();
                 curMode = Mode.NotePractice;
                 break;
             case R.id.interval_mode:
                 Log.d(TAG, "onNavigationItemSelected: intervalmode");
-                fragmentClass = IntervalFragment.class;
+                curFragment = new IntervalFragment();
                 curMode = Mode.IntervalPractice;
                 break;
-            case R.id.chord_mode:
+            case R.id.triad_mode:
                 Log.d(TAG, "onNavigationItemSelected: chordmode");
-                fragmentClass = TriadFragment.class;
+                curFragment = new TriadFragment();
                 curMode = Mode.TriadPractice;
                 break;
 //            case R.id.song_mode:
 //                break;
             default:
                 Log.d(TAG, "onNavigationItemSelected: default");
-                fragmentClass = NoteFragment.class;
+                curFragment = new NoteFragment();
                 curMode = Mode.NotePractice;
-        }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-            switch(id) {
-                case R.id.note_mode:
-                    noteFragment = (NoteFragment) fragment;
-                    break;
-                case R.id.interval_mode:
-                    intervalFragment = (IntervalFragment) fragment;
-                    break;
-                case R.id.chord_mode:
-                    triadFragment = (TriadFragment) fragment;
-                    break;
-                default:
-                    noteFragment = (NoteFragment) fragment;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
         fragmentManager.executePendingTransactions();
 
 
@@ -322,82 +298,22 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void updateFrequencyText(String myString){
-        switch(curMode) {
-            case NotePractice:
-                noteFragment.updateFrequencyText(myString);
-                break;
-            case IntervalPractice:
-                intervalFragment.updateFrequencyText(myString);
-                break;
-            case TriadPractice:
-                triadFragment.updateFrequencyText(myString);
-                break;
-            default:
-                noteFragment.updateFrequencyText(myString);
-        }
+        curFragment.updateFrequencyText(myString);
     }
 
     public void updateArrowText(String myString){
-        switch(curMode) {
-            case NotePractice:
-                noteFragment.updateArrowText(myString);
-                break;
-            case IntervalPractice:
-                intervalFragment.updateArrowText(myString);
-                break;
-            case TriadPractice:
-                triadFragment.updateArrowText(myString);
-                break;
-            default:
-                noteFragment.updateArrowText(myString);
-        }
+        curFragment.updateArrowText(myString);
     }
 
     public void updateCurrentPitchText(String myString){
-        switch(curMode) {
-            case NotePractice:
-                noteFragment.updateCurrentPitchText(myString);
-                break;
-            case IntervalPractice:
-                intervalFragment.updateCurrentPitchText(myString);
-                break;
-            case TriadPractice:
-                triadFragment.updateCurrentPitchText(myString);
-                break;
-            default:
-                noteFragment.updateCurrentPitchText(myString);
-        }
+        curFragment.updateCurrentPitchText(myString);
     }
 
     public void updateQuestionText(String myString){
-        switch(curMode) {
-            case NotePractice:
-                noteFragment.updateQuestionText(myString);
-                break;
-            case IntervalPractice:
-                intervalFragment.updateQuestionText(myString);
-                break;
-            case TriadPractice:
-                triadFragment.updateQuestionText(myString);
-                break;
-            default:
-                noteFragment.updateQuestionText(myString);
-        }
+        curFragment.updateQuestionText(myString);
     }
 
     public void updateArrowAnimation(Animation myAnimation){
-        switch(curMode) {
-            case NotePractice:
-                noteFragment.updateArrowAnimation(myAnimation);
-                break;
-            case IntervalPractice:
-                intervalFragment.updateArrowAnimation(myAnimation);
-                break;
-            case TriadPractice:
-                triadFragment.updateArrowAnimation(myAnimation);
-                break;
-            default:
-                noteFragment.updateArrowAnimation(myAnimation);
-        }
+        curFragment.updateArrowAnimation(myAnimation);
     }
 }

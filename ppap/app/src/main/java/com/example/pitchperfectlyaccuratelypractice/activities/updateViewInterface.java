@@ -1,7 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.activities;
 import android.view.animation.Animation;
 
-public interface MyCallback {
+public interface updateViewInterface {
     // Declaration of the template function for the interface
     public void updateFrequencyText(String myString);
     public void updateArrowText(String myString);

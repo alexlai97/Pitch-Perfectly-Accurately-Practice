@@ -14,7 +14,7 @@
             android:icon="@drawable/trans_interval"
             android:title="@string/interval_mode" />
         <item
-            android:id="@+id/chord_mode"
+            android:id="@+id/triad_mode"
             android:icon="@drawable/chord"
             android:title="@string/chord_mode" />
     </group>
