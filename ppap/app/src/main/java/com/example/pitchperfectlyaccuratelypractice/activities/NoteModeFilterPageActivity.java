@@ -257,11 +257,11 @@ public class NoteModeFilterPageActivity extends Activity {
         Note[] notes_to_return = tmpData.toNotes();
         Note.logNotes(TAG, notes_to_return);
         // TODO update ModelController
-        Intent note_pool_intent = new Intent(this, MainActivity.class);
-        note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
-        startActivity(note_pool_intent);
+//        Intent note_pool_intent = new Intent(this, MainActivity.class);
+//        note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
+//        startActivity(note_pool_intent);
 
-//        finish();
+        finish();
     }
 
 }
