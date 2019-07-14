@@ -54,16 +54,17 @@ public class NoteGraphFragment extends GeneralFragment {
         graph.getGridLabelRenderer().setLabelVerticalWidth(100);
 
         series = new LineGraphSeries<>();
-        series.setDrawDataPoints(true);
+//        series.setDrawDataPoints(true);
         series.setDrawBackground(true);
 
         series2 = new LineGraphSeries<>();
-        series2.setDrawDataPoints(true);
+//        series2.setDrawDataPoints(true);
         series2.setColor(Color.RED);
 
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMinY(-10);
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
         graph.addSeries(series);
         graph.addSeries(series2);
 
@@ -75,10 +76,10 @@ public class NoteGraphFragment extends GeneralFragment {
         mTimer = new Runnable() {
             @Override
             public void run() {
-                graphLastXValue += 0.5d;
+                graphLastXValue += 0.25d;
                 series.appendData(new DataPoint(graphLastXValue, lastFreq), true, 22);
                 series2.appendData(new DataPoint(graphLastXValue, questionFreq), true, 22);
-                mHandler.postDelayed(this, 330);
+                mHandler.postDelayed(this, 80);
             }
         };
         mHandler.postDelayed(mTimer, 100);
