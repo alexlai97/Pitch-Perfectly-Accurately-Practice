@@ -99,6 +99,7 @@ public class NoteFragment extends Fragment implements MyCallback {
         Log.v("PEPE", "onCreateView!");
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_note, container, false);
+//        getActivity().findViewById(R.id.toolbar).setBackground("#E6FBBA");
         ConstraintLayout included = view.findViewById(R.id.note_include);
         frequencyText = included.findViewById(R.id.currentFrequencyTextView);
         questionText = included.findViewById(R.id.questionTextView);

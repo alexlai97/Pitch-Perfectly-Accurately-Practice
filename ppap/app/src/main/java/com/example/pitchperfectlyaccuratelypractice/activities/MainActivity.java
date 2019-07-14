@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 
+import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.animation.Animation;
@@ -84,6 +85,14 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
 
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         noteFragment = new NoteFragment();
@@ -102,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements
         setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
-        setupNaviMenu();
     }
 
     void setupButtons() {
@@ -121,20 +129,7 @@ public class MainActivity extends AppCompatActivity implements
         voicelistener.startListening();
     }
 
-    void setupNaviMenu() {
-        // add listener on hamburger button to open drawer
-//        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-//        Button nav_button = findViewById(R.id.naviButton);
-//        nav_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                drawer.openDrawer(GravityCompat.START);
-//            }
-//        });
 
-        navigationView.setNavigationItemSelectedListener(this);
-    }
 
 
     protected void onRestart() {
@@ -166,12 +161,22 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         DrawerLayout mDrawer = findViewById(R.id.drawer_layout);
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.playSoundButton:
+                // implement here to handle play button
                 return true;
         }
 
