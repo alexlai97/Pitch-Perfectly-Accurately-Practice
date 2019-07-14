@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
  * Stores states and controls views
  */
 
+//public class ModelController implements Serializable {
 public class ModelController implements Serializable {
   private static final String TAG = "MODEL";
 

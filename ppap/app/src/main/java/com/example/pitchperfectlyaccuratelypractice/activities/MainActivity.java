@@ -19,6 +19,7 @@ import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.os.PersistableBundle;
 import android.util.Log;
 
 import android.view.View;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements
         updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
+    private static final int REQUEST_CODE_FROM_FILTER = 1;
     private static PlaySound theSound = new PlaySound();
     private TextView arrow;
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG, "s" + created);
+         Log.e(TAG, "s" + created);
 
         checkMicrophonePermission();
         super.onCreate(savedInstanceState);
@@ -101,6 +104,29 @@ public class MainActivity extends AppCompatActivity implements
 
         Log.w(TAG, "ONCREATE");
         setupNaviMenu();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: get intent back from filter page");
+        if (requestCode == REQUEST_CODE_FROM_FILTER) {
+            if (resultCode == RESULT_OK) {
+                Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
+                Note.logNotes("back to main activity", result_notes);
+                modelController.setNotePool(result_notes);
+                modelController.next_question();
+            } else if (resultCode == RESULT_CANCELED){
+
+            } else {
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     void setupButtons() {
@@ -149,10 +175,9 @@ public class MainActivity extends AppCompatActivity implements
 
     public void openFilterPage(View view){
         Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
-        filter_intent.putExtra("modelController", modelController);
+//        filter_intent.putExtra("modelController", this.modelController);
 
-//        filter_intent.putExtra("modelController", modelController);
-        startActivity(filter_intent);
+        startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
     }
 
     // handle drawer closing
@@ -307,6 +332,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
     }
+
 
     public void updateFrequencyText(String myString){
         curFragment.updateFrequencyText(myString);
