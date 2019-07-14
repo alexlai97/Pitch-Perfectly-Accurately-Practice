@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
@@ -122,6 +123,8 @@ public class ModelController {
    */
   private Activity activity;
 
+
+  private MyCallback callback;
   /**
    * setup config, question, activity, textviews
    */
@@ -131,10 +134,7 @@ public class ModelController {
     current_question = new NoteQuestion();
     current_question.setNotePool(Note.generateNotesWithRange(12,36));
     activity = ac;
-    frequencyText = this.activity.findViewById(R.id.currentFrequencyTextView);
-    questionText = this.activity.findViewById(R.id.questionTextView);
-    arrowText = this.activity.findViewById(R.id.arrowTextView);
-    currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
+    callback = (MyCallback) ac;
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -206,21 +206,21 @@ public class ModelController {
    */
   public void next_question() {
     current_question.generate_random_question();
-    questionText.setText(current_question.getTexts()[0]);
+    callback.updateQuestionText(current_question.getTexts()[0]);
   }
 
   /**
    * update arrowsTextView, can do other things (e.g. change background)
    */
   void show_correct() {
-    arrowText.setText("✓");
+    callback.updateArrowText("✓");
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
-    arrowText.setAnimation(arrowAnimation);
+    callback.updateArrowAnimation(arrowAnimation);
   }
   /**
    * process frequency PitchDetectionHandler feeds in and responds with:
@@ -236,11 +236,12 @@ public class ModelController {
       t_out = now;
       firstTimeProcessFreq = false;
       firstStart = now;
-
     }
+    callback.updateQuestionText(current_question.getTexts()[0]);
+
     current_frequency = freq;
-    frequencyText.setText(""+Math.round(current_frequency) +" Hz");
-    currentPitchText.setText("U: " + (new Note(current_frequency)).getText());
+    callback.updateFrequencyText(""+Math.round(current_frequency) +" Hz");
+    callback.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
     double expected_freq = getExpectedFrequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
@@ -266,7 +267,7 @@ public class ModelController {
             answerCorrect = true;
             hasShownCorrect = false;
         } else {
-          arrowText.setText("...");
+           callback.updateArrowText("...");
         }
       } else { // was out of error range
         t_enter = now;
@@ -275,7 +276,7 @@ public class ModelController {
     } else {
       isInErrorRange = false;
       t_out = now;
-      arrowText.setText(arrow);
+      callback.updateArrowText(arrow);
     }
 
     if (now - firstStart > 1000){

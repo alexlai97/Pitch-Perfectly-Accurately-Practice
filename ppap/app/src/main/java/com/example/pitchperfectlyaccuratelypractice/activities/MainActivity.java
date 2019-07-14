@@ -32,6 +32,7 @@ import android.util.Log;
 
 import android.view.View;
 import android.view.MenuItem;
+import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Button;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements
         IntervalFragment.OnFragmentInteractionListener,
         TriadFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
+        MyCallback,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();
@@ -57,16 +59,19 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+    private NoteFragment noteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.e(TAG, "s" + created);
 
         checkMicrophonePermission();
+        super.onCreate(savedInstanceState);
 
         created = true;
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.navi_wrapper);
+
 
         // Set a Toolbar to replace the ActionBar.
         toolbar = findViewById(R.id.toolbar);
@@ -74,15 +79,20 @@ public class MainActivity extends AppCompatActivity implements
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new NoteFragment()).commit();
+        noteFragment = new NoteFragment();
+        if( noteFragment.getView() == null ){
+            Log.w(TAG, "athings");
+        }
 
+        fragmentManager.beginTransaction().replace(R.id.flContent, noteFragment).commit();
+        fragmentManager.executePendingTransactions();
 
-//        modelController = new ModelController(new Config(), this);
-//        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
-//        modelController.next_question();
-//
+        modelController = new ModelController(new Config(), this);
+        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
+        modelController.next_question();
+
 //        setupButtons();
-//        setupVoiceListener();
+        setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
         setupNaviMenu();
@@ -286,4 +296,23 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    public void updateFrequencyText(String myString){
+        noteFragment.updateFrequencyText(myString);
+    }
+
+    public void updateArrowText(String myString){
+        noteFragment.updateArrowText(myString);
+    }
+
+    public void updateCurrentPitchText(String myString){
+        noteFragment.updateCurrentPitchText(myString);
+    }
+
+    public void updateQuestionText(String myString){
+        noteFragment.updateQuestionText(myString);
+    }
+
+    public void updateArrowAnimation(Animation myAnimation){
+        noteFragment.updateArrowAnimation(myAnimation);
+    }
 }
