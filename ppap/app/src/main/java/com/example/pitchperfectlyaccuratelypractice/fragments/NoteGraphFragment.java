@@ -22,14 +22,18 @@ import com.jjoe64.graphview.*;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import android.graphics.Color;
+
 public class NoteGraphFragment extends GeneralFragment {
     private Runnable mTimer;
     private Long lastFreq;
     private GraphView graph;
     private LineGraphSeries<DataPoint> series;
+    private LineGraphSeries<DataPoint> series2;
     private int yes = 5;
     private final Handler mHandler = new Handler();
     private double graphLastXValue = 5d;
+    private double questionFreq;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,22 +50,23 @@ public class NoteGraphFragment extends GeneralFragment {
         graph = (GraphView) included.findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(4);
-
+        graph.getViewport().setMaxX(3);
         graph.getGridLabelRenderer().setLabelVerticalWidth(100);
 
         series = new LineGraphSeries<>();
         series.setDrawDataPoints(true);
         series.setDrawBackground(true);
-//        series = new LineGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 5),
-//                new DataPoint(2, 3),
-//                new DataPoint(3, 2),
-//                new DataPoint(4, 6)
-//        });
 
+        series2 = new LineGraphSeries<>();
+        series2.setDrawDataPoints(true);
+        series2.setColor(Color.RED);
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(-10);
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         graph.addSeries(series);
+        graph.addSeries(series2);
+
         return view;
     }
 
@@ -72,11 +77,11 @@ public class NoteGraphFragment extends GeneralFragment {
             public void run() {
                 graphLastXValue += 0.25d;
                 series.appendData(new DataPoint(graphLastXValue, lastFreq), true, 22);
+                series2.appendData(new DataPoint(graphLastXValue, questionFreq), true, 22);
                 mHandler.postDelayed(this, 330);
-                yes ++;
             }
         };
-        mHandler.postDelayed(mTimer, 50);
+        mHandler.postDelayed(mTimer, 100);
     }
 
     public void onPause() {
@@ -85,11 +90,13 @@ public class NoteGraphFragment extends GeneralFragment {
     }
 
     @Override
-    public void updateFrequencyText(Long freq){
+    public void updateFrequencyText(Long freq, Double expectedFreq){
         if(!onCreated) return;
         String temp = Long.toString(freq);
         frequencyText.setText(temp + "Hz");
+        graph.getViewport().setMaxY(expectedFreq*2);
         lastFreq = freq;
+        questionFreq = expectedFreq;
     }
 
     @Override

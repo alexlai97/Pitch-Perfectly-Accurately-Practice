@@ -128,7 +128,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void updateFrequencyText(Long freq){
+    public void updateFrequencyText(Long freq, Double expected){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
     }
