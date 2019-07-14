@@ -59,7 +59,13 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+    private String curMode = "Note";
+    private Fragment fragment;
+
     private NoteFragment noteFragment;
+    private IntervalFragment intervalFragment;
+    private TriadFragment triadFragment;
+    private Class fragmentClass = NoteFragment.class;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,8 +182,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
+        fragment = null;
 
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
@@ -185,24 +190,41 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.note_mode:
                 Log.d(TAG, "onNavigationItemSelected: notemode");
                 fragmentClass = NoteFragment.class;
+                curMode = "Note";
                 break;
             case R.id.interval_mode:
                 Log.d(TAG, "onNavigationItemSelected: intervalmode");
                 fragmentClass = IntervalFragment.class;
+                curMode = "Interval";
                 break;
             case R.id.chord_mode:
                 Log.d(TAG, "onNavigationItemSelected: chordmode");
                 fragmentClass = TriadFragment.class;
+                curMode = "Chord";
                 break;
 //            case R.id.song_mode:
 //                break;
             default:
                 Log.d(TAG, "onNavigationItemSelected: default");
                 fragmentClass = NoteFragment.class;
+                curMode = "Note";
         }
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
+            switch(id) {
+                case R.id.note_mode:
+                    noteFragment = (NoteFragment) fragment;
+                    break;
+                case R.id.interval_mode:
+                    intervalFragment = (IntervalFragment) fragment;
+                    break;
+                case R.id.chord_mode:
+                    triadFragment = (TriadFragment) fragment;
+                    break;
+                default:
+                    noteFragment = (NoteFragment) fragment;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -297,22 +319,82 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void updateFrequencyText(String myString){
-        noteFragment.updateFrequencyText(myString);
+        switch(curMode) {
+            case "Note":
+                noteFragment.updateFrequencyText(myString);
+                break;
+            case "Interval":
+                intervalFragment.updateFrequencyText(myString);
+                break;
+            case "Triad":
+                triadFragment.updateFrequencyText(myString);
+                break;
+            default:
+                noteFragment.updateFrequencyText(myString);
+        }
     }
 
     public void updateArrowText(String myString){
-        noteFragment.updateArrowText(myString);
+        switch(curMode) {
+            case "Note":
+                noteFragment.updateArrowText(myString);
+                break;
+            case "Interval":
+                intervalFragment.updateArrowText(myString);
+                break;
+            case "Triad":
+                triadFragment.updateArrowText(myString);
+                break;
+            default:
+                noteFragment.updateArrowText(myString);
+        }
     }
 
     public void updateCurrentPitchText(String myString){
-        noteFragment.updateCurrentPitchText(myString);
+        switch(curMode) {
+            case "Note":
+                noteFragment.updateCurrentPitchText(myString);
+                break;
+            case "Interval":
+                intervalFragment.updateCurrentPitchText(myString);
+                break;
+            case "Triad":
+                triadFragment.updateCurrentPitchText(myString);
+                break;
+            default:
+                noteFragment.updateCurrentPitchText(myString);
+        }
     }
 
     public void updateQuestionText(String myString){
-        noteFragment.updateQuestionText(myString);
+        switch(curMode) {
+            case "Note":
+                noteFragment.updateQuestionText(myString);
+                break;
+            case "Interval":
+                intervalFragment.updateQuestionText(myString);
+                break;
+            case "Triad":
+                triadFragment.updateQuestionText(myString);
+                break;
+            default:
+                noteFragment.updateQuestionText(myString);
+        }
     }
 
     public void updateArrowAnimation(Animation myAnimation){
-        noteFragment.updateArrowAnimation(myAnimation);
+        switch(curMode) {
+            case "Note":
+                noteFragment.updateArrowAnimation(myAnimation);
+                break;
+            case "Interval":
+                intervalFragment.updateArrowAnimation(myAnimation);
+                break;
+            case "Triad":
+                triadFragment.updateArrowAnimation(myAnimation);
+                break;
+            default:
+                noteFragment.updateArrowAnimation(myAnimation);
+        }
     }
 }

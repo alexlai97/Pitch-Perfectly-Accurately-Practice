@@ -222,6 +222,7 @@ public class ModelController {
     arrowAnimation.setDuration(speed);
     callback.updateArrowAnimation(arrowAnimation);
   }
+
   /**
    * process frequency PitchDetectionHandler feeds in and responds with:
    * <p>
