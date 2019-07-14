@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+
 import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
@@ -134,6 +135,7 @@ public class ModelController {
     current_question = new NoteQuestion();
     current_question.setNotePool(Note.generateNotesWithRange(12,36));
     activity = ac;
+
     callback = (MyCallback) ac;
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,

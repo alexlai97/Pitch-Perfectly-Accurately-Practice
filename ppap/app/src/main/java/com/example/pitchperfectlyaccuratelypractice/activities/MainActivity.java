@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+
     private NoteFragment noteFragment;
 
     @Override
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements
         // Set a Toolbar to replace the ActionBar.
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();

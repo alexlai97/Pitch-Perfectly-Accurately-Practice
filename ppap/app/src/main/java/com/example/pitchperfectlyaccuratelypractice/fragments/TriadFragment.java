@@ -93,12 +93,12 @@ public class TriadFragment extends Fragment implements MyCallback {
         Log.v("PEPE", "onCreateView!");
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_triad, container, false);
-        //ConstraintLayout included = view.findViewById(R.id.note_include);
-        //frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        //questionText = included.findViewById(R.id.questionTextView);
-
-        //arrowText = included.findViewById(R.id.arrowTextView);
-        //currentPitchText  = included.findViewById(R.id.currentPitchTextView);
+//        ConstraintLayout included = view.findViewById(R.id.note_include);
+//        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
+//        questionText = included.findViewById(R.id.questionTextView);
+//
+//        arrowText = included.findViewById(R.id.arrowTextView);
+//        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
         return view;
     }
 
