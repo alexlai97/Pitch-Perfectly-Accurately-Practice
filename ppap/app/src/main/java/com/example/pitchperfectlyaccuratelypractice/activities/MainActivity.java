@@ -202,8 +202,8 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.notegraph_mode:
                 Log.d(TAG, "onNavigationItemSelected: notegraph");
-                fragmentClass = NoteGraphFragment.class;
-                curMode = "NoteGraph";
+                curFragment = new NoteGraphFragment();
+                curMode = Mode.NoteGraphPractice;
                 break;
 //            case R.id.song_mode:
 //                break;

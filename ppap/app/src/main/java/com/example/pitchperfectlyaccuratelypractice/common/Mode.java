@@ -7,6 +7,7 @@ public enum Mode {
   NotePractice,
   IntervalPractice,
   TriadPractice,
-  SongPractice;
+  SongPractice,
+  NoteGraphPractice;
 }
 
