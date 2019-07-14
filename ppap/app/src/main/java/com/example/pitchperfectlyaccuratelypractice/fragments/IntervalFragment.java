@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -40,5 +43,18 @@ public class IntervalFragment extends GeneralFragment {
         arrowText = included.findViewById(R.id.arrowTextView1);
         currentPitchText  = included.findViewById(R.id.currentPitchTextView);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        Button button = getView().findViewById(R.id.naviButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+        super.onResume();
     }
 }

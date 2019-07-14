@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -33,6 +32,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 
+import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.animation.Animation;
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements
     private boolean created = false;
 
     private ActionBarDrawerToggle drawerToggle;
-    private Toolbar toolbar;
     private NavigationView navigationView;
 
     private Mode curMode = Mode.NotePractice;
@@ -75,10 +74,8 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.navi_wrapper);
 
 
-        // Set a Toolbar to replace the ActionBar.
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -98,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements
         setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
-        setupNaviMenu();
     }
 
     void setupButtons() {
@@ -117,20 +113,7 @@ public class MainActivity extends AppCompatActivity implements
         voicelistener.startListening();
     }
 
-    void setupNaviMenu() {
-        // add listener on hamburger button to open drawer
-//        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-//        Button nav_button = findViewById(R.id.naviButton);
-//        nav_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                drawer.openDrawer(GravityCompat.START);
-//            }
-//        });
 
-        navigationView.setNavigationItemSelectedListener(this);
-    }
 
 
     protected void onRestart() {
@@ -158,8 +141,16 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            drawer.openDrawer(GravityCompat.START);
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -169,6 +160,9 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.playSoundButton:
+                // implement here to handle play button
                 return true;
         }
 
