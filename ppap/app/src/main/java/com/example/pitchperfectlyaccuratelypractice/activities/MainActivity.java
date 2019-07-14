@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Config;
+import com.example.pitchperfectlyaccuratelypractice.common.Mode;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private NavigationView navigationView;
 
-    private String curMode = "Note";
+    private Mode curMode = Mode.NotePractice;
     private Fragment fragment;
 
     private NoteFragment noteFragment;
@@ -191,24 +192,24 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.note_mode:
                 Log.d(TAG, "onNavigationItemSelected: notemode");
                 fragmentClass = NoteFragment.class;
-                curMode = "Note";
+                curMode = Mode.NotePractice;
                 break;
             case R.id.interval_mode:
                 Log.d(TAG, "onNavigationItemSelected: intervalmode");
                 fragmentClass = IntervalFragment.class;
-                curMode = "Interval";
+                curMode = Mode.IntervalPractice;
                 break;
             case R.id.chord_mode:
                 Log.d(TAG, "onNavigationItemSelected: chordmode");
                 fragmentClass = TriadFragment.class;
-                curMode = "Chord";
+                curMode = Mode.TriadPractice;
                 break;
 //            case R.id.song_mode:
 //                break;
             default:
                 Log.d(TAG, "onNavigationItemSelected: default");
                 fragmentClass = NoteFragment.class;
-                curMode = "Note";
+                curMode = Mode.NotePractice;
         }
 
         try {
@@ -322,13 +323,13 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateFrequencyText(String myString){
         switch(curMode) {
-            case "Note":
+            case NotePractice:
                 noteFragment.updateFrequencyText(myString);
                 break;
-            case "Interval":
+            case IntervalPractice:
                 intervalFragment.updateFrequencyText(myString);
                 break;
-            case "Triad":
+            case TriadPractice:
                 triadFragment.updateFrequencyText(myString);
                 break;
             default:
@@ -338,13 +339,13 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateArrowText(String myString){
         switch(curMode) {
-            case "Note":
+            case NotePractice:
                 noteFragment.updateArrowText(myString);
                 break;
-            case "Interval":
+            case IntervalPractice:
                 intervalFragment.updateArrowText(myString);
                 break;
-            case "Triad":
+            case TriadPractice:
                 triadFragment.updateArrowText(myString);
                 break;
             default:
@@ -354,13 +355,13 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateCurrentPitchText(String myString){
         switch(curMode) {
-            case "Note":
+            case NotePractice:
                 noteFragment.updateCurrentPitchText(myString);
                 break;
-            case "Interval":
+            case IntervalPractice:
                 intervalFragment.updateCurrentPitchText(myString);
                 break;
-            case "Triad":
+            case TriadPractice:
                 triadFragment.updateCurrentPitchText(myString);
                 break;
             default:
@@ -370,13 +371,13 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateQuestionText(String myString){
         switch(curMode) {
-            case "Note":
+            case NotePractice:
                 noteFragment.updateQuestionText(myString);
                 break;
-            case "Interval":
+            case IntervalPractice:
                 intervalFragment.updateQuestionText(myString);
                 break;
-            case "Triad":
+            case TriadPractice:
                 triadFragment.updateQuestionText(myString);
                 break;
             default:
@@ -386,13 +387,13 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateArrowAnimation(Animation myAnimation){
         switch(curMode) {
-            case "Note":
+            case NotePractice:
                 noteFragment.updateArrowAnimation(myAnimation);
                 break;
-            case "Interval":
+            case IntervalPractice:
                 intervalFragment.updateArrowAnimation(myAnimation);
                 break;
-            case "Triad":
+            case TriadPractice:
                 triadFragment.updateArrowAnimation(myAnimation);
                 break;
             default:
