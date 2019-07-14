@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +23,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * Use the {@link IntervalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IntervalFragment extends Fragment {
+public class IntervalFragment extends Fragment implements MyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,6 +34,25 @@ public class IntervalFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    /**
+     * stores questionTextView
+     */
+    private TextView questionText;
+    /**
+     * stores arrowsTextView
+     */
+    private TextView arrowText;
+    /**
+     * stores frequencyTextView
+     */
+    private TextView frequencyText;
+    /**
+     * stores currentPitchTextView
+     */
+    private TextView currentPitchText;
+
+    private boolean onCreated = false;
 
     public IntervalFragment() {
         // Required empty public constructor
@@ -107,4 +129,30 @@ public class IntervalFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void updateFrequencyText(String myString){
+        if(!onCreated) return;
+        frequencyText.setText(myString);
+    }
+
+    public void updateArrowText(String myString){
+        if(!onCreated) return;
+        arrowText.setText(myString);
+    }
+
+    public void updateCurrentPitchText(String myString){
+        if(!onCreated) return;
+        currentPitchText.setText(myString);
+    }
+
+    public void updateQuestionText(String myString){
+        if(!onCreated) return;
+        questionText.setText(myString);
+    }
+
+    public void updateArrowAnimation(Animation myAnimation){
+        if(!onCreated) return;
+        arrowText.setAnimation(myAnimation);
+    }
+
 }

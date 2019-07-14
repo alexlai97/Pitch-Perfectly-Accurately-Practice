@@ -7,7 +7,7 @@
     <string name="keySig">Key Signature</string>
     <string name="noteMode">Note Practice</string>
     <string name="inteMode">Interval Practice</string>
-    <string name="chordMode">Chord Practice</string>
+    <string name="chordMode">Triad Practice</string>
     <string name="songMode">Song Practice</string>
 
     <string name="note_mode">Note</string>

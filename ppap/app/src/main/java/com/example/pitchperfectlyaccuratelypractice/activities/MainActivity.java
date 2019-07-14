@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements
         fragmentManager.beginTransaction().replace(R.id.flContent, noteFragment).commit();
         fragmentManager.executePendingTransactions();
 
-        modelController = new ModelController(new Config(), this);
+        modelController = new  ModelController(new Config(), this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         modelController.next_question();
 
