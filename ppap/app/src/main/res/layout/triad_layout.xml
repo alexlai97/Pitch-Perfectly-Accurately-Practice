@@ -11,26 +11,20 @@
         android:layout_width="112dp"
         android:layout_height="35dp"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeTextType="uniform"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/arrowTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/currentPitchTextView"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/triad1TextView"
-        android:layout_width="334dp"
-        android:layout_height="129dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="166dp"
+        android:layout_height="99dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="100sp"
         android:autoSizeMinTextSize="12sp"
@@ -39,16 +33,15 @@
         android:textAlignment="center"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.554" />
+        app:layout_constraintEnd_toEndOf="@+id/triad2TextView"
+        app:layout_constraintStart_toStartOf="@+id/triad2TextView"
+        app:layout_constraintTop_toBottomOf="@+id/triad2TextView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/triad2TextView"
-        android:layout_width="334dp"
-        android:layout_height="129dp"
+        android:layout_width="146dp"
+        android:layout_height="94dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -61,18 +54,15 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintVertical_bias="0.58000004" />
 
     <TextView
         android:id="@+id/triad3TextView"
-        android:layout_width="334dp"
-        android:layout_height="129dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="128dp"
+        android:layout_height="108dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="100sp"
         android:autoSizeMinTextSize="12sp"
@@ -80,12 +70,12 @@
         android:text="A4#"
         android:textAlignment="center"
         android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/triad2TextView"
+        app:layout_constraintEnd_toEndOf="@+id/triad2TextView"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/triad2TextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/filterButton"
@@ -100,19 +90,21 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/arrowTextView"
+        android:id="@+id/arrowTextView1"
         android:layout_width="81dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:autoSizeMaxTextSize="40sp"
         android:autoSizeMinTextSize="30sp"
         android:autoSizeTextType="uniform"
         android:text=""
         android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/triad3TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/playSoundButton"
@@ -155,7 +147,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/currentFrequencyTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.247" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

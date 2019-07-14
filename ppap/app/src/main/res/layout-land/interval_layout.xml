@@ -8,11 +8,10 @@
 
     <TextView
         android:id="@+id/currentFrequencyTextView"
-        android:layout_width="112dp"
-        android:layout_height="35dp"
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="12sp"
@@ -21,11 +20,11 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/playSoundButton"
-        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintEnd_toStartOf="@+id/currentPitchTextView"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.129" />
 
     <TextView
         android:id="@+id/questionTextView"
@@ -43,9 +42,10 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+        app:layout_constraintVertical_bias="0.541" />
 
     <Button
         android:id="@+id/filterButton"
@@ -62,20 +62,19 @@
     <TextView
         android:id="@+id/arrowTextView1"
         android:layout_width="81dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:autoSizeMaxTextSize="40sp"
         android:autoSizeMinTextSize="30sp"
         android:autoSizeTextType="uniform"
         android:text=""
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/questionTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029" />
+        app:layout_constraintVertical_bias="0.737" />
 
     <Button
         android:id="@+id/playSoundButton"
@@ -110,18 +109,16 @@
 
     <TextView
         android:id="@+id/currentPitchTextView"
-        android:layout_width="65dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/filterButton"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/currentFrequencyTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.769"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/currentFrequencyTextView" />
 
     <TextView
         android:id="@+id/interval"
@@ -136,10 +133,9 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.465"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintTop_toBottomOf="@+id/questionTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

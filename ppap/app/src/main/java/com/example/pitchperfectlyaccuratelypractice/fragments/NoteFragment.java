@@ -3,11 +3,9 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +103,7 @@ public class NoteFragment extends Fragment implements MyCallback {
         frequencyText = included.findViewById(R.id.currentFrequencyTextView);
         questionText = included.findViewById(R.id.questionTextView);
 
-        arrowText = included.findViewById(R.id.arrowTextView);
+        arrowText = included.findViewById(R.id.arrowTextView1);
         currentPitchText  = included.findViewById(R.id.currentPitchTextView);
         return view;
     }
