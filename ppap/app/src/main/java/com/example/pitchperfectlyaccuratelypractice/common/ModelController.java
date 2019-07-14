@@ -13,13 +13,15 @@ import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
+import java.io.Serializable;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
  * Stores states and controls views
  */
 
-public class ModelController {
+public class ModelController implements Serializable {
   private static final String TAG = "MODEL";
 
   private double current_frequency = -2000;

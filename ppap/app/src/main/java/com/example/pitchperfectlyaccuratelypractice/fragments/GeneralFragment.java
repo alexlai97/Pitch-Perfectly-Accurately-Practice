@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
+import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +54,8 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
      * stores currentPitchTextView
      */
     TextView currentPitchText;
+
+    ModelController modelController;
 
     boolean onCreated = false;
 

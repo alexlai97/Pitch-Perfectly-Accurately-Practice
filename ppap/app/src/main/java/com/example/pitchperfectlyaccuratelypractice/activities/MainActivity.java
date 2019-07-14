@@ -38,6 +38,8 @@ import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Button;
 
+import java.io.Serializable;
+
 /**
  * NotePracticeMode Activity
  */
@@ -147,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements
 
     public void openFilterPage(View view){
         Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
+        filter_intent.putExtra("modelController", modelController);
+
         startActivity(filter_intent);
     }
 
