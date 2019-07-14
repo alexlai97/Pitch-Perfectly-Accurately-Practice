@@ -3,16 +3,22 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.app.Activity;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.animation.Animation;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +28,8 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * Use the {@link NoteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NoteFragment extends Fragment{
+
+public class NoteFragment extends Fragment implements MyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,14 +42,24 @@ public class NoteFragment extends Fragment{
     private OnFragmentInteractionListener mListener;
 
 
-    public TextView frequencyText;
-    public TextView questionText;
-    public TextView arrowText;
-    public TextView currentPitchText;
+    /**
+     * stores questionTextView
+     */
+    private TextView questionText;
+    /**
+     * stores arrowsTextView
+     */
+    private TextView arrowText;
+    /**
+     * stores frequencyTextView
+     */
+    private TextView frequencyText;
+    /**
+     * stores currentPitchTextView
+     */
+    private TextView currentPitchText;
 
-
-
-
+    private boolean onCreated = false;
     public NoteFragment() {
         // Required empty public constructor
     }
@@ -72,19 +89,24 @@ public class NoteFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.v("PEPE", "fdsadound!");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        View view =inflater.inflate(R.layout.fragment_note, container, false);
 
-        frequencyText = view.findViewById(R.id.currentFrequencyTextView);
-        questionText = view.findViewById(R.id.questionTextView);
-        arrowText = view.findViewById(R.id.arrowTextView);
-        currentPitchText  = view.findViewById(R.id.currentPitchTextView);
 
+        Log.v("PEPE", "onCreateView!");
+        onCreated = true;
+        View view = inflater.inflate(R.layout.fragment_note, container, false);
+        ConstraintLayout included = view.findViewById(R.id.note_include);
+        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
+        questionText = included.findViewById(R.id.questionTextView);
+
+        arrowText = included.findViewById(R.id.arrowTextView);
+        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -103,6 +125,8 @@ public class NoteFragment extends Fragment{
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        Log.v("PEPE", "Attached!");
+
     }
 
     @Override
@@ -125,4 +149,30 @@ public class NoteFragment extends Fragment{
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void updateFrequencyText(String myString){
+        if(!onCreated) return;
+        frequencyText.setText(myString);
+    }
+
+    public void updateArrowText(String myString){
+        if(!onCreated) return;
+        arrowText.setText(myString);
+    }
+
+    public void updateCurrentPitchText(String myString){
+        if(!onCreated) return;
+        currentPitchText.setText(myString);
+    }
+
+    public void updateQuestionText(String myString){
+        if(!onCreated) return;
+        questionText.setText(myString);
+    }
+
+    public void updateArrowAnimation(Animation myAnimation){
+        if(!onCreated) return;
+        arrowText.setAnimation(myAnimation);
+    }
+
 }

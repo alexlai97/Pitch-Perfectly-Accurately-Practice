@@ -7,6 +7,7 @@
 
     <include
         layout="@layout/activity_main"
+        android:id="@+id/note_include"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

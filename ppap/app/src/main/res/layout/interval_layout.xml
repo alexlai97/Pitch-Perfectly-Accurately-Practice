@@ -6,7 +6,7 @@
     android:background="#BDE8D8">
 
     <TextView
-        android:id="@+id/currentFrequencyTextView"
+        android:id="@+id/currentFrequencyTextView1"
         android:layout_width="112dp"
         android:layout_height="35dp"
         android:layout_marginStart="68dp"
@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/questionTextView"
+        android:id="@+id/questionTextView1"
         android:layout_width="350dp"
         android:layout_height="272dp"
         android:layout_marginStart="8dp"
@@ -39,10 +39,10 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrowTextView"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintVertical_bias="0.132" />
 
     <Button
         android:id="@+id/filterButton"
@@ -118,8 +118,8 @@
 
     <TextView
         android:id="@+id/interval"
-        android:layout_width="115dp"
-        android:layout_height="49dp"
+        android:layout_width="120dp"
+        android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="272dp"
         android:layout_marginEnd="8dp"
