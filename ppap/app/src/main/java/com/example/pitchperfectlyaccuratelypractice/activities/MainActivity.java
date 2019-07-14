@@ -13,6 +13,7 @@ import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private Mode curMode = Mode.NotePractice;
     private GeneralFragment curFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public void openFilterPage(View view){
         Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
+//        filter_intent.putExtra("modelController", modelController);
         startActivity(filter_intent);
     }
 
@@ -199,12 +200,18 @@ public class MainActivity extends AppCompatActivity implements
                 curFragment = new TriadFragment();
                 curMode = Mode.TriadPractice;
                 break;
+            case R.id.notegraph_mode:
+                Log.d(TAG, "onNavigationItemSelected: notegraph");
+                fragmentClass = NoteGraphFragment.class;
+                curMode = "NoteGraph";
+                break;
 //            case R.id.song_mode:
 //                break;
             default:
                 Log.d(TAG, "onNavigationItemSelected: default");
                 curFragment = new NoteFragment();
                 curMode = Mode.NotePractice;
+
         }
 
         // Insert the fragment by replacing any existing fragment
@@ -249,8 +256,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(Uri uri) {
         //used to communicate between fragments
-
     }
+
     /**
      * check Microphone Permission and handle it
      */
@@ -315,5 +322,6 @@ public class MainActivity extends AppCompatActivity implements
 
     public void updateArrowAnimation(Animation myAnimation){
         curFragment.updateArrowAnimation(myAnimation);
+
     }
 }
