@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 
@@ -20,7 +22,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * Use the {@link NoteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NoteFragment extends Fragment {
+public class NoteFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,6 +33,15 @@ public class NoteFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+    public TextView frequencyText;
+    public TextView questionText;
+    public TextView arrowText;
+    public TextView currentPitchText;
+
+
+
 
     public NoteFragment() {
         // Required empty public constructor
@@ -66,7 +77,14 @@ public class NoteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_note, container, false);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        View view =inflater.inflate(R.layout.fragment_note, container, false);
+
+        frequencyText = view.findViewById(R.id.currentFrequencyTextView);
+        questionText = view.findViewById(R.id.questionTextView);
+        arrowText = view.findViewById(R.id.arrowTextView);
+        currentPitchText  = view.findViewById(R.id.currentPitchTextView);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

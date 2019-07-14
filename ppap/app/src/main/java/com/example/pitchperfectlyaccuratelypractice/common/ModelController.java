@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
@@ -131,10 +132,11 @@ public class ModelController {
     current_question = new NoteQuestion();
     current_question.setNotePool(Note.generateNotesWithRange(12,36));
     activity = ac;
-    frequencyText = this.activity.findViewById(R.id.currentFrequencyTextView);
+    frequencyText = NoteFragment.newInstance().frequencyText;
     questionText = this.activity.findViewById(R.id.questionTextView);
     arrowText = this.activity.findViewById(R.id.arrowTextView);
     currentPitchText  = this.activity.findViewById(R.id.currentPitchTextView);
+    if (questionText == null) { Log.d(TAG, "cannot find view"); }
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,

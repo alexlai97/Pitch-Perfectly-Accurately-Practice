@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private NavigationView navigationView;
 
+    public TextView frequencyText = findViewById(R.id.currentFrequencyTextView);
+    public TextView questionText = findViewById(R.id.questionTextView);
+    public TextView arrowText = findViewById(R.id.arrowTextView);
+    public TextView currentPitchText  = findViewById(R.id.currentPitchTextView);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +78,22 @@ public class MainActivity extends AppCompatActivity implements
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, new NoteFragment()).commit();
 
 
-//        modelController = new ModelController(new Config(), this);
-//        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
-//        modelController.next_question();
-//
-//        setupButtons();
-//        setupVoiceListener();
+        modelController = new ModelController(new Config(), this);
+        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
+        modelController.next_question();
+
+        setupButtons();
+        setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
         setupNaviMenu();
