@@ -304,8 +304,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void updateFrequencyText(String myString){
-        curFragment.updateFrequencyText(myString);
+    public void updateFrequencyText(Long freq){
+        curFragment.updateFrequencyText(freq);
     }
 
     public void updateArrowText(String myString){
