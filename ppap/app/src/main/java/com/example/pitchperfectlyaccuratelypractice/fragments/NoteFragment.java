@@ -56,6 +56,7 @@ public class NoteFragment extends Fragment implements MyCallback {
     private TextView currentPitchText;
 
     private boolean onCreated = false;
+
     public NoteFragment() {
         // Required empty public constructor
     }
