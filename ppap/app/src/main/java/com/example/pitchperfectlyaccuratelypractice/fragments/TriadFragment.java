@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -56,6 +59,8 @@ public class TriadFragment extends Fragment implements MyCallback {
 
     private boolean onCreated = false;
 
+    private View triadView;
+
     public TriadFragment() {
         // Required empty public constructor
     }
@@ -93,6 +98,7 @@ public class TriadFragment extends Fragment implements MyCallback {
         Log.v("PEPE", "onCreateView!");
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_triad, container, false);
+        triadView = view;
 //        ConstraintLayout included = view.findViewById(R.id.note_include);
 //        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
 //        questionText = included.findViewById(R.id.questionTextView);
@@ -100,6 +106,19 @@ public class TriadFragment extends Fragment implements MyCallback {
 //        arrowText = included.findViewById(R.id.arrowTextView);
 //        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        Button button = triadView.findViewById(R.id.naviButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+        super.onResume();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

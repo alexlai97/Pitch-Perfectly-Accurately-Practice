@@ -19,7 +19,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements
     private boolean created = false;
 
     private ActionBarDrawerToggle drawerToggle;
-    private Toolbar toolbar;
     private NavigationView navigationView;
 
     private String curMode = "Note";
@@ -80,17 +78,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.navi_wrapper);
 
 
-        // Set a Toolbar to replace the ActionBar.
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
         // Start Note Fragment
@@ -156,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            drawer.openDrawer(GravityCompat.START);
             super.onBackPressed();
         }
     }

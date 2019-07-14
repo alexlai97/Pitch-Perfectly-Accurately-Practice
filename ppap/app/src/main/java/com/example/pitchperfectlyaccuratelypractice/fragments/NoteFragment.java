@@ -4,7 +4,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -58,6 +62,8 @@ public class NoteFragment extends Fragment implements MyCallback {
     private TextView currentPitchText;
 
     private boolean onCreated = false;
+
+    private View noteView;
 
     public NoteFragment() {
         // Required empty public constructor
@@ -106,6 +112,7 @@ public class NoteFragment extends Fragment implements MyCallback {
 
         arrowText = included.findViewById(R.id.arrowTextView1);
         currentPitchText  = included.findViewById(R.id.currentPitchTextView);
+        noteView = view;
         return view;
     }
 
@@ -114,6 +121,19 @@ public class NoteFragment extends Fragment implements MyCallback {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume() {
+        Button button =noteView.findViewById(R.id.naviButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+        super.onResume();
     }
 
     @Override
