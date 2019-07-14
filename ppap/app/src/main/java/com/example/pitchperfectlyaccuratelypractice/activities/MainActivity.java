@@ -19,20 +19,20 @@ import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 
+import android.view.Menu;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.animation.Animation;
@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements
         updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
-    private static PlaySound theSound = new PlaySound();
+    public static final int REQUEST_CODE_FROM_FILTER = 1;
+    private static NotePlayer notePlayer = new NotePlayer();
     private TextView arrow;
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements
     private boolean created = false;
 
     private ActionBarDrawerToggle drawerToggle;
-    private Toolbar toolbar;
     private NavigationView navigationView;
 
     private Mode curMode = Mode.NotePractice;
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG, "s" + created);
+         Log.e(TAG, "s" + created);
 
         checkMicrophonePermission();
         super.onCreate(savedInstanceState);
@@ -75,10 +75,8 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.navi_wrapper);
 
 
-        // Set a Toolbar to replace the ActionBar.
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -94,62 +92,55 @@ public class MainActivity extends AppCompatActivity implements
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         modelController.next_question();
 
-//        setupButtons();
         setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
-        setupNaviMenu();
     }
 
-    void setupButtons() {
-        Button parentLayout;
-        parentLayout = findViewById(R.id.helpButton);
-        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                modelController.next_question();
-                return false;
-            }
-        });
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: get intent back from filter page");
+        if (requestCode == REQUEST_CODE_FROM_FILTER) {
+            if (resultCode == RESULT_OK) {
+                Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
+                Note.logNotes("back to main activity", result_notes);
+                modelController.setNotePool(result_notes);
+                modelController.next_question();
+            } else if (resultCode == RESULT_CANCELED){
+
+            } else {
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
     void setupVoiceListener() {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
     }
 
-    void setupNaviMenu() {
-        // add listener on hamburger button to open drawer
-//        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-//        Button nav_button = findViewById(R.id.naviButton);
-//        nav_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                drawer.openDrawer(GravityCompat.START);
-//            }
-//        });
 
-        navigationView.setNavigationItemSelectedListener(this);
+
+    public ModelController getModelController() {
+        return modelController;
     }
 
+    public NotePlayer getNotePlayer() {
+        return notePlayer;
+    }
 
     protected void onRestart() {
         super.onRestart();
         Log.w(TAG, "ONRESTART");
     }
 
-    // FIXME  crashes after several plays
-    public void myToner(View view){
-        theSound.genTone((int)modelController.getExpectedFrequency(), 1);
-        theSound.playSound();
-        Log.i(TAG, "PLAYED");
-    }
-
-    public void openFilterPage(View view){
-        Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
-//        filter_intent.putExtra("modelController", modelController);
-        startActivity(filter_intent);
-    }
 
     // handle drawer closing
     @Override
@@ -158,8 +149,16 @@ public class MainActivity extends AppCompatActivity implements
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            drawer.openDrawer(GravityCompat.START);
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -169,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.playSoundButton:
+                // implement here to handle play button
                 return true;
         }
 
@@ -304,8 +306,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void updateFrequencyText(String myString){
-        curFragment.updateFrequencyText(myString);
+    public void updateFrequencyText(Long freq, Double expectedFreq){
+        curFragment.updateFrequencyText(freq, expectedFreq);
     }
 
     public void updateArrowText(String myString){

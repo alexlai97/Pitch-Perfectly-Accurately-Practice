@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.pitchperfectlyaccuratelypractice.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/playSoundButton"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/baseline_play_circle_filled_black_18dp"
+        android:title="@string/play"
+        app:showAsAction="always" />
 </menu>

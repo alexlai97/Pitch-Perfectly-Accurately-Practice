@@ -13,13 +13,16 @@ import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
+import java.io.Serializable;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
  * Stores states and controls views
  */
 
-public class ModelController {
+//public class ModelController implements Serializable {
+public class ModelController implements Serializable {
   private static final String TAG = "MODEL";
 
   private double current_frequency = -2000;
@@ -241,8 +244,9 @@ public class ModelController {
     callback.updateQuestionText(current_question.getTexts()[0]);
 
     current_frequency = freq;
-    callback.updateFrequencyText(""+Math.round(current_frequency) +" Hz");
+    callback.updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
     callback.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
+
     double expected_freq = getExpectedFrequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
