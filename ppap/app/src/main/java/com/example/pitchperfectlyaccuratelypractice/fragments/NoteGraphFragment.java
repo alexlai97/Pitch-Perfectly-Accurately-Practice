@@ -75,7 +75,7 @@ public class NoteGraphFragment extends GeneralFragment {
         mTimer = new Runnable() {
             @Override
             public void run() {
-                graphLastXValue += 0.25d;
+                graphLastXValue += 0.5d;
                 series.appendData(new DataPoint(graphLastXValue, lastFreq), true, 22);
                 series2.appendData(new DataPoint(graphLastXValue, questionFreq), true, 22);
                 mHandler.postDelayed(this, 330);
