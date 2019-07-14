@@ -12,7 +12,7 @@
 
     <string name="note_mode">Note</string>
     <string name="interval_mode">Interval</string>
-    <string name="chord_mode">Chord</string>
+    <string name="chord_mode">Triad</string>
     <string name="song_mode">Music</string>
     <string name="summary">Summary</string>
     <string name="contact">Contact</string>
