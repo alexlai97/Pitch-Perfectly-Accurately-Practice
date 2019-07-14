@@ -29,10 +29,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.os.PersistableBundle;
 import android.util.Log;
 
 import android.view.View;
@@ -40,8 +38,6 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Button;
-
-import java.io.Serializable;
 
 /**
  * NotePracticeMode Activity
@@ -53,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     private static final int REQUEST_CODE_FROM_FILTER = 1;
-    private static PlaySound theSound = new PlaySound();
+    private static NotePlayer notePlayer = new NotePlayer();
     private TextView arrow;
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
@@ -168,8 +164,8 @@ public class MainActivity extends AppCompatActivity implements
 
     // FIXME  crashes after several plays
     public void myToner(View view){
-        theSound.genTone((int)modelController.getExpectedFrequency(), 1);
-        theSound.playSound();
+        notePlayer.genTone((int)modelController.getExpectedFrequency(), 1);
+        notePlayer.playSound();
         Log.i(TAG, "PLAYED");
     }
 

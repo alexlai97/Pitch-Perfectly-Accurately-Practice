@@ -252,7 +252,10 @@ public class NoteModeFilterPageActivity extends Activity {
         return button;
     }
 
-    // FIXME Alex: I might miss set the on/off in opossite way but oculnt'd find where I went wrong, maybe it's fine
+    /**
+     * pass note [] as int [] in intent back to MainActivity
+     * @param view
+     */
 
     void backToMain(View view){
         Note[] notes_to_return = tmpData.toNotes();
@@ -261,9 +264,6 @@ public class NoteModeFilterPageActivity extends Activity {
         Intent note_pool_intent = new Intent(this, MainActivity.class);
         note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
         setResult(RESULT_OK, note_pool_intent);
-
-//        startActivity(note_pool_intent);
-
         finish();
     }
 

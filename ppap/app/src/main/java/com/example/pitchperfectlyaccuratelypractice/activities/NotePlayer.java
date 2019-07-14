@@ -15,7 +15,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * <p>
  * FIXME currently crashes after around 10 times of playing sound
  */
-public class PlaySound extends Activity {
+public class NotePlayer extends Activity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Jialin Shan for pitch perfect
     private final int sampleRate = 44100;
