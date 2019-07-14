@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
@@ -17,6 +18,11 @@
             android:id="@+id/chord_mode"
             android:icon="@drawable/chord"
             android:title="@string/chord_mode" />
+        <item
+            android:id="@+id/notegraph_mode"
+            android:icon="@drawable/graph"
+            android:title="@string/notegraph_mode"
+            />
     </group>
 
     <item android:title="Communicate">

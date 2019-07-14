@@ -3,11 +3,9 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Activity;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +18,11 @@ import android.util.Log;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NoteFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NoteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.jjoe64.graphview.*;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
-public class NoteFragment extends Fragment implements MyCallback {
+public class NoteGraphFragment extends Fragment implements MyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,17 +32,12 @@ public class NoteFragment extends Fragment implements MyCallback {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
+    private NoteGraphFragment.OnFragmentInteractionListener mListener;
 
     /**
      * stores questionTextView
      */
     private TextView questionText;
-    /**
-     * stores arrowsTextView
-     */
-    private TextView arrowText;
     /**
      * stores frequencyTextView
      */
@@ -61,7 +49,7 @@ public class NoteFragment extends Fragment implements MyCallback {
 
     private boolean onCreated = false;
 
-    public NoteFragment() {
+    public NoteGraphFragment() {
         // Required empty public constructor
     }
 
@@ -71,11 +59,11 @@ public class NoteFragment extends Fragment implements MyCallback {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NoteFragment.
+     * @return A new instance of fragment NoteGraphFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NoteFragment newInstance(String param1, String param2) {
-        NoteFragment fragment = new NoteFragment();
+    public static NoteGraphFragment newInstance(String param1, String param2) {
+        NoteGraphFragment fragment = new NoteGraphFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,21 +78,29 @@ public class NoteFragment extends Fragment implements MyCallback {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Log.v("PEPE", "fdsadound!");
+        Log.v("NOTEGRAPH", "fdsadound!");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.v("PEPE", "onCreateView!");
+        Log.v("NOTEGRAPH", "onCreateView!");
         onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_note, container, false);
-        ConstraintLayout included = view.findViewById(R.id.note_include);
+        View view = inflater.inflate(R.layout.fragment_note_graph, container, false);
+        ConstraintLayout included = view.findViewById(R.id.notegraph_include);
         frequencyText = included.findViewById(R.id.currentFrequencyTextView);
         questionText = included.findViewById(R.id.questionTextView);
 
-        arrowText = included.findViewById(R.id.arrowTextView);
         currentPitchText  = included.findViewById(R.id.currentPitchTextView);
+        GraphView graph = (GraphView) included.findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
         return view;
     }
 
@@ -124,7 +120,7 @@ public class NoteFragment extends Fragment implements MyCallback {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        Log.v("PEPE", "Attached!");
+        Log.v("NOTEGRAPH", "Attached!");
 
     }
 
@@ -156,7 +152,6 @@ public class NoteFragment extends Fragment implements MyCallback {
 
     public void updateArrowText(String myString){
         if(!onCreated) return;
-        arrowText.setText(myString);
     }
 
     public void updateCurrentPitchText(String myString){
@@ -171,7 +166,5 @@ public class NoteFragment extends Fragment implements MyCallback {
 
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
     }
-
 }

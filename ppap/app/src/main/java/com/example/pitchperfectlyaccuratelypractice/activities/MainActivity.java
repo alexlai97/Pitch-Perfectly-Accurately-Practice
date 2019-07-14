@@ -11,6 +11,7 @@ import com.example.pitchperfectlyaccuratelypractice.common.Config;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements
         NoteFragment.OnFragmentInteractionListener,
         IntervalFragment.OnFragmentInteractionListener,
         TriadFragment.OnFragmentInteractionListener,
+        NoteGraphFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
         MyCallback,
         NavigationView.OnNavigationItemSelectedListener {
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements
     private NoteFragment noteFragment;
     private IntervalFragment intervalFragment;
     private TriadFragment triadFragment;
+    private NoteGraphFragment noteGraphFragment;
     private Class fragmentClass = NoteFragment.class;;
 
     @Override
@@ -151,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements
 
     public void openFilterPage(View view){
         Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
+//        filter_intent.putExtra("modelController", modelController);
         startActivity(filter_intent);
     }
 
@@ -203,6 +207,11 @@ public class MainActivity extends AppCompatActivity implements
                 fragmentClass = TriadFragment.class;
                 curMode = "Chord";
                 break;
+            case R.id.notegraph_mode:
+                Log.d(TAG, "onNavigationItemSelected: notegraph");
+                fragmentClass = NoteGraphFragment.class;
+                curMode = "NoteGraph";
+                break;
 //            case R.id.song_mode:
 //                break;
             default:
@@ -216,6 +225,9 @@ public class MainActivity extends AppCompatActivity implements
             switch(id) {
                 case R.id.note_mode:
                     noteFragment = (NoteFragment) fragment;
+                    break;
+                case R.id.notegraph_mode:
+                    noteGraphFragment = (NoteGraphFragment) fragment;
                     break;
                 case R.id.interval_mode:
                     intervalFragment = (IntervalFragment) fragment;
@@ -272,8 +284,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(Uri uri) {
         //used to communicate between fragments
-
     }
+
     /**
      * check Microphone Permission and handle it
      */
@@ -331,6 +343,9 @@ public class MainActivity extends AppCompatActivity implements
             case "Triad":
                 triadFragment.updateFrequencyText(myString);
                 break;
+            case "NoteGraph":
+                noteGraphFragment.updateFrequencyText(myString);
+                break;
             default:
                 noteFragment.updateFrequencyText(myString);
         }
@@ -346,6 +361,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case "Triad":
                 triadFragment.updateArrowText(myString);
+                break;
+            case "NoteGraph":
+                noteGraphFragment.updateArrowText(myString);
                 break;
             default:
                 noteFragment.updateArrowText(myString);
@@ -363,6 +381,9 @@ public class MainActivity extends AppCompatActivity implements
             case "Triad":
                 triadFragment.updateCurrentPitchText(myString);
                 break;
+            case "NoteGraph":
+                noteGraphFragment.updateCurrentPitchText(myString);
+                break;
             default:
                 noteFragment.updateCurrentPitchText(myString);
         }
@@ -372,6 +393,9 @@ public class MainActivity extends AppCompatActivity implements
         switch(curMode) {
             case "Note":
                 noteFragment.updateQuestionText(myString);
+                break;
+            case "NoteGraph":
+                noteGraphFragment.updateQuestionText(myString);
                 break;
             case "Interval":
                 intervalFragment.updateQuestionText(myString);
@@ -391,6 +415,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case "Interval":
                 intervalFragment.updateArrowAnimation(myAnimation);
+                break;
+            case "NoteGraph":
+                noteGraphFragment.updateArrowAnimation(myAnimation);
                 break;
             case "Triad":
                 triadFragment.updateArrowAnimation(myAnimation);

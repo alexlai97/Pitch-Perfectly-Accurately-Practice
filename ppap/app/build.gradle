@@ -38,5 +38,6 @@ dependencies {
     implementation files('libs\\TarsosDSP-2.4.jar')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-runtime:2.0.0'
-    implementation 'com.github.AppIntro:AppIntro:v5.1.0'
+    implementation 'com.jjoe64:graphview:4.2.2'
+
 }
