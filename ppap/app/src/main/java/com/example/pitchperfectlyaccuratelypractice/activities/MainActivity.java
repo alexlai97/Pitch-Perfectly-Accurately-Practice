@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         noteFragment = new NoteFragment();
@@ -232,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.executePendingTransactions();
 
 
         // Highlight the selected item has been done by NavigationView

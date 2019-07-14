@@ -7,10 +7,12 @@ import android.app.Activity;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.view.animation.Animation;
 import android.widget.TextView;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
  * Use the {@link NoteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class NoteFragment extends Fragment implements MyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +40,7 @@ public class NoteFragment extends Fragment implements MyCallback {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
 
     /**
      * stores questionTextView
@@ -92,6 +96,8 @@ public class NoteFragment extends Fragment implements MyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         Log.v("PEPE", "onCreateView!");
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_note, container, false);
