@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -39,21 +40,21 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
     /**
      * stores questionTextView
      */
-    private TextView questionText;
+    TextView questionText;
     /**
      * stores arrowsTextView
      */
-    private TextView arrowText;
+    TextView arrowText;
     /**
      * stores frequencyTextView
      */
-    private TextView frequencyText;
+    TextView frequencyText;
     /**
      * stores currentPitchTextView
      */
-    private TextView currentPitchText;
+    TextView currentPitchText;
 
-    private boolean onCreated = false;
+    boolean onCreated = false;
 
     public GeneralFragment() {
         // Required empty public constructor
@@ -86,20 +87,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.v("PEPE", "onCreateView!");
-        onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_triad, container, false);
-//        ConstraintLayout included = view.findViewById(R.id.note_include);
-//        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-//        questionText = included.findViewById(R.id.questionTextView);
-//
-//        arrowText = included.findViewById(R.id.arrowTextView);
-//        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
-        return view;
-    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
