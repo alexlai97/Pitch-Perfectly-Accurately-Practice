@@ -8,9 +8,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-
-import com.example.pitchperfectlyaccuratelypractice.activities.MyCallback;
+import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
@@ -125,7 +123,7 @@ public class ModelController {
   private Activity activity;
 
 
-  private MyCallback callback;
+  private updateViewInterface callback;
   /**
    * setup config, question, activity, textviews
    */
@@ -136,7 +134,7 @@ public class ModelController {
     current_question.setNotePool(Note.generateNotesWithRange(12,36));
     activity = ac;
 
-    callback = (MyCallback) ac;
+    callback = (updateViewInterface) ac;
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements
         IntervalFragment.OnFragmentInteractionListener,
         TriadFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
-        MyCallback,
+        updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     private static PlaySound theSound = new PlaySound();

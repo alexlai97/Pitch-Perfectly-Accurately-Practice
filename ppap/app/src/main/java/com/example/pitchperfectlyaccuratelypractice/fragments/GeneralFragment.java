@@ -4,16 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.animation.Animation;
 import android.widget.TextView;
-import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
@@ -21,13 +19,12 @@ import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterfa
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NoteFragment.OnFragmentInteractionListener} interface
+ * {@link TriadFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NoteFragment#newInstance} factory method to
+ * Use the {@link TriadFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-
-public class NoteFragment extends Fragment implements updateViewInterface {
+public class GeneralFragment extends Fragment implements updateViewInterface {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,7 +35,6 @@ public class NoteFragment extends Fragment implements updateViewInterface {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
 
     /**
      * stores questionTextView
@@ -59,7 +55,7 @@ public class NoteFragment extends Fragment implements updateViewInterface {
 
     private boolean onCreated = false;
 
-    public NoteFragment() {
+    public GeneralFragment() {
         // Required empty public constructor
     }
 
@@ -69,11 +65,11 @@ public class NoteFragment extends Fragment implements updateViewInterface {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NoteFragment.
+     * @return A new instance of fragment GeneralFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NoteFragment newInstance(String param1, String param2) {
-        NoteFragment fragment = new NoteFragment();
+    public static GeneralFragment newInstance(String param1, String param2) {
+        GeneralFragment fragment = new GeneralFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,23 +84,20 @@ public class NoteFragment extends Fragment implements updateViewInterface {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Log.v("PEPE", "fdsadound!");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         Log.v("PEPE", "onCreateView!");
         onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_note, container, false);
-        ConstraintLayout included = view.findViewById(R.id.note_include);
-        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        questionText = included.findViewById(R.id.questionTextView);
-
-        arrowText = included.findViewById(R.id.arrowTextView1);
-        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
+        View view = inflater.inflate(R.layout.fragment_triad, container, false);
+//        ConstraintLayout included = view.findViewById(R.id.note_include);
+//        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
+//        questionText = included.findViewById(R.id.questionTextView);
+//
+//        arrowText = included.findViewById(R.id.arrowTextView);
+//        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
         return view;
     }
 
@@ -124,8 +117,6 @@ public class NoteFragment extends Fragment implements updateViewInterface {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        Log.v("PEPE", "Attached!");
-
     }
 
     @Override
