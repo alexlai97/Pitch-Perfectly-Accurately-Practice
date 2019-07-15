@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
+//import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
@@ -129,7 +129,7 @@ public class ModelController {
   private Activity activity;
 
 
-  private updateViewInterface castedActivity;
+//  private updateViewInterface castedActivity;
 
 //  private GeneralFragment curFragment;
 

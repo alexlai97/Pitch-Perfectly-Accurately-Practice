@@ -22,7 +22,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NotePlayer;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
+//import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 
 /**
@@ -36,7 +36,8 @@ import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
  * create an instance of this fragment.
  * </p>
  */
-public class GeneralFragment extends Fragment implements updateViewInterface {
+//public class GeneralFragment extends Fragment implements updateViewInterface {
+public class GeneralFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
