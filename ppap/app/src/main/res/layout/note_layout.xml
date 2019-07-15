@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/questionTextView"
+        android:id="@+id/questionNoteTextView"
         android:layout_width="350dp"
         android:layout_height="272dp"
         android:layout_marginStart="8dp"
