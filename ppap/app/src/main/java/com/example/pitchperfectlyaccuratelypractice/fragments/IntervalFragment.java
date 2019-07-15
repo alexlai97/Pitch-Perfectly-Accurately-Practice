@@ -8,23 +8,32 @@ import androidx.fragment.app.Fragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link IntervalFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link IntervalFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * a children of general fragment
+ * it has questionNoteText view, questionIntervalText view
  */
 public class IntervalFragment extends GeneralFragment {
     private static String TAG = "IntervalFragment";
 
+    /**
+     * question note on top of question interval
+     */
     TextView questionNoteText;
+    /**
+     * question interval on botton of question note
+     */
     TextView questionIntervalText;
 
+    /**
+     * constructor of IntervalFragment
+     * setup resource (see parent onCreateView for use)
+     */
     public IntervalFragment() {
         resource =R.layout.fragment_interval;
     }
 
+    /**
+     * set up views of questionNoteText and questionIntervalText
+     */
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
@@ -38,6 +47,10 @@ public class IntervalFragment extends GeneralFragment {
         }
     }
 
+    /**
+     * update questions, question text + interval text
+     * @param texts
+     */
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
         if (texts.length != 2) {
