@@ -80,10 +80,10 @@ public class NoteGraphFragment extends GeneralFragment {
                 graphLastXValue += 0.25d;
                 series.appendData(new DataPoint(graphLastXValue, lastFreq), true, 22);
                 series2.appendData(new DataPoint(graphLastXValue, questionFreq), true, 22);
-                mHandler.postDelayed(this, 80);
+                mHandler.postDelayed(this, 8);
             }
         };
-        mHandler.postDelayed(mTimer, 100);
+        mHandler.postDelayed(mTimer, 10);
     }
 
     public void onPause() {
