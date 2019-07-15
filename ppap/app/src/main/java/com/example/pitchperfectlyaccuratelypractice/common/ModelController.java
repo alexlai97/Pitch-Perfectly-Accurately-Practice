@@ -190,8 +190,8 @@ public class ModelController implements updateViewInterface {
    * FIXME only used in note pratice mode, not for future use
    *
    */
-  public double getExpectedFrequency() {
-    return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
+  public double[] getExpectedFrequencies() {
+    return Note.toFrequencies(current_question.getAnswerNotes());
   }
 
 
@@ -256,10 +256,10 @@ public class ModelController implements updateViewInterface {
     getCurFragment().updateQuestionTexts(current_question.getTexts());
 
     current_frequency = freq;
-    getCurFragment().updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
+    getCurFragment().updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
     getCurFragment().updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
-    double expected_freq = getExpectedFrequency();
+    double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();

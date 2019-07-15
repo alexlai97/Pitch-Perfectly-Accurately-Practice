@@ -23,6 +23,14 @@ public abstract class Question {
   }
 
   /**
+   *
+   */
+  public Note[] getAnswerNotes() {
+      return null;
+  }
+
+
+  /**
    * Setter for note pool
    */ 
   public void setNotePool(Note [] notes) {

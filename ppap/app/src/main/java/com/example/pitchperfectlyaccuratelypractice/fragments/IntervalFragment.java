@@ -27,6 +27,10 @@ public class IntervalFragment extends GeneralFragment {
 
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
+        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        if (questionNoteText == null) {
+            throw new AssertionError("questionNoteText is null");
+        }
         questionIntervalText = constraintLayout.findViewById(R.id.questionIntervalTextView);
 
         if (questionIntervalText == null) {

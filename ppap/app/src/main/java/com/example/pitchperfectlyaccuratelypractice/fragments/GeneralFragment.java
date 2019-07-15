@@ -119,10 +119,11 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
+        // FIXME need to generalize
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int)modelController.getExpectedFrequency());
+                notePlayer.playOneNote((int)modelController.getExpectedFrequencies()[0]);
             }
         });
 

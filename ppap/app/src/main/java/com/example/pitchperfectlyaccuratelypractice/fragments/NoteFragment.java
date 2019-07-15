@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -18,10 +19,15 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 
 public class NoteFragment extends GeneralFragment {
 
+    private static String TAG = "NoteFragment";
     TextView questionNoteText;
 
     public NoteFragment() {
         resource = R.layout.fragment_note;
+    }
+
+    void setupAdditionalView() {
+        Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
         if (questionNoteText == null) {
             throw new AssertionError("questionNoteText is null");

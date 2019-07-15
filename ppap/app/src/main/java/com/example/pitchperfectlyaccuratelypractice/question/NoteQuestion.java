@@ -22,12 +22,14 @@ public class NoteQuestion extends Question {
     this.texts[0] = questionNote.getText();
   }
 
-
   /**
-   * getter for questionNote
+   *
    */
-  public Note getQuestionNote() {
-      return questionNote;
+  public Note[] getAnswerNotes() {
+    Note[] notes = new Note[1];
+    notes[0] = questionNote;
+
+    return notes;
   }
 
   /**

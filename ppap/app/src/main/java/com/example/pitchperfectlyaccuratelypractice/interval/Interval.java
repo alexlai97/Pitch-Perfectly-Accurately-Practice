@@ -55,6 +55,8 @@ public class Interval {
     return index;
   }
 
+  public int getRelativeIndex()  { return index - 12; }
+
   /**
    * getter for the text of the interval
    */
