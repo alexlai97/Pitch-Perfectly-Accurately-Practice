@@ -38,12 +38,6 @@ public class TriadFragment extends GeneralFragment {
         Log.v("PEPE", "onCreateView!");
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_triad, container, false);
-
-        ConstraintLayout included = view.findViewById(R.id.note_include);
-        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-
-        arrowText = included.findViewById(R.id.arrowTextView1);
-        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
         return view;
     }
 
