@@ -45,7 +45,6 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity implements
         GeneralFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
-        updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
@@ -62,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements
 
     private Mode curMode = Mode.NotePractice;
     private GeneralFragment curFragment;
+
+    public GeneralFragment getCurFragment() {
+        return curFragment;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -306,24 +309,4 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void updateFrequencyText(Long freq, Double expectedFreq){
-        curFragment.updateFrequencyText(freq, expectedFreq);
-    }
-
-    public void updateArrowText(String myString){
-        curFragment.updateArrowText(myString);
-    }
-
-    public void updateCurrentPitchText(String myString){
-        curFragment.updateCurrentPitchText(myString);
-    }
-
-    public void updateQuestionText(String myString){
-        curFragment.updateQuestionText(myString);
-    }
-
-    public void updateArrowAnimation(Animation myAnimation){
-        curFragment.updateArrowAnimation(myAnimation);
-
-    }
 }

@@ -8,6 +8,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
@@ -16,13 +17,14 @@ import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import java.io.Serializable;
 
 import static org.junit.Assert.assertNotNull;
+import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 
 /**
  * Stores states and controls views
  */
 
 //public class ModelController implements Serializable {
-public class ModelController implements Serializable {
+public class ModelController implements updateViewInterface {
   private static final String TAG = "MODEL";
 
   private double current_frequency = -2000;
@@ -126,7 +128,10 @@ public class ModelController implements Serializable {
   private Activity activity;
 
 
-  private updateViewInterface callback;
+  private updateViewInterface castedActivity;
+
+  private GeneralFragment curFragment;
+
   /**
    * setup config, question, activity, textviews
    */
@@ -134,10 +139,10 @@ public class ModelController implements Serializable {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    current_question.setNotePool(Note.generateNotesWithRange(12,36));
+    current_question.setNotePool(Note.getAllNotes());
     activity = ac;
-
-    callback = (updateViewInterface) ac;
+    curFragment = ((MainActivity)ac).getCurFragment();
+//    castedActivity = (updateViewInterface) ac;
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -209,21 +214,21 @@ public class ModelController implements Serializable {
    */
   public void next_question() {
     current_question.generate_random_question();
-    callback.updateQuestionText(current_question.getTexts()[0]);
+    curFragment.updateQuestionText(current_question.getTexts()[0]);
   }
 
   /**
    * update arrowsTextView, can do other things (e.g. change background)
    */
   void show_correct() {
-    callback.updateArrowText("✓");
+    curFragment.updateArrowText("✓");
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
-    callback.updateArrowAnimation(arrowAnimation);
+    curFragment.updateArrowAnimation(arrowAnimation);
   }
 
   /**
@@ -241,11 +246,11 @@ public class ModelController implements Serializable {
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-    callback.updateQuestionText(current_question.getTexts()[0]);
+    curFragment.updateQuestionText(current_question.getTexts()[0]);
 
     current_frequency = freq;
-    callback.updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
-    callback.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
+    curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
+    curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
     double expected_freq = getExpectedFrequency();
     double error_allowance_rate = current_config.get_error_allowance_rate();
@@ -272,7 +277,7 @@ public class ModelController implements Serializable {
             answerCorrect = true;
             hasShownCorrect = false;
         } else {
-           callback.updateArrowText("...");
+           curFragment.updateArrowText("...");
         }
       } else { // was out of error range
         t_enter = now;
@@ -281,7 +286,7 @@ public class ModelController implements Serializable {
     } else {
       isInErrorRange = false;
       t_out = now;
-      callback.updateArrowText(arrow);
+      curFragment.updateArrowText(arrow);
     }
 
     if (now - firstStart > 1000){
@@ -298,6 +303,27 @@ public class ModelController implements Serializable {
       }
       firstStart = now;
     }
+  }
+
+  public void updateFrequencyText(Long freq, Double expectedFreq){
+    curFragment.updateFrequencyText(freq, expectedFreq);
+  }
+
+  public void updateArrowText(String myString){
+    curFragment.updateArrowText(myString);
+  }
+
+  public void updateCurrentPitchText(String myString){
+    curFragment.updateCurrentPitchText(myString);
+  }
+
+  public void updateQuestionText(String myString){
+    curFragment.updateQuestionText(myString);
+  }
+
+  public void updateArrowAnimation(Animation myAnimation){
+    curFragment.updateArrowAnimation(myAnimation);
+
   }
 
 }

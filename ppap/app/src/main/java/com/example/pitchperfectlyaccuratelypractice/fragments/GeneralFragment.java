@@ -90,8 +90,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.v("PEPE", "onCreateView!");
-
+        Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
         modelController = ((MainActivity)(getActivity())).getModelController(); // FIXME temporary here
         notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
