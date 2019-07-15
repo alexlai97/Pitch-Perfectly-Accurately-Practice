@@ -55,6 +55,8 @@ public class Interval {
     return index;
   }
 
+  public int getRelativeIndex()  { return index - 12; }
+
   /**
    * getter for the text of the interval
    */
@@ -75,6 +77,9 @@ public class Interval {
     return intervals;
   }
 
+  public static Interval[] getAllTrueIntervals() {
+    return generateIntervalsWithRange(Interval.INDEX_LOWER_BOUND, Interval.INDEX_UPPER_BOUND);
+  }
 
   /**
    * test (ignore me)

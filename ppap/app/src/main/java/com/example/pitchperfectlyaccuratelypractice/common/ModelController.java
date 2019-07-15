@@ -8,23 +8,22 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.util.Log;
 
+//import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
-import java.io.Serializable;
-
 import static org.junit.Assert.assertNotNull;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
 
 /**
  * Stores states and controls views
  */
 
-//public class ModelController implements Serializable {
-public class ModelController implements updateViewInterface {
+public class ModelController {
   private static final String TAG = "MODEL";
 
   private double current_frequency = -2000;
@@ -125,29 +124,22 @@ public class ModelController implements updateViewInterface {
   /**
    * stores MainActivity
    */
-  private Activity activity;
+  private MainActivity mainActivity;
+  /**
+   * stores the current fragment
+   */
+  private GeneralFragment curFragment;
 
-
-  private updateViewInterface castedActivity;
-
-//  private GeneralFragment curFragment;
-
-  GeneralFragment getCurFragment() {
-
-    return ((MainActivity)activity).getCurFragment();
-  }
 
   /**
-   * setup config, question, activity, textviews
+   * setup config, question, activity, textviews, arrowAnimations
    */
-  public ModelController(Config c, Activity ac) {
+  public ModelController(Config c, Activity activity) {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    current_question.setNotePool(Note.getAllNotes());
-    activity = ac;
-//    curFragment = ((MainActivity)ac).getCurFragment();
-//    castedActivity = (updateViewInterface) ac;
+    mainActivity = (MainActivity)activity;
+    curFragment = mainActivity.getCurFragment();
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -166,15 +158,19 @@ public class ModelController implements updateViewInterface {
    */
   public void changeCurrentMode(Mode m) {
     current_Mode = m;
+    curFragment = mainActivity.getCurFragment();
     switch (current_Mode) {
       case NotePractice:
+        current_question = new NoteQuestion();
         next_question();
         break;
-      case IntervalPractice: 
-        //FIXME not implemented
+      case IntervalPractice:
+        current_question = new IntervalQuestion();
+        next_question();
         break;
       case TriadPractice:
-        //FIXME not implemented
+        current_question = new TriadQuestion();
+        next_question();
         break;
       case SongPractice: 
         //FIXME not implemented
@@ -188,8 +184,8 @@ public class ModelController implements updateViewInterface {
    * FIXME only used in note pratice mode, not for future use
    *
    */
-  public double getExpectedFrequency() {
-    return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
+  public double[] getExpectedFrequencies() {
+    return Note.toFrequencies(current_question.getAnswerNotes());
   }
 
 
@@ -219,21 +215,21 @@ public class ModelController implements updateViewInterface {
    */
   public void next_question() {
     current_question.generate_random_question();
-    getCurFragment().updateQuestionText(current_question.getTexts()[0]);
+    curFragment.updateQuestionTexts(current_question.getTexts());
   }
 
   /**
    * update arrowsTextView, can do other things (e.g. change background)
    */
   void show_correct() {
-    getCurFragment().updateArrowText("✓");
+    curFragment.updateArrowText("✓");
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
-    getCurFragment().updateArrowAnimation(arrowAnimation);
+    curFragment.updateArrowAnimation(arrowAnimation);
   }
 
   /**
@@ -251,13 +247,13 @@ public class ModelController implements updateViewInterface {
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-    getCurFragment().updateQuestionText(current_question.getTexts()[0]);
+    curFragment.updateQuestionTexts(current_question.getTexts());
 
     current_frequency = freq;
-    getCurFragment().updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
-    getCurFragment().updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
+    curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
+    curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
-    double expected_freq = getExpectedFrequency();
+    double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();
@@ -282,7 +278,7 @@ public class ModelController implements updateViewInterface {
             answerCorrect = true;
             hasShownCorrect = false;
         } else {
-           getCurFragment().updateArrowText("...");
+           curFragment.updateArrowText("...");
         }
       } else { // was out of error range
         t_enter = now;
@@ -291,7 +287,7 @@ public class ModelController implements updateViewInterface {
     } else {
       isInErrorRange = false;
       t_out = now;
-      getCurFragment().updateArrowText(arrow);
+      curFragment.updateArrowText(arrow);
     }
 
     if (now - firstStart > 1000){
@@ -309,26 +305,4 @@ public class ModelController implements updateViewInterface {
       firstStart = now;
     }
   }
-
-  public void updateFrequencyText(Long freq, Double expectedFreq){
-    getCurFragment().updateFrequencyText(freq, expectedFreq);
-  }
-
-  public void updateArrowText(String myString){
-    getCurFragment().updateArrowText(myString);
-  }
-
-  public void updateCurrentPitchText(String myString){
-    getCurFragment().updateCurrentPitchText(myString);
-  }
-
-  public void updateQuestionText(String myString){
-    getCurFragment().updateQuestionText(myString);
-  }
-
-  public void updateArrowAnimation(Animation myAnimation){
-    getCurFragment().updateArrowAnimation(myAnimation);
-
-  }
-
 }

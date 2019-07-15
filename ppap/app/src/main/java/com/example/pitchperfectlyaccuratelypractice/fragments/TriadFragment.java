@@ -1,46 +1,63 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TriadFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TriadFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * a children of general fragment
+ * it has a three question note view, (base, middle, soprano note)
  */
-
-
 public class TriadFragment extends GeneralFragment {
+    private static String TAG = "TriadFragment";
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.v("PEPE", "onCreateView!");
-        onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_triad, container, false);
-        return view;
+    /**
+     * question Note on the bottom
+     */
+    private TextView questionTriadBaseNoteText;
+    /**
+     * question Note in the middle
+     */
+    private TextView questionTriadMiddleNoteText;
+    /**
+     * question Note on top of three
+     */
+    private TextView questionTriadSopranoNoteText;
 
+    /**
+     * constructor of TriadFragment
+     * setup resource (see parent onCreateView for use)
+     */
+    public TriadFragment() {
+        resource = R.layout.fragment_triad;
     }
 
+    /**
+     * set up views of the three triad notes
+     */
+    void setupAdditionalView() {
+        Log.d(TAG, "setupAdditionalView: ");
+        questionTriadBaseNoteText = constraintLayout.findViewById(R.id.triadBaseNoteTextView);
+        questionTriadMiddleNoteText = constraintLayout.findViewById(R.id.triadMiddleNoteTextView);
+        questionTriadSopranoNoteText = constraintLayout.findViewById(R.id.triadSopranoNoteTextView);
 
+        if (questionTriadBaseNoteText == null || questionTriadMiddleNoteText == null||questionTriadSopranoNoteText == null) {
+            throw new AssertionError("triadFragment some view  is null");
+        }
+    }
+
+    /**
+     * update the three triad notes
+     * @param texts
+     */
+    public void updateQuestionTexts(String [] texts){
+        if(!onCreated) return;
+        if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
+        questionTriadBaseNoteText.setText(texts[0]);
+        questionTriadMiddleNoteText.setText(texts[1]);
+        questionTriadSopranoNoteText.setText(texts[2]);
+    }
 }

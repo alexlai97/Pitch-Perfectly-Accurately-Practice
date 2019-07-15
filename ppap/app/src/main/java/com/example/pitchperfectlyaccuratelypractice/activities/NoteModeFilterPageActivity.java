@@ -18,7 +18,6 @@ import android.widget.ToggleButton;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
 import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
@@ -27,27 +26,74 @@ import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.note.NotesScale;
 
 
+/**
+ * filter page activity for note practice mode
+ */
 public class NoteModeFilterPageActivity extends Activity {
 
     private static final String TAG = "NOTE FILTER";
 
-
+    /**
+     * layout inflater
+     */
     LayoutInflater layoutInflater;
+    /**
+     * notes table  (dynamically generated notes buttons)
+     */
     TableLayout notesTableView;
 
+    /**
+     * currently generated notes
+     */
     Note[] generated_notes;
+    /**
+     * generated bitmap data from generated notes
+     */
     NotesBitmap tmpData = NotesBitmap.getAllTrueNotesBitmap();
+    /**
+     * fromSpinner
+     */
     Spinner fromSpinner  ;
+    /**
+     * toSpinner
+     */
     Spinner toSpinner    ;
+    /**
+     * scaleSpinner
+     */
     Spinner scaleSpinner ;
+    /**
+     * key signature spinner
+     */
     Spinner keySigSpinner;
+
+    /**
+     * strings to put in from and to spinner
+     */
     static String[] notes_strings;
+    /**
+     * strings to put in scale spinner
+     */
     static String[] scale_strings;
+    /**
+     * strings to put in the key signature spinner
+     */
     static String[] keySig_strings;
 
+    /**
+     * current rangefilter
+     */
     static NotesRangeFilter rangeFilter = new NotesRangeFilter(Note.getLowestNote(), Note.getHighestNote());
+    /**
+     * current scalefilter
+     */
     static NotesScaleFilter scaleFilter = new NotesScaleFilter(new Note('A'), NotesScale.Major);
+    /**
+     * current filter handler (see filterHandler class for detail)
+     */
     static FilterHandler filterHandler;
+
+    // set them up at statically
     static {
         Note [] notes = Note.getAllNotes();
         notes_strings = Note.getStringsFromNotes(notes);
@@ -56,11 +102,27 @@ public class NoteModeFilterPageActivity extends Activity {
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
+    /**
+     * current from Note
+     */
     private Note fromNote = Note.getLowestNote();
+    /**
+     * current to Note
+     */
     private Note toNote = Note.getHighestNote();
+    /**
+     * current scale
+     */
     private NotesScale scale = NotesScale.Major;
+    /**
+     * current key signature
+     */
     private Note keySigNote = new Note("A");
 
+    /**
+     * setup views
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -72,13 +134,15 @@ public class NoteModeFilterPageActivity extends Activity {
 
         findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                backToMain(v);
+                returnToMainActivity();
             }
         });
-
         setSpinners();
     }
 
+    /**
+     * set up spinner and listeners
+     */
     private void setSpinners() {
         // Put it declare
         fromSpinner   = findViewById(R.id.fromSpinner);
@@ -119,7 +183,7 @@ public class NoteModeFilterPageActivity extends Activity {
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
-                update_using_note_pool();
+                update_tableview_using_note_pool();
             }
 
             @Override
@@ -147,7 +211,7 @@ public class NoteModeFilterPageActivity extends Activity {
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
-                update_using_note_pool();
+                update_tableview_using_note_pool();
             }
 
             @Override
@@ -169,7 +233,7 @@ public class NoteModeFilterPageActivity extends Activity {
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
-                update_using_note_pool();
+                update_tableview_using_note_pool();
             }
 
             @Override
@@ -190,7 +254,7 @@ public class NoteModeFilterPageActivity extends Activity {
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
-                update_using_note_pool();
+                update_tableview_using_note_pool();
 
             }
 
@@ -201,7 +265,10 @@ public class NoteModeFilterPageActivity extends Activity {
         });
     }
 
-    void update_using_note_pool() {
+    /**
+     * update tableview using the generated notes
+     */
+    void update_tableview_using_note_pool() {
         // Log
         Note.logNotes(TAG, generated_notes);
 
@@ -238,6 +305,13 @@ public class NoteModeFilterPageActivity extends Activity {
         notesTableView.addView(last_row);
     }
 
+    /**
+     * update note button so that it has the note text as button text
+     * and listener when toggle is toggled
+     * @param button
+     * @param note
+     * @return
+     */
     ToggleButton updateButton(ToggleButton button, final Note note) {
         String note_text = note.getText();
         button.setText(note_text);
@@ -254,10 +328,8 @@ public class NoteModeFilterPageActivity extends Activity {
 
     /**
      * pass note [] as int [] in intent back to MainActivity
-     * @param view
      */
-
-    void backToMain(View view){
+    void returnToMainActivity(){
         Note[] notes_to_return = tmpData.toNotes();
         Note.logNotes(TAG, notes_to_return);
         Intent note_pool_intent = new Intent(this, MainActivity.class);

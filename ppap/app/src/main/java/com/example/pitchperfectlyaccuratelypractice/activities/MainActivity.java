@@ -66,6 +66,16 @@ public class MainActivity extends AppCompatActivity implements
         return curFragment;
     }
 
+    /**
+     * currently it does the following
+     * 1. check mirochphone permission and handles it
+     * 2. set navi wrapper
+     * 3. setup fragment and begin note fragment
+     * 4. set up modelcontroller
+     * 5. handle intents (from filter page)
+     * 6. set up voice listener
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
          Log.e(TAG, "s" + created);
@@ -84,9 +94,7 @@ public class MainActivity extends AppCompatActivity implements
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         curFragment = new NoteFragment();
-        if( curFragment.getView() == null ){
-            Log.w(TAG, "athings");
-        }
+        if( curFragment.getView() == null ){ Log.w(TAG, "athings"); }
 
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
         fragmentManager.executePendingTransactions();
@@ -100,11 +108,13 @@ public class MainActivity extends AppCompatActivity implements
         Log.w(TAG, "ONCREATE");
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
+    /**
+     * currently only get notes from filter page
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         Log.d(TAG, "onActivityResult: get intent back from filter page");
@@ -124,64 +134,63 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     * set up voice listener and start listening
+     */
     void setupVoiceListener() {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
     }
 
 
-
+    /**
+     * return the ModelController (currently used by fragments)
+     * @return
+     */
     public ModelController getModelController() {
         return modelController;
     }
 
+    /**
+     * return the current notePlayer (currently used by fragments)
+     * @return
+     */
     public NotePlayer getNotePlayer() {
         return notePlayer;
     }
 
+    /**
+     * restart, doesn't do anything for now
+     */
     protected void onRestart() {
         super.onRestart();
         Log.w(TAG, "ONRESTART");
     }
 
 
-    // handle drawer closing
+    /**
+     * handle when back button, FIXME
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            drawer.openDrawer(GravityCompat.START);
+//            drawer.openDrawer(GravityCompat.START);
             super.onBackPressed();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        DrawerLayout mDrawer = findViewById(R.id.drawer_layout);
-        // The action bar home/up action should open or close the drawer.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.playSoundButton:
-                // implement here to handle play button
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    // listener to handle selected item
+    /**
+     * handle events when navigation bar's menu item is selected
+     * <p>
+     * it handles changing fragment and change mode logic
+     * </p>
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
@@ -219,6 +228,8 @@ public class MainActivity extends AppCompatActivity implements
 
         }
 
+        modelController.changeCurrentMode(curMode);
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
@@ -236,6 +247,12 @@ public class MainActivity extends AppCompatActivity implements
         return true;
     }
 
+    /**
+     * for check microphone permission
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {
@@ -258,6 +275,11 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+
+    /**
+     * do nothing, might have potential use for future
+     * @param uri
+     */
     @Override
     public void onFragmentInteraction(Uri uri) {
         //used to communicate between fragments
@@ -295,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * handle events from e.g. NoteModeFilterPageActivity
+     * handle intents ( currently only handles intents from filter page )
      */
     void handleIntents() {
         Intent notes_ints_intent = getIntent();

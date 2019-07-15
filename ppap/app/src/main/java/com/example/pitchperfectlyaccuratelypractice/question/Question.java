@@ -19,7 +19,15 @@ public abstract class Question {
    * Constructor
    */
   public Question() {
+    // note pool initialized by some reasonable notes (where average human can reach)
+    notePool = Note.getReasonableNotes();
   }
+
+  /**
+   * children will implment this
+   */
+  public abstract Note[] getAnswerNotes();
+
 
   /**
    * Setter for note pool

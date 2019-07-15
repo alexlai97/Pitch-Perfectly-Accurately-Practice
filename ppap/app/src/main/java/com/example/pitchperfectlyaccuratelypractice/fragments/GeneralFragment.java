@@ -22,18 +22,20 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NotePlayer;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 
 /**
+ * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment
+ * <p>
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link TriadFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link TriadFragment#newInstance} factory method to
  * create an instance of this fragment.
+ * </p>
  */
-public class GeneralFragment extends Fragment implements updateViewInterface {
+public class GeneralFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,13 +47,12 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
 
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * request code got from mainactivity
+     */
     // TODO put in Config or ...
     private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
-    /**
-     * stores questionTextView
-     */
-    TextView questionText;
     /**
      * stores arrowsTextView
      */
@@ -65,20 +66,37 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
      */
     TextView currentPitchText;
 
-    ModelController modelController;
+    /**
+     * stores the modelController got from MainActivity
+     */
+    private ModelController modelController;
 
+    /**
+     * stores the play sound Button view
+     */
     Button playSoundButton;
 
+    /**
+     * stores the help Button view
+     */
     Button helpButton;
 
+    /**
+     * stores the navi menu button view (FIXME do we need it)
+     */
     Button naviMenuButton;
 
+    /**
+     * stores the filter page button view
+     */
     Button filterPageButton;
 
     boolean onCreated = false;
 
+    /**
+     * stores the notePlayer got from MainActivity
+     */
     NotePlayer notePlayer;
-
 
     /**
      * R.layout.whateverlayout, set in the constructor of children
@@ -87,6 +105,22 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
 
     ConstraintLayout constraintLayout;
 
+    /**
+     * additional things to set up in onCreateView
+     * <p>
+     *     called by onCreateView below, it is benefitial
+     *     because a lot of fragment has same views need to set up
+     * </p>
+     */
+    void setupAdditionalView() { }
+
+    /**
+     * setup views and listeners
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,11 +131,10 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
 
         onCreated = true;
         View view = inflater.inflate(resource, container, false);
-        constraintLayout = view.findViewById(R.id.note_include);
+        constraintLayout = view.findViewById(R.id.layout_to_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
-        questionText = constraintLayout.findViewById(R.id.questionTextView);
 
-        arrowText = constraintLayout.findViewById(R.id.arrowTextView1);
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
 
         playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
@@ -109,16 +142,18 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
-        if (constraintLayout == null || frequencyText == null || questionText == null || arrowText == null
+
+        if (constraintLayout == null || frequencyText == null ||  arrowText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
         || naviMenuButton == null || filterPageButton == null) {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
+        // FIXME need to generalize
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int)modelController.getExpectedFrequency());
+                notePlayer.playOneNote((int)modelController.getExpectedFrequencies()[0]);
             }
         });
 
@@ -133,6 +168,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         });
 
         // TODO help button and navibutton
+        // currently next question here
         helpButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -141,16 +177,23 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
             }
         });
 
+        // additional things goes here
+        setupAdditionalView();
+
         return view;
     }
 
-    public GeneralFragment() {
-        // Required empty public constructor
-    }
+    /**
+     * empty public constructor
+     */
+    public GeneralFragment() { }
 
     /**
+     * I don't know what it does
+     * <p>
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     * </p>
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
@@ -166,6 +209,10 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         return fragment;
     }
 
+    /**
+     * on create for a fragment
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,14 +223,10 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
     }
 
 
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
+    /**
+     * fragment on attach
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -195,12 +238,18 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         }
     }
 
+    /**
+     * fragment on detach
+     */
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
+    /**
+     * fragment on resume
+     */
     @Override
     public void onResume() {
         Button button = getView().findViewById(R.id.naviButton);
@@ -216,10 +265,13 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
 
 
     /**
+     * future use, does nothing for now
+     * <p>
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
+     * </p>
      * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
@@ -230,27 +282,54 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * update frequency text view
+     * @param freq
+     * @param expected
+     */
     public void updateFrequencyText(Long freq, Double expected){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
 //        Log.d("", "updateFrequencyText: " + freq);
     }
 
+    /**
+     * update arrow text view (TODO need to generalize for tirad mode)
+     * @param myString
+     */
     public void updateArrowText(String myString){
         if(!onCreated) return;
         arrowText.setText(myString);
     }
 
+
+    /**
+     * update current pitch text showing on the right top corner
+     * @param myString
+     */
     public void updateCurrentPitchText(String myString){
         if(!onCreated) return;
         currentPitchText.setText(myString);
     }
 
-    public void updateQuestionText(String myString){
-        if(!onCreated) return;
-        questionText.setText(myString);
+    /**
+     * update question texts, does nothing,
+     * please do specific things in child
+     * <p>
+     *     A note has one text ("A4")
+     *     A interval has two texts ("A4", "+ m3")
+     *     A triad has three texts  ("C3", "E3", "G3")
+     * </p>
+     * @param texts
+     */
+    public void updateQuestionTexts(String[] texts){
     }
 
+
+    /**
+     * update arrow animation (TODO need to generalize for triad mode)
+     * @param myAnimation
+     */
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
         arrowText.setAnimation(myAnimation);

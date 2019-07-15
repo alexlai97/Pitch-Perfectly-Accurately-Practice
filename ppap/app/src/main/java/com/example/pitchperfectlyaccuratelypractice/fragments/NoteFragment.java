@@ -1,41 +1,48 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.TextView;
-import android.util.Log;
-
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NoteFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NoteFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * a children of general fragment
+ * it has questionNoteText view, questionIntervalText view
  */
-
-
 public class NoteFragment extends GeneralFragment {
+
+    private static String TAG = "NoteFragment";
+    /**
+     * a question note in the middle of the screen
+     */
+    private TextView questionNoteText;
+
+    /**
+     * constructor of NoteFragment
+     * setup resource (see parent onCreateView for use)
+     */
     public NoteFragment() {
         resource = R.layout.fragment_note;
+    }
+
+    /**
+     * set up views of questionNoteText
+     */
+    void setupAdditionalView() {
+        Log.d(TAG, "setupAdditionalView: ");
+        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+    }
+
+    /**
+     * update question text
+     * @param texts
+     */
+    public void updateQuestionTexts(String[] texts){
+        if(!onCreated) return;
+        questionNoteText.setText(texts[0]);
     }
 
 }
