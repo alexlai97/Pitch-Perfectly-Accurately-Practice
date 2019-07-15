@@ -42,7 +42,7 @@ public class Interval {
   private final static String POSITIVE_STRING = "+ ";
 
   /**
-   * constructor for Inteval from index
+   * constructor for Interval from index
    */
   public Interval(int index) {
     this.index = index;
