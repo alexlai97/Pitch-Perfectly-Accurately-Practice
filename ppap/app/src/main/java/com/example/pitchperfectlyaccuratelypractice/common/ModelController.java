@@ -8,8 +8,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 import android.util.Log;
 
+//import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-//import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
@@ -23,8 +23,6 @@ import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
  * Stores states and controls views
  */
 
-//public class ModelController implements Serializable {
-//public class ModelController implements updateViewInterface {
 public class ModelController {
   private static final String TAG = "MODEL";
 
@@ -126,28 +124,22 @@ public class ModelController {
   /**
    * stores MainActivity
    */
-  private Activity activity;
+  private MainActivity mainActivity;
+  /**
+   * stores the current fragment
+   */
+  private GeneralFragment curFragment;
 
-
-//  private updateViewInterface castedActivity;
-
-//  private GeneralFragment curFragment;
-
-  GeneralFragment getCurFragment() {
-
-    return ((MainActivity)activity).getCurFragment();
-  }
 
   /**
-   * setup config, question, activity, textviews
+   * setup config, question, activity, textviews, arrowAnimations
    */
-  public ModelController(Config c, Activity ac) {
+  public ModelController(Config c, Activity activity) {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    activity = ac;
-//    curFragment = ((MainActivity)ac).getCurFragment();
-//    castedActivity = (updateViewInterface) ac;
+    mainActivity = (MainActivity)activity;
+    curFragment = mainActivity.getCurFragment();
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -166,6 +158,7 @@ public class ModelController {
    */
   public void changeCurrentMode(Mode m) {
     current_Mode = m;
+    curFragment = mainActivity.getCurFragment();
     switch (current_Mode) {
       case NotePractice:
         current_question = new NoteQuestion();
@@ -222,21 +215,21 @@ public class ModelController {
    */
   public void next_question() {
     current_question.generate_random_question();
-    getCurFragment().updateQuestionTexts(current_question.getTexts());
+    curFragment.updateQuestionTexts(current_question.getTexts());
   }
 
   /**
    * update arrowsTextView, can do other things (e.g. change background)
    */
   void show_correct() {
-    getCurFragment().updateArrowText("✓");
+    curFragment.updateArrowText("✓");
 //    backGoundView.setBackgroundColor(Color.BLUE);
   }
 
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
-    getCurFragment().updateArrowAnimation(arrowAnimation);
+    curFragment.updateArrowAnimation(arrowAnimation);
   }
 
   /**
@@ -254,11 +247,11 @@ public class ModelController {
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-    getCurFragment().updateQuestionTexts(current_question.getTexts());
+    curFragment.updateQuestionTexts(current_question.getTexts());
 
     current_frequency = freq;
-    getCurFragment().updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
-    getCurFragment().updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
+    curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
+    curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
     double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = current_config.get_error_allowance_rate();
@@ -285,7 +278,7 @@ public class ModelController {
             answerCorrect = true;
             hasShownCorrect = false;
         } else {
-           getCurFragment().updateArrowText("...");
+           curFragment.updateArrowText("...");
         }
       } else { // was out of error range
         t_enter = now;
@@ -294,7 +287,7 @@ public class ModelController {
     } else {
       isInErrorRange = false;
       t_out = now;
-      getCurFragment().updateArrowText(arrow);
+      curFragment.updateArrowText(arrow);
     }
 
     if (now - firstStart > 1000){
@@ -312,26 +305,4 @@ public class ModelController {
       firstStart = now;
     }
   }
-
-//  public void updateFrequencyText(Long freq, Double expectedFreq){
-//    getCurFragment().updateFrequencyText(freq, expectedFreq);
-//  }
-//
-//  public void updateArrowText(String myString){
-//    getCurFragment().updateArrowText(myString);
-//  }
-//
-//  public void updateCurrentPitchText(String myString){
-//    getCurFragment().updateCurrentPitchText(myString);
-//  }
-//
-//  public void updateQuestionTexts(String [] texts){
-//    getCurFragment().updateQuestionTexts(texts);
-//  }
-//
-//  public void updateArrowAnimation(Animation myAnimation){
-//    getCurFragment().updateArrowAnimation(myAnimation);
-//
-//  }
-
 }
