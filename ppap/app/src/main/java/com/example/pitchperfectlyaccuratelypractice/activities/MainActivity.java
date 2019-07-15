@@ -219,6 +219,8 @@ public class MainActivity extends AppCompatActivity implements
 
         }
 
+        modelController.changeCurrentMode(curMode);
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();

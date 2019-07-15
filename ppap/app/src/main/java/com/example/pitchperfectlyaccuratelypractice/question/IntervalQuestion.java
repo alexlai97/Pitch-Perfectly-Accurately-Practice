@@ -37,6 +37,12 @@ public class IntervalQuestion extends Question {
     this.intervalPool = intervals;
   }
   private ModelController modelController;
+
+  public IntervalQuestion() {
+    super();
+    intervalPool = Interval.getAllTrueIntervals();
+  }
+
   /**
    * generate random question from note pool and interval pool
    * <p>

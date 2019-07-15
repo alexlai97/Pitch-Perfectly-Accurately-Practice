@@ -6,6 +6,6 @@ public interface updateViewInterface {
     public void updateFrequencyText(Long freq, Double expectedFreq);
     public void updateArrowText(String myString);
     public void updateCurrentPitchText(String myString);
-    public void updateQuestionText(String myString);
+    public void updateQuestionTexts(String [] texts);
     public void updateArrowAnimation(Animation myAnimation);
 }

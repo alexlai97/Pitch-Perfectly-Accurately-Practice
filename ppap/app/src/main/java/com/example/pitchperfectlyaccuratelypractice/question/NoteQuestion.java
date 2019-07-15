@@ -22,6 +22,7 @@ public class NoteQuestion extends Question {
     this.texts[0] = questionNote.getText();
   }
 
+
   /**
    * getter for questionNote
    */

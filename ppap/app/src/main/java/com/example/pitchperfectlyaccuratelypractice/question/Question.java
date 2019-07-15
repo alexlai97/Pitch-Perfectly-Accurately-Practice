@@ -19,6 +19,7 @@ public abstract class Question {
    * Constructor
    */
   public Question() {
+    notePool = Note.getAllNotes();
   }
 
   /**
