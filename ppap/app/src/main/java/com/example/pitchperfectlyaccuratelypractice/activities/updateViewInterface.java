@@ -2,6 +2,7 @@ package com.example.pitchperfectlyaccuratelypractice.activities;
 import android.view.animation.Animation;
 
 /**
+ * TODO may delete this interace since no need
  * an interface of some functions to update view
  */
 public interface updateViewInterface {
