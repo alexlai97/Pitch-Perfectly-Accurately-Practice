@@ -10,11 +10,8 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Config;
 import com.example.pitchperfectlyaccuratelypractice.common.Mode;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
-import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,7 +36,7 @@ import android.widget.TextView;
  * NotePracticeMode Activity
  */
 public class MainActivity extends AppCompatActivity implements
-        FragmentFactory.OnFragmentInteractionListener,
+        GeneralFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
@@ -56,9 +53,11 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationView navigationView;
 
     private Mode curMode = Mode.NotePractice;
-    private FragmentFactory curFragment;
+    private GeneralFragment curFragment;
 
-    public FragmentFactory getCurFragment() {
+    private FragmentFactory fragmentFactory = new FragmentFactory();
+
+    public GeneralFragment getCurFragment() {
         return curFragment;
     }
 
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        curFragment = new NoteFragment();
+        curFragment = fragmentFactory.create(R.id.note_mode);
         if( curFragment.getView() == null ){ Log.w(TAG, "athings"); }
 
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
@@ -194,35 +193,8 @@ public class MainActivity extends AppCompatActivity implements
 
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
-        switch(id){
-            case R.id.note_mode:
-                Log.d(TAG, "onNavigationItemSelected: notemode");
-                curFragment = new NoteFragment();
-                curMode = Mode.NotePractice;
-                break;
-            case R.id.interval_mode:
-                Log.d(TAG, "onNavigationItemSelected: intervalmode");
-                curFragment = new IntervalFragment();
-                curMode = Mode.IntervalPractice;
-                break;
-            case R.id.triad_mode:
-                Log.d(TAG, "onNavigationItemSelected: chordmode");
-                curFragment = new TriadFragment();
-                curMode = Mode.TriadPractice;
-                break;
-            case R.id.notegraph_mode:
-                Log.d(TAG, "onNavigationItemSelected: notegraph");
-                curFragment = new NoteGraphFragment();
-                curMode = Mode.NoteGraphPractice;
-                break;
-//            case R.id.song_mode:
-//                break;
-            default:
-                Log.d(TAG, "onNavigationItemSelected: default");
-                curFragment = new NoteFragment();
-                curMode = Mode.NotePractice;
 
-        }
+        curFragment = fragmentFactory.create(id);
 
         modelController.changeCurrentMode(curMode);
 
@@ -230,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
         fragmentManager.executePendingTransactions();
-
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);

@@ -20,7 +20,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.graphics.Color;
 
-public class NoteGraphFragment extends FragmentFactory {
+public class NoteGraphFragment extends GeneralFragment {
     private static String TAG = "NoteGraphFragment";
     private Runnable mTimer;
     private Long lastFreq;

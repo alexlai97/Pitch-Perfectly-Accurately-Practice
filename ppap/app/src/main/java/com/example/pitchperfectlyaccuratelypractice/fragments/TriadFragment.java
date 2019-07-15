@@ -9,7 +9,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * a children of general fragment
  * it has a three question note view, (base, middle, soprano note)
  */
-public class TriadFragment extends FragmentFactory {
+public class TriadFragment extends GeneralFragment {
     private static String TAG = "TriadFragment";
 
     /**

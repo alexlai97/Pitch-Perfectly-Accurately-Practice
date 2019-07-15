@@ -10,7 +10,7 @@ import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
+import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
@@ -129,7 +129,7 @@ public class ModelController {
   /**
    * stores the current fragment
    */
-  private FragmentFactory curFragment;
+  private GeneralFragment curFragment;
 
 
   /**

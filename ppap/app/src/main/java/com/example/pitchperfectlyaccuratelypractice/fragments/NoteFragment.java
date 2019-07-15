@@ -9,7 +9,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * a children of general fragment
  * it has questionNoteText view, questionIntervalText view
  */
-public class NoteFragment extends FragmentFactory {
+public class NoteFragment extends GeneralFragment {
 
     private static String TAG = "NoteFragment";
     /**
