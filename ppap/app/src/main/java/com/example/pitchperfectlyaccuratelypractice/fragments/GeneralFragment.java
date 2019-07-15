@@ -195,6 +195,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         }
     }
 
+
     @Override
     public void onDetach() {
         super.onDetach();
