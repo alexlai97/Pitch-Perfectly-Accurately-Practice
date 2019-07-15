@@ -1,27 +1,11 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.TextView;
-import android.util.Log;
-
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,8 +18,25 @@ import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterfa
 
 
 public class NoteFragment extends GeneralFragment {
+
+    private static String TAG = "NoteFragment";
+    TextView questionNoteText;
+
     public NoteFragment() {
         resource = R.layout.fragment_note;
+    }
+
+    void setupAdditionalView() {
+        Log.d(TAG, "setupAdditionalView: ");
+        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        if (questionNoteText == null) {
+            throw new AssertionError("questionNoteText is null");
+        }
+    }
+
+    public void updateQuestionTexts(String[] texts){
+        if(!onCreated) return;
+        questionNoteText.setText(texts[0]);
     }
 
 }

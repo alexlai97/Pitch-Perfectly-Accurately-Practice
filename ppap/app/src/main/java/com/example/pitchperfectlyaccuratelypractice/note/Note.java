@@ -308,6 +308,14 @@ public class Note {
     return frequency_array[this.index];
   }
 
+  public static double[] toFrequencies(Note[] notes) {
+      double[] frequencies = new double[notes.length];
+      for (int i = 0; i < notes.length; i ++) {
+        frequencies[i] = notes[i].getFrequency();
+      }
+      return frequencies;
+  }
+
   /**
    * generate a set of notes given index range 
    */

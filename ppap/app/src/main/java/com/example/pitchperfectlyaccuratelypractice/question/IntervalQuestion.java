@@ -1,4 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
+import android.util.Log;
+
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.interval.*;
@@ -37,19 +39,46 @@ public class IntervalQuestion extends Question {
     this.intervalPool = intervals;
   }
   private ModelController modelController;
+
+  public IntervalQuestion() {
+    super();
+    intervalPool = Interval.getAllTrueIntervals();
+  }
+
+  /**
+   *
+   */
+  public Note[] getAnswerNotes() {
+    Note[] notes = new Note[1];
+    notes[0] = answerNote;
+
+    return notes;
+  }
+
   /**
    * generate random question from note pool and interval pool
    * <p>
    * remember to set notes pool and interval pool first
    */
   public void generate_random_question() {
-    int rnd = random.nextInt(intervalPool.length);
-    questionInterval = intervalPool[rnd];
-    rnd = random.nextInt(notePool.length);
+    int rnd = random.nextInt(notePool.length);
     questionNote = notePool[rnd];
+    boolean validInterval = false;
+    int result_index = 0;
+    while (!validInterval) {
+      rnd = random.nextInt(intervalPool.length);
+      questionInterval = intervalPool[rnd];
+      result_index = questionNote.getIndex() + questionInterval.getRelativeIndex();
+      if (result_index >= 0) {
+        validInterval = true;
+      }
+    }
+    answerNote = new Note(result_index);
     this.texts = new String[2];
     this.texts[0] = questionNote.getText();
     this.texts[1] = questionInterval.getText();
+
+    Log.d("IntervalQuestion", "generate_random_question: " + " questionNote" + questionNote.getText() + " questionInterval" + questionInterval.getText() + " answerNote" + answerNote.getText());
   }
 
   /**

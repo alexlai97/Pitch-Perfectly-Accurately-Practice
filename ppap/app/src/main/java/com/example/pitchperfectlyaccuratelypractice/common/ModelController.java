@@ -11,13 +11,13 @@ import android.util.Log;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
-import java.io.Serializable;
-
 import static org.junit.Assert.assertNotNull;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
 
 /**
  * Stores states and controls views
@@ -144,7 +144,6 @@ public class ModelController implements updateViewInterface {
     current_config = c;
     // generate NoteQuestion 
     current_question = new NoteQuestion();
-    current_question.setNotePool(Note.getAllNotes());
     activity = ac;
 //    curFragment = ((MainActivity)ac).getCurFragment();
 //    castedActivity = (updateViewInterface) ac;
@@ -168,13 +167,16 @@ public class ModelController implements updateViewInterface {
     current_Mode = m;
     switch (current_Mode) {
       case NotePractice:
+        current_question = new NoteQuestion();
         next_question();
         break;
-      case IntervalPractice: 
-        //FIXME not implemented
+      case IntervalPractice:
+        current_question = new IntervalQuestion();
+        next_question();
         break;
       case TriadPractice:
-        //FIXME not implemented
+        current_question = new TriadQuestion();
+        next_question();
         break;
       case SongPractice: 
         //FIXME not implemented
@@ -188,8 +190,8 @@ public class ModelController implements updateViewInterface {
    * FIXME only used in note pratice mode, not for future use
    *
    */
-  public double getExpectedFrequency() {
-    return ((NoteQuestion)current_question).getQuestionNote().getFrequency();
+  public double[] getExpectedFrequencies() {
+    return Note.toFrequencies(current_question.getAnswerNotes());
   }
 
 
@@ -219,7 +221,7 @@ public class ModelController implements updateViewInterface {
    */
   public void next_question() {
     current_question.generate_random_question();
-    getCurFragment().updateQuestionText(current_question.getTexts()[0]);
+    getCurFragment().updateQuestionTexts(current_question.getTexts());
   }
 
   /**
@@ -251,13 +253,13 @@ public class ModelController implements updateViewInterface {
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-    getCurFragment().updateQuestionText(current_question.getTexts()[0]);
+    getCurFragment().updateQuestionTexts(current_question.getTexts());
 
     current_frequency = freq;
-    getCurFragment().updateFrequencyText(Math.round(current_frequency), getExpectedFrequency());
+    getCurFragment().updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
     getCurFragment().updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
-    double expected_freq = getExpectedFrequency();
+    double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = current_config.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();
@@ -322,8 +324,8 @@ public class ModelController implements updateViewInterface {
     getCurFragment().updateCurrentPitchText(myString);
   }
 
-  public void updateQuestionText(String myString){
-    getCurFragment().updateQuestionText(myString);
+  public void updateQuestionTexts(String [] texts){
+    getCurFragment().updateQuestionTexts(texts);
   }
 
   public void updateArrowAnimation(Animation myAnimation){

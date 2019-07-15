@@ -51,7 +51,6 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
     /**
      * stores questionTextView
      */
-    TextView questionText;
     /**
      * stores arrowsTextView
      */
@@ -87,6 +86,10 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
 
     ConstraintLayout constraintLayout;
 
+    void setupAdditionalView() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,7 +102,6 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.note_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
-        questionText = constraintLayout.findViewById(R.id.questionTextView);
 
         arrowText = constraintLayout.findViewById(R.id.arrowTextView1);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
@@ -109,16 +111,19 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
-        if (constraintLayout == null || frequencyText == null || questionText == null || arrowText == null
+        setupAdditionalView();
+
+        if (constraintLayout == null || frequencyText == null ||  arrowText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
         || naviMenuButton == null || filterPageButton == null) {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
+        // FIXME need to generalize
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int)modelController.getExpectedFrequency());
+                notePlayer.playOneNote((int)modelController.getExpectedFrequencies()[0]);
             }
         });
 
@@ -247,10 +252,10 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         currentPitchText.setText(myString);
     }
 
-    public void updateQuestionText(String myString){
-        if(!onCreated) return;
-        questionText.setText(myString);
+    public void updateQuestionTexts(String[] texts){
     }
+
+
 
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;

@@ -1,19 +1,15 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.animation.Animation;
-import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -23,6 +19,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.graphics.Color;
+import android.widget.TextView;
 
 public class NoteGraphFragment extends GeneralFragment {
     private Runnable mTimer;
@@ -35,6 +32,7 @@ public class NoteGraphFragment extends GeneralFragment {
     private double graphLastXValue = 5d;
     private double questionFreq;
 
+    TextView questionNoteText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class NoteGraphFragment extends GeneralFragment {
         View view = inflater.inflate(R.layout.fragment_note_graph, container, false);
         ConstraintLayout included = view.findViewById(R.id.notegraph_include);
         frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        questionText = included.findViewById(R.id.questionTextView);
+        questionNoteText = included.findViewById(R.id.questionNoteTextView);
         arrowText = included.findViewById(R.id.arrowTextView1);
 
         currentPitchText  = included.findViewById(R.id.currentPitchTextView);

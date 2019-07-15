@@ -35,6 +35,13 @@ public class TriadQuestion extends Question{
     }
   }
 
+  /**
+   *
+   */
+  public Note[] getAnswerNotes() {
+    return questionTriad.getNotes();
+  }
+
 
   /**
    * a way to use this class
