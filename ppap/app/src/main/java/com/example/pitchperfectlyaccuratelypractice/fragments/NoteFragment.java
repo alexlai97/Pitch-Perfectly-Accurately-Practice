@@ -3,15 +3,13 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
  * a children of general fragment
  * it has questionNoteText view, questionIntervalText view
  */
-public class NoteFragment extends GeneralFragment {
+public class NoteFragment extends FragmentFactory {
 
     private static String TAG = "NoteFragment";
     /**

@@ -35,7 +35,10 @@ import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
  * create an instance of this fragment.
  * </p>
  */
-public class GeneralFragment extends Fragment {
+
+// This is a factory as it produces the fragment and these are optionally overridden by other classes
+// This factory is used in the MainActivity
+public class FragmentFactory extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -186,7 +189,7 @@ public class GeneralFragment extends Fragment {
     /**
      * empty public constructor
      */
-    public GeneralFragment() { }
+    public FragmentFactory() { }
 
     /**
      * I don't know what it does
@@ -197,11 +200,11 @@ public class GeneralFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment GeneralFragment.
+     * @return A new instance of fragment FragmentFactory.
      */
     // TODO: Rename and change types and number of parameters
-    public static GeneralFragment newInstance(String param1, String param2) {
-        GeneralFragment fragment = new GeneralFragment();
+    public static FragmentFactory newInstance(String param1, String param2) {
+        FragmentFactory fragment = new FragmentFactory();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

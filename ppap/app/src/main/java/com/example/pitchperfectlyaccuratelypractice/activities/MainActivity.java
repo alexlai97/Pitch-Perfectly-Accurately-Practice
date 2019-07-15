@@ -10,7 +10,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Config;
 import com.example.pitchperfectlyaccuratelypractice.common.Mode;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
@@ -32,18 +32,14 @@ import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 
-import android.view.Menu;
-import android.view.View;
 import android.view.MenuItem;
-import android.view.animation.Animation;
 import android.widget.TextView;
-import android.widget.Button;
 
 /**
  * NotePracticeMode Activity
  */
 public class MainActivity extends AppCompatActivity implements
-        GeneralFragment.OnFragmentInteractionListener,
+        FragmentFactory.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
@@ -60,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationView navigationView;
 
     private Mode curMode = Mode.NotePractice;
-    private GeneralFragment curFragment;
+    private FragmentFactory curFragment;
 
-    public GeneralFragment getCurFragment() {
+    public FragmentFactory getCurFragment() {
         return curFragment;
     }
 

@@ -1,7 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.widget.TextView;
 
@@ -11,7 +9,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * a children of general fragment
  * it has a three question note view, (base, middle, soprano note)
  */
-public class TriadFragment extends GeneralFragment {
+public class TriadFragment extends FragmentFactory {
     private static String TAG = "TriadFragment";
 
     /**
