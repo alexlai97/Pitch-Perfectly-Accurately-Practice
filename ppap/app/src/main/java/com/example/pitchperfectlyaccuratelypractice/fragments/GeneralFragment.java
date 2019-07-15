@@ -109,6 +109,12 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
+        if (constraintLayout == null || frequencyText == null || questionText == null || arrowText == null
+        || currentPitchText == null || playSoundButton == null || helpButton == null
+        || naviMenuButton == null || filterPageButton == null) {
+            throw new AssertionError("Fragment onCreatView, some view is null");
+        }
+
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,6 +233,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
     public void updateFrequencyText(Long freq, Double expected){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
+//        Log.d("", "updateFrequencyText: " + freq);
     }
 
     public void updateArrowText(String myString){
