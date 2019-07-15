@@ -6,7 +6,7 @@
     tools:context="com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment">
 
     <include
-        layout="@layout/activity_main"
+        layout="@layout/note_layout"
         android:id="@+id/note_include"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

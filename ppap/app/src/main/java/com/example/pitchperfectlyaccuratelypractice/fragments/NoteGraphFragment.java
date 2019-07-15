@@ -1,19 +1,15 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.animation.Animation;
-import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -44,7 +40,7 @@ public class NoteGraphFragment extends GeneralFragment {
         View view = inflater.inflate(R.layout.fragment_note_graph, container, false);
         ConstraintLayout included = view.findViewById(R.id.notegraph_include);
         frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        questionText = included.findViewById(R.id.questionTextView);
+        questionText = included.findViewById(R.id.questionNoteTextView);
         arrowText = included.findViewById(R.id.arrowTextView1);
 
         currentPitchText  = included.findViewById(R.id.currentPitchTextView);

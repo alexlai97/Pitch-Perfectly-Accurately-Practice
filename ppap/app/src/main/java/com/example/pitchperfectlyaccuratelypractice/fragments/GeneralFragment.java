@@ -99,7 +99,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.note_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
-        questionText = constraintLayout.findViewById(R.id.questionTextView);
+        questionText = constraintLayout.findViewById(R.id.questionNoteTextView);
 
         arrowText = constraintLayout.findViewById(R.id.arrowTextView1);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
