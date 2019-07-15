@@ -160,7 +160,7 @@ public class NoteModeFilterPageActivity extends Activity {
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
         fromSpinner.setSelection(Note.getIndex("A3"));
-        toSpinner.setSelection(Note.getIndex("A6"));
+        toSpinner.setSelection(Note.getIndex("A4"));
         scaleSpinner.setSelection(1); // Major
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
