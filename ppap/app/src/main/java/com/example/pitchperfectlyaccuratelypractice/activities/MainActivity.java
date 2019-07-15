@@ -19,6 +19,7 @@ import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +28,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
@@ -45,10 +45,10 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity implements
         GeneralFragment.OnFragmentInteractionListener,
 //        NavigationDrawerFragment.NavigationDrawerCallbacks,
-        updateViewInterface,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
-    private static PlaySound theSound = new PlaySound();
+    public static final int REQUEST_CODE_FROM_FILTER = 1;
+    private static NotePlayer notePlayer = new NotePlayer();
     private TextView arrow;
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
@@ -62,9 +62,13 @@ public class MainActivity extends AppCompatActivity implements
     private Mode curMode = Mode.NotePractice;
     private GeneralFragment curFragment;
 
+    public GeneralFragment getCurFragment() {
+        return curFragment;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG, "s" + created);
+         Log.e(TAG, "s" + created);
 
         checkMicrophonePermission();
         super.onCreate(savedInstanceState);
@@ -91,23 +95,35 @@ public class MainActivity extends AppCompatActivity implements
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         modelController.next_question();
 
-//        setupButtons();
         setupVoiceListener();
 
         Log.w(TAG, "ONCREATE");
     }
 
-    void setupButtons() {
-        Button parentLayout;
-        parentLayout = findViewById(R.id.helpButton);
-        parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                modelController.next_question();
-                return false;
-            }
-        });
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: get intent back from filter page");
+        if (requestCode == REQUEST_CODE_FROM_FILTER) {
+            if (resultCode == RESULT_OK) {
+                Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
+                Note.logNotes("back to main activity", result_notes);
+                modelController.setNotePool(result_notes);
+                modelController.next_question();
+            } else if (resultCode == RESULT_CANCELED){
+
+            } else {
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
     void setupVoiceListener() {
         VoiceListener voicelistener = new VoiceListener(modelController);
         voicelistener.startListening();
@@ -115,24 +131,19 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
+    public ModelController getModelController() {
+        return modelController;
+    }
+
+    public NotePlayer getNotePlayer() {
+        return notePlayer;
+    }
 
     protected void onRestart() {
         super.onRestart();
         Log.w(TAG, "ONRESTART");
     }
 
-    // FIXME  crashes after several plays
-    public void myToner(View view){
-        theSound.genTone((int)modelController.getExpectedFrequency(), 1);
-        theSound.playSound();
-        Log.i(TAG, "PLAYED");
-    }
-
-    public void openFilterPage(View view){
-        Intent filter_intent = new Intent(this, NoteModeFilterPageActivity.class);
-//        filter_intent.putExtra("modelController", modelController);
-        startActivity(filter_intent);
-    }
 
     // handle drawer closing
     @Override
@@ -298,24 +309,4 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void updateFrequencyText(Long freq, Double expectedFreq){
-        curFragment.updateFrequencyText(freq, expectedFreq);
-    }
-
-    public void updateArrowText(String myString){
-        curFragment.updateArrowText(myString);
-    }
-
-    public void updateCurrentPitchText(String myString){
-        curFragment.updateCurrentPitchText(myString);
-    }
-
-    public void updateQuestionText(String myString){
-        curFragment.updateQuestionText(myString);
-    }
-
-    public void updateArrowAnimation(Animation myAnimation){
-        curFragment.updateArrowAnimation(myAnimation);
-
-    }
 }

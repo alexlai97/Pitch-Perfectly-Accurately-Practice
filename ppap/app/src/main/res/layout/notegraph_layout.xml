@@ -47,10 +47,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/pineapple"
-        android:onClick="openFilterPage"
         android:src="@drawable/pineapple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+    <!--android:onClick="openFilterPage"-->
 
     <Button
         android:id="@+id/playSoundButton"
@@ -59,9 +59,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/baseline_play_circle_filled_black_18dp"
-        android:onClick="myToner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <!--android:onClick="myToner"-->
 
     <TextView
         android:id="@+id/arrowTextView1"

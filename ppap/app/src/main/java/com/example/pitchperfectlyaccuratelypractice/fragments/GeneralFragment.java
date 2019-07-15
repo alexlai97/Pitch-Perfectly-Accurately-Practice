@@ -1,10 +1,13 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -12,10 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
+import com.example.pitchperfectlyaccuratelypractice.activities.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
+import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +45,9 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
 
     private OnFragmentInteractionListener mListener;
 
+    // TODO put in Config or ...
+    private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
+
     /**
      * stores questionTextView
      */
@@ -54,7 +65,84 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
      */
     TextView currentPitchText;
 
+    ModelController modelController;
+
+    Button playSoundButton;
+
+    Button helpButton;
+
+    Button naviMenuButton;
+
+    Button filterPageButton;
+
     boolean onCreated = false;
+
+    NotePlayer notePlayer;
+
+
+    /**
+     * R.layout.whateverlayout, set in the constructor of children
+     */
+    int resource;
+
+    ConstraintLayout constraintLayout;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
+
+        modelController = ((MainActivity)(getActivity())).getModelController(); // FIXME temporary here
+        notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
+
+        onCreated = true;
+        View view = inflater.inflate(resource, container, false);
+        constraintLayout = view.findViewById(R.id.note_include);
+        frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
+        questionText = constraintLayout.findViewById(R.id.questionTextView);
+
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView1);
+        currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
+
+        playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
+        helpButton = constraintLayout.findViewById(R.id.helpButton);
+        naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
+        filterPageButton = constraintLayout.findViewById(R.id.filterButton);
+
+        if (constraintLayout == null || frequencyText == null || questionText == null || arrowText == null
+        || currentPitchText == null || playSoundButton == null || helpButton == null
+        || naviMenuButton == null || filterPageButton == null) {
+            throw new AssertionError("Fragment onCreatView, some view is null");
+        }
+
+        playSoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notePlayer.playOneNote((int)modelController.getExpectedFrequency());
+            }
+        });
+
+        filterPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent filter_intent = new Intent(getActivity(), NoteModeFilterPageActivity.class);
+
+                // let the main activity handle the intent
+                getActivity().startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
+            }
+        });
+
+        // TODO help button and navibutton
+        helpButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                modelController.next_question();
+                return false;
+            }
+        });
+
+        return view;
+    }
 
     public GeneralFragment() {
         // Required empty public constructor
@@ -113,6 +201,20 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        Button button = getView().findViewById(R.id.naviButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
+        super.onResume();
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -131,6 +233,7 @@ public class GeneralFragment extends Fragment implements updateViewInterface {
     public void updateFrequencyText(Long freq, Double expected){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
+//        Log.d("", "updateFrequencyText: " + freq);
     }
 
     public void updateArrowText(String myString){

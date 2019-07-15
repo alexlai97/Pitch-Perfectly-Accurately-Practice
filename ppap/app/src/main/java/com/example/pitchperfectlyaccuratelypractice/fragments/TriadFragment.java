@@ -39,19 +39,8 @@ public class TriadFragment extends GeneralFragment {
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_triad, container, false);
         return view;
+
     }
 
-    @Override
-    public void onResume() {
-        Button button = getView().findViewById(R.id.naviButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
-        super.onResume();
-    }
 
 }

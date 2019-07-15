@@ -30,31 +30,8 @@ import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterfa
  */
 public class IntervalFragment extends GeneralFragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.v("PEPE", "onCreateView!");
-        onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_interval, container, false);
-        ConstraintLayout included = view.findViewById(R.id.note_include);
-        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        questionText = included.findViewById(R.id.questionTextView);
-
-        arrowText = included.findViewById(R.id.arrowTextView1);
-        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
-        return view;
+    public IntervalFragment() {
+        resource =R.layout.fragment_interval;
     }
 
-    @Override
-    public void onResume() {
-        Button button = getView().findViewById(R.id.naviButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
-        super.onResume();
-    }
 }

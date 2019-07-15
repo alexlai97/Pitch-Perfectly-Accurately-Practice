@@ -42,6 +42,7 @@ public class NoteGraphFragment extends GeneralFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v("NOTEGRAPH", "onCreateView!");
+
         onCreated = true;
         View view = inflater.inflate(R.layout.fragment_note_graph, container, false);
         ConstraintLayout included = view.findViewById(R.id.notegraph_include);
@@ -90,10 +91,10 @@ public class NoteGraphFragment extends GeneralFragment {
                 graphLastXValue += 0.25d;
                 series.appendData(new DataPoint(graphLastXValue, lastFreq), true, 22);
                 series2.appendData(new DataPoint(graphLastXValue, questionFreq), true, 22);
-                mHandler.postDelayed(this, 80);
+                mHandler.postDelayed(this, 20);
             }
         };
-        mHandler.postDelayed(mTimer, 100);
+        mHandler.postDelayed(mTimer, 40);
     }
 
     public void onPause() {

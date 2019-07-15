@@ -15,11 +15,12 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  * <p>
  * FIXME currently crashes after around 10 times of playing sound
  */
-public class PlaySound extends Activity {
+public class NotePlayer extends Activity {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Jialin Shan for pitch perfect
     private final int sampleRate = 44100;
     byte generatedSnd[];
+    int PLAY_NOTE_DURATION = 1;
     Handler handler = new Handler();
 
     @Override
@@ -61,5 +62,10 @@ public class PlaySound extends Activity {
                 AudioTrack.MODE_STATIC);
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
+    }
+
+    public void playOneNote(int freq) {
+        genTone(freq, PLAY_NOTE_DURATION);
+        playSound();
     }
 }
