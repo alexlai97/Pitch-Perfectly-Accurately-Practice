@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
+//import com.example.pitchperfectlyaccuratelypractice.activities.updateViewInterface;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
@@ -24,7 +24,8 @@ import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
  */
 
 //public class ModelController implements Serializable {
-public class ModelController implements updateViewInterface {
+//public class ModelController implements updateViewInterface {
+public class ModelController {
   private static final String TAG = "MODEL";
 
   private double current_frequency = -2000;
@@ -128,7 +129,7 @@ public class ModelController implements updateViewInterface {
   private Activity activity;
 
 
-  private updateViewInterface castedActivity;
+//  private updateViewInterface castedActivity;
 
 //  private GeneralFragment curFragment;
 
@@ -312,25 +313,25 @@ public class ModelController implements updateViewInterface {
     }
   }
 
-  public void updateFrequencyText(Long freq, Double expectedFreq){
-    getCurFragment().updateFrequencyText(freq, expectedFreq);
-  }
-
-  public void updateArrowText(String myString){
-    getCurFragment().updateArrowText(myString);
-  }
-
-  public void updateCurrentPitchText(String myString){
-    getCurFragment().updateCurrentPitchText(myString);
-  }
-
-  public void updateQuestionTexts(String [] texts){
-    getCurFragment().updateQuestionTexts(texts);
-  }
-
-  public void updateArrowAnimation(Animation myAnimation){
-    getCurFragment().updateArrowAnimation(myAnimation);
-
-  }
+//  public void updateFrequencyText(Long freq, Double expectedFreq){
+//    getCurFragment().updateFrequencyText(freq, expectedFreq);
+//  }
+//
+//  public void updateArrowText(String myString){
+//    getCurFragment().updateArrowText(myString);
+//  }
+//
+//  public void updateCurrentPitchText(String myString){
+//    getCurFragment().updateCurrentPitchText(myString);
+//  }
+//
+//  public void updateQuestionTexts(String [] texts){
+//    getCurFragment().updateQuestionTexts(texts);
+//  }
+//
+//  public void updateArrowAnimation(Animation myAnimation){
+//    getCurFragment().updateArrowAnimation(myAnimation);
+//
+//  }
 
 }

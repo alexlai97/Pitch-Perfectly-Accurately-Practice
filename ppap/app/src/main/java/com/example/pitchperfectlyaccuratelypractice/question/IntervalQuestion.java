@@ -40,6 +40,11 @@ public class IntervalQuestion extends Question {
   }
   private ModelController modelController;
 
+  /**
+   * default constructor of interval question
+   * which sets the note pool to all notes
+   * which sets the interval pool to all intervals
+   */
   public IntervalQuestion() {
     super();
     intervalPool = Interval.getAllTrueIntervals();
