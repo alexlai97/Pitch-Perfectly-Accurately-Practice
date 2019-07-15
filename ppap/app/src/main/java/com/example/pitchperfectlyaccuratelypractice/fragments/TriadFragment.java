@@ -17,15 +17,15 @@ public class TriadFragment extends GeneralFragment {
     /**
      * question Note on the bottom
      */
-    TextView questionTriadBaseNoteText;
+    private TextView questionTriadBaseNoteText;
     /**
      * question Note in the middle
      */
-    TextView questionTriadMiddleNoteText;
+    private TextView questionTriadMiddleNoteText;
     /**
      * question Note on top of three
      */
-    TextView questionTriadSopranoNoteText;
+    private TextView questionTriadSopranoNoteText;
 
     /**
      * constructor of TriadFragment
@@ -44,8 +44,7 @@ public class TriadFragment extends GeneralFragment {
         questionTriadMiddleNoteText = constraintLayout.findViewById(R.id.triadMiddleNoteTextView);
         questionTriadSopranoNoteText = constraintLayout.findViewById(R.id.triadSopranoNoteTextView);
 
-        if (questionTriadBaseNoteText == null ||
-                questionTriadMiddleNoteText == null||questionTriadSopranoNoteText == null) {
+        if (questionTriadBaseNoteText == null || questionTriadMiddleNoteText == null||questionTriadSopranoNoteText == null) {
             throw new AssertionError("triadFragment some view  is null");
         }
     }
@@ -56,9 +55,7 @@ public class TriadFragment extends GeneralFragment {
      */
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
-        if (texts.length != 3) {
-            throw new AssertionError("expecting texts' length is 3");
-        }
+        if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
         questionTriadBaseNoteText.setText(texts[0]);
         questionTriadMiddleNoteText.setText(texts[1]);
         questionTriadSopranoNoteText.setText(texts[2]);

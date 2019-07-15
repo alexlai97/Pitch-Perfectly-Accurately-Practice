@@ -57,10 +57,9 @@
         android:src="@drawable/pineapple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <!--android:onClick="openFilterPage"-->
 
     <TextView
-        android:id="@+id/arrowTextView1"
+        android:id="@+id/arrowTextView"
         android:layout_width="81dp"
         android:layout_height="60dp"
         android:layout_marginTop="116dp"
@@ -86,7 +85,6 @@
         android:background="@drawable/baseline_play_circle_filled_black_18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--android:onClick="myToner"-->
 
     <Button
         android:id="@+id/helpButton"

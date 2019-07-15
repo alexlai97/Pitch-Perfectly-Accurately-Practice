@@ -134,7 +134,7 @@ public class NoteModeFilterPageActivity extends Activity {
 
         findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                backToMain(v);
+                returnToMainActivity();
             }
         });
         setSpinners();
@@ -328,9 +328,8 @@ public class NoteModeFilterPageActivity extends Activity {
 
     /**
      * pass note [] as int [] in intent back to MainActivity
-     * @param view
      */
-    void backToMain(View view){
+    void returnToMainActivity(){
         Note[] notes_to_return = tmpData.toNotes();
         Note.logNotes(TAG, notes_to_return);
         Intent note_pool_intent = new Intent(this, MainActivity.class);

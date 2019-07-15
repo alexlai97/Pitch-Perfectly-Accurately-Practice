@@ -17,7 +17,7 @@ public class NoteFragment extends GeneralFragment {
     /**
      * a question note in the middle of the screen
      */
-    TextView questionNoteText;
+    private TextView questionNoteText;
 
     /**
      * constructor of NoteFragment
@@ -33,9 +33,7 @@ public class NoteFragment extends GeneralFragment {
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
-        if (questionNoteText == null) {
-            throw new AssertionError("questionNoteText is null");
-        }
+        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
     }
 
     /**

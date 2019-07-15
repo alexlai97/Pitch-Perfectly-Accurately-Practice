@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 public class NoteGraphFragment extends GeneralFragment {
+    private static String TAG = "NoteGraphFragment";
     private Runnable mTimer;
     private Long lastFreq;
     private GraphView graph;
@@ -32,21 +33,21 @@ public class NoteGraphFragment extends GeneralFragment {
     private double graphLastXValue = 5d;
     private double questionFreq;
 
-    TextView questionNoteText;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.v("NOTEGRAPH", "onCreateView!");
+    private TextView questionNoteText;
 
-        onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_note_graph, container, false);
-        ConstraintLayout included = view.findViewById(R.id.notegraph_include);
-        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        questionNoteText = included.findViewById(R.id.questionNoteTextView);
-        arrowText = included.findViewById(R.id.arrowTextView1);
+    /**
+     * constructor of IntervalFragment
+     * setup resource (see parent onCreateView for use)
+     */
+    public NoteGraphFragment() { resource = R.layout.fragment_note_graph; }
 
-        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
-        graph = (GraphView) included.findViewById(R.id.graph);
+
+    void setupAdditionalView() {
+        Log.d(TAG, "setupAdditionalView: ");
+        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+
+        graph = (GraphView) constraintLayout.findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(3);
@@ -66,8 +67,6 @@ public class NoteGraphFragment extends GeneralFragment {
         graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
         graph.addSeries(series);
         graph.addSeries(series2);
-
-        return view;
     }
 
     public void onResume(){
@@ -88,6 +87,16 @@ public class NoteGraphFragment extends GeneralFragment {
         super.onPause();
         mHandler.removeCallbacks(mTimer);
     }
+
+    /**
+     * update question text
+     * @param texts
+     */
+    public void updateQuestionTexts(String[] texts){
+        if(!onCreated) return;
+        questionNoteText.setText(texts[0]);
+    }
+
 
     @Override
     public void updateFrequencyText(Long freq, Double expectedFreq){

@@ -19,15 +19,14 @@ public abstract class Question {
    * Constructor
    */
   public Question() {
-    notePool = Note.getAllNotes();
+    // note pool initialized by some reasonable notes (where average human can reach)
+    notePool = Note.getReasonableNotes();
   }
 
   /**
-   *
+   * children will implment this
    */
-  public Note[] getAnswerNotes() {
-      return null;
-  }
+  public abstract Note[] getAnswerNotes();
 
 
   /**

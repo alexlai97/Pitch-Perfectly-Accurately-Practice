@@ -69,7 +69,7 @@ public class GeneralFragment extends Fragment {
     /**
      * stores the modelController got from MainActivity
      */
-    ModelController modelController;
+    private ModelController modelController;
 
     /**
      * stores the play sound Button view
@@ -112,8 +112,7 @@ public class GeneralFragment extends Fragment {
      *     because a lot of fragment has same views need to set up
      * </p>
      */
-    void setupAdditionalView() {
-    }
+    void setupAdditionalView() { }
 
     /**
      * setup views and listeners
@@ -132,10 +131,10 @@ public class GeneralFragment extends Fragment {
 
         onCreated = true;
         View view = inflater.inflate(resource, container, false);
-        constraintLayout = view.findViewById(R.id.note_include);
+        constraintLayout = view.findViewById(R.id.layout_to_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
 
-        arrowText = constraintLayout.findViewById(R.id.arrowTextView1);
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
 
         playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
@@ -143,7 +142,6 @@ public class GeneralFragment extends Fragment {
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
-        setupAdditionalView();
 
         if (constraintLayout == null || frequencyText == null ||  arrowText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
@@ -178,6 +176,9 @@ public class GeneralFragment extends Fragment {
                 return false;
             }
         });
+
+        // additional things goes here
+        setupAdditionalView();
 
         return view;
     }
@@ -312,7 +313,8 @@ public class GeneralFragment extends Fragment {
     }
 
     /**
-     * update question texts
+     * update question texts, does nothing,
+     * please do specific things in child
      * <p>
      *     A note has one text ("A4")
      *     A interval has two texts ("A4", "+ m3")

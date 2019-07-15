@@ -399,9 +399,15 @@ public class Note {
   }
 
   /**
-   * get all strings
+   * get all Notes
    */
   public static Note[] getAllNotes(){ return generateNotesWithRange(Note.INDEX_LOWER_BOUND, Note.INDEX_UPPER_BOUND); }
+
+  /**
+   * get reasonable Notes (set in construtor of Question)
+   * Please change it... or put it in config, currently is like male range
+   */
+  public static Note[] getReasonableNotes(){ return generateNotesWithRange(Note.getIndex("A2"), Note.getIndex("A4")); }
 
   /**
    * A way to use this class, will print a table of notes

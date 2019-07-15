@@ -90,10 +90,9 @@
         android:src="@drawable/pineapple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-    <!--android:onClick="openFilterPage"-->
 
     <TextView
-        android:id="@+id/arrowTextView1"
+        android:id="@+id/arrowTextView"
         android:layout_width="64dp"
         android:layout_height="28dp"
         android:layout_marginTop="8dp"
@@ -153,7 +152,7 @@
         android:layout_width="64dp"
         android:layout_height="28dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/arrowTextView1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/arrowTextView"
         app:layout_constraintEnd_toEndOf="@+id/triadBaseNoteTextView"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/triadBaseNoteTextView" />
