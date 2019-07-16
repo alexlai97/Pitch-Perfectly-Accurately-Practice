@@ -202,8 +202,6 @@ public class GeneralFragment extends Fragment {
     public GeneralFragment() { }
 
     /**
-     * I don't know what it does
-     * <p>
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      * </p>

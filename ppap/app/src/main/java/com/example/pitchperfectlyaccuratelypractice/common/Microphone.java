@@ -1,25 +1,36 @@
 package com.example.pitchperfectlyaccuratelypractice.common;
+import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import be.tarsos.dsp.AudioDispatcher;
+import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
+import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 /**
  * uses Tarsos library functions to spawn a frequency detection thread 
  *
  */
-public class Microphone {
+public class Microphone extends Observable {
 
     private static final String TAG = "Microphone";
+
+    private Activity activity;
+
+    private float currentFrequency;
 
     /**
      * runs a thread to detect frequency
      */
-    public void setVoiceListener(PitchDetectionHandler pdh) {
+    public Microphone(Activity ac) {
+        activity = ac;
         int sampleRate = 8000;
 
         for (int rate : new int[]{22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
@@ -31,6 +42,20 @@ public class Microphone {
         }
 
         AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, 1024, 0);
+        PitchDetectionHandler pdh = new PitchDetectionHandler() {
+                    @Override
+                    public void handlePitch(PitchDetectionResult res, AudioEvent e) {
+                        final float pitchInHz = res.getPitch();
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                currentFrequency = pitchInHz;
+                                setChanged();
+                                notifyObservers(currentFrequency);
+                            }
+                        });
+                    }
+                };
 
         AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, sampleRate, 1024, pdh);
         dispatcher.addAudioProcessor(pitchProcessor);

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements
     private GeneralFragment curFragment;
     private Model model = new Model();
     private Controller controller;
-    private Microphone microphone = new Microphone();
+    private Microphone microphone = new Microphone(this);
 
     private FragmentFactory fragmentFactory = new FragmentFactory();
 

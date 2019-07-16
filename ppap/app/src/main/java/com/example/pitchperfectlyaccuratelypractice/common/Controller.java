@@ -19,6 +19,9 @@ import static org.junit.Assert.assertNotNull;
 
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
 import be.tarsos.dsp.pitch.PitchDetectionResult;
@@ -27,8 +30,8 @@ import be.tarsos.dsp.pitch.PitchDetectionResult;
  * Stores states and controls views
  */
 
-public class Controller {
-  private static final String TAG = "MODEL";
+public class Controller implements Observer {
+  private static final String TAG = "CONTROLLER";
 
   private double current_frequency = -2000;
 
@@ -95,13 +98,15 @@ public class Controller {
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
   /**
-   * stores MainActivity
+   * access to MainActivity public methods
    */
   private MainActivity mainActivity;
   /**
-   * stores the current fragment
+   * access to the current fragment public methods
    */
   private GeneralFragment curFragment;
+
+  private Microphone microphone;
 
   private Model model;
 
@@ -113,24 +118,10 @@ public class Controller {
     model = a_model;
     // generate NoteQuestion
     model.setCurrentQuestion(new NoteQuestion());
-  /**
-   * setup config, question, activity, textviews, arrowAnimations
-   */
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     mainActivity = (MainActivity)activity;
-    mainActivity.getMicrophone().setVoiceListener(
-        new PitchDetectionHandler() {
-            @Override
-            public void handlePitch(PitchDetectionResult res, AudioEvent e) {
-                final float frequency = res.getPitch();
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        processFrequency(frequency);
-                    }
-                });
-            }
-        });
+    microphone = mainActivity.getMicrophone();
+    microphone.addObserver(this);
     curFragment = mainActivity.getCurFragment();
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -260,5 +251,10 @@ public class Controller {
       }
       firstStart = now;
     }
+  }
+
+  @Override
+  public void update(Observable observable, Object o) {
+    processFrequency((float)o);
   }
 }
