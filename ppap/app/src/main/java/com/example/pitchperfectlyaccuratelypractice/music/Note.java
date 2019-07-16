@@ -1,5 +1,5 @@
-package com.example.pitchperfectlyaccuratelypractice.note;
-import com.example.pitchperfectlyaccuratelypractice.common.*;
+package com.example.pitchperfectlyaccuratelypractice.music;
+import com.example.pitchperfectlyaccuratelypractice.model.Config;
 
 
 import android.util.Log;

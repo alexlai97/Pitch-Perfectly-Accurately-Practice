@@ -1,5 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.triad;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+package com.example.pitchperfectlyaccuratelypractice.music;
 
 import java.util.Random;
 

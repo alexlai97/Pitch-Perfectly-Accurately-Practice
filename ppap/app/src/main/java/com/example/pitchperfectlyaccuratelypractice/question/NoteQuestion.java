@@ -1,5 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
 import java.util.Random;
 
@@ -11,6 +11,11 @@ public class NoteQuestion extends Question {
    * The note that will be questioned 
    */
   private Note questionNote;
+
+  public NoteQuestion() {
+    notePool = Note.getReasonableNotes();
+    generate_random_question();
+  }
 
   /**
    * generate question from note pool, remember to set note pool first

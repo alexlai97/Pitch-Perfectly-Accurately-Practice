@@ -1,33 +1,22 @@
-package com.example.pitchperfectlyaccuratelypractice.activities;
+package com.example.pitchperfectlyaccuratelypractice.tools;
 
-import android.app.Activity;
 import android.os.Handler;
-import android.os.Bundle;
 
 import android.media.AudioTrack;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-
 /**
- * plays sound activity
+ * a speaker which can play music note(s)
  * <p>
- * FIXME currently crashes after around 10 times of playing sound
  */
-public class NotePlayer extends Activity {
+public class NotePlayer  {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Jialin Shan for pitch perfect
     private final int sampleRate = 44100;
     byte generatedSnd[];
     int PLAY_NOTE_DURATION = 1;
     Handler handler = new Handler();
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.note_layout);
-    }
 
     public void genTone(int freqOfTone, int duration){
         // fill out the array

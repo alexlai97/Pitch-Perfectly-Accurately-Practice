@@ -1,7 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -33,6 +33,7 @@ public class TriadFragment extends GeneralFragment {
      */
     public TriadFragment() {
         resource = R.layout.fragment_triad;
+        background_color = Color.parseColor("#C2DFEE");
     }
 
     /**

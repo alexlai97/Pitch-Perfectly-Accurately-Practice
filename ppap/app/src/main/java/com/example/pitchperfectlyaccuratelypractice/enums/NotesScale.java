@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.note;
+package com.example.pitchperfectlyaccuratelypractice.enums;
 /**
  * The scale options in filter page when selecting 'scale'
  */

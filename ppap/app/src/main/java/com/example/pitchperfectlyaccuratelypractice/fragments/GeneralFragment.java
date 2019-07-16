@@ -21,8 +21,8 @@ import android.widget.TextView;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.NotePlayer;
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 
 /**
  * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment
@@ -35,6 +35,9 @@ import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
  * create an instance of this fragment.
  * </p>
  */
+
+// This is a factory as it produces the fragment and these are optionally overridden by other classes
+// This factory is used in the MainActivity
 public class GeneralFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,9 +70,9 @@ public class GeneralFragment extends Fragment {
     TextView currentPitchText;
 
     /**
-     * stores the modelController got from MainActivity
+     * stores the controller got from MainActivity
      */
-    private ModelController modelController;
+    private Controller controller;
 
     /**
      * stores the play sound Button view
@@ -103,6 +106,8 @@ public class GeneralFragment extends Fragment {
      */
     int resource;
 
+    int background_color;
+
     ConstraintLayout constraintLayout;
 
     /**
@@ -113,6 +118,14 @@ public class GeneralFragment extends Fragment {
      * </p>
      */
     void setupAdditionalView() { }
+
+    public void setBackgroundColor(int c) {
+        constraintLayout.setBackgroundColor(c);
+    }
+
+    public void resetBackgroundColor() {
+        constraintLayout.setBackgroundColor(background_color);
+    }
 
     /**
      * setup views and listeners
@@ -126,7 +139,7 @@ public class GeneralFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
-        modelController = ((MainActivity)(getActivity())).getModelController(); // FIXME temporary here
+        controller = ((MainActivity)(getActivity())).getController(); // FIXME temporary here
         notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
 
         onCreated = true;
@@ -153,7 +166,7 @@ public class GeneralFragment extends Fragment {
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int)modelController.getExpectedFrequencies()[0]);
+                notePlayer.playOneNote((int) controller.getExpectedFrequencies()[0]);
             }
         });
 
@@ -172,7 +185,7 @@ public class GeneralFragment extends Fragment {
         helpButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                modelController.next_question();
+                controller.next_question();
                 return false;
             }
         });
@@ -189,8 +202,6 @@ public class GeneralFragment extends Fragment {
     public GeneralFragment() { }
 
     /**
-     * I don't know what it does
-     * <p>
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      * </p>

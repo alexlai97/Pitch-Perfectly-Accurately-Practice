@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.triad.Triad;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Triad;
 
 import java.util.Random;
 
@@ -18,6 +18,11 @@ public class TriadQuestion extends Question{
    * a static Random
    */
   private static Random random = new Random();
+
+  public TriadQuestion() {
+    notePool = Note.getReasonableNotes();
+    generate_random_question();
+  }
 
   /**
    * generate question from note pool

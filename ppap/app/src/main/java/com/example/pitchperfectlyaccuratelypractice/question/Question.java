@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
 /**
  * an abstract class of Question
@@ -18,10 +18,12 @@ public abstract class Question {
   /**
    * Constructor
    */
-  public Question() {
-    // note pool initialized by some reasonable notes (where average human can reach)
-    notePool = Note.getReasonableNotes();
-  }
+//  public Question() {
+//    // note pool initialized by some reasonable notes (where average human can reach)
+//    notePool = Note.getReasonableNotes();
+//    generate_random_question();
+//  }
+    public Question(){};
 
   /**
    * children will implment this
@@ -31,8 +33,8 @@ public abstract class Question {
 
   /**
    * Setter for note pool
-   */ 
-  public void setNotePool(Note [] notes) {
+   */
+  public void setNotePool(Note[] notes) {
     this.notePool = notes;
   }
 
@@ -47,7 +49,7 @@ public abstract class Question {
    * print texts separated by space in stdout
    */
   void print_question_texts() {
-    for (String t: this.getTexts()) {
+    for (String t : this.getTexts()) {
       System.out.print(t + " ");
     }
     System.out.println();
@@ -56,6 +58,5 @@ public abstract class Question {
   /**
    * abstract function to generate random question given current fields
    */
-  public void generate_random_question() {
-  }
+  public abstract void generate_random_question();
 }

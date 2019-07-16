@@ -1,9 +1,8 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 
@@ -25,6 +24,7 @@ public class NoteFragment extends GeneralFragment {
      */
     public NoteFragment() {
         resource = R.layout.fragment_note;
+        background_color = Color.parseColor("#E6FBBA");
     }
 
     /**
