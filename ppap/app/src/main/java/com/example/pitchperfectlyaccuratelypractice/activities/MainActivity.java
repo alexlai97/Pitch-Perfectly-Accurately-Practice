@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements
     private boolean created = false;
 
     private Model model = new Model();
+    public Model getModel() {
+        return model;
+    }
     private static NotePlayer notePlayer = new NotePlayer();
     private Controller controller;
     private Microphone microphone = new Microphone(this);
@@ -52,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements
         return microphone;
     }
 
-    private FragmentManager fragmentManager;
 
     /**
      *
@@ -73,11 +75,6 @@ public class MainActivity extends AppCompatActivity implements
         // setup navi item selected listener
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Start Note Fragment
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
-        fragmentManager.executePendingTransactions();
-
         controller = new Controller(this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         controller.next_question();
@@ -85,9 +82,6 @@ public class MainActivity extends AppCompatActivity implements
         Log.w(TAG, "ONCREATE");
     }
 
-    public Model getModel() {
-        return model;
-    }
 
     /**
      * currently only get notes from filter page
@@ -167,11 +161,6 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
         model.setCurrentMode(Mode.idToMode(id));
-
-        // Insert the fragment by replacing any existing fragment
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
-        fragmentManager.executePendingTransactions();
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);

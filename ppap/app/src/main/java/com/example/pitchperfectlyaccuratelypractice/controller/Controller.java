@@ -8,6 +8,9 @@ import android.view.animation.TranslateAnimation;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import androidx.fragment.app.FragmentManager;
+
+import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
@@ -130,9 +133,9 @@ public class Controller implements Observer ,
     curQuestion = model.getCurrentQuestion();
     curConfig = model.getCurrentConfig();
     model.addChangeListener(this);
+    refreshCurFragment();
     microphone = mainActivity.getMicrophone();
     microphone.addObserver(this);
-    // TODO add property
     curFragment = model.getCurrentFragment();
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -147,15 +150,6 @@ public class Controller implements Observer ,
   }
 
 
-  /**
-   * do things when changing pratice mode
-   */
-//  public void changeCurrentMode(Mode mode) {
-////    curFragment = mainActivity.getCurFragment();
-//    Log.v(TAG, mode.toString());
-//    model.setCurrentQuestion(questionFactory.create(mode));
-//    next_question();
-//  }
 
   /**
    * get answer frequency to the note practice question
@@ -172,6 +166,10 @@ public class Controller implements Observer ,
    */
   public void next_question() {
     curQuestion.generate_random_question();
+    updateQuestionView();
+  }
+
+  private void updateQuestionView() {
     curFragment.updateQuestionTexts(curQuestion.getTexts());
   }
 
@@ -205,7 +203,7 @@ public class Controller implements Observer ,
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-//    curFragment.updateQuestionTexts(curQuestion.getTexts());
+    updateQuestionView(); // FIXME it is here because for the first question, it doesn't update view (maybe asynchronous problem)
 
     current_frequency = freq;
     curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
@@ -264,6 +262,12 @@ public class Controller implements Observer ,
     }
   }
 
+  private void refreshCurFragment() {
+    model.refreshCurrentFragment();
+    mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
+    mainActivity.getSupportFragmentManager().executePendingTransactions();
+  }
+
   @Override
   public void update(Observable observable, Object o) {
     processFrequency((float)o);
@@ -280,10 +284,11 @@ public class Controller implements Observer ,
           break;
         case "currentQuestion":
           curQuestion = (Question) event.getNewValue();
-          Log.d(TAG, "propertyChange: Question" + curQuestion.getClass());
           break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
+          model.setCurrentQuestion(questionFactory.create(curMode));
+          refreshCurFragment();
           break;
         case "currentFragment":
           curFragment = (GeneralFragment) event.getNewValue();

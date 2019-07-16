@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Model {
     private static final String TAG  = "Model";
-    private Config currentConfig;
+    private Config currentConfig = new Config();
     private Question currentQuestion;
     private Mode currentMode;
     private GeneralFragment currentFragment;
@@ -34,6 +34,10 @@ public class Model {
 
     public GeneralFragment getCurrentFragment() {
         return currentFragment;
+    }
+
+    public void refreshCurrentFragment() {
+        notifyListeners(this, "currentFragment", this.currentFragment, this.currentFragment = fragmentFactory.create(currentMode));
     }
 
     public void setNotePool(Note[] notes) {
@@ -58,16 +62,11 @@ public class Model {
         return currentConfig;
     }
 
+
     public void setCurrentMode(Mode mode) {
         notifyListeners(this, "currentMode", this.currentMode, this.currentMode = mode);
-        setCurrentQuestion(questionFactory.create(mode));
-        notifyListeners(this, "currentFragment", this.currentFragment, this.currentFragment = fragmentFactory.create(mode));
-
-        if (currentQuestion.getAnswerNotes().length == 0) {
-            throw new AssertionError("property change; question has no notes");
-        }
-        Note.logNotes(TAG, currentQuestion.getAnswerNotes());
     }
+
 
     public Mode getCurrentMode() {
         return currentMode;
