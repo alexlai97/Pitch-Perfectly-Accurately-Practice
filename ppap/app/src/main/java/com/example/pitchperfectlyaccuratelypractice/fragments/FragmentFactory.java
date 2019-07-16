@@ -2,8 +2,7 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.common.Mode;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 
 public class FragmentFactory {
     private static String TAG = "Factory";

@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.common;
 
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 

@@ -3,7 +3,7 @@ package com.example.pitchperfectlyaccuratelypractice.filter;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.Bitmap;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.note.NotesScale;
+import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
 /**
  * A convenience class to handle filters

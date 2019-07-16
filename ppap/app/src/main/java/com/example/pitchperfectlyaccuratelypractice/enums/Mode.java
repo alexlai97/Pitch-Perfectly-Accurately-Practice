@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.common;
+package com.example.pitchperfectlyaccuratelypractice.enums;
 
 /**
  * Different practice modes

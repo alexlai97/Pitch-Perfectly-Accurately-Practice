@@ -2,26 +2,22 @@ package com.example.pitchperfectlyaccuratelypractice.common;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
-import android.widget.TextView;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
-import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
 import static org.junit.Assert.assertNotNull;
 
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
-import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
 
 import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;

@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Microphone;
-import com.example.pitchperfectlyaccuratelypractice.common.Mode;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.common.Model;
 import com.example.pitchperfectlyaccuratelypractice.common.Controller;
 import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
@@ -23,7 +23,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.GravityCompat;
