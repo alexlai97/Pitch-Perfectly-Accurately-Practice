@@ -13,6 +13,7 @@ import com.example.pitchperfectlyaccuratelypractice.common.Model;
 import com.example.pitchperfectlyaccuratelypractice.common.Controller;
 import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
@@ -22,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.GravityCompat;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements
     private Model model = new Model();
     private Controller controller;
     private Microphone microphone = new Microphone();
+
+    private FragmentFactory fragmentFactory = new FragmentFactory();
 
     public GeneralFragment getCurFragment() {
         return curFragment;
@@ -87,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        curFragment = new NoteFragment();
+        curFragment = fragmentFactory.create(model.getCurrentMode());
         if( curFragment.getView() == null ){ Log.w(TAG, "athings"); }
 
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
@@ -211,13 +215,14 @@ public class MainActivity extends AppCompatActivity implements
 
         }
 
+
+        curFragment = fragmentFactory.create(model.getCurrentMode());
         controller.changeCurrentMode(model.getCurrentMode());
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
         fragmentManager.executePendingTransactions();
-
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);

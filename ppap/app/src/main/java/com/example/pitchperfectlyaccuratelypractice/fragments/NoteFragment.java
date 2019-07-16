@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**

@@ -1,6 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import androidx.fragment.app.Fragment;
 
 import android.graphics.Color;
 import android.util.Log;

@@ -12,13 +12,15 @@ import android.util.Log;
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
 import static org.junit.Assert.assertNotNull;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+
+import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
 
 import be.tarsos.dsp.AudioEvent;
@@ -42,10 +44,6 @@ public class Controller {
     model.getCurrentQuestion().setNotePool(notes);
   }
 
-  /**
-   * Stores current practice mode
-   */
-  private Mode current_Mode;
   /**
    * last time pitch enter error range
    */
@@ -111,6 +109,7 @@ public class Controller {
 
   private Model model;
 
+  private QuestionFactory questionFactory = new QuestionFactory();
   /**
    * setup config, question, activity, textviews, arrowAnimations
    */
@@ -118,6 +117,10 @@ public class Controller {
     model = a_model;
     // generate NoteQuestion
     model.setCurrentQuestion(new NoteQuestion());
+  /**
+   * setup config, question, activity, textviews, arrowAnimations
+   */
+    model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     mainActivity = (MainActivity)activity;
     mainActivity.getMicrophone().setVoiceListener(
         new PitchDetectionHandler() {
@@ -149,27 +152,11 @@ public class Controller {
   /**
    * do things when changing pratice mode
    */
-  public void changeCurrentMode(Mode m) {
-    model.setCurrentMode(m);
+  public void changeCurrentMode(Mode mode) {
     curFragment = mainActivity.getCurFragment();
-    switch (m) {
-      case NotePractice:
-      case NoteGraphPractice:
-        model.setCurrentQuestion(new NoteQuestion());
-        next_question();
-        break;
-      case IntervalPractice:
-        model.setCurrentQuestion(new IntervalQuestion());
-        next_question();
-        break;
-      case TriadPractice:
-        model.setCurrentQuestion(new TriadQuestion());
-        next_question();
-        break;
-      case SongPractice: 
-        //FIXME not implemented
-        break;
-    }
+    Log.v(TAG, mode.toString());
+    model.setCurrentQuestion(questionFactory.create(mode));
+    next_question();
   }
 
   /**

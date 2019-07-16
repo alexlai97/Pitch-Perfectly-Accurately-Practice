@@ -35,6 +35,9 @@ import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
  * create an instance of this fragment.
  * </p>
  */
+
+// This is a factory as it produces the fragment and these are optionally overridden by other classes
+// This factory is used in the MainActivity
 public class GeneralFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
