@@ -27,21 +27,17 @@ import be.tarsos.dsp.pitch.PitchDetectionResult;
  * Stores states and controls views
  */
 
-public class ModelController {
+public class Controller {
   private static final String TAG = "MODEL";
 
   private double current_frequency = -2000;
-  /**
-   * Stores current question
-   */
-  private Question current_question;
 
   /**
    * set note pool in current question in model
    * @param notes
    */
   public void setNotePool(Note[] notes) {
-    current_question.setNotePool(notes);
+    model.getCurrentQuestion().setNotePool(notes);
   }
 
   /**
@@ -138,14 +134,16 @@ public class ModelController {
    */
   private GeneralFragment curFragment;
 
+  private Model model;
 
   /**
    * setup config, question, activity, textviews, arrowAnimations
    */
-  public ModelController(Config c, Activity activity) {
-    current_config = c;
-    // generate NoteQuestion 
-    current_question = new NoteQuestion();
+  public Controller(Model a_model, Activity activity) {
+    model = a_model;
+    current_config = model.getConfig();
+    // generate NoteQuestion
+    model.setCurrentQuestion(new NoteQuestion());
     mainActivity = (MainActivity)activity;
     mainActivity.getMicrophone().setVoiceListener(
         new PitchDetectionHandler() {
@@ -178,19 +176,19 @@ public class ModelController {
    * do things when changing pratice mode
    */
   public void changeCurrentMode(Mode m) {
-    current_Mode = m;
+    model.setCurrentMode(m);
     curFragment = mainActivity.getCurFragment();
-    switch (current_Mode) {
+    switch (m) {
       case NotePractice:
-        current_question = new NoteQuestion();
+        model.setCurrentQuestion(new NoteQuestion());
         next_question();
         break;
       case IntervalPractice:
-        current_question = new IntervalQuestion();
+        model.setCurrentQuestion(new IntervalQuestion());
         next_question();
         break;
       case TriadPractice:
-        current_question = new TriadQuestion();
+        model.setCurrentQuestion(new TriadQuestion());
         next_question();
         break;
       case SongPractice: 
@@ -206,7 +204,7 @@ public class ModelController {
    *
    */
   public double[] getExpectedFrequencies() {
-    return Note.toFrequencies(current_question.getAnswerNotes());
+    return Note.toFrequencies(model.getCurrentQuestion().getAnswerNotes());
   }
 
 
@@ -235,8 +233,8 @@ public class ModelController {
    * generate a random question, update questionTextView
    */
   public void next_question() {
-    current_question.generate_random_question();
-    curFragment.updateQuestionTexts(current_question.getTexts());
+    model.getCurrentQuestion().generate_random_question();
+    curFragment.updateQuestionTexts(model.getCurrentQuestion().getTexts());
   }
 
   /**
@@ -268,7 +266,7 @@ public class ModelController {
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-    curFragment.updateQuestionTexts(current_question.getTexts());
+    curFragment.updateQuestionTexts(model.getCurrentQuestion().getTexts());
 
     current_frequency = freq;
     curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);

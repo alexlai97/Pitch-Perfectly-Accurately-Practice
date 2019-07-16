@@ -7,10 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.common.Config;
 import com.example.pitchperfectlyaccuratelypractice.common.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.common.Mode;
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.common.Model;
+import com.example.pitchperfectlyaccuratelypractice.common.Controller;
+import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
@@ -21,7 +22,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.GravityCompat;
@@ -33,12 +33,8 @@ import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 
-import android.view.Menu;
-import android.view.View;
 import android.view.MenuItem;
-import android.view.animation.Animation;
 import android.widget.TextView;
-import android.widget.Button;
 
 /**
  * NotePracticeMode Activity
@@ -54,19 +50,16 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
-    private ModelController modelController;
+    private Controller controller;
     private boolean created = false;
 
-    private ActionBarDrawerToggle drawerToggle;
-    private NavigationView navigationView;
-
-    private Mode curMode = Mode.NotePractice;
     private GeneralFragment curFragment;
+
+    private Model model = new Model();
 
     public GeneralFragment getCurFragment() {
         return curFragment;
     }
-
     private Microphone microphone = new Microphone();
 
     public Microphone getMicrophone() {
@@ -106,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements
         fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
         fragmentManager.executePendingTransactions();
 
-        modelController = new  ModelController(new Config(), this);
+        controller = new Controller(model, this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
-        modelController.next_question();
+        controller.next_question();
 
 //        setupVoiceListener();
 
@@ -130,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements
             if (resultCode == RESULT_OK) {
                 Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
                 Note.logNotes("back to main activity", result_notes);
-                modelController.setNotePool(result_notes);
-                modelController.next_question();
+                controller.setNotePool(result_notes);
+                controller.next_question();
             } else if (resultCode == RESULT_CANCELED){
 
             } else {
@@ -143,11 +136,11 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * return the ModelController (currently used by fragments)
+     * return the Controller (currently used by fragments)
      * @return
      */
-    public ModelController getModelController() {
-        return modelController;
+    public Controller getController() {
+        return controller;
     }
 
     /**
@@ -201,33 +194,33 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.note_mode:
                 Log.d(TAG, "onNavigationItemSelected: notemode");
                 curFragment = new NoteFragment();
-                curMode = Mode.NotePractice;
+                model.setCurrentMode(Mode.NotePractice);
                 break;
             case R.id.interval_mode:
                 Log.d(TAG, "onNavigationItemSelected: intervalmode");
                 curFragment = new IntervalFragment();
-                curMode = Mode.IntervalPractice;
+                model.setCurrentMode(Mode.IntervalPractice);
                 break;
             case R.id.triad_mode:
                 Log.d(TAG, "onNavigationItemSelected: chordmode");
                 curFragment = new TriadFragment();
-                curMode = Mode.TriadPractice;
+                model.setCurrentMode(Mode.TriadPractice);
                 break;
             case R.id.notegraph_mode:
                 Log.d(TAG, "onNavigationItemSelected: notegraph");
                 curFragment = new NoteGraphFragment();
-                curMode = Mode.NoteGraphPractice;
+                model.setCurrentMode(Mode.NoteGraphPractice);
                 break;
 //            case R.id.song_mode:
 //                break;
             default:
                 Log.d(TAG, "onNavigationItemSelected: default");
                 curFragment = new NoteFragment();
-                curMode = Mode.NotePractice;
+                model.setCurrentMode(Mode.NotePractice);
 
         }
 
-        modelController.changeCurrentMode(curMode);
+        controller.changeCurrentMode(model.getCurrentMode());
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -323,9 +316,9 @@ public class MainActivity extends AppCompatActivity implements
         int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
         if (notes_ints != null) {
             if (notes_ints.length == 0) {
-                modelController.setNotePool(Note.getAllNotes());
+                controller.setNotePool(Note.getAllNotes());
             } else {
-                modelController.setNotePool(Note.IntsToNotes(notes_ints));
+                controller.setNotePool(Note.IntsToNotes(notes_ints));
             }
         }
     }

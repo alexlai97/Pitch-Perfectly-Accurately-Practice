@@ -1,7 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.common.Controller;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.interval.*;
 import java.util.Random;
@@ -38,7 +38,7 @@ public class IntervalQuestion extends Question {
   public void setIntervalPool(Interval [] intervals) {
     this.intervalPool = intervals;
   }
-  private ModelController modelController;
+  private Controller controller;
 
   /**
    * default constructor of interval question

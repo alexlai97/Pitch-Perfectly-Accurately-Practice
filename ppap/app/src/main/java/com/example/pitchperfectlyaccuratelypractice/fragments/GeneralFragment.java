@@ -21,8 +21,8 @@ import android.widget.TextView;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.NotePlayer;
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
+import com.example.pitchperfectlyaccuratelypractice.common.Controller;
+import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
 
 /**
  * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment
@@ -67,9 +67,9 @@ public class GeneralFragment extends Fragment {
     TextView currentPitchText;
 
     /**
-     * stores the modelController got from MainActivity
+     * stores the controller got from MainActivity
      */
-    private ModelController modelController;
+    private Controller controller;
 
     /**
      * stores the play sound Button view
@@ -126,7 +126,7 @@ public class GeneralFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
-        modelController = ((MainActivity)(getActivity())).getModelController(); // FIXME temporary here
+        controller = ((MainActivity)(getActivity())).getController(); // FIXME temporary here
         notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
 
         onCreated = true;
@@ -153,7 +153,7 @@ public class GeneralFragment extends Fragment {
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int)modelController.getExpectedFrequencies()[0]);
+                notePlayer.playOneNote((int) controller.getExpectedFrequencies()[0]);
             }
         });
 
@@ -172,7 +172,7 @@ public class GeneralFragment extends Fragment {
         helpButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                modelController.next_question();
+                controller.next_question();
                 return false;
             }
         });
