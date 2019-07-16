@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.ViewGroup.LayoutParams;
+
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -113,6 +115,9 @@ public class GeneralFragment extends Fragment {
 
     ConstraintLayout constraintLayout;
 
+    int viewWidth;
+    int viewHeight;
+
     /**
      * additional things to set up in onCreateView
      * <p>
@@ -146,7 +151,7 @@ public class GeneralFragment extends Fragment {
         notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
 
         onCreated = true;
-        View view = inflater.inflate(resource, container, false);
+        final View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.layout_to_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
 
@@ -192,20 +197,28 @@ public class GeneralFragment extends Fragment {
             }
         });
 
+
         helpButton.setOnClickListener(new View.OnClickListener() {
+
             boolean click = true;
             View layout = inflater.inflate(R.layout.popout, container, false);
-            PopupWindow popupWindow = new PopupWindow(layout, 300, 190, true);
+            PopupWindow popupWindow = new PopupWindow(
+                    layout,
+//                    LayoutParams.MATCH_PARENT,
+//                    LayoutParams.MATCH_PARENT);
+                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
+                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)));
+
 
             @Override
             public void onClick(View view) {
 
                 if (click) {
-//                    popupWindow.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
-                    popupWindow.update(50, 50, 300, 80);
+                    popupWindow.showAtLocation(layout, Gravity.CENTER,0,0);
+                    popupWindow.update(
+                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)),
+                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)));
                     click = false;
-//                popupText = (TextView) layout.findViewById(R.id.popupText);
-//                popupText.setText(yourString);
                 } else {
                     popupWindow.dismiss();
                     click = true;
