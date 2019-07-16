@@ -1,5 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.enums;
 
+import com.example.pitchperfectlyaccuratelypractice.R;
+
 /**
  * Different practice modes
  */
@@ -24,5 +26,22 @@ public enum Mode {
    * where you can see the real time pitch you are producing
    */
   NoteGraphPractice;
+
+  public static Mode idToMode(int id) {
+    switch (id) {
+      case R.id.note_mode:
+        return NotePractice;
+      case R.id.interval_mode:
+        return IntervalPractice;
+      case R.id.triad_mode:
+        return TriadPractice;
+      case R.id.notegraph_mode:
+        return NoteGraphPractice;
+//            case R.id.song_mode:
+//      return SongPractice;
+      default:
+        return NotePractice;
+    }
+  }
 }
 

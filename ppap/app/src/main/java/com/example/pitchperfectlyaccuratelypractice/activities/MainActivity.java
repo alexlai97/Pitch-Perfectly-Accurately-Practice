@@ -180,47 +180,9 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-//        curFragment = null;
-
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
-        switch(id){
-            case R.id.note_mode:
-                Log.d(TAG, "onNavigationItemSelected: notemode");
-//                curFragment = new NoteFragment();
-                model.setCurrentMode(Mode.NotePractice);
-                break;
-            case R.id.interval_mode:
-                Log.d(TAG, "onNavigationItemSelected: intervalmode");
-//                curFragment = new IntervalFragment();
-                model.setCurrentMode(Mode.IntervalPractice);
-                break;
-            case R.id.triad_mode:
-                Log.d(TAG, "onNavigationItemSelected: chordmode");
-//                curFragment = new TriadFragment();
-                model.setCurrentMode(Mode.TriadPractice);
-                break;
-            case R.id.notegraph_mode:
-                Log.d(TAG, "onNavigationItemSelected: notegraph");
-//                curFragment = new NoteGraphFragment();
-                model.setCurrentMode(Mode.NoteGraphPractice);
-                break;
-//            case R.id.song_mode:
-//                break;
-            default:
-                Log.d(TAG, "onNavigationItemSelected: default");
-//                curFragment = new NoteFragment();
-                model.setCurrentMode(Mode.NotePractice);
-
-        }
-
-
-//        curFragment = fragmentFactory.create(model.getCurrentMode());
-        // TODO
-//        controller.changeCurrentMode(model.getCurrentMode());
-
-        Log.d(TAG, "onNavigationItemSelected: model" + model.getCurrentFragment().getClass());
+        model.setCurrentMode(Mode.idToMode(id));
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
