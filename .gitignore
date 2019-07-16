@@ -3,6 +3,7 @@
 workspace
 .DS_Store
 /.idea
+doc-book
 
 # dev-book branch
 book

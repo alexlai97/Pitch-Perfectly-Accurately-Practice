@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.TextView;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -22,6 +27,7 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 public class NoteGraphFragment extends GeneralFragment {
+    private static String TAG = "NoteGraphFragment";
     private Runnable mTimer;
     private Long lastFreq;
     private GraphView graph;
@@ -32,21 +38,21 @@ public class NoteGraphFragment extends GeneralFragment {
     private double graphLastXValue = 5d;
     private double questionFreq;
 
-    TextView questionNoteText;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.v("NOTEGRAPH", "onCreateView!");
+    private TextView questionNoteText;
 
-        onCreated = true;
-        View view = inflater.inflate(R.layout.fragment_note_graph, container, false);
-        ConstraintLayout included = view.findViewById(R.id.notegraph_include);
-        frequencyText = included.findViewById(R.id.currentFrequencyTextView);
-        questionNoteText = included.findViewById(R.id.questionNoteTextView);
-        arrowText = included.findViewById(R.id.arrowTextView1);
+    /**
+     * constructor of IntervalFragment
+     * setup resource (see parent onCreateView for use)
+     */
+    public NoteGraphFragment() { resource = R.layout.fragment_note_graph; }
 
-        currentPitchText  = included.findViewById(R.id.currentPitchTextView);
-        graph = (GraphView) included.findViewById(R.id.graph);
+
+    void setupAdditionalView() {
+        Log.d(TAG, "setupAdditionalView: ");
+        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+
+        graph = (GraphView) constraintLayout.findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(3);
@@ -66,12 +72,18 @@ public class NoteGraphFragment extends GeneralFragment {
         graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
         graph.addSeries(series);
         graph.addSeries(series2);
-
-        return view;
     }
 
     public void onResume(){
         super.onResume();
+        Button button = getView().findViewById(R.id.naviButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+                drawer.openDrawer(GravityCompat.START);
+            }
+        });
         mTimer = new Runnable() {
             @Override
             public void run() {
@@ -88,6 +100,16 @@ public class NoteGraphFragment extends GeneralFragment {
         super.onPause();
         mHandler.removeCallbacks(mTimer);
     }
+
+    /**
+     * update question text
+     * @param texts
+     */
+    public void updateQuestionTexts(String[] texts){
+        if(!onCreated) return;
+        questionNoteText.setText(texts[0]);
+    }
+
 
     @Override
     public void updateFrequencyText(Long freq, Double expectedFreq){

@@ -8,32 +8,38 @@ import androidx.fragment.app.Fragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NoteFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NoteFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * a children of general fragment
+ * it has questionNoteText view, questionIntervalText view
  */
-
-
 public class NoteFragment extends GeneralFragment {
 
     private static String TAG = "NoteFragment";
-    TextView questionNoteText;
+    /**
+     * a question note in the middle of the screen
+     */
+    private TextView questionNoteText;
 
+    /**
+     * constructor of NoteFragment
+     * setup resource (see parent onCreateView for use)
+     */
     public NoteFragment() {
         resource = R.layout.fragment_note;
     }
 
+    /**
+     * set up views of questionNoteText
+     */
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
-        if (questionNoteText == null) {
-            throw new AssertionError("questionNoteText is null");
-        }
+        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
     }
 
+    /**
+     * update question text
+     * @param texts
+     */
     public void updateQuestionTexts(String[] texts){
         if(!onCreated) return;
         questionNoteText.setText(texts[0]);

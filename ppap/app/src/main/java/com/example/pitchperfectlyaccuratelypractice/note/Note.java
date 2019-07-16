@@ -256,6 +256,11 @@ public class Note {
     return "" + symbol + octave + sharp_symbol;
   }
 
+  /**
+   * print all possible key signatures
+   * FIXME currenlly only has sharp mode (no flat mode)
+   * @return
+   */
   public static String[] getAllKeySignatures() {
     return new String[]{"A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#" };
   }
@@ -269,29 +274,43 @@ public class Note {
   }
 
   /**
-   *
+   * get the index given a Note
    */
   public static int getIndex(Note note) {
     return note.getIndex();
   }
 
+  /**
+   * get the string given a Note
+   */
   public static String getText(Note note) {
     return note.getText();
   }
 
+  /**
+   * get the string given an index
+   */
   public static String getText(int index) {
     return new Note(index).getText();
   }
 
+  /**
+   * get lowest note possible in this class, which is index 0, which is A1
+   * @return
+   */
   public static Note getLowestNote() {
     return new Note(INDEX_LOWER_BOUND);
   }
+  /**
+   * get highest note possible in this class, which is index 72, which is A7
+   * @return
+   */
   public static Note getHighestNote() {
     return new Note(INDEX_UPPER_BOUND);
   }
 
   /**
-   *
+   * get index given note string
    */
   public static int getIndex(String str) {
     Note n = new Note(str);
@@ -308,6 +327,11 @@ public class Note {
     return frequency_array[this.index];
   }
 
+  /**
+   * convert an array of notes to array of frequencies
+   * @param notes
+   * @return
+   */
   public static double[] toFrequencies(Note[] notes) {
       double[] frequencies = new double[notes.length];
       for (int i = 0; i < notes.length; i ++) {
@@ -375,9 +399,15 @@ public class Note {
   }
 
   /**
-   * get all strings
+   * get all Notes
    */
   public static Note[] getAllNotes(){ return generateNotesWithRange(Note.INDEX_LOWER_BOUND, Note.INDEX_UPPER_BOUND); }
+
+  /**
+   * get reasonable Notes (set in construtor of Question)
+   * Please change it... or put it in config, currently is like male range
+   */
+  public static Note[] getReasonableNotes(){ return generateNotesWithRange(Note.getIndex("A2"), Note.getIndex("A4")); }
 
   /**
    * A way to use this class, will print a table of notes

@@ -18,12 +18,9 @@ public abstract class Bitmap {
 
 
   /**
-   * bit wise 'and' operation on two bitmap and return the result Bitmap
+   * abstract method, bit wise 'and' operation on two bitmap and return the result Bitmap
    */
-  // just a template
-  public Bitmap bitmapAnd(Bitmap new_bitmap) {
-    return new_bitmap;
-  }
+  public abstract Bitmap bitmapAnd(Bitmap new_bitmap);
 
   /**
    * print bitmap to stdout  (debugging)
