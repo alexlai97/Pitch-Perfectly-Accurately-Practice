@@ -14,19 +14,25 @@ import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 /**
- * uses Tarsos library functions to spawn a frequency detection thread 
- *
+ * a microphone to store a frequency as a buffer
+ * other object can listen to it
  */
 public class Microphone extends Observable {
 
     private static final String TAG = "Microphone";
 
+    /**
+     * to run thread on this activity
+     */
     private Activity activity;
 
+    /**
+     * a float buffer to store a frequency
+     */
     private float currentFrequency;
 
     /**
-     * runs a thread to detect frequency
+     * starts a microphone (it will keeps it buffer updated)
      */
     public Microphone(Activity ac) {
         activity = ac;

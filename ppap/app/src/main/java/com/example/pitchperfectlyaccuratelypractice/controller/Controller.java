@@ -31,25 +31,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Stores states and controls views
+ * Listen to views, model changes
+ * Can update view, modify model
  */
-
 public class Controller implements Observer ,
         PropertyChangeListener
 {
   private static final String TAG = "CONTROLLER";
 
   private double current_frequency = -2000;
-
-  /**
-   * set note pool in current question in model
-   * @param notes
-   */
-  public void setNotePool(Note[] notes) {
-    model.setNotePool(notes);
-  }
-
-  private Question curQuestion;
   /**
    * last time pitch enter error range
    */
@@ -109,25 +99,50 @@ public class Controller implements Observer ,
    */
   private MainActivity mainActivity;
   /**
-   * access to the current fragment public methods
+   * microphone owned by main activity
+   * can set listener to it
+   */
+  private Microphone microphone;
+  /**
+   *  current fragment (will change if model's current question is changed)
    */
   private GeneralFragment curFragment;
-
+  /**
+   *  current question (will change if model's current question is changed)
+   */
+  private Question curQuestion;
+  /**
+   *  current config (will change if model's current question is changed)
+   */
   private Config curConfig;
+  /**
+   *  current mode (will change if model's current question is changed)
+   */
   private Mode curMode; // Don't need it probably
-
-  private Microphone microphone;
-
+  /**
+   * model owned by main activity
+   */
   private Model model;
 
-
-  private QuestionFactory questionFactory = new QuestionFactory();
   /**
-   * setup config, question, activity, textviews, arrowAnimations
+   * a question factory to produce different type of questions
    */
-  public Controller(Activity activity) {
+  private QuestionFactory questionFactory = new QuestionFactory();
+
+  /**
+   * set note pool in current question in model
+   * @param notes
+   */
+  public void setNotePool(Note[] notes) {
+    model.setNotePool(notes);
+  }
+
+  /**
+   *
+   */
+  public Controller(Model a_model, Activity activity) {
     mainActivity = (MainActivity)activity;
-    model = mainActivity.getModel();
+    model = a_model;
     // generate NoteQuestion
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
@@ -152,10 +167,7 @@ public class Controller implements Observer ,
 
 
   /**
-   * get answer frequency to the note practice question
-   * <p>
-   * FIXME only used in note pratice mode, not for future use
-   *
+   * get answer frequencies from current question stored in model
    */
   public double[] getExpectedFrequencies() {
     return Note.toFrequencies(curQuestion.getAnswerNotes());
@@ -169,6 +181,9 @@ public class Controller implements Observer ,
     updateQuestionView();
   }
 
+  /**
+   * update views related to question
+   */
   private void updateQuestionView() {
     curFragment.updateQuestionTexts(curQuestion.getTexts());
   }
@@ -189,9 +204,7 @@ public class Controller implements Observer ,
   }
 
   /**
-   * process frequency PitchDetectionHandler feeds in and responds with:
-   * <p>
-   * updating views 
+   * process a frequency
    */
   public void processFrequency(double freq) {
     long now = System.currentTimeMillis();
@@ -262,17 +275,29 @@ public class Controller implements Observer ,
     }
   }
 
+  /**
+   * refresh current fragment, since current mode is changed
+   */
   private void refreshCurFragment() {
     model.refreshCurrentFragment();
     mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
     mainActivity.getSupportFragmentManager().executePendingTransactions();
   }
 
+  /**
+   * frequency updates from microphone
+   * @param observable
+   * @param o
+   */
   @Override
   public void update(Observable observable, Object o) {
     processFrequency((float)o);
   }
 
+  /**
+   * updates from model
+   * @param event
+   */
   @Override
   public void propertyChange(PropertyChangeEvent event) {
     if (event.getNewValue() == null) {

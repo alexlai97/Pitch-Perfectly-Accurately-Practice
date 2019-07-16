@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 
+/**
+ * a factory to produce different questions
+ */
 public class QuestionFactory {
     private static String TAG = "QuestionFactory";
 

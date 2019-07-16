@@ -7,7 +7,7 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 
 /**
- * play notes
+ * a speaker which can play music note(s)
  * <p>
  */
 public class NotePlayer  {
@@ -17,12 +17,6 @@ public class NotePlayer  {
     byte generatedSnd[];
     int PLAY_NOTE_DURATION = 1;
     Handler handler = new Handler();
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.note_layout);
-//    }
 
     public void genTone(int freqOfTone, int duration){
         // fill out the array
