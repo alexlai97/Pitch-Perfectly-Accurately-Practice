@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.common.Config;
+import com.example.pitchperfectlyaccuratelypractice.common.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.common.Mode;
 import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
@@ -66,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements
         return curFragment;
     }
 
+    private Microphone microphone = new Microphone();
+
+    public Microphone getMicrophone() {
+        return microphone;
+    }
+
     /**
      * currently it does the following
      * 1. check mirochphone permission and handles it
@@ -103,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         modelController.next_question();
 
-        setupVoiceListener();
+//        setupVoiceListener();
+
 
         Log.w(TAG, "ONCREATE");
     }
@@ -131,15 +139,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    /**
-     * set up voice listener and start listening
-     */
-    void setupVoiceListener() {
-        VoiceListener voicelistener = new VoiceListener(modelController);
-        voicelistener.startListening();
     }
 
 

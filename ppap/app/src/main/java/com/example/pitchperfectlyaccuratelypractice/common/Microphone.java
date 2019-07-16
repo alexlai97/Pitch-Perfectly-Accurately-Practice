@@ -1,40 +1,25 @@
-package com.example.pitchperfectlyaccuratelypractice.activities;
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
-import android.app.Activity;
+package com.example.pitchperfectlyaccuratelypractice.common;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
 import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.AudioProcessor;
 import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 import be.tarsos.dsp.pitch.PitchDetectionHandler;
-import be.tarsos.dsp.pitch.PitchDetectionResult;
 import be.tarsos.dsp.pitch.PitchProcessor;
 
 /**
  * uses Tarsos library functions to spawn a frequency detection thread 
  *
  */
-public class VoiceListener extends Activity {
+public class Microphone {
 
-    private static final String TAG = "VoiceListener";
-    /**
-     * modelController
-     */
-    private ModelController modelController;
-
-    /**
-     * Constructor for VoiceListener
-     */
-    public VoiceListener(ModelController mc) {
-        modelController = mc;
-    }
+    private static final String TAG = "Microphone";
 
     /**
      * runs a thread to detect frequency
      */
-    public void startListening() {
+    public void setVoiceListener(PitchDetectionHandler pdh) {
         int sampleRate = 8000;
 
         for (int rate : new int[]{22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
@@ -45,29 +30,11 @@ public class VoiceListener extends Activity {
             }
         }
 
-//      Log.i(TAG, "I have been here.");
-
         AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(sampleRate, 1024, 0);
-
-        PitchDetectionHandler pdh = new PitchDetectionHandler() {
-            @Override
-            public void handlePitch(PitchDetectionResult res, AudioEvent e) {
-                final float pitchInHz = res.getPitch();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        modelController.processFrequency(pitchInHz);
-                    }
-                });
-            }
-        };
 
         AudioProcessor pitchProcessor = new PitchProcessor(PitchProcessor.PitchEstimationAlgorithm.FFT_YIN, sampleRate, 1024, pdh);
         dispatcher.addAudioProcessor(pitchProcessor);
-
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
-
     }
-
 }

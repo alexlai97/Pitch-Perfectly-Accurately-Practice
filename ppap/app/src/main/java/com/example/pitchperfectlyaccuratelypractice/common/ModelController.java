@@ -19,6 +19,10 @@ import static org.junit.Assert.assertNotNull;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
 
+import be.tarsos.dsp.AudioEvent;
+import be.tarsos.dsp.pitch.PitchDetectionHandler;
+import be.tarsos.dsp.pitch.PitchDetectionResult;
+
 /**
  * Stores states and controls views
  */
@@ -32,6 +36,10 @@ public class ModelController {
    */
   private Question current_question;
 
+  /**
+   * set note pool in current question in model
+   * @param notes
+   */
   public void setNotePool(Note[] notes) {
     current_question.setNotePool(notes);
   }
@@ -139,6 +147,19 @@ public class ModelController {
     // generate NoteQuestion 
     current_question = new NoteQuestion();
     mainActivity = (MainActivity)activity;
+    mainActivity.getMicrophone().setVoiceListener(
+        new PitchDetectionHandler() {
+            @Override
+            public void handlePitch(PitchDetectionResult res, AudioEvent e) {
+                final float frequency = res.getPitch();
+                mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        processFrequency(frequency);
+                    }
+                });
+            }
+        });
     curFragment = mainActivity.getCurFragment();
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
