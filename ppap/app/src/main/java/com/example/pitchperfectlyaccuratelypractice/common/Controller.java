@@ -1,6 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.common;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
@@ -44,10 +46,6 @@ public class Controller {
    * Stores current practice mode
    */
   private Mode current_Mode;
-  /**
-   * Stores current user configuration
-   */
-  private Config current_config;
   /**
    * last time pitch enter error range
    */
@@ -88,29 +86,6 @@ public class Controller {
   private boolean hasShownCorrect = false;
 
   /**
-   * stores questionTextView
-   */
-  private TextView questionText;
-  /**
-   * stores arrowsTextView
-   */
-  private TextView arrowText;
-  /**
-   * stores frequencyTextView
-   */
-  private TextView frequencyText;
-  /**
-   * stores currentPitchTextView
-   */
-  private TextView currentPitchText;
-  /**
-   * stores backgroundView
-   * <p>
-   * FIXME failed
-   */
-  private View backGoundView;
-
-  /**
    * animation
    */
   private Animation arrowAnimation;
@@ -141,7 +116,6 @@ public class Controller {
    */
   public Controller(Model a_model, Activity activity) {
     model = a_model;
-    current_config = model.getConfig();
     // generate NoteQuestion
     model.setCurrentQuestion(new NoteQuestion());
     mainActivity = (MainActivity)activity;
@@ -180,6 +154,7 @@ public class Controller {
     curFragment = mainActivity.getCurFragment();
     switch (m) {
       case NotePractice:
+      case NoteGraphPractice:
         model.setCurrentQuestion(new NoteQuestion());
         next_question();
         break;
@@ -207,28 +182,6 @@ public class Controller {
     return Note.toFrequencies(model.getCurrentQuestion().getAnswerNotes());
   }
 
-
-  /**
-   * setter for current configuration
-   * <p>
-   * for best pratice, please do:
-   * <p>
-   * 1. Config cc = model.get_current_config();
-   * <p>
-   * 2. cc.set_xx_parameter(xxxx);
-   * <p>
-   * 3. model.set_current_config(cc);
-   */
-  public void set_current_config(Config c) {
-    current_config = c;
-  }
-  /**
-   * getter for current configuration
-   */
-  public Config get_current_config() {
-    return current_config;
-  }
-
   /**
    * generate a random question, update questionTextView
    */
@@ -242,8 +195,9 @@ public class Controller {
    */
   void show_correct() {
     curFragment.updateArrowText("✓");
-//    backGoundView.setBackgroundColor(Color.BLUE);
+    curFragment.setBackgroundColor(Color.GREEN);
   }
+
 
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
@@ -273,10 +227,10 @@ public class Controller {
     curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
     double expected_freq = getExpectedFrequencies()[0];
-    double error_allowance_rate = current_config.get_error_allowance_rate();
+    double error_allowance_rate = model.getConfig().get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();
-    long dT = current_config.get_least_stable_time_in_milliseconds();
+    long dT = model.getConfig().get_least_stable_time_in_milliseconds();
 
     if (answerCorrect) {
       if (!hasShownCorrect) {
@@ -285,7 +239,7 @@ public class Controller {
       } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) {
         // do nothing
       } else {
-//          backGoundView.setBackgroundColor(Color.GREEN);
+          curFragment.resetBackgroundColor();
           next_question();
           answerCorrect = false;
       }

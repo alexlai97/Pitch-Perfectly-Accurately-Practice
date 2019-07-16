@@ -103,6 +103,8 @@ public class GeneralFragment extends Fragment {
      */
     int resource;
 
+    int background_color;
+
     ConstraintLayout constraintLayout;
 
     /**
@@ -113,6 +115,14 @@ public class GeneralFragment extends Fragment {
      * </p>
      */
     void setupAdditionalView() { }
+
+    public void setBackgroundColor(int c) {
+        constraintLayout.setBackgroundColor(c);
+    }
+
+    public void resetBackgroundColor() {
+        constraintLayout.setBackgroundColor(background_color);
+    }
 
     /**
      * setup views and listeners

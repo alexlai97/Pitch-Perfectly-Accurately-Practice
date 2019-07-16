@@ -44,7 +44,10 @@ public class NoteGraphFragment extends GeneralFragment {
      * constructor of IntervalFragment
      * setup resource (see parent onCreateView for use)
      */
-    public NoteGraphFragment() { resource = R.layout.fragment_note_graph; }
+    public NoteGraphFragment() {
+        resource = R.layout.fragment_note_graph;
+        background_color = Color.parseColor("#E6FBBA");
+    }
 
 
     void setupAdditionalView() {

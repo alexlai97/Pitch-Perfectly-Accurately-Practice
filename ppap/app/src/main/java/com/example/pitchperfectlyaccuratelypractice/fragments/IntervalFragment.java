@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class IntervalFragment extends GeneralFragment {
      */
     public IntervalFragment() {
         resource =R.layout.fragment_interval;
+        background_color = Color.parseColor("#BDE8D8");
     }
 
     /**

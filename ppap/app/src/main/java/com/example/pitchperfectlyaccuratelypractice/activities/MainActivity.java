@@ -34,34 +34,29 @@ import androidx.fragment.app.FragmentManager;
 import android.util.Log;
 
 import android.view.MenuItem;
-import android.widget.TextView;
 
 /**
  * NotePracticeMode Activity
  */
 public class MainActivity extends AppCompatActivity implements
         GeneralFragment.OnFragmentInteractionListener,
-//        NavigationDrawerFragment.NavigationDrawerCallbacks,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
     private static NotePlayer notePlayer = new NotePlayer();
-    private TextView arrow;
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
-    private Controller controller;
     private boolean created = false;
 
     private GeneralFragment curFragment;
-
     private Model model = new Model();
+    private Controller controller;
+    private Microphone microphone = new Microphone();
 
     public GeneralFragment getCurFragment() {
         return curFragment;
     }
-    private Microphone microphone = new Microphone();
-
     public Microphone getMicrophone() {
         return microphone;
     }
@@ -71,9 +66,8 @@ public class MainActivity extends AppCompatActivity implements
      * 1. check mirochphone permission and handles it
      * 2. set navi wrapper
      * 3. setup fragment and begin note fragment
-     * 4. set up modelcontroller
+     * 4. set up model and controller
      * 5. handle intents (from filter page)
-     * 6. set up voice listener
      * @param savedInstanceState
      */
     @Override
@@ -102,9 +96,6 @@ public class MainActivity extends AppCompatActivity implements
         controller = new Controller(model, this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         controller.next_question();
-
-//        setupVoiceListener();
-
 
         Log.w(TAG, "ONCREATE");
     }
