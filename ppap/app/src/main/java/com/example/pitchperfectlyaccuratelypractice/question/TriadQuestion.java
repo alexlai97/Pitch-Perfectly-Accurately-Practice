@@ -19,6 +19,11 @@ public class TriadQuestion extends Question{
    */
   private static Random random = new Random();
 
+  public TriadQuestion() {
+    notePool = Note.getReasonableNotes();
+    generate_random_question();
+  }
+
   /**
    * generate question from note pool
    * <p>

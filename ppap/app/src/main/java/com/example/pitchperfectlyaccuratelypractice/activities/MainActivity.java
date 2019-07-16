@@ -50,16 +50,15 @@ public class MainActivity extends AppCompatActivity implements
 
     private boolean created = false;
 
-    private GeneralFragment curFragment;
+//    private GeneralFragment curFragment;
     private Model model = new Model();
     private Controller controller;
     private Microphone microphone = new Microphone(this);
 
-    private FragmentFactory fragmentFactory = new FragmentFactory();
 
-    public GeneralFragment getCurFragment() {
-        return curFragment;
-    }
+//    public GeneralFragment getCurFragment() {
+//        return curFragment;
+//    }
     public Microphone getMicrophone() {
         return microphone;
     }
@@ -90,19 +89,21 @@ public class MainActivity extends AppCompatActivity implements
 
         // Start Note Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        curFragment = fragmentFactory.create(model.getCurrentMode());
-        if( curFragment.getView() == null ){ Log.w(TAG, "athings"); }
+        if( model.getCurrentFragment().getView() == null ){ Log.w(TAG, "athings"); }
 
-        fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
         fragmentManager.executePendingTransactions();
 
-        controller = new Controller(model, this);
+        controller = new Controller(this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
         controller.next_question();
 
         Log.w(TAG, "ONCREATE");
     }
 
+    public Model getModel() {
+        return model;
+    }
 
     /**
      * currently only get notes from filter page
@@ -180,47 +181,50 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        curFragment = null;
+//        curFragment = null;
 
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
         switch(id){
             case R.id.note_mode:
                 Log.d(TAG, "onNavigationItemSelected: notemode");
-                curFragment = new NoteFragment();
+//                curFragment = new NoteFragment();
                 model.setCurrentMode(Mode.NotePractice);
                 break;
             case R.id.interval_mode:
                 Log.d(TAG, "onNavigationItemSelected: intervalmode");
-                curFragment = new IntervalFragment();
+//                curFragment = new IntervalFragment();
                 model.setCurrentMode(Mode.IntervalPractice);
                 break;
             case R.id.triad_mode:
                 Log.d(TAG, "onNavigationItemSelected: chordmode");
-                curFragment = new TriadFragment();
+//                curFragment = new TriadFragment();
                 model.setCurrentMode(Mode.TriadPractice);
                 break;
             case R.id.notegraph_mode:
                 Log.d(TAG, "onNavigationItemSelected: notegraph");
-                curFragment = new NoteGraphFragment();
+//                curFragment = new NoteGraphFragment();
                 model.setCurrentMode(Mode.NoteGraphPractice);
                 break;
 //            case R.id.song_mode:
 //                break;
             default:
                 Log.d(TAG, "onNavigationItemSelected: default");
-                curFragment = new NoteFragment();
+//                curFragment = new NoteFragment();
                 model.setCurrentMode(Mode.NotePractice);
 
         }
 
 
-        curFragment = fragmentFactory.create(model.getCurrentMode());
-        controller.changeCurrentMode(model.getCurrentMode());
+//        curFragment = fragmentFactory.create(model.getCurrentMode());
+        // TODO
+//        controller.changeCurrentMode(model.getCurrentMode());
+
+        Log.d(TAG, "onNavigationItemSelected: model" + model.getCurrentFragment().getClass());
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
         fragmentManager.executePendingTransactions();
 
         // Highlight the selected item has been done by NavigationView

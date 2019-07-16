@@ -17,20 +17,21 @@ import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 
 import static org.junit.Assert.assertNotNull;
 
+import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
-
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.pitch.PitchDetectionHandler;
-import be.tarsos.dsp.pitch.PitchDetectionResult;
 
 /**
  * Stores states and controls views
  */
 
-public class Controller implements Observer {
+public class Controller implements Observer ,
+        PropertyChangeListener
+{
   private static final String TAG = "CONTROLLER";
 
   private double current_frequency = -2000;
@@ -40,9 +41,10 @@ public class Controller implements Observer {
    * @param notes
    */
   public void setNotePool(Note[] notes) {
-    model.getCurrentQuestion().setNotePool(notes);
+    model.setNotePool(notes);
   }
 
+  private Question curQuestion;
   /**
    * last time pitch enter error range
    */
@@ -106,23 +108,30 @@ public class Controller implements Observer {
    */
   private GeneralFragment curFragment;
 
+  private Config curConfig;
+  private Mode curMode; // Don't need it probably
+
   private Microphone microphone;
 
   private Model model;
+
 
   private QuestionFactory questionFactory = new QuestionFactory();
   /**
    * setup config, question, activity, textviews, arrowAnimations
    */
-  public Controller(Model a_model, Activity activity) {
-    model = a_model;
-    // generate NoteQuestion
-    model.setCurrentQuestion(new NoteQuestion());
-    model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
+  public Controller(Activity activity) {
     mainActivity = (MainActivity)activity;
+    model = mainActivity.getModel();
+    // generate NoteQuestion
+    model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
+    curQuestion = model.getCurrentQuestion();
+    curConfig = model.getCurrentConfig();
+    model.addChangeListener(this);
     microphone = mainActivity.getMicrophone();
     microphone.addObserver(this);
-    curFragment = mainActivity.getCurFragment();
+    // TODO add property
+    curFragment = model.getCurrentFragment();
     arrowAnimation = new TranslateAnimation(
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
             TranslateAnimation.RELATIVE_TO_SELF, 0f,
@@ -139,12 +148,12 @@ public class Controller implements Observer {
   /**
    * do things when changing pratice mode
    */
-  public void changeCurrentMode(Mode mode) {
-    curFragment = mainActivity.getCurFragment();
-    Log.v(TAG, mode.toString());
-    model.setCurrentQuestion(questionFactory.create(mode));
-    next_question();
-  }
+//  public void changeCurrentMode(Mode mode) {
+////    curFragment = mainActivity.getCurFragment();
+//    Log.v(TAG, mode.toString());
+//    model.setCurrentQuestion(questionFactory.create(mode));
+//    next_question();
+//  }
 
   /**
    * get answer frequency to the note practice question
@@ -153,15 +162,15 @@ public class Controller implements Observer {
    *
    */
   public double[] getExpectedFrequencies() {
-    return Note.toFrequencies(model.getCurrentQuestion().getAnswerNotes());
+    return Note.toFrequencies(curQuestion.getAnswerNotes());
   }
 
   /**
    * generate a random question, update questionTextView
    */
   public void next_question() {
-    model.getCurrentQuestion().generate_random_question();
-    curFragment.updateQuestionTexts(model.getCurrentQuestion().getTexts());
+    curQuestion.generate_random_question();
+    curFragment.updateQuestionTexts(curQuestion.getTexts());
   }
 
   /**
@@ -194,17 +203,17 @@ public class Controller implements Observer {
       firstTimeProcessFreq = false;
       firstStart = now;
     }
-    curFragment.updateQuestionTexts(model.getCurrentQuestion().getTexts());
+//    curFragment.updateQuestionTexts(curQuestion.getTexts());
 
     current_frequency = freq;
     curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
     curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
     double expected_freq = getExpectedFrequencies()[0];
-    double error_allowance_rate = model.getConfig().get_error_allowance_rate();
+    double error_allowance_rate = curConfig.get_error_allowance_rate();
     OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
     String arrow = ofl.get_ArrowSuggestion();
-    long dT = model.getConfig().get_least_stable_time_in_milliseconds();
+    long dT = curConfig.get_least_stable_time_in_milliseconds();
 
     if (answerCorrect) {
       if (!hasShownCorrect) {
@@ -256,5 +265,28 @@ public class Controller implements Observer {
   @Override
   public void update(Observable observable, Object o) {
     processFrequency((float)o);
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent event) {
+    if (event.getNewValue() == null) {
+      throw new AssertionError("property change event object is null");
+    }
+      switch (event.getPropertyName()) {
+        case "currentConfig":
+          curConfig = (Config) event.getNewValue();
+          break;
+        case "currentQuestion":
+          curQuestion = (Question) event.getNewValue();
+          Log.d(TAG, "propertyChange: Question" + curQuestion.getClass());
+          break;
+        case "currentMode":
+          curMode = (Mode) event.getNewValue();
+          break;
+        case "currentFragment":
+          curFragment = (GeneralFragment) event.getNewValue();
+          Log.d(TAG, "propertyChange: Fragment" + curFragment.getClass());
+          break;
+      }
   }
 }

@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 
 public class QuestionFactory {
-    private static String TAG = "NoteFactory";
+    private static String TAG = "QuestionFactory";
 
     public Question create(Mode mode){
         switch (mode) {
@@ -13,7 +13,7 @@ public class QuestionFactory {
                 Log.d(TAG, "NoteQuestion");
                 return new NoteQuestion();
             case IntervalPractice:
-                Log.d(TAG, "IntQuestion");
+                Log.d(TAG, "IntervalQuestion");
                 return new IntervalQuestion();
             case TriadPractice:
                 Log.d(TAG, "TriadQuestion");

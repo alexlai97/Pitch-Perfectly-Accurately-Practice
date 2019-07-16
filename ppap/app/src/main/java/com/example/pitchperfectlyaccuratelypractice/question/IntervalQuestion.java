@@ -10,6 +10,7 @@ import java.util.Random;
  * A Question in Interval practice mode
  */
 public class IntervalQuestion extends Question {
+  private final static String TAG = "IntervalQuestion";
   /**
    * The base note in the question
    */
@@ -28,17 +29,11 @@ public class IntervalQuestion extends Question {
   private Interval[] intervalPool;
 
   /**
-   * static Random
-   */
-  private static Random random = new Random();
-
-  /**
    * Setter for interval pool
    */ 
   public void setIntervalPool(Interval [] intervals) {
     this.intervalPool = intervals;
   }
-  private Controller controller;
 
   /**
    * default constructor of interval question
@@ -46,9 +41,14 @@ public class IntervalQuestion extends Question {
    * which sets the interval pool to all intervals
    */
   public IntervalQuestion() {
-    super();
-    intervalPool = Interval.getAllTrueIntervals();
+    this.notePool = Note.getReasonableNotes();
+    this.intervalPool = Interval.getAllTrueIntervals();
+    if (this.intervalPool == null)  {
+      throw new AssertionError("Interval pool is null");
+    }
+    this.generate_random_question();
   }
+
 
   /**
    *
@@ -66,12 +66,16 @@ public class IntervalQuestion extends Question {
    * remember to set notes pool and interval pool first
    */
   public void generate_random_question() {
-    int rnd = random.nextInt(notePool.length);
+    if (this.intervalPool == null)  {
+      throw new AssertionError("Interval pool is null");
+    }
+    int rnd = new Random().nextInt(notePool.length);
     questionNote = notePool[rnd];
     boolean validInterval = false;
     int result_index = 0;
     while (!validInterval) {
-      rnd = random.nextInt(intervalPool.length);
+      Log.d(TAG, "generate_random_question: " + validInterval + intervalPool.length);
+      rnd = new Random().nextInt(intervalPool.length);
       questionInterval = intervalPool[rnd];
       result_index = questionNote.getIndex() + questionInterval.getRelativeIndex();
       if (result_index >= 0) {

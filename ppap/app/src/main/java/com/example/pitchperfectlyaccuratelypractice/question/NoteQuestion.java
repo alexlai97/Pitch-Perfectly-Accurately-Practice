@@ -12,6 +12,11 @@ public class NoteQuestion extends Question {
    */
   private Note questionNote;
 
+  public NoteQuestion() {
+    notePool = Note.getReasonableNotes();
+    generate_random_question();
+  }
+
   /**
    * generate question from note pool, remember to set note pool first
     */
