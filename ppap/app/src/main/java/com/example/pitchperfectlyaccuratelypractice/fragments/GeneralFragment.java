@@ -21,8 +21,8 @@ import android.widget.TextView;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
-import com.example.pitchperfectlyaccuratelypractice.common.Controller;
-import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
+import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 
 /**
  * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment

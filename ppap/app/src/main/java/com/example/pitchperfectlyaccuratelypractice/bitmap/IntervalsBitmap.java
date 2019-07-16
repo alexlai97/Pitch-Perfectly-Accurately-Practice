@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.bitmap;
 
-import com.example.pitchperfectlyaccuratelypractice.interval.Interval;
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 
 /**
  * Bitmap of representing all the intervals

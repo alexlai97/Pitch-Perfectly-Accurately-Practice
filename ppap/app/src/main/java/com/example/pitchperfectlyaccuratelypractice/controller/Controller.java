@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.common;
+package com.example.pitchperfectlyaccuratelypractice.controller;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -9,11 +9,13 @@ import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
+import com.example.pitchperfectlyaccuratelypractice.model.Config;
+import com.example.pitchperfectlyaccuratelypractice.model.Model;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
 import static org.junit.Assert.assertNotNull;
 

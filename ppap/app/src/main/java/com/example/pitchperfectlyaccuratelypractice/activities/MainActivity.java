@@ -7,18 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.common.Microphone;
+import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.common.Model;
-import com.example.pitchperfectlyaccuratelypractice.common.Controller;
-import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
+import com.example.pitchperfectlyaccuratelypractice.model.Model;
+import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
-import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -44,53 +39,42 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
-    private static NotePlayer notePlayer = new NotePlayer();
 
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
     private boolean created = false;
 
-//    private GeneralFragment curFragment;
     private Model model = new Model();
+    private static NotePlayer notePlayer = new NotePlayer();
     private Controller controller;
     private Microphone microphone = new Microphone(this);
-
-
-//    public GeneralFragment getCurFragment() {
-//        return curFragment;
-//    }
     public Microphone getMicrophone() {
         return microphone;
     }
 
+    private FragmentManager fragmentManager;
+
     /**
-     * currently it does the following
-     * 1. check mirochphone permission and handles it
-     * 2. set navi wrapper
-     * 3. setup fragment and begin note fragment
-     * 4. set up model and controller
-     * 5. handle intents (from filter page)
+     *
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-         Log.e(TAG, "s" + created);
-
+        Log.e(TAG, "s" + created);
+        // check microphone permission
         checkMicrophonePermission();
         super.onCreate(savedInstanceState);
-
         created = true;
 
+        // setup view
         setContentView(R.layout.navi_wrapper);
-
-
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        // setup navi item selected listener
         navigationView.setNavigationItemSelectedListener(this);
 
         // Start Note Fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if( model.getCurrentFragment().getView() == null ){ Log.w(TAG, "athings"); }
-
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
         fragmentManager.executePendingTransactions();
 
@@ -185,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements
         model.setCurrentMode(Mode.idToMode(id));
 
         // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
         fragmentManager.executePendingTransactions();
 

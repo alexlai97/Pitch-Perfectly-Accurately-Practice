@@ -1,10 +1,9 @@
-package com.example.pitchperfectlyaccuratelypractice.common;
+package com.example.pitchperfectlyaccuratelypractice.tools;
 import android.app.Activity;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
 import java.util.Observable;
-import java.util.Observer;
 
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;

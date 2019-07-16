@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.interval;
+package com.example.pitchperfectlyaccuratelypractice.music;
 /**
  * A Interval can represent an interval (in String and interval index)
  * <p>

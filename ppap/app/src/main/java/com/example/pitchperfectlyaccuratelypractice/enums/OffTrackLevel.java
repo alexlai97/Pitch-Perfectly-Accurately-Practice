@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.enums;
 
-import com.example.pitchperfectlyaccuratelypractice.common.Config;
+import com.example.pitchperfectlyaccuratelypractice.model.Config;
 
 /**
  * shows how close is the expected frequency and the current frequency

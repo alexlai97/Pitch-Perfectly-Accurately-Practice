@@ -1,14 +1,10 @@
-package com.example.pitchperfectlyaccuratelypractice.common;
+package com.example.pitchperfectlyaccuratelypractice.tools;
 
-import android.app.Activity;
 import android.os.Handler;
-import android.os.Bundle;
 
 import android.media.AudioTrack;
 import android.media.AudioFormat;
 import android.media.AudioManager;
-
-import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
  * play notes
