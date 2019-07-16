@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,11 +12,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -135,7 +138,7 @@ public class GeneralFragment extends Fragment {
      * @return
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
@@ -154,7 +157,6 @@ public class GeneralFragment extends Fragment {
         helpButton = constraintLayout.findViewById(R.id.helpButton);
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
-
 
         if (constraintLayout == null || frequencyText == null ||  arrowText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
@@ -187,6 +189,27 @@ public class GeneralFragment extends Fragment {
             public boolean onLongClick(View v) {
                 controller.next_question();
                 return false;
+            }
+        });
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            boolean click = true;
+            View layout = inflater.inflate(R.layout.popout, container, false);
+            PopupWindow popupWindow = new PopupWindow(layout, 300, 190, true);
+
+            @Override
+            public void onClick(View view) {
+
+                if (click) {
+//                    popupWindow.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
+                    popupWindow.update(50, 50, 300, 80);
+                    click = false;
+//                popupText = (TextView) layout.findViewById(R.id.popupText);
+//                popupText.setText(yourString);
+                } else {
+                    popupWindow.dismiss();
+                    click = true;
+                }
             }
         });
 
