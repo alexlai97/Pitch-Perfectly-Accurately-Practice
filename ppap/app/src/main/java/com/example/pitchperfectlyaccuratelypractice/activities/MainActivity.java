@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
 
-    private Mode curMode = Mode.NotePractice;
     private GeneralFragment curFragment;
 
     private FragmentFactory fragmentFactory = new FragmentFactory();
@@ -195,8 +194,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onNavigationItemSelected: " + id);
 
         curFragment = fragmentFactory.create(id);
-
-        modelController.changeCurrentMode(curMode);
+        modelController.changeCurrentMode(id);
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();

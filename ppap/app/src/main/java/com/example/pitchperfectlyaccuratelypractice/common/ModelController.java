@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.note.Note;
@@ -18,6 +19,7 @@ import com.example.pitchperfectlyaccuratelypractice.question.Question;
 
 import static org.junit.Assert.assertNotNull;
 
+import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 import com.example.pitchperfectlyaccuratelypractice.question.TriadQuestion;
 
 /**
@@ -37,10 +39,6 @@ public class ModelController {
     current_question.setNotePool(notes);
   }
 
-  /**
-   * Stores current practice mode
-   */
-  private Mode current_Mode;
   /**
    * Stores current user configuration
    */
@@ -85,22 +83,6 @@ public class ModelController {
   private boolean hasShownCorrect = false;
 
   /**
-   * stores questionTextView
-   */
-  private TextView questionText;
-  /**
-   * stores arrowsTextView
-   */
-  private TextView arrowText;
-  /**
-   * stores frequencyTextView
-   */
-  private TextView frequencyText;
-  /**
-   * stores currentPitchTextView
-   */
-  private TextView currentPitchText;
-  /**
    * stores backgroundView
    * <p>
    * FIXME failed
@@ -131,14 +113,14 @@ public class ModelController {
    */
   private GeneralFragment curFragment;
 
-
+  private QuestionFactory questionFactory = new QuestionFactory();
   /**
    * setup config, question, activity, textviews, arrowAnimations
    */
   public ModelController(Config c, Activity activity) {
     current_config = c;
     // generate NoteQuestion 
-    current_question = new NoteQuestion();
+    current_question = questionFactory.create(R.id.note_mode);
     mainActivity = (MainActivity)activity;
     curFragment = mainActivity.getCurFragment();
     arrowAnimation = new TranslateAnimation(
@@ -157,26 +139,9 @@ public class ModelController {
   /**
    * do things when changing pratice mode
    */
-  public void changeCurrentMode(Mode m) {
-    current_Mode = m;
+  public void changeCurrentMode(int id) {
     curFragment = mainActivity.getCurFragment();
-    switch (current_Mode) {
-      case NotePractice:
-        current_question = new NoteQuestion();
-        next_question();
-        break;
-      case IntervalPractice:
-        current_question = new IntervalQuestion();
-        next_question();
-        break;
-      case TriadPractice:
-        current_question = new TriadQuestion();
-        next_question();
-        break;
-      case SongPractice: 
-        //FIXME not implemented
-        break;
-    }
+    current_question = questionFactory.create(id);
   }
 
   /**
