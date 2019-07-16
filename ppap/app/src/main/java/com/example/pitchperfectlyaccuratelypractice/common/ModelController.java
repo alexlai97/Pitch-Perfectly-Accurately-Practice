@@ -141,7 +141,9 @@ public class ModelController {
    */
   public void changeCurrentMode(int id) {
     curFragment = mainActivity.getCurFragment();
+    Log.v(TAG, Integer.toString(id));
     current_question = questionFactory.create(id);
+    next_question();
   }
 
   /**
