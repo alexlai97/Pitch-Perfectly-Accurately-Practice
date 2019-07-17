@@ -41,7 +41,6 @@
 
 \section{Architecture}
 \label{sec:architecture}
-\large
 \qquad
 
 In order to fulfill our app’s main functionality, the following general architecture logic of our application is the following. First, we display the questions according to the modes users are currently using. The user can further customize what questions that they want to have asked by using the filter page. Then user will try to sing the correct note that is asked of them. Our app will constantly listen to the user through listeners with the mic. Once we got the sound data we will send the data to our library to get the current frequency to check whether user is singing the correct note or not. During the sound detection, we will display a bouncing arrow, asking the user to sing higher or lower. Based on our how our algorithm processes the data sent back from the library, we will display the result accordingly and if the answer is correct, we will display the next question. Otherwise, user can switch mode freely between note practice, interval practice, and triad mode, and our question page will be updated and generate question accordingly. 
