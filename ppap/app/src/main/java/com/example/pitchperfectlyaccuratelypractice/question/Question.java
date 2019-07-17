@@ -26,7 +26,7 @@ public abstract class Question {
     public Question(){};
 
   /**
-   * children will implment this
+   * children will implement this
    */
   public abstract Note[] getAnswerNotes();
 

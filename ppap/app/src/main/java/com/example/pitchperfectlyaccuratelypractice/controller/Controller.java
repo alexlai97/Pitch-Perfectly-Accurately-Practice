@@ -147,7 +147,7 @@ public class Controller implements Observer ,
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
     curConfig = model.getCurrentConfig();
-    model.addChangeListener(this);
+    model.addChangeListener(this);    // add this class as an observer of model
     refreshCurFragment();
     microphone = mainActivity.getMicrophone();
     microphone.addObserver(this);
@@ -295,7 +295,7 @@ public class Controller implements Observer ,
   }
 
   /**
-   * updates from model
+   * updates from model, this is called when notified by model change
    * @param event
    */
   @Override

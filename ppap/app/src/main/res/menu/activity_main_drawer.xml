@@ -24,15 +24,16 @@
             android:title="@string/notegraph_mode"
             />
     </group>
-
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/summary"
-                android:title="@string/summary" />
-            <item
-                android:id="@+id/contact"
-                android:title="@string/contact" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/summary"
+                    android:title="@string/summary" />
+                <item
+                    android:id="@+id/contact"
+                    android:title="@string/contact" />
+            </group>
         </menu>
     </item>
 
