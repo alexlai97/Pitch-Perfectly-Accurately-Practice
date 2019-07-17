@@ -67,11 +67,9 @@ In order to let the user to navigate between different modes, we created a left 
 
 To implement filter page, we utilize pipe and filter (figure) as architecture style. At first, we have a bitmap with 88 “1”s, representing all 88 notes, which are all the musical notes available. Once user finishes selecting their preference on different spinner on the filter page, we pass our initial bitmap to a series of filters one by one to get the final result, like a pipe line. For example, if you are in note practice mode’s filter page, our backend will automatically have two filter, range and scale filter, ready. Then you will select the range of your preferred notes, scale and key signatures of the notes you want to practice. Every time you make a selection, the bitmap will go through those aforementioned filters to get the updated note pool, and display under the spinner. Finally, after user clicks the note that they don’t want to sing, we will have the result bitmap with all the note that has passed the filter, and waiting to be chosen as question.
 
-\qquad
 
 For our question generation, we use inheritance class structure and polymorphism to manage our question classes. We first have an abstract question class containing all of the reusable methods and fields for every modes’ question. Then we implemented three question classes as the child class for each practice mode’s question. 
  
-\qquad
 
 Our architecture design is also able to support most of the NFPs, such as scalability, maintainability and performance, aforementioned in the proposal documents. Thanks to the modularity of our overall architecture design, the scalability maintainability part of our NFP can be easily achieved. For example, If we would like to add more practice modes to our app later on, we could simply create corresponding fragments and their question class under their own higher abstract class, and that would be it. Also thanks to the advantage of MVC, we can maintain each component of MVC independently without disturbing the whole system. Last but not least, our library allows our app is able to give real-time feedback while user singing without regard to your devices, achieving the performance and usability.
 
