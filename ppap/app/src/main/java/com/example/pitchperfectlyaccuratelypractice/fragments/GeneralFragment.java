@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.ViewGroup.LayoutParams;
 
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -209,15 +210,16 @@ public class GeneralFragment extends Fragment {
                     (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
                     (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)));
 
-
             @Override
             public void onClick(View view) {
 
                 if (click) {
                     popupWindow.showAtLocation(layout, Gravity.CENTER,0,0);
-                    popupWindow.update(
-                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)),
-                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)));
+                    TextView popupText = popupWindow.getContentView().findViewById(R.id.popup_text);
+                    popupText.setText(getPopupText());
+//                    popupWindow.update(
+//                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)),
+//                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)));
                     click = false;
                 } else {
                     popupWindow.dismiss();
@@ -382,4 +384,10 @@ public class GeneralFragment extends Fragment {
         arrowText.setAnimation(myAnimation);
     }
 
+    /**
+     * Gives back text to create the popup
+     */
+    public String getPopupText(){
+        return "This is the general fragment's help, override this to use your own text :)";
+    }
 }
