@@ -3,6 +3,9 @@ book
 lib
 workspace
 ppap
+PerfectPitchAccuratePractice
+.DS_Store
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
