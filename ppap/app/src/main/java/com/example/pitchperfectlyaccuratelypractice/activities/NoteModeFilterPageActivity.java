@@ -16,6 +16,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
@@ -29,7 +32,7 @@ import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 /**
  * filter page activity for note practice mode
  */
-public class NoteModeFilterPageActivity extends Activity {
+public class NoteModeFilterPageActivity extends AppCompatActivity {
 
     private static final String TAG = "NOTE FILTER";
 
@@ -140,6 +143,14 @@ public class NoteModeFilterPageActivity extends Activity {
         setSpinners();
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+
+
+
+        super.onSaveInstanceState(outState);
+    }
+
     /**
      * set up spinner and listeners
      */
@@ -165,9 +176,9 @@ public class NoteModeFilterPageActivity extends Activity {
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                fromNote = new Note(i);
-                Log.i(TAG, "FROM selected " + fromNote.getText(i));
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                fromNote = new Note(position);
+                Log.i(TAG, "FROM selected " + fromNote.getText(position));
 
                 if (fromNote.getIndex() > toNote.getIndex()) {
                     // TODO alert user
@@ -194,9 +205,9 @@ public class NoteModeFilterPageActivity extends Activity {
 
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                toNote = new Note(i);
-                Log.i(TAG, "TO selected " + toNote.getText(i));
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                toNote = new Note(position);
+                Log.i(TAG, "TO selected " + toNote.getText(position));
 
                 if (fromNote.getIndex() > toNote.getIndex()) {
                     // TODO alert user
@@ -223,8 +234,8 @@ public class NoteModeFilterPageActivity extends Activity {
 
         scaleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                scale = NotesScale.values()[i];
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                scale = NotesScale.values()[position];
                 Log.i(TAG, "SCALE selected " + scale.toString());
 
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
@@ -244,9 +255,9 @@ public class NoteModeFilterPageActivity extends Activity {
 
         keySigSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                keySigNote = new Note(i);
-                Log.i(TAG, "keySig selected " + keySigNote.getText(i));
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                keySigNote = new Note(position);
+                Log.i(TAG, "keySig selected " + keySigNote.getText(position));
 
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
                 filterHandler.updateFilterAt(1, scaleFilter);
