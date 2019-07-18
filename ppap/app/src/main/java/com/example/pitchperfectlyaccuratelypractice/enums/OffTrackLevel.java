@@ -54,7 +54,7 @@ public enum OffTrackLevel {
       case NoSound:
         return ""; // No sound
       case InErrorRange:
-        return "✓";
+        return "...";
       case TooLow:
         return "⇈";
       case LittleLow:

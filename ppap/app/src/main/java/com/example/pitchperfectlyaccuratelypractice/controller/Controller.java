@@ -180,6 +180,8 @@ public class Controller implements Observer ,
   public void next_question() {
     curQuestion.generate_random_question();
     updateQuestionView();
+    correct_mask = new boolean[curQuestion.getAnswerNotes().length];
+    Log.d(TAG, "next_question: current length " + curQuestion.getAnswerNotes().length);
   }
 
   /**
@@ -201,6 +203,34 @@ public class Controller implements Observer ,
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
 //    curFragment.updateArrowAnimation(arrowAnimation);
+  }
+
+  private boolean[] correct_mask = new boolean[1];
+  private boolean are_all_correct(boolean []mask) {
+    for (boolean b: mask) {
+        if (!b) return false;
+    }
+    return true;
+  }
+
+  private String[] apply_mask_to_arrow_texts(String[] arrowTexts) {
+    int len;
+    if (correct_mask.length != arrowTexts.length) {
+      throw new AssertionError("correct_mask's len:" + correct_mask.length + " arrowTexts' len:" + arrowTexts.length);
+    }
+    len = correct_mask.length;
+    String[] results = new String[len];
+    for (int i =0; i < len; i ++) {
+      results[i] = correct_mask[i]? "✓":arrowTexts[i];
+    }
+    return results;
+  }
+
+  private int get_indexs_of_who_is_in_error_range(OffTrackLevel[] ofls) {
+      for (int i = 0; i < ofls.length; i ++) {
+        if (ofls[i] == OffTrackLevel.InErrorRange) return i;
+      }
+      return -1;
   }
 
   /**
@@ -228,22 +258,22 @@ public class Controller implements Observer ,
     double[] expected_frequencies = getExpectedFrequencies();
     int num_of_notes = expected_frequencies.length;
     int num_of_not_yet_correct_left = num_of_notes;
-    OffTrackLevel[] ofls = new OffTrackLevel[num_of_notes];
+    OffTrackLevel[] offTrackLevels = new OffTrackLevel[num_of_notes];
     String[] arrows = new String[num_of_notes];
     for (int i =0; i < num_of_notes; i ++) {
-      ofls[i] = OffTrackLevel.get_OffTrackLevel(expected_frequencies[i], current_frequency, error_allowance_rate);
-      arrows[i] = ofls[i].get_ArrowSuggestion();
+      offTrackLevels[i] = OffTrackLevel.get_OffTrackLevel(expected_frequencies[i], current_frequency, error_allowance_rate);
+      arrows[i] = offTrackLevels[i].get_ArrowSuggestion();
     }
 
-    OffTrackLevel ofl = ofls[0];
-    String arrow =  arrows[0];
+    int index_of_who_is_in_error_range = get_indexs_of_who_is_in_error_range(offTrackLevels);
+    OffTrackLevel ofl = offTrackLevels[0];
 
     if (answerCorrect)
     // in a showing correct state i.e. arrow is check mark and back ground is urgent colour
     // will show correct for MILLISECONDS_TO_SHOW_CORRECT
     {
       if (!hasShownCorrect) {  // at the beginning of the show correct state
-          curFragment.updateArrowTexts(new String[]{"✓", "✓", "✓"});
+          curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
           show_correct();
          hasShownCorrect = true;
       } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) { // in show correct state
@@ -253,15 +283,18 @@ public class Controller implements Observer ,
           next_question();
           answerCorrect = false;
       }
-    } else if (ofl == OffTrackLevel.InErrorRange) { // currently in error range
+    } else if (index_of_who_is_in_error_range != -1) { // currently in error range
       t_in = now;
       if (isInErrorRange) { // was in error range
         if ((t_enter > t_out) && (t_in - t_enter > dT)) { // time in error range greater than delta T
             t_correct = now;
-            answerCorrect = true;
-            hasShownCorrect = false;
+            correct_mask[index_of_who_is_in_error_range] = true;
+            if (are_all_correct(correct_mask)) {
+              answerCorrect = true;
+              hasShownCorrect = false;
+            }
         } else { // time in error range smaller than delta T
-           curFragment.updateArrowTexts(new String[]{"...","...","..."});
+           curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
         }
       } else { // was out of error range
         t_enter = now;
@@ -270,7 +303,7 @@ public class Controller implements Observer ,
     } else { // currently not in error range
       isInErrorRange = false;
       t_out = now;
-      curFragment.updateArrowTexts(arrows);
+      curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
     }
 
 //    if (now - firstStart > 1000){
@@ -330,6 +363,7 @@ public class Controller implements Observer ,
           refreshCurFragment();
           break;
         case "currentFragment":
+          correct_mask = new boolean[curQuestion.getAnswerNotes().length];
           curFragment = (GeneralFragment) event.getNewValue();
           if (curMode == Mode.NoteGraphPractice) {
             ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
