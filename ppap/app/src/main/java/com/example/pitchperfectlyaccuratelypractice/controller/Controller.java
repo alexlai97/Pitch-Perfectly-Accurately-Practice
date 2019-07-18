@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
@@ -147,8 +148,8 @@ public class Controller implements Observer ,
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
     curConfig = model.getCurrentConfig();
-    model.addChangeListener(this);
     refreshCurFragment();
+    model.addChangeListener(this);
     microphone = mainActivity.getMicrophone();
     microphone.addObserver(this);
     curFragment = model.getCurrentFragment();
@@ -215,8 +216,8 @@ public class Controller implements Observer ,
       t_out = now;
       firstTimeProcessFreq = false;
       firstStart = now;
+      updateQuestionView();
     }
-    updateQuestionView(); // FIXME it is here because for the first question, it doesn't update view (maybe asynchronous problem)
 
     current_frequency = freq;
     curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
@@ -317,7 +318,11 @@ public class Controller implements Observer ,
           break;
         case "currentFragment":
           curFragment = (GeneralFragment) event.getNewValue();
-          Log.d(TAG, "propertyChange: Fragment" + curFragment.getClass());
+//          Log.d(TAG, "propertyChange: Fragment" + curFragment.getClass());
+          if (curFragment.getClass() == NoteGraphFragment.class) {
+            Log.d(TAG, "propertyChange: " + "in NoteGraph Fragment");
+            model.addChangeListener((NoteGraphFragment)curFragment);
+          }
           break;
       }
   }

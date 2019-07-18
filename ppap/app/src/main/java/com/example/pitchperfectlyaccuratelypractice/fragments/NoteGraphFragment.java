@@ -14,13 +14,18 @@ import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 
+import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
+import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.jjoe64.graphview.*;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.graphics.Color;
 
-public class NoteGraphFragment extends GeneralFragment {
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class NoteGraphFragment extends GeneralFragment implements PropertyChangeListener {
     private static String TAG = "NoteGraphFragment";
     private Runnable mTimer;
     private Long lastFreq;
@@ -114,6 +119,7 @@ public class NoteGraphFragment extends GeneralFragment {
         String temp = Long.toString(freq);
         frequencyText.setText(temp + "Hz");
         graph.getViewport().setMaxY(expectedFreq*2);
+//        graph.getViewport().setMaxY(questionFreq*2);
         lastFreq = freq;
         questionFreq = expectedFreq;
     }
@@ -127,5 +133,18 @@ public class NoteGraphFragment extends GeneralFragment {
     @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+        Log.d(TAG, "propertyChange: I am here!");
+        NoteQuestion noteQuestion;
+        if (propertyChangeEvent.getPropertyName() == "currentQuestion") {
+            Log.d(TAG, "propertyChange: I am here!");
+            noteQuestion = (NoteQuestion) propertyChangeEvent.getNewValue();
+            questionFreq = noteQuestion.getAnswerNotes()[0].getFrequency();
+        } else {
+            throw new AssertionError("NoteGraphFragment: Why are you calling me");
+        }
     }
 }
