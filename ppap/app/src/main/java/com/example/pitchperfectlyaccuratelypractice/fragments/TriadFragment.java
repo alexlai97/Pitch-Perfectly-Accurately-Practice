@@ -43,6 +43,7 @@ public class TriadFragment extends GeneralFragment {
     /**
      * set up views of the three triad notes
      */
+    @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionTriadBaseNoteText = constraintLayout.findViewById(R.id.triadBaseNoteTextView);
@@ -73,6 +74,7 @@ public class TriadFragment extends GeneralFragment {
      * update the three triad notes
      * @param texts
      */
+    @Override
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
         if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
@@ -81,9 +83,11 @@ public class TriadFragment extends GeneralFragment {
         questionTriadSopranoNoteText.setText(texts[2]);
     }
 
+    @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
-        baseNoteArrowText.setAnimation(myAnimation);
+        // FIXME disable it for now
+//        baseNoteArrowText.setAnimation(myAnimation);
     }
 }
 

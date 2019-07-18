@@ -188,6 +188,8 @@ public class GeneralFragment extends Fragment {
         // additional things goes here
         setupAdditionalView();
 
+
+        controller.next_question();
         return view;
     }
 

@@ -28,36 +28,41 @@ public class NoteFragment extends GeneralFragment {
         resource = R.layout.fragment_note;
         background_color = Color.parseColor("#E6FBBA");
     }
-    public void updateArrowAnimation(Animation myAnimation){
-        if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
-    }
 
     /**
      * set up views of questionNoteText
      */
+    @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
         if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
     }
-    /**
-     * update arrow text views
-     * @param arrowTexts
-     */
-    public void updateArrowTexts(String[] arrowTexts){
-        if(!onCreated) return;
-        arrowText.setText(arrowTexts[0]);
-    }
 
     /**
      * update question text
      * @param texts
      */
+    @Override
     public void updateQuestionTexts(String[] texts){
         if(!onCreated) return;
         questionNoteText.setText(texts[0]);
     }
 
+    /**
+     * update arrow text views
+     * @param arrowTexts
+     */
+    @Override
+    public void updateArrowTexts(String[] arrowTexts){
+        if(!onCreated) return;
+        arrowText.setText(arrowTexts[0]);
+    }
+
+    @Override
+    public void updateArrowAnimation(Animation myAnimation){
+        if(!onCreated) return;
+        arrowText.setAnimation(myAnimation);
+    }
 }

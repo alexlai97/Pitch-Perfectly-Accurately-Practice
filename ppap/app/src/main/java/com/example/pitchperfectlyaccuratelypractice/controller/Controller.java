@@ -39,60 +39,6 @@ public class Controller implements Observer ,
 {
   private static final String TAG = "CONTROLLER";
 
-  private double current_frequency = -2000;
-  /**
-   * last time pitch enter error range
-   */
-  private long t_enter;
-  /**
-   * if in error range, t_in is now
-   */
-  private long t_in; 
-  /**
-   * if out of error range, t_out is now
-   */
-  private long t_out;
-  /**
-   * the moment just when user passes the question (stay in error range for least stable time)
-   */
-  private long t_correct;
-  /**
-   * stores whether is(was) in error range
-   */
-  private boolean isInErrorRange = false;
-  /**
-   * used to setup t's correctly at the first time
-   */
-  private boolean firstTimeProcessFreq = true;
-
-  /*
-   * used to check how long it has been since the last check
-   */
-  private long t_firstStart;
-
-  /**
-   * stores whether the user has passed the question
-   */
-  private boolean answerCorrect = false;
-  /**
-   * used to show correct (do things when user passed question) for once
-   */
-  private boolean hasShownCorrect = false;
-
-  /**
-   * animation
-   */
-  private Animation arrowAnimation;
-
-  /**
-   * currentAnimeSpeed
-   */
-  private int currentAnimeSpeed;
-
-  /**
-   * how long between the user pass the question and next question
-   */
-  private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
   /**
    * access to MainActivity public methods
@@ -191,7 +137,9 @@ public class Controller implements Observer ,
   }
 
   /**
-   * update arrowsTextView, can do other things (e.g. change background)
+   * what to do when in correct state
+   * now it changes background colour
+   * // FIXME different mode different colour
    */
   void show_correct() {
     curFragment.setBackgroundColor(Color.GREEN);
@@ -204,7 +152,21 @@ public class Controller implements Observer ,
     curFragment.updateArrowAnimation(arrowAnimation);
   }
 
-  private boolean[] correct_mask = new boolean[1];
+  /* ########################################################
+      MAIN LOGIC STARTS HERE
+    ########################################################
+   */
+
+  /**
+   * a mask to be applied to arrow texts, also help knowing what questions notes are let to answer
+   */
+  private boolean[] correct_mask = new boolean[1]; // first would be in note question mode;
+
+  /**
+   * return true if all boolean in mask are correct
+   * @param mask
+   * @return
+   */
   private boolean are_all_correct(boolean []mask) {
     for (boolean b: mask) {
         if (!b) return false;
@@ -212,6 +174,11 @@ public class Controller implements Observer ,
     return true;
   }
 
+  /**
+   * if a boolean in correct_mask is true, mask that arrowText to checkmark
+   * @param arrowTexts
+   * @return
+   */
   private String[] apply_mask_to_arrow_texts(String[] arrowTexts) {
     int len;
     if (correct_mask.length != arrowTexts.length) {
@@ -225,6 +192,11 @@ public class Controller implements Observer ,
     return results;
   }
 
+  /**
+   * return the first InErrorRange in ofls, return -1 if none
+   * @param ofls
+   * @return
+   */
   private int get_indexs_of_who_is_in_error_range(OffTrackLevel[] ofls) {
       for (int i = 0; i < ofls.length; i ++) {
         if (ofls[i] == OffTrackLevel.InErrorRange) return i;
@@ -233,7 +205,68 @@ public class Controller implements Observer ,
   }
 
   /**
+   * keeps the current frequency
+   */
+  private double current_frequency = -2000;
+  /**
+   * last time pitch enter error range
+   */
+  private long t_enter;
+  /**
+   * if in error range, t_in is now
+   */
+  private long t_in;
+  /**
+   * if out of error range, t_out is now
+   */
+  private long t_out;
+  /**
+   * the moment just when user passes the question (stay in error range for least stable time)
+   */
+  private long t_correct;
+  /**
+   * stores whether is(was) in error range
+   */
+  private boolean isInErrorRange = false;
+  /**
+   * used to setup t's correctly at the first time
+   */
+  private boolean firstTimeProcessFreq = true;
+
+  /*
+   * used to check how long it has been since the last check
+   */
+  private long t_firstStart;
+
+  /**
+   * stores whether the user has passed the question
+   */
+  private boolean answerCorrect = false;
+  /**
+   * used to show correct (do things when user passed question) for once
+   */
+  private boolean hasShownCorrect = false;
+
+  /**
+   * animation
+   */
+  private Animation arrowAnimation;
+
+  /**
+   * currentAnimeSpeed
+   */
+  private int currentAnimeSpeed;
+
+  /**
+   * how long between the user pass the question and next question
+   */
+  private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
+
+  /**
    * process a frequency
+   *
+   * FIXME when sing correct and immediate switch fragment, the timer continues and change question
+   * FIXME animation currently not working in interval mode, why?
    */
   public void processFrequency(double freq) {
     long now = System.currentTimeMillis();
@@ -245,18 +278,14 @@ public class Controller implements Observer ,
       firstTimeProcessFreq = false;
       t_firstStart = now;
     }
-    updateQuestionView(); // FIXME should not be here, it' here because need a frequency event to update question view for the first time changing mode
 
+    // setting up variables
     current_frequency = freq;
-    curFragment.updateFrequencyText(Math.round(current_frequency));
-    curFragment.updateCurrentPitchText("" + (new Note(current_frequency)).getText());
-
     double error_allowance_rate = curConfig.get_error_allowance_rate();
     long dT = curConfig.get_least_stable_time_in_milliseconds();
 
     double[] expected_frequencies = getExpectedFrequencies();
     int num_of_notes = expected_frequencies.length;
-    int num_of_not_yet_correct_left = num_of_notes;
     OffTrackLevel[] offTrackLevels = new OffTrackLevel[num_of_notes];
     String[] arrows = new String[num_of_notes];
     for (int i =0; i < num_of_notes; i ++) {
@@ -265,7 +294,9 @@ public class Controller implements Observer ,
     }
 
     int index_of_who_is_in_error_range = get_indexs_of_who_is_in_error_range(offTrackLevels);
-    OffTrackLevel ofl = offTrackLevels[0];
+
+    curFragment.updateFrequencyText(Math.round(current_frequency));
+    curFragment.updateCurrentPitchText("" + (new Note(current_frequency)).getText());
 
     if (answerCorrect)
     // in a showing correct state i.e. arrow is check mark and back ground is urgent colour
@@ -305,8 +336,11 @@ public class Controller implements Observer ,
       curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
     }
 
+    // FIXME when very close to expected frequency, it doesn't work well
+    // FIXME didn't generalize for Triad mode
+    // FIXME why is it jumping when show correct, kind of annoying
     if (now - t_firstStart > 1000){
-      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
+      if(offTrackLevels[0] == OffTrackLevel.LittleHigh || offTrackLevels[0] == OffTrackLevel.LittleLow ){
         if(currentAnimeSpeed != 600){
           handleAnimation(600);
           Log.i(TAG,"little");
@@ -320,6 +354,11 @@ public class Controller implements Observer ,
       t_firstStart = now;
     }
   }
+
+  /* ########################################################
+      MAIN LOGIC ENDS HERE
+    ########################################################
+   */
 
   /**
    * refresh current fragment, since current mode is changed

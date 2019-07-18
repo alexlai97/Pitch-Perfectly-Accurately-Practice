@@ -50,6 +50,7 @@ public class NoteGraphFragment extends GeneralFragment {
     }
 
 
+    @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
@@ -78,6 +79,7 @@ public class NoteGraphFragment extends GeneralFragment {
         graph.addSeries(series2);
     }
 
+    @Override
     public void onResume(){
         super.onResume();
         Button button = getView().findViewById(R.id.naviButton);
@@ -100,19 +102,12 @@ public class NoteGraphFragment extends GeneralFragment {
         mHandler.postDelayed(mTimer, 40);
     }
 
+    @Override
     public void onPause() {
         super.onPause();
         mHandler.removeCallbacks(mTimer);
     }
 
-    /**
-     * update question text
-     * @param texts
-     */
-    public void updateQuestionTexts(String[] texts){
-        if(!onCreated) return;
-        questionNoteText.setText(texts[0]);
-    }
 
 
     @Override
@@ -124,25 +119,39 @@ public class NoteGraphFragment extends GeneralFragment {
         lastFreq = freq;
     }
 
+
+    /**
+     * update question text
+     * @param texts
+     */
+    @Override
+    public void updateQuestionTexts(String[] texts){
+        if(!onCreated) return;
+        questionNoteText.setText(texts[0]);
+    }
+
     /**
      * update arrow text views
      * @param arrowTexts
      */
+    @Override
     public void updateArrowTexts(String[] arrowTexts){
         if(!onCreated) return;
         arrowText.setText(arrowTexts[0]);
     }
 
+
+    @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
         arrowText.setAnimation(myAnimation);
     }
 
-//    @Override
-//    public void updateArrowAnimation(Animation myAnimation){
-//        if(!onCreated) return;
-//    }
 
+    /**
+     * only for this general fragment
+     * @param freq
+     */
     public void setCurrentExpectedFrequency(double freq) {
         questionFreq = freq;
     }
