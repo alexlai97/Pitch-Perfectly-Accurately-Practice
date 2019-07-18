@@ -296,9 +296,8 @@ public class GeneralFragment extends Fragment {
     /**
      * update frequency text view
      * @param freq
-     * @param expected
      */
-    public void updateFrequencyText(Long freq, Double expected){
+    public void updateFrequencyText(Long freq){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
 //        Log.d("", "updateFrequencyText: " + freq);

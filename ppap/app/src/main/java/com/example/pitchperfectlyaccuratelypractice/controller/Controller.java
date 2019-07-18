@@ -216,11 +216,11 @@ public class Controller implements Observer ,
       t_out = now;
       firstTimeProcessFreq = false;
       firstStart = now;
-      updateQuestionView();
     }
+    updateQuestionView(); // FIXME should not be here, it' here because need a frequency event to update question view for the first time changing mode
 
     current_frequency = freq;
-    curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
+    curFragment.updateFrequencyText(Math.round(current_frequency));
     curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
 
     double expected_freq = getExpectedFrequencies()[0];
@@ -318,10 +318,8 @@ public class Controller implements Observer ,
           break;
         case "currentFragment":
           curFragment = (GeneralFragment) event.getNewValue();
-//          Log.d(TAG, "propertyChange: Fragment" + curFragment.getClass());
-          if (curFragment.getClass() == NoteGraphFragment.class) {
-            Log.d(TAG, "propertyChange: " + "in NoteGraph Fragment");
-            model.addChangeListener((NoteGraphFragment)curFragment);
+          if (curMode == Mode.NoteGraphPractice) {
+            ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
           }
           break;
       }

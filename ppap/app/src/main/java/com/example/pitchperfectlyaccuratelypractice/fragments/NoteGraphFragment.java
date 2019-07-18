@@ -25,7 +25,7 @@ import android.graphics.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class NoteGraphFragment extends GeneralFragment implements PropertyChangeListener {
+public class NoteGraphFragment extends GeneralFragment {
     private static String TAG = "NoteGraphFragment";
     private Runnable mTimer;
     private Long lastFreq;
@@ -114,14 +114,12 @@ public class NoteGraphFragment extends GeneralFragment implements PropertyChange
 
 
     @Override
-    public void updateFrequencyText(Long freq, Double expectedFreq){
+    public void updateFrequencyText(Long freq){
         if(!onCreated) return;
         String temp = Long.toString(freq);
         frequencyText.setText(temp + "Hz");
-        graph.getViewport().setMaxY(expectedFreq*2);
-//        graph.getViewport().setMaxY(questionFreq*2);
+        graph.getViewport().setMaxY(questionFreq*2);
         lastFreq = freq;
-        questionFreq = expectedFreq;
     }
 
     @Override
@@ -135,16 +133,7 @@ public class NoteGraphFragment extends GeneralFragment implements PropertyChange
         if(!onCreated) return;
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-        Log.d(TAG, "propertyChange: I am here!");
-        NoteQuestion noteQuestion;
-        if (propertyChangeEvent.getPropertyName() == "currentQuestion") {
-            Log.d(TAG, "propertyChange: I am here!");
-            noteQuestion = (NoteQuestion) propertyChangeEvent.getNewValue();
-            questionFreq = noteQuestion.getAnswerNotes()[0].getFrequency();
-        } else {
-            throw new AssertionError("NoteGraphFragment: Why are you calling me");
-        }
+    public void setCurrentExpectedFrequency(double freq) {
+        questionFreq = freq;
     }
 }
