@@ -221,7 +221,7 @@ public class Controller implements Observer ,
 
     current_frequency = freq;
     curFragment.updateFrequencyText(Math.round(current_frequency));
-    curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
+    curFragment.updateCurrentPitchText("freq: " + (new Note(current_frequency)).getText());
 
     double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = curConfig.get_error_allowance_rate();
@@ -229,32 +229,35 @@ public class Controller implements Observer ,
     String arrow = ofl.get_ArrowSuggestion();
     long dT = curConfig.get_least_stable_time_in_milliseconds();
 
-    if (answerCorrect) {
-      if (!hasShownCorrect) {
+    if (answerCorrect)
+    // in a showing correct state i.e. arrow is check mark and back ground is urgent colour
+    // will show correct for MILLISECONDS_TO_SHOW_CORRECT
+    {
+      if (!hasShownCorrect) {  // at the beginning of the show correct state
           show_correct();
          hasShownCorrect = true;
-      } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) {
+      } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) { // in show correct state
         // do nothing
-      } else {
+      } else { // at the end of the show correct state
           curFragment.resetBackgroundColor();
           next_question();
           answerCorrect = false;
       }
-    } else if (ofl == OffTrackLevel.InErrorRange) {
+    } else if (ofl == OffTrackLevel.InErrorRange) { // currently in error range
       t_in = now;
       if (isInErrorRange) { // was in error range
-        if ((t_enter > t_out) && (t_in - t_enter > dT)) {
+        if ((t_enter > t_out) && (t_in - t_enter > dT)) { // time in error range greater than delta T
             t_correct = now;
             answerCorrect = true;
             hasShownCorrect = false;
-        } else {
+        } else { // time in error range smaller than delta T
            curFragment.updateArrowText("...");
         }
       } else { // was out of error range
         t_enter = now;
       }
       isInErrorRange = true;
-    } else {
+    } else { // currently not in error range
       isInErrorRange = false;
       t_out = now;
       curFragment.updateArrowText(arrow);
