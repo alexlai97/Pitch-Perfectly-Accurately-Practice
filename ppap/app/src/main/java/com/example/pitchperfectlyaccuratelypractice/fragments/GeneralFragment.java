@@ -333,9 +333,9 @@ public class GeneralFragment extends Fragment {
      * update arrow animation (TODO need to generalize for triad mode)
      * @param myAnimation
      */
-//    public void updateArrowAnimation(Animation myAnimation){
+    public void updateArrowAnimation(Animation myAnimation){
 //        if(!onCreated) return;
 //        arrowText.setAnimation(myAnimation);
-//    }
+    }
 
 }

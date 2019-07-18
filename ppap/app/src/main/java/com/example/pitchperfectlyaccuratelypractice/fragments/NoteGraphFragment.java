@@ -133,6 +133,11 @@ public class NoteGraphFragment extends GeneralFragment {
         arrowText.setText(arrowTexts[0]);
     }
 
+    public void updateArrowAnimation(Animation myAnimation){
+        if(!onCreated) return;
+        arrowText.setAnimation(myAnimation);
+    }
+
 //    @Override
 //    public void updateArrowAnimation(Animation myAnimation){
 //        if(!onCreated) return;

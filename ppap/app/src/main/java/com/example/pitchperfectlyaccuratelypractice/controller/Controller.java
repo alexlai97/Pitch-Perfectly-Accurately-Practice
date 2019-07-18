@@ -8,7 +8,6 @@ import android.view.animation.TranslateAnimation;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
@@ -69,7 +68,7 @@ public class Controller implements Observer ,
   /*
    * used to check how long it has been since the last check
    */
-  private long firstStart;
+  private long t_firstStart;
 
   /**
    * stores whether the user has passed the question
@@ -202,7 +201,7 @@ public class Controller implements Observer ,
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
-//    curFragment.updateArrowAnimation(arrowAnimation);
+    curFragment.updateArrowAnimation(arrowAnimation);
   }
 
   private boolean[] correct_mask = new boolean[1];
@@ -244,7 +243,7 @@ public class Controller implements Observer ,
       t_in = now;
       t_out = now;
       firstTimeProcessFreq = false;
-      firstStart = now;
+      t_firstStart = now;
     }
     updateQuestionView(); // FIXME should not be here, it' here because need a frequency event to update question view for the first time changing mode
 
@@ -306,20 +305,20 @@ public class Controller implements Observer ,
       curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
     }
 
-//    if (now - firstStart > 1000){
-//      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
-//        if(currentAnimeSpeed != 600){
-//          handleAnimation(600);
-//          Log.i(TAG,"little");
-//        }
-//      }else{
-//        if(currentAnimeSpeed != 300) {
-//          handleAnimation(300);
-//          Log.i(TAG, "ALOT");
-//        }
-//      }
-//      firstStart = now;
-//    }
+    if (now - t_firstStart > 1000){
+      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
+        if(currentAnimeSpeed != 600){
+          handleAnimation(600);
+          Log.i(TAG,"little");
+        }
+      }else{
+        if(currentAnimeSpeed != 300) {
+          handleAnimation(300);
+          Log.i(TAG, "ALOT");
+        }
+      }
+      t_firstStart = now;
+    }
   }
 
   /**

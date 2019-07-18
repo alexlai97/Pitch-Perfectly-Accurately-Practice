@@ -2,6 +2,7 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.view.animation.Animation;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -33,6 +34,10 @@ public class IntervalFragment extends GeneralFragment {
         background_color = Color.parseColor("#BDE8D8");
     }
 
+    public void updateArrowAnimation(Animation myAnimation){
+        if(!onCreated) return;
+        arrowText.setAnimation(myAnimation);
+    }
     /**
      * set up views of questionNoteText and questionIntervalText
      */

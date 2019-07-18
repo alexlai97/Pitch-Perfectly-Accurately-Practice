@@ -3,6 +3,7 @@ package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.view.animation.Animation;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -78,6 +79,11 @@ public class TriadFragment extends GeneralFragment {
         questionTriadBaseNoteText.setText(texts[0]);
         questionTriadMiddleNoteText.setText(texts[1]);
         questionTriadSopranoNoteText.setText(texts[2]);
+    }
+
+    public void updateArrowAnimation(Animation myAnimation){
+        if(!onCreated) return;
+        baseNoteArrowText.setAnimation(myAnimation);
     }
 }
 
