@@ -38,6 +38,7 @@ public class NoteGraphFragment extends GeneralFragment {
     private double questionFreq;
 
     private TextView questionNoteText;
+    private TextView arrowText;
 
     /**
      * constructor of IntervalFragment
@@ -53,6 +54,7 @@ public class NoteGraphFragment extends GeneralFragment {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
         if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
 
         graph = (GraphView) constraintLayout.findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
@@ -122,16 +124,19 @@ public class NoteGraphFragment extends GeneralFragment {
         lastFreq = freq;
     }
 
-    @Override
-    public void updateArrowText(String myString){
+    /**
+     * update arrow text views
+     * @param arrowTexts
+     */
+    public void updateArrowTexts(String[] arrowTexts){
         if(!onCreated) return;
-        arrowText.setText(myString);
+        arrowText.setText(arrowTexts[0]);
     }
 
-    @Override
-    public void updateArrowAnimation(Animation myAnimation){
-        if(!onCreated) return;
-    }
+//    @Override
+//    public void updateArrowAnimation(Animation myAnimation){
+//        if(!onCreated) return;
+//    }
 
     public void setCurrentExpectedFrequency(double freq) {
         questionFreq = freq;

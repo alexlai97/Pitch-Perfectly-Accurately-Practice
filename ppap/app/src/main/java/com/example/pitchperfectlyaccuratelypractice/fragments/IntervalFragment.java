@@ -22,6 +22,8 @@ public class IntervalFragment extends GeneralFragment {
      */
     private TextView questionIntervalText;
 
+    private TextView arrowText;
+
     /**
      * constructor of IntervalFragment
      * setup resource (see parent onCreateView for use)
@@ -40,8 +42,17 @@ public class IntervalFragment extends GeneralFragment {
         if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
         questionIntervalText = constraintLayout.findViewById(R.id.questionIntervalTextView);
         if (questionIntervalText == null) { throw new AssertionError("questionIntervalText is null"); }
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
     }
 
+    /**
+     * update arrow text views
+     * @param arrowTexts
+     */
+    public void updateArrowTexts(String[] arrowTexts){
+        if(!onCreated) return;
+        arrowText.setText(arrowTexts[0]);
+    }
     /**
      * update questions, question text + interval text
      * @param texts

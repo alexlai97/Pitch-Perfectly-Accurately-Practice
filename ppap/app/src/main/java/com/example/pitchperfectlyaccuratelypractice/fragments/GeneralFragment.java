@@ -57,10 +57,6 @@ public class GeneralFragment extends Fragment {
     private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
     /**
-     * stores arrowsTextView
-     */
-    TextView arrowText;
-    /**
      * stores frequencyTextView
      */
     TextView frequencyText;
@@ -147,7 +143,6 @@ public class GeneralFragment extends Fragment {
         constraintLayout = view.findViewById(R.id.layout_to_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
 
-        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
 
         playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
@@ -156,7 +151,7 @@ public class GeneralFragment extends Fragment {
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
 
-        if (constraintLayout == null || frequencyText == null ||  arrowText == null
+        if (constraintLayout == null || frequencyText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
         || naviMenuButton == null || filterPageButton == null) {
             throw new AssertionError("Fragment onCreatView, some view is null");
@@ -304,12 +299,10 @@ public class GeneralFragment extends Fragment {
     }
 
     /**
-     * update arrow text view (TODO need to generalize for tirad mode)
-     * @param myString
+     * update arrow text views
+     * @param arrowTexts
      */
-    public void updateArrowText(String myString){
-        if(!onCreated) return;
-        arrowText.setText(myString);
+    public void updateArrowTexts(String[] arrowTexts){
     }
 
 
@@ -340,9 +333,9 @@ public class GeneralFragment extends Fragment {
      * update arrow animation (TODO need to generalize for triad mode)
      * @param myAnimation
      */
-    public void updateArrowAnimation(Animation myAnimation){
-        if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
-    }
+//    public void updateArrowAnimation(Animation myAnimation){
+//        if(!onCreated) return;
+//        arrowText.setAnimation(myAnimation);
+//    }
 
 }

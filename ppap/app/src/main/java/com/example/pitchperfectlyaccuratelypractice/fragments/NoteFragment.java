@@ -17,6 +17,7 @@ public class NoteFragment extends GeneralFragment {
      * a question note in the middle of the screen
      */
     private TextView questionNoteText;
+    private TextView arrowText;
 
     /**
      * constructor of NoteFragment
@@ -34,6 +35,15 @@ public class NoteFragment extends GeneralFragment {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
         if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
+    }
+    /**
+     * update arrow text views
+     * @param arrowTexts
+     */
+    public void updateArrowTexts(String[] arrowTexts){
+        if(!onCreated) return;
+        arrowText.setText(arrowTexts[0]);
     }
 
     /**

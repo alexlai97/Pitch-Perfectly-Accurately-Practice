@@ -193,7 +193,6 @@ public class Controller implements Observer ,
    * update arrowsTextView, can do other things (e.g. change background)
    */
   void show_correct() {
-    curFragment.updateArrowText("✓");
     curFragment.setBackgroundColor(Color.GREEN);
   }
 
@@ -201,7 +200,7 @@ public class Controller implements Observer ,
   // FIXME adjust according to closeness
   public void handleAnimation(int speed) {
     arrowAnimation.setDuration(speed);
-    curFragment.updateArrowAnimation(arrowAnimation);
+//    curFragment.updateArrowAnimation(arrowAnimation);
   }
 
   /**
@@ -221,19 +220,30 @@ public class Controller implements Observer ,
 
     current_frequency = freq;
     curFragment.updateFrequencyText(Math.round(current_frequency));
-    curFragment.updateCurrentPitchText("freq: " + (new Note(current_frequency)).getText());
+    curFragment.updateCurrentPitchText("" + (new Note(current_frequency)).getText());
 
-    double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = curConfig.get_error_allowance_rate();
-    OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
-    String arrow = ofl.get_ArrowSuggestion();
     long dT = curConfig.get_least_stable_time_in_milliseconds();
+
+    double[] expected_frequencies = getExpectedFrequencies();
+    int num_of_notes = expected_frequencies.length;
+    int num_of_not_yet_correct_left = num_of_notes;
+    OffTrackLevel[] ofls = new OffTrackLevel[num_of_notes];
+    String[] arrows = new String[num_of_notes];
+    for (int i =0; i < num_of_notes; i ++) {
+      ofls[i] = OffTrackLevel.get_OffTrackLevel(expected_frequencies[i], current_frequency, error_allowance_rate);
+      arrows[i] = ofls[i].get_ArrowSuggestion();
+    }
+
+    OffTrackLevel ofl = ofls[0];
+    String arrow =  arrows[0];
 
     if (answerCorrect)
     // in a showing correct state i.e. arrow is check mark and back ground is urgent colour
     // will show correct for MILLISECONDS_TO_SHOW_CORRECT
     {
       if (!hasShownCorrect) {  // at the beginning of the show correct state
+          curFragment.updateArrowTexts(new String[]{"✓", "✓", "✓"});
           show_correct();
          hasShownCorrect = true;
       } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) { // in show correct state
@@ -251,7 +261,7 @@ public class Controller implements Observer ,
             answerCorrect = true;
             hasShownCorrect = false;
         } else { // time in error range smaller than delta T
-           curFragment.updateArrowText("...");
+           curFragment.updateArrowTexts(new String[]{"...","...","..."});
         }
       } else { // was out of error range
         t_enter = now;
@@ -260,23 +270,23 @@ public class Controller implements Observer ,
     } else { // currently not in error range
       isInErrorRange = false;
       t_out = now;
-      curFragment.updateArrowText(arrow);
+      curFragment.updateArrowTexts(arrows);
     }
 
-    if (now - firstStart > 1000){
-      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
-        if(currentAnimeSpeed != 600){
-          handleAnimation(600);
-          Log.i(TAG,"little");
-        }
-      }else{
-        if(currentAnimeSpeed != 300) {
-          handleAnimation(300);
-          Log.i(TAG, "ALOT");
-        }
-      }
-      firstStart = now;
-    }
+//    if (now - firstStart > 1000){
+//      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
+//        if(currentAnimeSpeed != 600){
+//          handleAnimation(600);
+//          Log.i(TAG,"little");
+//        }
+//      }else{
+//        if(currentAnimeSpeed != 300) {
+//          handleAnimation(300);
+//          Log.i(TAG, "ALOT");
+//        }
+//      }
+//      firstStart = now;
+//    }
   }
 
   /**
