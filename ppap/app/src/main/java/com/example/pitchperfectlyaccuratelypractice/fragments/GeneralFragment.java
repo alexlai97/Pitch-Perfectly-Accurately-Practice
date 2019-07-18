@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,11 +12,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.ViewGroup.LayoutParams;
+
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -56,10 +62,6 @@ public class GeneralFragment extends Fragment {
     // TODO put in Config or ...
     private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
-    /**
-     * stores arrowsTextView
-     */
-    TextView arrowText;
     /**
      * stores frequencyTextView
      */
@@ -110,6 +112,9 @@ public class GeneralFragment extends Fragment {
 
     ConstraintLayout constraintLayout;
 
+    int viewWidth;
+    int viewHeight;
+
     /**
      * additional things to set up in onCreateView
      * <p>
@@ -135,7 +140,7 @@ public class GeneralFragment extends Fragment {
      * @return
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
@@ -143,11 +148,10 @@ public class GeneralFragment extends Fragment {
         notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
 
         onCreated = true;
-        View view = inflater.inflate(resource, container, false);
+        final View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.layout_to_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
 
-        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
 
         playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
@@ -155,8 +159,7 @@ public class GeneralFragment extends Fragment {
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
-
-        if (constraintLayout == null || frequencyText == null ||  arrowText == null
+        if (constraintLayout == null || frequencyText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
         || naviMenuButton == null || filterPageButton == null) {
             throw new AssertionError("Fragment onCreatView, some view is null");
@@ -190,9 +193,42 @@ public class GeneralFragment extends Fragment {
             }
         });
 
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+
+            boolean click = true;
+            View layout = inflater.inflate(R.layout.popout, container, false);
+            PopupWindow popupWindow = new PopupWindow(
+                    layout,
+//                    LayoutParams.MATCH_PARENT,
+//                    LayoutParams.MATCH_PARENT);
+                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
+                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
+                    true);
+
+            @Override
+            public void onClick(View view) {
+
+                if (click) {
+                    popupWindow.showAtLocation(layout, Gravity.CENTER,0,0);
+                    TextView popupText = popupWindow.getContentView().findViewById(R.id.popup_text);
+                    popupText.setText(getPopupText());
+//                    popupWindow.update(
+//                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)),
+//                            (int)(Math.floor(LayoutParams.MATCH_PARENT*0.8)));
+                    click = false;
+                } else {
+                    popupWindow.dismiss();
+                    click = true;
+                }
+            }
+        });
+
         // additional things goes here
         setupAdditionalView();
 
+
+        controller.next_question();
         return view;
     }
 
@@ -296,21 +332,18 @@ public class GeneralFragment extends Fragment {
     /**
      * update frequency text view
      * @param freq
-     * @param expected
      */
-    public void updateFrequencyText(Long freq, Double expected){
+    public void updateFrequencyText(Long freq){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
 //        Log.d("", "updateFrequencyText: " + freq);
     }
 
     /**
-     * update arrow text view (TODO need to generalize for tirad mode)
-     * @param myString
+     * update arrow text views
+     * @param arrowTexts
      */
-    public void updateArrowText(String myString){
-        if(!onCreated) return;
-        arrowText.setText(myString);
+    public void updateArrowTexts(String[] arrowTexts){
     }
 
 
@@ -342,8 +375,14 @@ public class GeneralFragment extends Fragment {
      * @param myAnimation
      */
     public void updateArrowAnimation(Animation myAnimation){
-        if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
+//        if(!onCreated) return;
+//        arrowText.setAnimation(myAnimation);
     }
 
+    /**
+     * Gives back text to create the popup
+     */
+    public String getPopupText(){
+        return "This is the general fragment's help, override this to use your own text :)";
+    }
 }

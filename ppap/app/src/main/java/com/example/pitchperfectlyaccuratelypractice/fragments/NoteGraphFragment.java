@@ -14,11 +14,16 @@ import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 
+import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
+import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.jjoe64.graphview.*;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.graphics.Color;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class NoteGraphFragment extends GeneralFragment {
     private static String TAG = "NoteGraphFragment";
@@ -33,6 +38,7 @@ public class NoteGraphFragment extends GeneralFragment {
     private double questionFreq;
 
     private TextView questionNoteText;
+    private TextView arrowText;
 
     /**
      * constructor of IntervalFragment
@@ -44,10 +50,12 @@ public class NoteGraphFragment extends GeneralFragment {
     }
 
 
+    @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
         if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
 
         graph = (GraphView) constraintLayout.findViewById(R.id.graph);
         graph.getViewport().setXAxisBoundsManual(true);
@@ -71,6 +79,7 @@ public class NoteGraphFragment extends GeneralFragment {
         graph.addSeries(series2);
     }
 
+    @Override
     public void onResume(){
         super.onResume();
         Button button = getView().findViewById(R.id.naviButton);
@@ -93,39 +102,64 @@ public class NoteGraphFragment extends GeneralFragment {
         mHandler.postDelayed(mTimer, 40);
     }
 
+    @Override
     public void onPause() {
         super.onPause();
         mHandler.removeCallbacks(mTimer);
     }
 
+
+
+    @Override
+    public void updateFrequencyText(Long freq){
+        if(!onCreated) return;
+        String temp = Long.toString(freq);
+        frequencyText.setText(temp + "Hz");
+        graph.getViewport().setMaxY(questionFreq*2);
+        lastFreq = freq;
+    }
+
+
     /**
      * update question text
      * @param texts
      */
+    @Override
     public void updateQuestionTexts(String[] texts){
         if(!onCreated) return;
         questionNoteText.setText(texts[0]);
     }
 
-
+    /**
+     * update arrow text views
+     * @param arrowTexts
+     */
     @Override
-    public void updateFrequencyText(Long freq, Double expectedFreq){
+    public void updateArrowTexts(String[] arrowTexts){
         if(!onCreated) return;
-        String temp = Long.toString(freq);
-        frequencyText.setText(temp + "Hz");
-        graph.getViewport().setMaxY(expectedFreq*2);
-        lastFreq = freq;
-        questionFreq = expectedFreq;
+        arrowText.setText(arrowTexts[0]);
     }
 
-    @Override
-    public void updateArrowText(String myString){
-        if(!onCreated) return;
-        arrowText.setText(myString);
-    }
 
     @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
+        arrowText.setAnimation(myAnimation);
+    }
+
+
+    /**
+     * only for this general fragment
+     * @param freq
+     */
+    public void setCurrentExpectedFrequency(double freq) {
+        questionFreq = freq;
+    }
+
+    @Override
+    public String getPopupText() {
+        return "This is the beginner note mode. This provides a graph for newer singers to more easily tell " +
+                "how far you are from the note. \n\nThe red line signifies the note that the you should sing. " +
+                "The blue line shows the pitch that you are at. ";
     }
 }

@@ -8,10 +8,10 @@ import android.view.animation.TranslateAnimation;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
@@ -39,60 +39,6 @@ public class Controller implements Observer ,
 {
   private static final String TAG = "CONTROLLER";
 
-  private double current_frequency = -2000;
-  /**
-   * last time pitch enter error range
-   */
-  private long t_enter;
-  /**
-   * if in error range, t_in is now
-   */
-  private long t_in; 
-  /**
-   * if out of error range, t_out is now
-   */
-  private long t_out;
-  /**
-   * the moment just when user passes the question (stay in error range for least stable time)
-   */
-  private long t_correct;
-  /**
-   * stores whether is(was) in error range
-   */
-  private boolean isInErrorRange = false;
-  /**
-   * used to setup t's correctly at the first time
-   */
-  private boolean firstTimeProcessFreq = true;
-
-  /*
-   * used to check how long it has been since the last check
-   */
-  private long firstStart;
-
-  /**
-   * stores whether the user has passed the question
-   */
-  private boolean answerCorrect = false;
-  /**
-   * used to show correct (do things when user passed question) for once
-   */
-  private boolean hasShownCorrect = false;
-
-  /**
-   * animation
-   */
-  private Animation arrowAnimation;
-
-  /**
-   * currentAnimeSpeed
-   */
-  private int currentAnimeSpeed;
-
-  /**
-   * how long between the user pass the question and next question
-   */
-  private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
   /**
    * access to MainActivity public methods
@@ -147,8 +93,8 @@ public class Controller implements Observer ,
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
     curConfig = model.getCurrentConfig();
-    model.addChangeListener(this);
     refreshCurFragment();
+    model.addChangeListener(this);
     microphone = mainActivity.getMicrophone();
     microphone.addObserver(this);
     curFragment = model.getCurrentFragment();
@@ -179,6 +125,8 @@ public class Controller implements Observer ,
   public void next_question() {
     curQuestion.generate_random_question();
     updateQuestionView();
+    correct_mask = new boolean[curQuestion.getAnswerNotes().length];
+    Log.d(TAG, "next_question: current length " + curQuestion.getAnswerNotes().length);
   }
 
   /**
@@ -189,10 +137,11 @@ public class Controller implements Observer ,
   }
 
   /**
-   * update arrowsTextView, can do other things (e.g. change background)
+   * what to do when in correct state
+   * now it changes background colour
+   * // FIXME different mode different colour
    */
   void show_correct() {
-    curFragment.updateArrowText("✓");
     curFragment.setBackgroundColor(Color.GREEN);
   }
 
@@ -203,8 +152,121 @@ public class Controller implements Observer ,
     curFragment.updateArrowAnimation(arrowAnimation);
   }
 
+  /* ########################################################
+      MAIN LOGIC STARTS HERE
+    ########################################################
+   */
+
+  /**
+   * a mask to be applied to arrow texts, also help knowing what questions notes are let to answer
+   */
+  private boolean[] correct_mask = new boolean[1]; // first would be in note question mode;
+
+  /**
+   * return true if all boolean in mask are correct
+   * @param mask
+   * @return
+   */
+  private boolean are_all_correct(boolean []mask) {
+    for (boolean b: mask) {
+        if (!b) return false;
+    }
+    return true;
+  }
+
+  /**
+   * if a boolean in correct_mask is true, mask that arrowText to checkmark
+   * @param arrowTexts
+   * @return
+   */
+  private String[] apply_mask_to_arrow_texts(String[] arrowTexts) {
+    int len;
+    if (correct_mask.length != arrowTexts.length) {
+      throw new AssertionError("correct_mask's len:" + correct_mask.length + " arrowTexts' len:" + arrowTexts.length);
+    }
+    len = correct_mask.length;
+    String[] results = new String[len];
+    for (int i =0; i < len; i ++) {
+      results[i] = correct_mask[i]? "✓":arrowTexts[i];
+    }
+    return results;
+  }
+
+  /**
+   * return the first InErrorRange in ofls, return -1 if none
+   * @param ofls
+   * @return
+   */
+  private int get_indexs_of_who_is_in_error_range(OffTrackLevel[] ofls) {
+      for (int i = 0; i < ofls.length; i ++) {
+        if (ofls[i] == OffTrackLevel.InErrorRange) return i;
+      }
+      return -1;
+  }
+
+  /**
+   * keeps the current frequency
+   */
+  private double current_frequency = -2000;
+  /**
+   * last time pitch enter error range
+   */
+  private long t_enter;
+  /**
+   * if in error range, t_in is now
+   */
+  private long t_in;
+  /**
+   * if out of error range, t_out is now
+   */
+  private long t_out;
+  /**
+   * the moment just when user passes the question (stay in error range for least stable time)
+   */
+  private long t_correct;
+  /**
+   * stores whether is(was) in error range
+   */
+  private boolean isInErrorRange = false;
+  /**
+   * used to setup t's correctly at the first time
+   */
+  private boolean firstTimeProcessFreq = true;
+
+  /*
+   * used to check how long it has been since the last check
+   */
+  private long t_firstStart;
+
+  /**
+   * stores whether the user has passed the question
+   */
+  private boolean answerCorrect = false;
+  /**
+   * used to show correct (do things when user passed question) for once
+   */
+  private boolean hasShownCorrect = false;
+
+  /**
+   * animation
+   */
+  private Animation arrowAnimation;
+
+  /**
+   * currentAnimeSpeed
+   */
+  private int currentAnimeSpeed;
+
+  /**
+   * how long between the user pass the question and next question
+   */
+  private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
+
   /**
    * process a frequency
+   *
+   * FIXME when sing correct and immediate switch fragment, the timer continues and change question
+   * FIXME animation currently not working in interval mode, why?
    */
   public void processFrequency(double freq) {
     long now = System.currentTimeMillis();
@@ -214,53 +276,71 @@ public class Controller implements Observer ,
       t_in = now;
       t_out = now;
       firstTimeProcessFreq = false;
-      firstStart = now;
+      t_firstStart = now;
     }
-    updateQuestionView(); // FIXME it is here because for the first question, it doesn't update view (maybe asynchronous problem)
 
+    // setting up variables
     current_frequency = freq;
-    curFragment.updateFrequencyText(Math.round(current_frequency), getExpectedFrequencies()[0]);
-    curFragment.updateCurrentPitchText("U: " + (new Note(current_frequency)).getText());
-
-    double expected_freq = getExpectedFrequencies()[0];
     double error_allowance_rate = curConfig.get_error_allowance_rate();
-    OffTrackLevel ofl = OffTrackLevel.get_OffTrackLevel(expected_freq, current_frequency, error_allowance_rate);
-    String arrow = ofl.get_ArrowSuggestion();
     long dT = curConfig.get_least_stable_time_in_milliseconds();
 
-    if (answerCorrect) {
-      if (!hasShownCorrect) {
+    double[] expected_frequencies = getExpectedFrequencies();
+    int num_of_notes = expected_frequencies.length;
+    OffTrackLevel[] offTrackLevels = new OffTrackLevel[num_of_notes];
+    String[] arrows = new String[num_of_notes];
+    for (int i =0; i < num_of_notes; i ++) {
+      offTrackLevels[i] = OffTrackLevel.get_OffTrackLevel(expected_frequencies[i], current_frequency, error_allowance_rate);
+      arrows[i] = offTrackLevels[i].get_ArrowSuggestion();
+    }
+
+    int index_of_who_is_in_error_range = get_indexs_of_who_is_in_error_range(offTrackLevels);
+
+    curFragment.updateFrequencyText(Math.round(current_frequency));
+    curFragment.updateCurrentPitchText("" + (new Note(current_frequency)).getText());
+
+    if (answerCorrect)
+    // in a showing correct state i.e. arrow is check mark and back ground is urgent colour
+    // will show correct for MILLISECONDS_TO_SHOW_CORRECT
+    {
+      if (!hasShownCorrect) {  // at the beginning of the show correct state
+          curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
           show_correct();
          hasShownCorrect = true;
-      } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) {
+      } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) { // in show correct state
         // do nothing
-      } else {
+      } else { // at the end of the show correct state
           curFragment.resetBackgroundColor();
           next_question();
           answerCorrect = false;
       }
-    } else if (ofl == OffTrackLevel.InErrorRange) {
+    } else if (index_of_who_is_in_error_range != -1) { // currently in error range
       t_in = now;
       if (isInErrorRange) { // was in error range
-        if ((t_enter > t_out) && (t_in - t_enter > dT)) {
+        if ((t_enter > t_out) && (t_in - t_enter > dT)) { // time in error range greater than delta T
             t_correct = now;
-            answerCorrect = true;
-            hasShownCorrect = false;
-        } else {
-           curFragment.updateArrowText("...");
+            correct_mask[index_of_who_is_in_error_range] = true;
+            if (are_all_correct(correct_mask)) {
+              answerCorrect = true;
+              hasShownCorrect = false;
+            }
+        } else { // time in error range smaller than delta T
+           curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
         }
       } else { // was out of error range
         t_enter = now;
       }
       isInErrorRange = true;
-    } else {
+    } else { // currently not in error range
       isInErrorRange = false;
       t_out = now;
-      curFragment.updateArrowText(arrow);
+      curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
     }
 
-    if (now - firstStart > 1000){
-      if(ofl == OffTrackLevel.LittleHigh || ofl == OffTrackLevel.LittleLow ){
+    // FIXME when very close to expected frequency, it doesn't work well
+    // FIXME didn't generalize for Triad mode
+    // FIXME why is it jumping when show correct, kind of annoying
+    if (now - t_firstStart > 1000){
+      if(offTrackLevels[0] == OffTrackLevel.LittleHigh || offTrackLevels[0] == OffTrackLevel.LittleLow ){
         if(currentAnimeSpeed != 600){
           handleAnimation(600);
           Log.i(TAG,"little");
@@ -271,9 +351,14 @@ public class Controller implements Observer ,
           Log.i(TAG, "ALOT");
         }
       }
-      firstStart = now;
+      t_firstStart = now;
     }
   }
+
+  /* ########################################################
+      MAIN LOGIC ENDS HERE
+    ########################################################
+   */
 
   /**
    * refresh current fragment, since current mode is changed
@@ -316,8 +401,11 @@ public class Controller implements Observer ,
           refreshCurFragment();
           break;
         case "currentFragment":
+          correct_mask = new boolean[curQuestion.getAnswerNotes().length];
           curFragment = (GeneralFragment) event.getNewValue();
-          Log.d(TAG, "propertyChange: Fragment" + curFragment.getClass());
+          if (curMode == Mode.NoteGraphPractice) {
+            ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
+          }
           break;
       }
   }
