@@ -7,18 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.common.Microphone;
+import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.common.Model;
-import com.example.pitchperfectlyaccuratelypractice.common.Controller;
-import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
+import com.example.pitchperfectlyaccuratelypractice.model.Model;
+import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
-import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -30,83 +25,104 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
-
 import android.view.MenuItem;
 
 /**
- * NotePracticeMode Activity
+ * Main Activity which stores model, controller, noteplayer, microphone
  */
 public class MainActivity extends AppCompatActivity implements
         GeneralFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MAIN";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
-    private static NotePlayer notePlayer = new NotePlayer();
-
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
+    /**
+     * indicate onCreate has been called
+     */
     private boolean created = false;
 
-//    private GeneralFragment curFragment;
+    /**
+     * only controller (and main activity) should have access, so no getter
+     */
     private Model model = new Model();
+
+
+    /**
+     * controlling how user voice affects model and update view
+     */
     private Controller controller;
+
+    /**
+     * return the Controller (currently used by fragments)
+     * @return
+     */
+    public Controller getController() {
+        return controller;
+    }
+
+    /**
+     * a speaker which can play note(s)
+     */
+    private static NotePlayer notePlayer = new NotePlayer();
+
+    /**
+     * getter for note player
+     * @return
+     */
+    public NotePlayer getNotePlayer() {
+        return notePlayer;
+    }
+
+    /**
+     * a microphone which contains a frequency, controller will listen to its current frequency
+     */
     private Microphone microphone = new Microphone(this);
 
-
-//    public GeneralFragment getCurFragment() {
-//        return curFragment;
-//    }
+    /**
+     * getter for microphone
+     * @return
+     */
     public Microphone getMicrophone() {
         return microphone;
     }
 
+
     /**
-     * currently it does the following
-     * 1. check mirochphone permission and handles it
-     * 2. set navi wrapper
-     * 3. setup fragment and begin note fragment
-     * 4. set up model and controller
-     * 5. handle intents (from filter page)
+     * 1. check for microphone permission
+     * 2. set up content view
+     * 3. setup navigation manu listener
+     * 4. setup controller
+     * 5. handle potential intents
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-         Log.e(TAG, "s" + created);
-
-        checkMicrophonePermission();
-        super.onCreate(savedInstanceState);
-
         created = true;
+        Log.e(TAG, "s" + created);
+        Log.w(TAG, "ONCREATE");
 
+        // check microphone permission
+        checkMicrophonePermission();
+
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.navi_wrapper);
 
-
+        // setup navigation menu listener
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Start Note Fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if( model.getCurrentFragment().getView() == null ){ Log.w(TAG, "athings"); }
-
-        fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
-        fragmentManager.executePendingTransactions();
-
-        controller = new Controller(this);
+        controller = new Controller(model, this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
-        controller.next_question();
-
-        Log.w(TAG, "ONCREATE");
     }
 
-    public Model getModel() {
-        return model;
-    }
 
     /**
-     * currently only get notes from filter page
+     * currently
+     * TODO will hand back intervals as well (for interval filter page)
+     * filter page hand back result notes (to be put in question note pool)
      * @param requestCode
      * @param resultCode
      * @param data
@@ -130,24 +146,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    /**
-     * return the Controller (currently used by fragments)
-     * @return
-     */
-    public Controller getController() {
-        return controller;
-    }
 
     /**
-     * return the current notePlayer (currently used by fragments)
-     * @return
-     */
-    public NotePlayer getNotePlayer() {
-        return notePlayer;
-    }
-
-    /**
-     * restart, doesn't do anything for now
+     *
      */
     protected void onRestart() {
         super.onRestart();
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * handle when back button, FIXME
+     * handle when back button is pressed
      */
     @Override
     public void onBackPressed() {
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * handle events when navigation bar's menu item is selected
      * <p>
-     * it handles changing fragment and change mode logic
+     * it change mode in model, which will notify controller, which will change current fragment in model, etc.
      * </p>
      * @param item
      * @return
@@ -183,11 +184,6 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
         model.setCurrentMode(Mode.idToMode(id));
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
-        fragmentManager.executePendingTransactions();
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);
@@ -201,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * for check microphone permission
+     * handle permission result
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -230,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * do nothing, might have potential use for future
+     * potential use
      * @param uri
      */
     @Override
@@ -270,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * handle intents ( currently only handles intents from filter page )
+     * handle intents ( currently only handles intents from filter pages )
      */
     void handleIntents() {
         Intent notes_ints_intent = getIntent();

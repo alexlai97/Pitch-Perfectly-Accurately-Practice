@@ -1,17 +1,13 @@
-package com.example.pitchperfectlyaccuratelypractice.common;
+package com.example.pitchperfectlyaccuratelypractice.tools;
 
-import android.app.Activity;
 import android.os.Handler;
-import android.os.Bundle;
 
 import android.media.AudioTrack;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-
 /**
- * play notes
+ * a speaker which can play music note(s)
  * <p>
  */
 public class NotePlayer  {
@@ -21,12 +17,6 @@ public class NotePlayer  {
     byte generatedSnd[];
     int PLAY_NOTE_DURATION = 1;
     Handler handler = new Handler();
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.note_layout);
-//    }
 
     public void genTone(int freqOfTone, int duration){
         // fill out the array

@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.triad.Triad;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Triad;
 
 import java.util.Random;
 

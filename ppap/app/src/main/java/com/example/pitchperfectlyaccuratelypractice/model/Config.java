@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.common;
+package com.example.pitchperfectlyaccuratelypractice.model;
 
 /**
  * configurations that the user can set

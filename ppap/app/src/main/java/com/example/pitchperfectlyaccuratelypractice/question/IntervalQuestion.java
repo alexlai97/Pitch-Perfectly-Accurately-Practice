@@ -1,9 +1,9 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.common.Controller;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.interval.*;
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
+
 import java.util.Random;
 
 /**

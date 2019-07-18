@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -22,7 +23,7 @@ import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
 import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
 
@@ -331,11 +332,15 @@ public class NoteModeFilterPageActivity extends Activity {
      */
     void returnToMainActivity(){
         Note[] notes_to_return = tmpData.toNotes();
-        Note.logNotes(TAG, notes_to_return);
-        Intent note_pool_intent = new Intent(this, MainActivity.class);
-        note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
-        setResult(RESULT_OK, note_pool_intent);
-        finish();
+        if (notes_to_return.length == 0) {
+            Toast.makeText(this, "no notes are selected", Toast.LENGTH_LONG).show();
+        } else {
+            Note.logNotes(TAG, notes_to_return);
+            Intent note_pool_intent = new Intent(this, MainActivity.class);
+            note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
+            setResult(RESULT_OK, note_pool_intent);
+            finish();
+        }
     }
 
 }

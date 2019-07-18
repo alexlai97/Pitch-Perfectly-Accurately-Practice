@@ -27,8 +27,8 @@ import android.widget.TextView;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
-import com.example.pitchperfectlyaccuratelypractice.common.Controller;
-import com.example.pitchperfectlyaccuratelypractice.common.NotePlayer;
+import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 
 /**
  * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment
@@ -62,10 +62,6 @@ public class GeneralFragment extends Fragment {
     // TODO put in Config or ...
     private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
-    /**
-     * stores arrowsTextView
-     */
-    TextView arrowText;
     /**
      * stores frequencyTextView
      */
@@ -156,7 +152,6 @@ public class GeneralFragment extends Fragment {
         constraintLayout = view.findViewById(R.id.layout_to_include);
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
 
-        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
 
         playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
@@ -164,7 +159,7 @@ public class GeneralFragment extends Fragment {
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
         filterPageButton = constraintLayout.findViewById(R.id.filterButton);
 
-        if (constraintLayout == null || frequencyText == null ||  arrowText == null
+        if (constraintLayout == null || frequencyText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
         || naviMenuButton == null || filterPageButton == null) {
             throw new AssertionError("Fragment onCreatView, some view is null");
@@ -232,6 +227,8 @@ public class GeneralFragment extends Fragment {
         // additional things goes here
         setupAdditionalView();
 
+
+        controller.next_question();
         return view;
     }
 
@@ -335,21 +332,18 @@ public class GeneralFragment extends Fragment {
     /**
      * update frequency text view
      * @param freq
-     * @param expected
      */
-    public void updateFrequencyText(Long freq, Double expected){
+    public void updateFrequencyText(Long freq){
         if(!onCreated) return;
         frequencyText.setText(Long.toString(freq) + " Hz");
 //        Log.d("", "updateFrequencyText: " + freq);
     }
 
     /**
-     * update arrow text view (TODO need to generalize for tirad mode)
-     * @param myString
+     * update arrow text views
+     * @param arrowTexts
      */
-    public void updateArrowText(String myString){
-        if(!onCreated) return;
-        arrowText.setText(myString);
+    public void updateArrowTexts(String[] arrowTexts){
     }
 
 
@@ -381,8 +375,8 @@ public class GeneralFragment extends Fragment {
      * @param myAnimation
      */
     public void updateArrowAnimation(Animation myAnimation){
-        if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
+//        if(!onCreated) return;
+//        arrowText.setAnimation(myAnimation);
     }
 
     /**
