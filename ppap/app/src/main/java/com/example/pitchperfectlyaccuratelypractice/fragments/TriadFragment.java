@@ -89,5 +89,10 @@ public class TriadFragment extends GeneralFragment {
         // FIXME disable it for now
 //        baseNoteArrowText.setAnimation(myAnimation);
     }
+  
+    public String getPopupText() {
+        return "This is triad mode. The three notes are ones that you should sing, they can be sung in any order." +
+                "\n\nEach note will have its own indicator to help guide the user to the correct note.";
+    }
 }
 

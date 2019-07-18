@@ -63,6 +63,13 @@ public class NoteFragment extends GeneralFragment {
     @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
+        arrowText.setAnimation(myAnimation); 
+    }
+  
+    @Override
+    public String getPopupText() {
+        return "This is the note mode. The note displayed is the note that you want to sing. \n\n" +
+                "An arrow will show to tell you to go higher or lower depending on your current pitch" +
+                ", go ahead and try getting that perfect pitch!";
     }
 }

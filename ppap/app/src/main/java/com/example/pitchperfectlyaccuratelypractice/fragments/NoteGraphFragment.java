@@ -155,4 +155,11 @@ public class NoteGraphFragment extends GeneralFragment {
     public void setCurrentExpectedFrequency(double freq) {
         questionFreq = freq;
     }
+
+    @Override
+    public String getPopupText() {
+        return "This is the beginner note mode. This provides a graph for newer singers to more easily tell " +
+                "how far you are from the note. \n\nThe red line signifies the note that the you should sing. " +
+                "The blue line shows the pitch that you are at. ";
+    }
 }
