@@ -27,7 +27,7 @@ public class IntervalFragment extends GeneralFragment {
      * setup resource (see parent onCreateView for use)
      */
     public IntervalFragment() {
-        resource =R.layout.fragment_interval;
+        resource = R.layout.fragment_interval;
         background_color = Color.parseColor("#BDE8D8");
     }
 
@@ -37,20 +37,33 @@ public class IntervalFragment extends GeneralFragment {
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
-        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+        if (questionNoteText == null) {
+            throw new AssertionError("questionNoteText is null");
+        }
         questionIntervalText = constraintLayout.findViewById(R.id.questionIntervalTextView);
-        if (questionIntervalText == null) { throw new AssertionError("questionIntervalText is null"); }
+        if (questionIntervalText == null) {
+            throw new AssertionError("questionIntervalText is null");
+        }
     }
 
     /**
      * update questions, question text + interval text
+     *
      * @param texts
      */
-    public void updateQuestionTexts(String [] texts){
-        if(!onCreated) return;
-        if (texts.length != 2) { throw new AssertionError("expecting texts' length is 2"); }
+    public void updateQuestionTexts(String[] texts) {
+        if (!onCreated) return;
+        if (texts.length != 2) {
+            throw new AssertionError("expecting texts' length is 2");
+        }
         questionNoteText.setText(texts[0]);
         questionIntervalText.setText(texts[1]);
     }
 
+    @Override
+    public String getPopupText() {
+        return "This is the interval mode, the note displayed is called the base note. \n\n" +
+                "The text below it is the 'interval', where it tells you how much you are supposed to sing above or below the bass note. \n\n" +
+                "Example. ...";
+    }
 }

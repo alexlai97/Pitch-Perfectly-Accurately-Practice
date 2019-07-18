@@ -208,7 +208,8 @@ public class GeneralFragment extends Fragment {
 //                    LayoutParams.MATCH_PARENT,
 //                    LayoutParams.MATCH_PARENT);
                     (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
-                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)));
+                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
+                    true);
 
             @Override
             public void onClick(View view) {
