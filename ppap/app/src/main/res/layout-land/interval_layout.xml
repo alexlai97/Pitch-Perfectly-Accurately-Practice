@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/currentFrequencyTextView"
-        android:layout_width="148dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -28,8 +28,8 @@
 
     <TextView
         android:id="@+id/questionNoteTextView"
-        android:layout_width="350dp"
-        android:layout_height="127dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/arrowTextView"
-        android:layout_width="81dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:autoSizeMaxTextSize="40sp"
@@ -107,7 +107,7 @@
 
     <TextView
         android:id="@+id/currentPitchTextView"
-        android:layout_width="168dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="TextView"
@@ -120,8 +120,8 @@
 
     <TextView
         android:id="@+id/questionIntervalTextView"
-        android:layout_width="266dp"
-        android:layout_height="66dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

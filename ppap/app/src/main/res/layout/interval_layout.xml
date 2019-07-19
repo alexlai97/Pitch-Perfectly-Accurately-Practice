@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/currentFrequencyTextView"
-        android:layout_width="112dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -29,8 +29,8 @@
 
     <TextView
         android:id="@+id/questionNoteTextView"
-        android:layout_width="350dp"
-        android:layout_height="127dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -40,17 +40,17 @@
         android:autoSizeTextType="uniform"
         android:text="A4#"
         android:textAlignment="center"
-        android:textSize="50sp"
+        android:textSize="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
+        app:layout_constraintVertical_bias="0.42" />
 
     <Button
         android:id="@+id/filterButton"
-        android:layout_width="35dp"
-        android:layout_height="54dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/pineapple"
@@ -60,14 +60,14 @@
 
     <TextView
         android:id="@+id/arrowTextView"
-        android:layout_width="81dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="40sp"
         android:autoSizeMinTextSize="30sp"
         android:autoSizeTextType="uniform"
-        android:text=""
+        android:text="n"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -108,12 +108,13 @@
 
     <TextView
         android:id="@+id/currentPitchTextView"
-        android:layout_width="65dp"
-        android:layout_height="29dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/filterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.769"
@@ -123,15 +124,15 @@
 
     <TextView
         android:id="@+id/questionIntervalTextView"
-        android:layout_width="266dp"
-        android:layout_height="66dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="+P5"
         android:textAlignment="center"
-        android:textSize="40sp"
+        android:textSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.465"
