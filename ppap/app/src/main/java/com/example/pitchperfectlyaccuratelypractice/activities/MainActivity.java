@@ -14,6 +14,7 @@ import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -66,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * a speaker which can play note(s)
      */
-    private static NotePlayer notePlayer = new NotePlayer();
+    private NotesPlayer notesPlayer = new NotesPlayer(this);
 
     /**
      * getter for note player
      * @return
      */
-    public NotePlayer getNotePlayer() {
-        return notePlayer;
+    public NotesPlayer getNotesPlayer() {
+        return notesPlayer;
     }
 
     /**

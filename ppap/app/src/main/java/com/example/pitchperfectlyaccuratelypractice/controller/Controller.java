@@ -116,7 +116,11 @@ public class Controller implements Observer ,
    * get answer frequencies from current question stored in model
    */
   public double[] getExpectedFrequencies() {
-    return Note.toFrequencies(curQuestion.getAnswerNotes());
+    return Note.toFrequencies(getAnserNotes());
+  }
+
+  public Note [] getAnserNotes() {
+   return curQuestion.getAnswerNotes();
   }
 
   /**

@@ -28,7 +28,9 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
  * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment
@@ -101,7 +103,7 @@ public class GeneralFragment extends Fragment {
     /**
      * stores the notePlayer got from MainActivity
      */
-    NotePlayer notePlayer;
+    NotesPlayer notesPlayer;
 
     /**
      * R.layout.whateverlayout, set in the constructor of children
@@ -145,7 +147,7 @@ public class GeneralFragment extends Fragment {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
         controller = ((MainActivity)(getActivity())).getController(); // FIXME temporary here
-        notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
+        notesPlayer = ((MainActivity)(getActivity())).getNotesPlayer(); // FIXME temporary here
 
         onCreated = true;
         final View view = inflater.inflate(resource, container, false);
@@ -169,7 +171,11 @@ public class GeneralFragment extends Fragment {
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int) controller.getExpectedFrequencies()[0]);
+//                notePlayer.playOneNote((int) controller.getExpectedFrequencies()[0]);
+//                NotesPlayer notesPlayer = new NotesPlayer(getActivity().getApplicationContext());
+                notesPlayer.create_note(controller.getAnserNotes()[0]);
+                notesPlayer.load_tmp_file();
+                notesPlayer.start();
             }
         });
 
