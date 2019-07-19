@@ -64,7 +64,7 @@ public class Controller implements Observer ,
   /**
    *  current mode (will change if model's current question is changed)
    */
-  private Mode curMode; // Don't need it probably
+  private Mode curMode = Mode.NotePractice; // Don't need it probably
   /**
    * model owned by main activity
    */
@@ -111,16 +111,19 @@ public class Controller implements Observer ,
   }
 
 
+  public Mode getCurMode() {
+    return curMode;
+  }
 
   /**
    * get answer frequencies from current question stored in model
    */
   public double[] getExpectedFrequencies() {
-    return Note.toFrequencies(getAnserNotes());
+    return Note.toFrequencies(curQuestion.getAnswerNotes());
   }
 
-  public Note [] getAnserNotes() {
-   return curQuestion.getAnswerNotes();
+  public Question getCurQuestion() {
+    return curQuestion;
   }
 
   /**

@@ -32,10 +32,60 @@ public class NotesPlayer {
     private File tmp_midi_file;
     private String pathname = Environment.getExternalStorageDirectory() + "/playing.mid";
 
-    public void create_note(Note note) {
+    public enum PlayingStrategy {
+        OneByOne, Together, OneByOneThenTogether
+    }
+
+    public MidiTrack create_note_track(Note note) {
+        return create_notes_track(new Note[] {note}, PlayingStrategy.OneByOne);
+    }
+
+
+    public MidiTrack create_notes_track(Note[] notes, PlayingStrategy playingStrategy) {
+        MidiTrack noteTrack = new MidiTrack();
+        long each_tick = 240;
+        int channel = 0;
+        int velocity = 50;
+        long duration = 280;
+
+        switch (playingStrategy) {
+            case OneByOne:
+                for (int i = 0; i < notes.length; i ++) {
+                    int pitch = notes[i].getIndex() + 33;
+                    long tick = i* each_tick;
+                    noteTrack.insertNote(channel, pitch, velocity, tick, duration);
+                }
+                break;
+            case Together:
+                for (int i = 0; i < notes.length; i ++) {
+                    int pitch = notes[i].getIndex() + 33;
+                    long tick = each_tick;
+                    noteTrack.insertNote(channel, pitch, velocity, tick, duration);
+                }
+                break;
+            case OneByOneThenTogether:
+                long current_tick = 0;
+                for (int i = 0; i < notes.length; i ++) {
+                    int pitch = notes[i].getIndex() + 33;
+                    long tick = i* each_tick;
+                    current_tick = tick;
+                    noteTrack.insertNote(channel, pitch, velocity, tick, duration);
+                }
+                current_tick += 720;
+                for (int i = 0; i < notes.length; i ++) {
+                    int pitch = notes[i].getIndex() + 33;
+                    long tick = current_tick;
+                    noteTrack.insertNote(channel, pitch, velocity, tick, duration);
+                }
+                break;
+        }
+        return noteTrack;
+    }
+
+
+    public void create_midi(MidiTrack notesTrack) {
         // 1. Create some MidiTracks
         MidiTrack tempoTrack = new MidiTrack();
-        MidiTrack noteTrack = new MidiTrack();
         // 2. Add events to the tracks
         // Track 0 is the tempo map
         TimeSignature ts = new TimeSignature();
@@ -44,17 +94,12 @@ public class NotesPlayer {
         tempo.setBpm(120);
         tempoTrack.insertEvent(ts);
         tempoTrack.insertEvent(tempo);
-        int channel = 0;
-        int pitch = note.getIndex() + 33;
-        int velocity = 50;
-        long tick =  120;
-        long duration = 280;
 
-        noteTrack.insertNote(channel, pitch, velocity, tick, duration);
+
         // 3. Create a MidiFile with the tracks we created
         List<MidiTrack> tracks = new ArrayList<MidiTrack>();
         tracks.add(tempoTrack);
-        tracks.add(noteTrack);
+        tracks.add(notesTrack);
 
         MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
 

@@ -29,6 +29,7 @@ import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
@@ -167,15 +168,44 @@ public class GeneralFragment extends Fragment {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
-        // FIXME need to generalize
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                notePlayer.playOneNote((int) controller.getExpectedFrequencies()[0]);
-//                NotesPlayer notesPlayer = new NotesPlayer(getActivity().getApplicationContext());
-                notesPlayer.create_note(controller.getAnserNotes()[0]);
+                switch (controller.getCurMode()) {
+                    case NotePractice:
+                    case NoteGraphPractice:
+                        notesPlayer.create_midi(notesPlayer.create_notes_track(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOne));
+                        break;
+                    case TriadPractice:
+                        notesPlayer.create_midi(notesPlayer.create_notes_track(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.Together));
+                        break;
+                    case IntervalPractice:
+                        notesPlayer.create_midi(notesPlayer.create_note_track(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote()));
+                        break;
+                    case SongPractice:
+                }
                 notesPlayer.load_tmp_file();
                 notesPlayer.start();
+            }
+        });
+        playSoundButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                switch (controller.getCurMode()) {
+                    case NotePractice:
+                        return false;
+                    case NoteGraphPractice:
+                        return false;
+                    case TriadPractice:
+                        notesPlayer.create_midi(notesPlayer.create_notes_track(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether));
+                        break;
+                    case IntervalPractice:
+                        notesPlayer.create_midi(notesPlayer.create_notes_track(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether));
+                    case SongPractice:
+                }
+                notesPlayer.load_tmp_file();
+                notesPlayer.start();
+                return true;
             }
         });
 
