@@ -71,6 +71,11 @@ public class NoteGraphFragment extends GeneralFragment {
         graph.addSeries(series2);
     }
 
+    @Override
+    public void listenerSetUp() {
+
+    }
+
     public void onResume(){
         super.onResume();
         Button button = getView().findViewById(R.id.naviButton);

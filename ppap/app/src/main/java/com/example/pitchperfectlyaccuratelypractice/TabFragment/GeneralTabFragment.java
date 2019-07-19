@@ -1,12 +1,11 @@
-package com.example.pitchperfectlyaccuratelypractice.activities;
+package com.example.pitchperfectlyaccuratelypractice.TabFragment;
 
-import android.app.Activity;
-
-import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,33 +16,37 @@ import android.widget.TableRow;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
+import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
 import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
-import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
-
-/**
- * filter page activity for note practice mode
- */
-public class NoteModeFilterPageActivity extends AppCompatActivity{
-
+public class GeneralTabFragment extends Fragment {
     private static final String TAG = "NOTE FILTER";
+
+//    /**
+//     * layout inflater
+//     */
+//    LayoutInflater layoutInflater;
+    /**
+     * notes table  (dynamically generated notes buttons)
+     */
+    TableLayout notesTableView;
+
+
+    View view;
 
     /**
      * layout inflater
      */
     LayoutInflater layoutInflater;
-    /**
-     * notes table  (dynamically generated notes buttons)
-     */
-    TableLayout notesTableView;
 
     /**
      * currently generated notes
@@ -69,6 +72,9 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
      * key signature spinner
      */
     Spinner keySigSpinner;
+
+    // whatever layout should be attached to current fragment
+    int resource;
 
     /**
      * strings to put in from and to spinner
@@ -105,6 +111,7 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
+    private IntervalModeFilterActivity filterActivity;
     /**
      * current from Note
      */
@@ -122,33 +129,25 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
      */
     private Note keySigNote = new Note("A");
 
-    /**
-     * setup views
-     * @param savedInstanceState
-     */
+    public GeneralTabFragment(IntervalModeFilterActivity filter){
+        filterActivity = filter;
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.note_mode_filter);
-
-        layoutInflater = LayoutInflater.from(this);
-        notesTableView = findViewById(R.id.note_pool_table);
-
-        findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View layout = inflater.inflate(resource, container, false);
+        view = layout;
+        layoutInflater = LayoutInflater.from(getContext());
+        notesTableView = view.findViewById(R.id.note_pool_table);
+        view.findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                returnToMainActivity();
+                filterActivity.returnToMainActivity(tmpData);
             }
         });
         setSpinners();
-    }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-
-
-
-        super.onSaveInstanceState(outState);
+        return layout;
     }
 
     /**
@@ -156,14 +155,14 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
      */
     private void setSpinners() {
         // Put it declare
-        fromSpinner   = findViewById(R.id.fromSpinner);
-        toSpinner     = findViewById(R.id.toSpinner);
-        scaleSpinner  = findViewById(R.id.scaleSpinner);
-        keySigSpinner = findViewById(R.id.keySigSpinner);
+        fromSpinner = view.findViewById(R.id.fromSpinner);
+        toSpinner = view.findViewById(R.id.toSpinner);
+        scaleSpinner = view.findViewById(R.id.scaleSpinner);
+        keySigSpinner = view.findViewById(R.id.keySigSpinner);
 
-        ArrayAdapter<String> all_notes_string_adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, notes_strings);
-        ArrayAdapter<String> all_scales_string_adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, scale_strings);
-        ArrayAdapter<String> all_keySig_string_adapter= new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, keySig_strings);
+        ArrayAdapter<String> all_notes_string_adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, notes_strings);
+        ArrayAdapter<String> all_scales_string_adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, scale_strings);
+        ArrayAdapter<String> all_keySig_string_adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, keySig_strings);
 
         fromSpinner.setAdapter(all_notes_string_adapter);
         toSpinner.setAdapter(all_notes_string_adapter);
@@ -192,7 +191,7 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+                generated_notes = ((NotesBitmap) filterHandler.getResultBitmap()).toNotes();
 
                 update_tableview_using_note_pool();
             }
@@ -200,78 +199,6 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Log.i(TAG, "FROM (on nothing) select item ");
-            }
-        });
-
-        toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                toNote = new Note(position);
-                Log.i(TAG, "TO selected " + toNote.getText(position));
-
-                if (fromNote.getIndex() > toNote.getIndex()) {
-                    // TODO alert user
-                    Log.w(TAG, "ToNote selected smaller than fromNote");
-                    toSpinner.setSelection(fromNote.getIndex());
-                }
-
-                // set range filter
-                rangeFilter = new NotesRangeFilter(fromNote, toNote);
-                filterHandler.updateFilterAt(0, rangeFilter);
-                filterHandler.applyFilters();
-
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
-
-                update_tableview_using_note_pool();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.i(TAG, "TO (on nothing) select item ");
-            }
-        });
-
-
-        scaleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                scale = NotesScale.values()[position];
-                Log.i(TAG, "SCALE selected " + scale.toString());
-
-                scaleFilter = new NotesScaleFilter(keySigNote, scale);
-                filterHandler.updateFilterAt(1, scaleFilter);
-                filterHandler.applyFilters();
-
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
-
-                update_tableview_using_note_pool();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.i(TAG, "SCALE (on nothing) select item ");
-            }
-        });
-
-        keySigSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                keySigNote = new Note(position);
-                Log.i(TAG, "keySig selected " + keySigNote.getText(position));
-
-                scaleFilter = new NotesScaleFilter(keySigNote, scale);
-                filterHandler.updateFilterAt(1, scaleFilter);
-                filterHandler.applyFilters();
-
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
-
-                update_tableview_using_note_pool();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.i(TAG, "keySig (on nothing) select item ");
             }
         });
     }
@@ -337,16 +264,5 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
         return button;
     }
 
-    /**
-     * pass note [] as int [] in intent back to MainActivity
-     */
-    void returnToMainActivity(){
-        Note[] notes_to_return = tmpData.toNotes();
-        Note.logNotes(TAG, notes_to_return);
-        Intent note_pool_intent = new Intent(this, MainActivity.class);
-        note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
-        setResult(RESULT_OK, note_pool_intent);
-        finish();
-    }
 
 }

@@ -35,7 +35,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements
         GeneralFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "MAIN";
+    private static final String TAG = "MainActivity";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements
             if (resultCode == RESULT_OK) {
                 Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
                 Note.logNotes("back to main activity", result_notes);
+
+                // pass the notes generated from filter to controller, start next question(generated from note pool)
                 controller.setNotePool(result_notes);
                 controller.next_question();
             } else if (resultCode == RESULT_CANCELED){
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Log.d(TAG, "onNavigationItemSelected: " + id);
+        Log.d(TAG, "onNavigationItemSelected: " + Mode.idToMode(id));
         model.setCurrentMode(Mode.idToMode(id));
 
         // Highlight the selected item has been done by NavigationView

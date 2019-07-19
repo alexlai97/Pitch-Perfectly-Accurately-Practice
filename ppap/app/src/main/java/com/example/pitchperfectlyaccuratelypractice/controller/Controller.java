@@ -312,6 +312,7 @@ public class Controller implements Observer ,
           break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
+          Log.d(TAG, "propertyChange: "+ curMode);
           model.setCurrentQuestion(questionFactory.create(curMode));
           refreshCurFragment();
           break;

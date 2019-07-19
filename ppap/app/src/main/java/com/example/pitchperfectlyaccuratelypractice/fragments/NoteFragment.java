@@ -1,10 +1,14 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 
 /**
  * a children of general fragment
@@ -13,6 +17,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 public class NoteFragment extends GeneralFragment {
 
     private static String TAG = "NoteFragment";
+    private final int REQUEST_CODE= 1;
     /**
      * a question note in the middle of the screen
      */
@@ -25,6 +30,20 @@ public class NoteFragment extends GeneralFragment {
     public NoteFragment() {
         resource = R.layout.fragment_note;
         background_color = Color.parseColor("#E6FBBA");
+    }
+
+    @Override
+    public void listenerSetUp() {
+        filterPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent filter_intent = new Intent(getActivity(), NoteModeFilterPageActivity.class);
+
+                // let the main activity handle the intent
+                startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
+            }
+        });
+
     }
 
     /**

@@ -36,6 +36,11 @@ public class TriadFragment extends GeneralFragment {
         background_color = Color.parseColor("#C2DFEE");
     }
 
+    @Override
+    public void listenerSetUp() {
+
+    }
+
     /**
      * set up views of the three triad notes
      */
