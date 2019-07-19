@@ -36,11 +36,11 @@ public class TabFragment2 extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
         view = layout;
-        view.findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                filter.returnToMainActivity(tmpData);
-            }
-        });
+//        view.findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
+//            public void onClick(View v) {
+//                filter.returnToMainActivity(tmpData);
+//            }
+//        });
         return view;
     }
 }

@@ -42,7 +42,7 @@ public class TabFragment1 extends GeneralTabFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.activity_interval_mode_filter, container, false);
+        View layout = inflater.inflate(resource, container, false);
         view = layout;
         notesTableView = layout.findViewById(R.id.note_pool_table);
 

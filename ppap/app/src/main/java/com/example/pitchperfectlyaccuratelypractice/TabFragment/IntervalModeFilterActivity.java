@@ -37,7 +37,7 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class IntervalModeFilterActivity extends AppCompatActivity {
 
-    private static final String TAG = "NOTE FILTER";
+    private static final String TAG = "IntervalModeFilterAc";
 
     /**
      * layout inflater
@@ -139,14 +139,15 @@ public class IntervalModeFilterActivity extends AppCompatActivity {
         // Create an instance of the tab layout from the view.
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         // Set the text for each tab.
-        tabLayout.addTab(tabLayout.newTab().setText(""));
-        tabLayout.addTab(tabLayout.newTab().setText(""));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab2"));
         // Set the tabs to fill the entire layout.
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // Use PagerAdapter to manage page views in fragments.
         // Each page is represented by its own fragment.
         final ViewPager viewPager = findViewById(R.id.pager);
+        assert(tabLayout.getTabCount() == 2);
         final com.example.pitchperfectlyaccuratelypractice.TabFragment.PagerAdapter adapter = new
                 com.example.pitchperfectlyaccuratelypractice.TabFragment.PagerAdapter(
                         getSupportFragmentManager(), tabLayout.getTabCount(), this);
@@ -161,6 +162,7 @@ public class IntervalModeFilterActivity extends AppCompatActivity {
            TabLayout.OnTabSelectedListener() {
                @Override
                public void onTabSelected(TabLayout.Tab tab) {
+                   Log.d(TAG, "onTabSelected: tab.getPosition()= " + tab.getPosition());
                    viewPager.setCurrentItem(tab.getPosition());
                }
 

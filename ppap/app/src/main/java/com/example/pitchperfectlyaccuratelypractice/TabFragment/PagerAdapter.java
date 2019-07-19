@@ -20,14 +20,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 1: return new TabFragment1(filter);
-            case 2: return new TabFragment2(filter);
+            case 0: return new TabFragment1(filter);
+            case 1: return new TabFragment2(filter);
             default: return null;
         }
-    }
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
     }
 
     @Override
