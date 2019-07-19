@@ -202,8 +202,8 @@ public class GeneralFragment extends Fragment {
                     layout,
 //                    LayoutParams.MATCH_PARENT,
 //                    LayoutParams.MATCH_PARENT);
-                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
-                    (int)(Math.floor(LayoutParams.WRAP_CONTENT*0.8)),
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT,
                     true);
 
             @Override
