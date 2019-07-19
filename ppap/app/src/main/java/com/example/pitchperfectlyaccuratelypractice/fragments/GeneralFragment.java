@@ -55,64 +55,39 @@ public class GeneralFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * request code got from mainactivity
-     */
+    /** request code got from mainactivity */
     // TODO put in Config or ...
     private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
-    /**
-     * stores frequencyTextView
-     */
+    /** stores frequencyTextView */
     TextView frequencyText;
-    /**
-     * stores currentPitchTextView
-     */
+    /** stores currentPitchTextView */
     TextView currentPitchText;
-
-    /**
-     * stores the controller got from MainActivity
-     */
+    /** stores the controller got from MainActivity */
     private Controller controller;
-
-    /**
-     * stores the play sound Button view
-     */
+    /** stores the play sound Button view */
     Button playSoundButton;
-
-    /**
-     * stores the help Button view
-     */
+    /** stores the help Button view */
     Button helpButton;
-
-    /**
-     * stores the navi menu button view (FIXME do we need it)
-     */
+    /** stores the navi menu button view (FIXME do we need it) */
     Button naviMenuButton;
-
-    /**
-     * stores the filter page button view
-     */
+    /** stores the filter page button view */
     Button filterPageButton;
 
     boolean onCreated = false;
 
-    /**
-     * stores the notePlayer got from MainActivity
-     */
+    /** stores the notesPlayer got from MainActivity */
     NotesPlayer notesPlayer;
-
-    /**
-     * R.layout.whateverlayout, set in the constructor of children
-     */
+    /** R.layout.whateverlayout, set in the constructor of children */
     int resource;
 
+    /** fragment back ground colour */
     int background_color;
 
-    ConstraintLayout constraintLayout;
+    String instruction_string;
 
-    int viewWidth;
-    int viewHeight;
+    /** constraint layout */
+    ConstraintLayout constraintLayout;
 
     /**
      * additional things to set up in onCreateView
@@ -412,6 +387,6 @@ public class GeneralFragment extends Fragment {
      * Gives back text to create the popup
      */
     public String getPopupText(){
-        return "This is the general fragment's help, override this to use your own text :)";
+        return instruction_string;
     }
 }

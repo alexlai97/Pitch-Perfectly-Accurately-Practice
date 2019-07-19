@@ -32,6 +32,10 @@ public class IntervalFragment extends GeneralFragment {
     public IntervalFragment() {
         resource = R.layout.fragment_interval;
         background_color = Color.parseColor("#BDE8D8");
+        instruction_string = "Please sing the note plus or minus the interval \n\n" +
+                "Single tap the play button will play the base note\n\n" +
+                "Long press the play button will play base note and answer note\n\n" +
+                "You can select note pool and interval pool in Filter Page (pineapple button)";
     }
 
     /**
@@ -77,10 +81,5 @@ public class IntervalFragment extends GeneralFragment {
         arrowText.setAnimation(myAnimation);
     }
 
-    @Override
-    public String getPopupText() {
-        return "This is the interval mode, the note displayed is called the base note. \n\n" +
-                "The text below it is the 'interval', where it tells you how much you are supposed to sing above or below the bass note. \n\n" +
-                "Example. ...";
-    }
+
 }
