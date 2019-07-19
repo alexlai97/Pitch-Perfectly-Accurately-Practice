@@ -14,6 +14,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 public class NoteFragment extends GeneralFragment {
 
     private static String TAG = "NoteFragment";
+
     /**
      * a question note in the middle of the screen
      */
@@ -27,6 +28,9 @@ public class NoteFragment extends GeneralFragment {
     public NoteFragment() {
         resource = R.layout.fragment_note;
         background_color = Color.parseColor("#E6FBBA");
+        instruction_string = "Please sing the note in the center \n\n" +
+                "Single the tap play button will play the answer note.\n\n" +
+                "You can select note pool in Filter Page (pineapple button)";
     }
 
     /**
@@ -66,10 +70,4 @@ public class NoteFragment extends GeneralFragment {
         arrowText.setAnimation(myAnimation); 
     }
   
-    @Override
-    public String getPopupText() {
-        return "This is the note mode. The note displayed is the note that you want to sing. \n\n" +
-                "An arrow will show to tell you to go higher or lower depending on your current pitch" +
-                ", go ahead and try getting that perfect pitch!";
-    }
 }

@@ -1,6 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.ViewGroup.LayoutParams;
 
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -28,7 +26,8 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
+import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
  * general fragment, its children are notefragment, intervalfragment, triadfragment, notegraphfragment
@@ -56,64 +55,39 @@ public class GeneralFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * request code got from mainactivity
-     */
+    /** request code got from mainactivity */
     // TODO put in Config or ...
     private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
-    /**
-     * stores frequencyTextView
-     */
+    /** stores frequencyTextView */
     TextView frequencyText;
-    /**
-     * stores currentPitchTextView
-     */
+    /** stores currentPitchTextView */
     TextView currentPitchText;
-
-    /**
-     * stores the controller got from MainActivity
-     */
+    /** stores the controller got from MainActivity */
     private Controller controller;
-
-    /**
-     * stores the play sound Button view
-     */
+    /** stores the play sound Button view */
     Button playSoundButton;
-
-    /**
-     * stores the help Button view
-     */
+    /** stores the help Button view */
     Button helpButton;
-
-    /**
-     * stores the navi menu button view (FIXME do we need it)
-     */
+    /** stores the navi menu button view (FIXME do we need it) */
     Button naviMenuButton;
-
-    /**
-     * stores the filter page button view
-     */
+    /** stores the filter page button view */
     Button filterPageButton;
 
     boolean onCreated = false;
 
-    /**
-     * stores the notePlayer got from MainActivity
-     */
-    NotePlayer notePlayer;
-
-    /**
-     * R.layout.whateverlayout, set in the constructor of children
-     */
+    /** stores the notesPlayer got from MainActivity */
+    NotesPlayer notesPlayer;
+    /** R.layout.whateverlayout, set in the constructor of children */
     int resource;
 
+    /** fragment back ground colour */
     int background_color;
 
-    ConstraintLayout constraintLayout;
+    String instruction_string;
 
-    int viewWidth;
-    int viewHeight;
+    /** constraint layout */
+    ConstraintLayout constraintLayout;
 
     /**
      * additional things to set up in onCreateView
@@ -145,7 +119,7 @@ public class GeneralFragment extends Fragment {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
         controller = ((MainActivity)(getActivity())).getController(); // FIXME temporary here
-        notePlayer = ((MainActivity)(getActivity())).getNotePlayer(); // FIXME temporary here
+        notesPlayer = ((MainActivity)(getActivity())).getNotesPlayer(); // FIXME temporary here
 
         onCreated = true;
         final View view = inflater.inflate(resource, container, false);
@@ -165,11 +139,41 @@ public class GeneralFragment extends Fragment {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
-        // FIXME need to generalize
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notePlayer.playOneNote((int) controller.getExpectedFrequencies()[0]);
+                switch (controller.getCurMode()) {
+                    case NotePractice:
+                    case NoteGraphPractice:
+                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOne);
+                        break;
+                    case TriadPractice:
+                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.Together);
+                        break;
+                    case IntervalPractice:
+                        notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
+                        break;
+                    case SongPractice:
+                        break;
+                }
+            }
+        });
+        playSoundButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                switch (controller.getCurMode()) {
+                    case NotePractice:
+                        return false;
+                    case NoteGraphPractice:
+                        return false;
+                    case TriadPractice:
+                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                        break;
+                    case IntervalPractice:
+                        notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                    case SongPractice:
+                }
+                return true;
             }
         });
 
@@ -383,6 +387,6 @@ public class GeneralFragment extends Fragment {
      * Gives back text to create the popup
      */
     public String getPopupText(){
-        return "This is the general fragment's help, override this to use your own text :)";
+        return instruction_string;
     }
 }

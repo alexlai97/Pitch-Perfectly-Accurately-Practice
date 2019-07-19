@@ -64,7 +64,7 @@ public class Controller implements Observer ,
   /**
    *  current mode (will change if model's current question is changed)
    */
-  private Mode curMode; // Don't need it probably
+  private Mode curMode = Mode.NotePractice; // Don't need it probably
   /**
    * model owned by main activity
    */
@@ -111,12 +111,19 @@ public class Controller implements Observer ,
   }
 
 
+  public Mode getCurMode() {
+    return curMode;
+  }
 
   /**
    * get answer frequencies from current question stored in model
    */
   public double[] getExpectedFrequencies() {
     return Note.toFrequencies(curQuestion.getAnswerNotes());
+  }
+
+  public Question getCurQuestion() {
+    return curQuestion;
   }
 
   /**
@@ -204,62 +211,33 @@ public class Controller implements Observer ,
       return -1;
   }
 
-  /**
-   * keeps the current frequency
-   */
+  /** keeps the current frequency */
   private double current_frequency = -2000;
-  /**
-   * last time pitch enter error range
-   */
+  /** last time pitch enter error range */
   private long t_enter;
-  /**
-   * if in error range, t_in is now
-   */
+  /** if in error range, t_in is now */
   private long t_in;
-  /**
-   * if out of error range, t_out is now
-   */
+  /** if out of error range, t_out is now */
   private long t_out;
-  /**
-   * the moment just when user passes the question (stay in error range for least stable time)
-   */
+  /** the moment just when user passes the question (stay in error range for least stable time) */
   private long t_correct;
-  /**
-   * stores whether is(was) in error range
-   */
+  /** stores whether is(was) in error range */
   private boolean isInErrorRange = false;
-  /**
-   * used to setup t's correctly at the first time
-   */
+  /** used to setup t's correctly at the first time */
   private boolean firstTimeProcessFreq = true;
-
-  /*
-   * used to check how long it has been since the last check
-   */
+  /* used to check how long it has been since the last check */
   private long t_firstStart;
-
-  /**
-   * stores whether the user has passed the question
-   */
+  /** stores whether the user has passed the question */
   private boolean answerCorrect = false;
-  /**
-   * used to show correct (do things when user passed question) for once
-   */
+  /** used to show correct (do things when user passed question) for once */
   private boolean hasShownCorrect = false;
 
-  /**
-   * animation
-   */
+  /** animation */
   private Animation arrowAnimation;
-
-  /**
-   * currentAnimeSpeed
-   */
+  /** currentAnimeSpeed */
   private int currentAnimeSpeed;
 
-  /**
-   * how long between the user pass the question and next question
-   */
+  /** how long between the user pass the question and next question */
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
   /**

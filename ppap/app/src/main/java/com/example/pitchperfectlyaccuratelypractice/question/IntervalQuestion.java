@@ -28,6 +28,13 @@ public class IntervalQuestion extends Question {
    */
   private Interval[] intervalPool;
 
+  public Note getQuestionNote() {
+    return questionNote;
+  }
+  public Note [] getQuestionAndAnserNote() {
+    return new Note[] {questionNote, answerNote};
+  }
+
   /**
    * Setter for interval pool
    */ 

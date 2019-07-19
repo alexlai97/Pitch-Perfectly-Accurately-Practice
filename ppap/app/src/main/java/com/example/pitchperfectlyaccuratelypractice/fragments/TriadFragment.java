@@ -38,6 +38,10 @@ public class TriadFragment extends GeneralFragment {
     public TriadFragment() {
         resource = R.layout.fragment_triad;
         background_color = Color.parseColor("#C2DFEE");
+        instruction_string = "Please the notes in any order\n\n" +
+                "Single tap the play button will play the chord\n\n" +
+                "Long press the play button will play notes sequentially then chord\n\n" +
+                "You can select note pool and interval pool in Filter Page (pineapple button)";
     }
 
     /**
@@ -90,9 +94,5 @@ public class TriadFragment extends GeneralFragment {
 //        baseNoteArrowText.setAnimation(myAnimation);
     }
   
-    public String getPopupText() {
-        return "This is triad mode. The three notes are ones that you should sing, they can be sung in any order." +
-                "\n\nEach note will have its own indicator to help guide the user to the correct note.";
-    }
 }
 

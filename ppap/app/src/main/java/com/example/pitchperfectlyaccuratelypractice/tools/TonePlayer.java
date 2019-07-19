@@ -10,7 +10,7 @@ import android.media.AudioManager;
  * a speaker which can play music note(s)
  * <p>
  */
-public class NotePlayer  {
+public class TonePlayer {
     // originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Jialin Shan for pitch perfect
     private final int sampleRate = 44100;

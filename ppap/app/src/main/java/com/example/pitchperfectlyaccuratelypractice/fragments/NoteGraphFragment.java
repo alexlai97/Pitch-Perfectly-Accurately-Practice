@@ -47,6 +47,9 @@ public class NoteGraphFragment extends GeneralFragment {
     public NoteGraphFragment() {
         resource = R.layout.fragment_note_graph;
         background_color = Color.parseColor("#E6FBBA");
+        instruction_string = "Please sing the note in the center \n\n" +
+                "Single the tap play button will play the answer note.\n\n" +
+                "You can select note pool in Filter Page (pineapple button)";
     }
 
 
@@ -156,10 +159,5 @@ public class NoteGraphFragment extends GeneralFragment {
         questionFreq = freq;
     }
 
-    @Override
-    public String getPopupText() {
-        return "This is the beginner note mode. This provides a graph for newer singers to more easily tell " +
-                "how far you are from the note. \n\nThe red line signifies the note that the you should sing. " +
-                "The blue line shows the pitch that you are at. ";
-    }
+
 }
