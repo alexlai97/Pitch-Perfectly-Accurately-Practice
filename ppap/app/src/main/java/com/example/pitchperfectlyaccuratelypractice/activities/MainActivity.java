@@ -11,7 +11,6 @@ import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
@@ -40,20 +39,13 @@ public class MainActivity extends AppCompatActivity implements
     public static final int REQUEST_CODE_FROM_FILTER = 1;
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
-    /**
-     * indicate onCreate has been called
-     */
+    /** indicate onCreate has been called */
     private boolean created = false;
 
-    /**
-     * only controller (and main activity) should have access, so no getter
-     */
+    /** only controller (and main activity) should have access, so no getter */
     private Model model = new Model();
 
-
-    /**
-     * controlling how user voice affects model and update view
-     */
+    /** controlling how user voice affects model and update view */
     private Controller controller;
 
     /**
@@ -64,9 +56,7 @@ public class MainActivity extends AppCompatActivity implements
         return controller;
     }
 
-    /**
-     * a speaker which can play note(s)
-     */
+    /** a speaker which can play note(s) */
     private NotesPlayer notesPlayer = new NotesPlayer(this);
 
     /**
@@ -77,9 +67,7 @@ public class MainActivity extends AppCompatActivity implements
         return notesPlayer;
     }
 
-    /**
-     * a microphone which contains a frequency, controller will listen to its current frequency
-     */
+    /** a microphone which contains a frequency, controller will listen to its current frequency */
     private Microphone microphone = new Microphone(this);
 
     /**

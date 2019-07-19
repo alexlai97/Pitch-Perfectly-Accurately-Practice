@@ -2,11 +2,9 @@ package com.example.pitchperfectlyaccuratelypractice.tools;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.leff.midi.MidiFile;
 import com.leff.midi.MidiTrack;
@@ -23,25 +21,64 @@ import java.util.List;
 public class NotesPlayer {
     private static final String TAG = "NotesPlayer";
     private Context context;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private static MediaPlayer mediaPlayer = new MediaPlayer();
+    private File tmp_midi_file;
+
+    /** * a temp file, media player will play this file */
+    private static String pathname = Environment.getExternalStorageDirectory() + "/playing.mid";
+
+    /**
+     * constructor, given a context
+     * @param ct
+     */
     public NotesPlayer(Context ct) {
         context = ct;
-//        mediaPlayer = MediaPlayer.create(context, R.raw.carrying_you);
     }
 
-    private File tmp_midi_file;
-    private String pathname = Environment.getExternalStorageDirectory() + "/playing.mid";
-
+    /**
+     * how notes can be played
+     */
     public enum PlayingStrategy {
-        OneByOne, Together, OneByOneThenTogether
+        OneByOne,  /** Sequentially */
+        Together, /** Simultaneously */
+        OneByOneThenTogether /** individual notes, then chord */
     }
 
-    public MidiTrack create_note_track(Note note) {
+
+    /**
+     * play notes given strategy
+     */
+    public void play(Note[] notes, PlayingStrategy playingStrategy) {
+        create_midi_tmp_file(create_notes_track(notes, playingStrategy));
+        load_tmp_file();
+        mediaPlayer.start();
+    }
+
+    /**
+     * play a note
+     * @param note
+     */
+    public void play(Note note) {
+        create_midi_tmp_file(create_note_track(note));
+        load_tmp_file();
+        mediaPlayer.start();
+    }
+
+    /**
+     * create a MidiTrack using a single note
+     */
+    private MidiTrack create_note_track(Note note) {
         return create_notes_track(new Note[] {note}, PlayingStrategy.OneByOne);
     }
 
 
-    public MidiTrack create_notes_track(Note[] notes, PlayingStrategy playingStrategy) {
+    /**
+     * create a note track given notes and strategy
+     * @param notes
+     * @param playingStrategy
+     * @return
+     */
+    private MidiTrack create_notes_track(Note[] notes, PlayingStrategy playingStrategy) {
         MidiTrack noteTrack = new MidiTrack();
         long each_tick = 240;
         int channel = 0;
@@ -83,7 +120,11 @@ public class NotesPlayer {
     }
 
 
-    public void create_midi(MidiTrack notesTrack) {
+    /**
+     * create a midi file given MidiTrack (notes track)
+     * @param notesTrack
+     */
+    private void create_midi_tmp_file(MidiTrack notesTrack) {
         // 1. Create some MidiTracks
         MidiTrack tempoTrack = new MidiTrack();
         // 2. Add events to the tracks
@@ -114,59 +155,10 @@ public class NotesPlayer {
     }
 
 
-    public void create_example() {
-        // 1. Create some MidiTracks
-        MidiTrack tempoTrack = new MidiTrack();
-        MidiTrack noteTrack = new MidiTrack();
-
-// 2. Add events to the tracks
-// Track 0 is the tempo map
-        TimeSignature ts = new TimeSignature();
-        ts.setTimeSignature(4, 4, TimeSignature.DEFAULT_METER, TimeSignature.DEFAULT_DIVISION);
-
-        Tempo tempo = new Tempo();
-        tempo.setBpm(120);
-
-        tempoTrack.insertEvent(ts);
-        tempoTrack.insertEvent(tempo);
-
-// Track 1 will have some notes in it
-        final int NOTE_COUNT = 80;
-
-        for(int i = 0; i < NOTE_COUNT; i++)
-        {
-            int channel = 0;
-            int pitch = 1 + i;
-            int velocity = 100;
-            long tick = i * 480;
-            long duration = 140;
-
-            noteTrack.insertNote(channel, pitch, velocity, tick, duration);
-        }
-
-// 3. Create a MidiFile with the tracks we created
-        List<MidiTrack> tracks = new ArrayList<MidiTrack>();
-        tracks.add(tempoTrack);
-        tracks.add(noteTrack);
-
-        MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
-
-// 4. Write the MIDI data to a file
-        tmp_midi_file = new File(pathname);
-        try
-        {
-            midi.writeToFile(tmp_midi_file);
-
-        }
-        catch(IOException e)
-        {
-            Log.e(TAG, "create_example: "+ e );
-        }
-
-    }
-
-
-    public void load_tmp_file() {
+    /**
+     * let media player prepare playing the tmp file
+     */
+    private void load_tmp_file() {
         try {
             FileInputStream input = new FileInputStream(tmp_midi_file);
             mediaPlayer.reset();
@@ -178,11 +170,4 @@ public class NotesPlayer {
         }
     }
 
-    public void start() {
-        mediaPlayer.start();
-    }
-
-    public void pause() {
-        mediaPlayer.pause();
-    }
 }

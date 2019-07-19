@@ -1,6 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.ViewGroup.LayoutParams;
 
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -28,9 +26,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
-import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
@@ -174,18 +170,17 @@ public class GeneralFragment extends Fragment {
                 switch (controller.getCurMode()) {
                     case NotePractice:
                     case NoteGraphPractice:
-                        notesPlayer.create_midi(notesPlayer.create_notes_track(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOne));
+                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOne);
                         break;
                     case TriadPractice:
-                        notesPlayer.create_midi(notesPlayer.create_notes_track(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.Together));
+                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.Together);
                         break;
                     case IntervalPractice:
-                        notesPlayer.create_midi(notesPlayer.create_note_track(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote()));
+                        notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
                         break;
                     case SongPractice:
+                        break;
                 }
-                notesPlayer.load_tmp_file();
-                notesPlayer.start();
             }
         });
         playSoundButton.setOnLongClickListener(new View.OnLongClickListener() {
@@ -197,14 +192,12 @@ public class GeneralFragment extends Fragment {
                     case NoteGraphPractice:
                         return false;
                     case TriadPractice:
-                        notesPlayer.create_midi(notesPlayer.create_notes_track(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether));
+                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
                         break;
                     case IntervalPractice:
-                        notesPlayer.create_midi(notesPlayer.create_notes_track(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether));
+                        notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
                     case SongPractice:
                 }
-                notesPlayer.load_tmp_file();
-                notesPlayer.start();
                 return true;
             }
         });
