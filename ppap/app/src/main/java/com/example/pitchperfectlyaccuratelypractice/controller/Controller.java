@@ -134,6 +134,9 @@ public class Controller implements Observer ,
     updateQuestionView();
     correct_mask = new boolean[curQuestion.getAnswerNotes().length];
     Log.d(TAG, "next_question: current length " + curQuestion.getAnswerNotes().length);
+    if (curMode == Mode.NoteGraphPractice) {
+      ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
+    }
   }
 
   /**

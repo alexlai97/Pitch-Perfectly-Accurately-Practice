@@ -14,16 +14,11 @@ import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 
-import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
-import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.jjoe64.graphview.*;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.graphics.Color;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class NoteGraphFragment extends GeneralFragment {
     private static String TAG = "NoteGraphFragment";
@@ -114,12 +109,12 @@ public class NoteGraphFragment extends GeneralFragment {
 
 
     @Override
-    public void updateFrequencyText(Long freq){
+    public void updateFrequencyText(Long currentFrequency){
         if(!onCreated) return;
-        String temp = Long.toString(freq);
-        frequencyText.setText(temp + "Hz");
+        String temp = Long.toString(currentFrequency);
+        frequencyText.setText(temp + " Hz");
         graph.getViewport().setMaxY(questionFreq*2);
-        lastFreq = freq;
+        lastFreq = currentFrequency;
     }
 
 
@@ -153,10 +148,10 @@ public class NoteGraphFragment extends GeneralFragment {
 
     /**
      * only for this general fragment
-     * @param freq
+     * @param expected_freq
      */
-    public void setCurrentExpectedFrequency(double freq) {
-        questionFreq = freq;
+    public void setCurrentExpectedFrequency(double expected_freq) {
+        questionFreq = expected_freq;
     }
 
 
