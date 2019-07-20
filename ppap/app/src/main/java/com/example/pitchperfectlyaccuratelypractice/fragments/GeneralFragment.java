@@ -27,7 +27,7 @@ import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
-import com.example.pitchperfectlyaccuratelypractice.tools.MidiParser;
+import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
@@ -65,7 +65,7 @@ public class GeneralFragment extends Fragment {
     /** stores currentPitchTextView */
     TextView currentPitchText;
     /** stores the controller got from MainActivity */
-    private Controller controller;
+    protected Controller controller;
     /** stores the start_playing sound Button view */
     Button playSoundButton;
     /** stores the help Button view */
@@ -125,6 +125,9 @@ public class GeneralFragment extends Fragment {
         onCreated = true;
         final View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.layout_to_include);
+        if (constraintLayout == null ){
+            throw new AssertionError("constraint layout is new in onCreateView in General Fragment");
+        }
         frequencyText = constraintLayout.findViewById(R.id.currentFrequencyTextView);
 
         currentPitchText  = constraintLayout.findViewById(R.id.currentPitchTextView);
@@ -140,14 +143,6 @@ public class GeneralFragment extends Fragment {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
-        currentPitchText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MidiParser midiParser = ((MainActivity)getActivity()).getMidiParser();
-                midiParser.do_something();
-            }
-        });
-
 
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +150,7 @@ public class GeneralFragment extends Fragment {
                 switch (controller.getCurMode()) {
                     case NotePractice:
                     case NoteGraphPractice:
+                    case SongPractice:
                         notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOne);
                         break;
                     case TriadPractice:
@@ -162,8 +158,6 @@ public class GeneralFragment extends Fragment {
                         break;
                     case IntervalPractice:
                         notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
-                        break;
-                    case SongPractice:
                         break;
                 }
             }
@@ -173,15 +167,15 @@ public class GeneralFragment extends Fragment {
             public boolean onLongClick(View v) {
                 switch (controller.getCurMode()) {
                     case NotePractice:
-                        return false;
                     case NoteGraphPractice:
+                    case SongPractice:
                         return false;
                     case TriadPractice:
                         notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
                         break;
                     case IntervalPractice:
                         notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
-                    case SongPractice:
+                        break;
                 }
                 return true;
             }

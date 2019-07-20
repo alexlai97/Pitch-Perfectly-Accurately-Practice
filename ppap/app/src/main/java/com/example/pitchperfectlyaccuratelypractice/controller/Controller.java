@@ -1,6 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.controller;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -12,6 +13,8 @@ import android.util.Log;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
+import com.example.pitchperfectlyaccuratelypractice.music.Song;
+import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
@@ -24,6 +27,8 @@ import static org.junit.Assert.assertNotNull;
 
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
+import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
+import com.leff.midi.MidiFile;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -40,39 +45,22 @@ public class Controller implements Observer ,
   private static final String TAG = "CONTROLLER";
 
 
-  /**
-   * access to MainActivity public methods
-   */
+  /** access to MainActivity public methods */
   private MainActivity mainActivity;
-  /**
-   * microphone owned by main activity
-   * can set listener to it
-   */
+  /** microphone owned by main activity , can set listener to it */
   private Microphone microphone;
-  /**
-   *  current fragment (will change if model's current question is changed)
-   */
+  /**  current fragment (will change if model's current question is changed) */
   private GeneralFragment curFragment;
-  /**
-   *  current question (will change if model's current question is changed)
-   */
+  /**  current question (will change if model's current question is changed) */
   private Question curQuestion;
-  /**
-   *  current config (will change if model's current question is changed)
-   */
+  /**  current config (will change if model's current question is changed) */
   private Config curConfig;
-  /**
-   *  current mode (will change if model's current question is changed)
-   */
+  /**  current mode (will change if model's current question is changed) */
   private Mode curMode = Mode.NotePractice; // Don't need it probably
-  /**
-   * model owned by main activity
-   */
+  /** model owned by main activity */
   private Model model;
 
-  /**
-   * a question factory to produce different type of questions
-   */
+  /** a question factory to produce different type of questions */
   private QuestionFactory questionFactory = new QuestionFactory();
 
   /**
@@ -82,6 +70,7 @@ public class Controller implements Observer ,
   public void setNotePool(Note[] notes) {
     model.setNotePool(notes);
   }
+
 
   /**
    *
@@ -130,7 +119,11 @@ public class Controller implements Observer ,
    * generate a random question, update questionTextView
    */
   public void next_question() {
-    curQuestion.next_question(Question.NextQuestionStrategy.Random);
+    if (curMode == Mode.SongPractice) {
+      curQuestion.next_question(Question.NextQuestionStrategy.InOrder);
+    } else {
+      curQuestion.next_question(Question.NextQuestionStrategy.Random);
+    }
     updateQuestionView();
     correct_mask = new boolean[curQuestion.getExpectedNotes().length];
     Log.d(TAG, "next_question: current length " + curQuestion.getExpectedNotes().length);
@@ -378,7 +371,11 @@ public class Controller implements Observer ,
           break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
-          model.setCurrentQuestion(questionFactory.create(curMode));
+          if (curMode != Mode.SongPractice) {
+            model.setCurrentQuestion(questionFactory.create(curMode));
+          } else {
+            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.auld_lang_syne)));
+          }
           refreshCurFragment();
           break;
         case "currentFragment":

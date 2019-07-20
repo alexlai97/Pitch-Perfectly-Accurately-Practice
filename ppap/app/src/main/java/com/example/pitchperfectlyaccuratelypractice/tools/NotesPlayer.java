@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.music.Song;
 import com.leff.midi.MidiFile;
 import com.leff.midi.MidiTrack;
 import com.leff.midi.event.meta.Tempo;
@@ -22,10 +23,11 @@ public class NotesPlayer {
     private static final String TAG = "NotesPlayer";
     private Context context;
     private static MediaPlayer mediaPlayer = new MediaPlayer();
-    private File tmp_midi_file;
+    private File notes_midi_file;
 
     /** * a temp file, media player will start_playing this file */
-    private static String pathname = Environment.getExternalStorageDirectory() + "/playing.mid";
+    private static String notes_pathname = Environment.getExternalStorageDirectory() + "/playing_notes.mid";
+    private static String song_pathname = Environment.getExternalStorageDirectory() + "/playing_song.mid";
 
     /**
      * constructor, given a context
@@ -50,7 +52,7 @@ public class NotesPlayer {
      */
     public void start_playing(Note[] notes, PlayingStrategy playingStrategy) {
         create_midi_tmp_file(create_notes_track(notes, playingStrategy));
-        load_tmp_file();
+        load_tmp_file(notes_midi_file);
         mediaPlayer.start();
     }
 
@@ -60,8 +62,18 @@ public class NotesPlayer {
      */
     public void start_playing(Note note) {
         create_midi_tmp_file(create_note_track(note));
-        load_tmp_file();
+        load_tmp_file(notes_midi_file);
         mediaPlayer.start();
+    }
+
+    public void prepare_song(Song song) {
+        MidiFile midiFile = song.getMidiFile();
+        File song_file = midi_write_to_file(midiFile, song_pathname);
+        load_tmp_file(song_file);
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     /**
@@ -144,23 +156,25 @@ public class NotesPlayer {
 
         MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
 
-        // 4. Write the MIDI data to a file
-        tmp_midi_file = new File(pathname);
-        try {
-            midi.writeToFile(tmp_midi_file);
+        notes_midi_file = midi_write_to_file(midi, notes_pathname);
+    }
 
+    private File midi_write_to_file(MidiFile midiFile, String pathname) {
+        File a_file = new File(pathname);
+        try {
+            midiFile.writeToFile(a_file);
         } catch(IOException e) {
             Log.e(TAG, "create_note: "+ e );
         }
+        return a_file;
     }
-
 
     /**
      * let media player prepare playing the tmp file
      */
-    private void load_tmp_file() {
+    private void load_tmp_file(File file) {
         try {
-            FileInputStream input = new FileInputStream(tmp_midi_file);
+            FileInputStream input = new FileInputStream(file);
             mediaPlayer.reset();
             mediaPlayer.setDataSource(input.getFD());
             input.close();

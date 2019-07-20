@@ -44,7 +44,7 @@ public class IntervalFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
         if (questionNoteText == null) {
             throw new AssertionError("questionNoteText is null");
         }

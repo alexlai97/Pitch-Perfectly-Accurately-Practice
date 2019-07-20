@@ -13,7 +13,7 @@ import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
-import com.example.pitchperfectlyaccuratelypractice.tools.MidiParser;
+import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 import com.google.android.material.navigation.NavigationView;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements
     private boolean created = false;
 
     /** only controller (and main activity) should have access, so no getter */
-    private Model model = new Model();
+    private Model model;
 
     /** controlling how user voice affects model and update view */
     private Controller controller;
@@ -79,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements
         return microphone;
     }
 
-    private MidiParser midiParser = new MidiParser(this);
-    public MidiParser getMidiParser() {
-        return midiParser;
+    private MyMidiTool myMidiTool = new MyMidiTool();
+    public MyMidiTool getMyMidiTool() {
+        return myMidiTool;
     }
 
     /**
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        model = new Model(this);
         controller = new Controller(model, this);
         handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
     }

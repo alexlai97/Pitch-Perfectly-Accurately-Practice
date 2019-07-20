@@ -37,8 +37,8 @@ public enum Mode {
         return TriadPractice;
       case R.id.notegraph_mode:
         return NoteGraphPractice;
-//            case R.id.song_mode:
-//      return SongPractice;
+      case R.id.song_mode:
+        return SongPractice;
       default:
         return NotePractice;
     }

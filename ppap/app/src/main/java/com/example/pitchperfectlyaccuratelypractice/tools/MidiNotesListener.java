@@ -9,15 +9,17 @@ import com.leff.midi.util.MidiEventListener;
 
 import java.util.ArrayList;
 
-public class MidiEventPrinter implements MidiEventListener {
+public class MidiNotesListener implements MidiEventListener {
     private final static String TAG = "MidiEventListener";
 
     ArrayList<Note> notes_arr = new ArrayList<>();
 
     int last_note_index = 0;
 
-    public MidiEventPrinter() {
+    MyMidiTool myMidiTool;
 
+    public MidiNotesListener(MyMidiTool myMidiTool) {
+        this.myMidiTool = myMidiTool;
     }
     @Override
     public void onStart(boolean fromBeginning) {
@@ -40,10 +42,10 @@ public class MidiEventPrinter implements MidiEventListener {
     public void onStop(boolean finished) {
         if (finished) {
             Log.d(TAG, "onStop: finished");
-            Note.logNotes(TAG, Note.ArrayListToNotes(notes_arr));
-
+//            myMidiTool.updateNotes(Note.ArrayListToNotes(notes_arr));
         } else {
             Log.d(TAG, "onStop: not finished");
         }
     }
+
 }

@@ -51,7 +51,7 @@ public class NoteGraphFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        questionNoteText = constraintLayout.findViewById(R.id.questionNoteTextView);
+        questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
         if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
 
@@ -148,6 +148,7 @@ public class NoteGraphFragment extends GeneralFragment {
 
     /**
      * only for this general fragment
+     * FIXME can get directly from controller
      * @param expected_freq
      */
     public void setCurrentExpectedFrequency(double expected_freq) {

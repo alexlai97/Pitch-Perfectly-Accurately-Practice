@@ -19,6 +19,11 @@
             android:icon="@drawable/chord"
             android:title="@string/chord_mode" />
         <item
+            android:id="@+id/song_mode"
+            android:icon="@drawable/icons8_music_50"
+            android:title="Song"
+            />
+        <item
             android:id="@+id/notegraph_mode"
             android:icon="@drawable/graph"
             android:title="@string/notegraph_mode"
