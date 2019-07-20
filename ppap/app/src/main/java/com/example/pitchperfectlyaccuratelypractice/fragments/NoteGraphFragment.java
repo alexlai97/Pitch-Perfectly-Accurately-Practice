@@ -43,7 +43,7 @@ public class NoteGraphFragment extends GeneralFragment {
         resource = R.layout.fragment_note_graph;
         background_color = Color.parseColor("#E6FBBA");
         instruction_string = "Please sing the note in the center \n\n" +
-                "Single the tap play button will play the answer note.\n\n" +
+                "Single the tap start_playing button will start_playing the answer note.\n\n" +
                 "You can select note pool in Filter Page (pineapple button)";
     }
 

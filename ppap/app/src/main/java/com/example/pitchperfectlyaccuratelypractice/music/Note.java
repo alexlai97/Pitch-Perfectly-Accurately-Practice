@@ -4,6 +4,8 @@ import com.example.pitchperfectlyaccuratelypractice.model.Config;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * A Note can represent a note (in frequency, and String, and internal index)
  *
@@ -435,5 +437,14 @@ public class Note {
 
     Note n = new Note("A#");
     System.out.println(n.getText());
+  }
+
+  public static Note[] ArrayListToNotes(ArrayList<Note> noteArrayList) {
+    int length = noteArrayList.size();
+    Note[] notes = new Note[length];
+    for (int i = 0; i < length; i++) {
+      notes[i] = noteArrayList.get(i);
+    }
+    return notes;
   }
 }

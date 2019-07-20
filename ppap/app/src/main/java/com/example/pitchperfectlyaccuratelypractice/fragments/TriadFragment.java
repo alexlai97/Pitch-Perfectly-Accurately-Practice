@@ -39,8 +39,8 @@ public class TriadFragment extends GeneralFragment {
         resource = R.layout.fragment_triad;
         background_color = Color.parseColor("#C2DFEE");
         instruction_string = "Please the notes in any order\n\n" +
-                "Single tap the play button will play the chord\n\n" +
-                "Long press the play button will play notes sequentially then chord\n\n" +
+                "Single tap the start_playing button will start_playing the chord\n\n" +
+                "Long press the start_playing button will start_playing notes sequentially then chord\n\n" +
                 "You can select note pool and interval pool in Filter Page (pineapple button)";
     }
 

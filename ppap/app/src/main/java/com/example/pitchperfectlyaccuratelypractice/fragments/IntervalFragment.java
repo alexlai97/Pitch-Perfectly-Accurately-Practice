@@ -33,8 +33,8 @@ public class IntervalFragment extends GeneralFragment {
         resource = R.layout.fragment_interval;
         background_color = Color.parseColor("#BDE8D8");
         instruction_string = "Please sing the note plus or minus the interval \n\n" +
-                "Single tap the play button will play the base note\n\n" +
-                "Long press the play button will play base note and answer note\n\n" +
+                "Single tap the start_playing button will start_playing the base note\n\n" +
+                "Long press the start_playing button will start_playing base note and answer note\n\n" +
                 "You can select note pool and interval pool in Filter Page (pineapple button)";
     }
 

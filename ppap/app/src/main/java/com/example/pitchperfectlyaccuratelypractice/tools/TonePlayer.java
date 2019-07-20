@@ -7,7 +7,7 @@ import android.media.AudioFormat;
 import android.media.AudioManager;
 
 /**
- * a speaker which can play music note(s)
+ * a speaker which can start_playing music note(s)
  * <p>
  */
 public class TonePlayer {

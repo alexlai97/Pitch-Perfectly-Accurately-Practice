@@ -24,7 +24,7 @@ public class NotesPlayer {
     private static MediaPlayer mediaPlayer = new MediaPlayer();
     private File tmp_midi_file;
 
-    /** * a temp file, media player will play this file */
+    /** * a temp file, media player will start_playing this file */
     private static String pathname = Environment.getExternalStorageDirectory() + "/playing.mid";
 
     /**
@@ -46,19 +46,19 @@ public class NotesPlayer {
 
 
     /**
-     * play notes given strategy
+     * start_playing notes given strategy
      */
-    public void play(Note[] notes, PlayingStrategy playingStrategy) {
+    public void start_playing(Note[] notes, PlayingStrategy playingStrategy) {
         create_midi_tmp_file(create_notes_track(notes, playingStrategy));
         load_tmp_file();
         mediaPlayer.start();
     }
 
     /**
-     * play a note
+     * start_playing a note
      * @param note
      */
-    public void play(Note note) {
+    public void start_playing(Note note) {
         create_midi_tmp_file(create_note_track(note));
         load_tmp_file();
         mediaPlayer.start();

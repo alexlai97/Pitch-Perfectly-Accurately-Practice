@@ -177,13 +177,7 @@ public class NotesBitmap extends Bitmap {
       if (this.bitmap[i]) notes_arr.add(new Note(i));
     }
 
-    int length = notes_arr.size();
-    Note[] notes = new Note[length];
-    for (int i = 0; i < length; i++) {
-       notes[i] = notes_arr.get(i);
-    }
-
-    return notes;
+    return Note.ArrayListToNotes(notes_arr);
   }
 
   /**

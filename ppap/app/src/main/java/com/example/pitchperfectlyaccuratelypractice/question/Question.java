@@ -15,16 +15,16 @@ public abstract class Question {
     return this.texts;
   }
   /** index in note pool (for inorder next question) */
-  int index_from_start;
+  int inorder_index;
   /** index in note pool (for reverseorder next question) */
-  int index_from_end;
+  int reverse_order_index;
   /** the note pool, which can be generated from the filter page, used to form a question */
   Note[] notePool;
   /** Setter for note pool */
   public void setNotePool(Note[] notes) {
     this.notePool = notes;
-    index_from_start = 0;
-    index_from_end = notes.length -1;
+    inorder_index = 0;
+    reverse_order_index = notes.length -1;
   }
 
   protected Random random = new Random();

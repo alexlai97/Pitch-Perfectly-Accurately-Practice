@@ -13,6 +13,7 @@ import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.tools.MidiParser;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 import com.google.android.material.navigation.NavigationView;
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements
         return controller;
     }
 
-    /** a speaker which can play note(s) */
+    /** a speaker which can start_playing note(s) */
     private NotesPlayer notesPlayer = new NotesPlayer(this);
 
     /**
@@ -78,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements
         return microphone;
     }
 
+    private MidiParser midiParser = new MidiParser(this);
+    public MidiParser getMidiParser() {
+        return midiParser;
+    }
 
     /**
      * 1. check for microphone permission

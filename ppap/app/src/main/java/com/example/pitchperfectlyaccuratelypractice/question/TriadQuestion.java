@@ -40,19 +40,19 @@ public class TriadQuestion extends Question{
         setup_random_triad();
         break;
       case InOrder:
-        this.root = notePool[index_from_start];
+        this.root = notePool[inorder_index];
         setup_random_triad();
-        index_from_start += 1;
-        if (index_from_start >= notePool.length) {
-          index_from_start = 0;
+        inorder_index += 1;
+        if (inorder_index >= notePool.length) {
+          inorder_index = 0;
         }
         break;
       case ReverseOrder:
-        this.root = notePool[index_from_end];
+        this.root = notePool[reverse_order_index];
         setup_random_triad();
-        index_from_end -= 1;
-        if (index_from_end < 0) {
-          index_from_end = notePool.length - 1;
+        reverse_order_index -= 1;
+        if (reverse_order_index < 0) {
+          reverse_order_index = notePool.length - 1;
         }
         break;
     }

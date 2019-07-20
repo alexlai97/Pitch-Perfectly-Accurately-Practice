@@ -27,6 +27,7 @@ import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
+import com.example.pitchperfectlyaccuratelypractice.tools.MidiParser;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
@@ -65,7 +66,7 @@ public class GeneralFragment extends Fragment {
     TextView currentPitchText;
     /** stores the controller got from MainActivity */
     private Controller controller;
-    /** stores the play sound Button view */
+    /** stores the start_playing sound Button view */
     Button playSoundButton;
     /** stores the help Button view */
     Button helpButton;
@@ -139,19 +140,28 @@ public class GeneralFragment extends Fragment {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
+        currentPitchText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MidiParser midiParser = ((MainActivity)getActivity()).getMidiParser();
+                midiParser.do_something();
+            }
+        });
+
+
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (controller.getCurMode()) {
                     case NotePractice:
                     case NoteGraphPractice:
-                        notesPlayer.play(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOne);
+                        notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOne);
                         break;
                     case TriadPractice:
-                        notesPlayer.play(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.Together);
+                        notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.Together);
                         break;
                     case IntervalPractice:
-                        notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
+                        notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
                         break;
                     case SongPractice:
                         break;
@@ -167,10 +177,10 @@ public class GeneralFragment extends Fragment {
                     case NoteGraphPractice:
                         return false;
                     case TriadPractice:
-                        notesPlayer.play(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                        notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
                         break;
                     case IntervalPractice:
-                        notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                        notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
                     case SongPractice:
                 }
                 return true;

@@ -1,5 +1,4 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
@@ -72,21 +71,21 @@ public class IntervalQuestion extends Question {
 //        this.texts = new String[] { questionNote.getText()};
         break;
       case InOrder:
-        this.questionNote = notePool[index_from_start];
+        this.questionNote = notePool[inorder_index];
         setup_random_interval_and_answer();
 //        this.texts = new String[] { questionNote.getText()};
-        index_from_start += 1;
-        if (index_from_start >= notePool.length) {
-          index_from_start = 0;
+        inorder_index += 1;
+        if (inorder_index >= notePool.length) {
+          inorder_index = 0;
         }
         break;
       case ReverseOrder:
-        this.questionNote = notePool[index_from_end];
+        this.questionNote = notePool[reverse_order_index];
         setup_random_interval_and_answer();
 //        this.texts = new String[] { questionNote.getText()};
-        index_from_end -= 1;
-        if (index_from_end < 0) {
-          index_from_end = notePool.length - 1;
+        reverse_order_index -= 1;
+        if (reverse_order_index < 0) {
+          reverse_order_index = notePool.length - 1;
         }
         break;
     }
