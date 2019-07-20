@@ -130,7 +130,7 @@ public class Controller implements Observer ,
    * generate a random question, update questionTextView
    */
   public void next_question() {
-    curQuestion.generate_random_question();
+    curQuestion.next_question(Question.NextQuestionStrategy.Random);
     updateQuestionView();
     correct_mask = new boolean[curQuestion.getAnswerNotes().length];
     Log.d(TAG, "next_question: current length " + curQuestion.getAnswerNotes().length);

@@ -2,61 +2,53 @@ package com.example.pitchperfectlyaccuratelypractice.question;
 
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
+import java.util.Random;
+
 /**
  * an abstract class of Question
  */
 public abstract class Question {
-  /**
-   * an array of texts that constitute the question
-   */
+  /** an array of texts that constitute the question */
   String[] texts;
-  /**
-   * the note pool, which can be generated from the filter page, used to form a question
-   */
-  Note[] notePool;
-
-  /**
-   * Constructor
-   */
-//  public Question() {
-//    // note pool initialized by some reasonable notes (where average human can reach)
-//    notePool = Note.getReasonableNotes();
-//    generate_random_question();
-//  }
-    public Question(){};
-
-  /**
-   * children will implment this
-   */
-  public abstract Note[] getAnswerNotes();
-
-
-  /**
-   * Setter for note pool
-   */
-  public void setNotePool(Note[] notes) {
-    this.notePool = notes;
-  }
-
-  /**
-   * getter of the text of the question
-   */
+  /**  getter of the text of the question */
   public String[] getTexts() {
     return this.texts;
   }
+  /** index in note pool (for inorder next question) */
+  int index_from_start;
+  /** index in note pool (for reverseorder next question) */
+  int index_from_end;
+  /** the note pool, which can be generated from the filter page, used to form a question */
+  Note[] notePool;
+  /** Setter for note pool */
+  public void setNotePool(Note[] notes) {
+    this.notePool = notes;
+    index_from_start = 0;
+    index_from_end = notes.length -1;
+  }
 
-  /**
-   * print texts separated by space in stdout
-   */
-  void print_question_texts() {
+  protected Random random = new Random();
+
+  /** empty parent Constructor */
+  public Question(){};
+
+  /** get answer notes e.g. NoteMode {A3#}, TriadMode {D4, F4#, A4#}*/
+  public abstract Note[] getAnswerNotes();
+
+  /** (debugging) print texts separated by space in stdout */
+  public void print_question_texts() {
     for (String t : this.getTexts()) {
       System.out.print(t + " ");
     }
     System.out.println();
   }
 
-  /**
-   * abstract function to generate random question given current fields
-   */
-  public abstract void generate_random_question();
+  public enum NextQuestionStrategy {
+    Random,
+    InOrder,
+    ReverseOrder
+  }
+
+  /** next key note based on nextquestion strategy, other things random */
+  public abstract void next_question(NextQuestionStrategy nextQuestionStrategy);
 }
