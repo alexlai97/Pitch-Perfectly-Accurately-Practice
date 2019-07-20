@@ -59,7 +59,7 @@ public class IntervalQuestion extends Question {
   /**
    *
    */
-  public Note[] getAnswerNotes() {
+  public Note[] getExpectedNotes() {
     return new Note[]{answerNote};
   }
 

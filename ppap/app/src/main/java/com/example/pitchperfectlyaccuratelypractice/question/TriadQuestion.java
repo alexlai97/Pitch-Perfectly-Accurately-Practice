@@ -61,7 +61,7 @@ public class TriadQuestion extends Question{
   /**
    *
    */
-  public Note[] getAnswerNotes() {
+  public Note[] getExpectedNotes() {
     return questionTriad.getNotes();
   }
 

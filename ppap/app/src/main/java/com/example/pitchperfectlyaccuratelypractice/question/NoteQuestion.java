@@ -46,11 +46,8 @@ public class NoteQuestion extends Question {
   /**
    *
    */
-  public Note[] getAnswerNotes() {
-    Note[] notes = new Note[1];
-    notes[0] = questionNote;
-
-    return notes;
+  public Note[] getExpectedNotes() {
+    return new Note[]{questionNote};
   }
 
   /**

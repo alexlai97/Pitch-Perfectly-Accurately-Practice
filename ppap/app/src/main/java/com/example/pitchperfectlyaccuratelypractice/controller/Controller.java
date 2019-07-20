@@ -119,7 +119,7 @@ public class Controller implements Observer ,
    * get answer frequencies from current question stored in model
    */
   public double[] getExpectedFrequencies() {
-    return Note.toFrequencies(curQuestion.getAnswerNotes());
+    return Note.toFrequencies(curQuestion.getExpectedNotes());
   }
 
   public Question getCurQuestion() {
@@ -132,10 +132,10 @@ public class Controller implements Observer ,
   public void next_question() {
     curQuestion.next_question(Question.NextQuestionStrategy.Random);
     updateQuestionView();
-    correct_mask = new boolean[curQuestion.getAnswerNotes().length];
-    Log.d(TAG, "next_question: current length " + curQuestion.getAnswerNotes().length);
+    correct_mask = new boolean[curQuestion.getExpectedNotes().length];
+    Log.d(TAG, "next_question: current length " + curQuestion.getExpectedNotes().length);
     if (curMode == Mode.NoteGraphPractice) {
-      ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
+      ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
     }
   }
 
@@ -151,7 +151,7 @@ public class Controller implements Observer ,
    * now it changes background colour
    * // FIXME different mode different colour
    */
-  void show_correct() {
+  private void show_correct() {
     curFragment.setBackgroundColor(Color.GREEN);
   }
 
@@ -382,10 +382,10 @@ public class Controller implements Observer ,
           refreshCurFragment();
           break;
         case "currentFragment":
-          correct_mask = new boolean[curQuestion.getAnswerNotes().length];
+          correct_mask = new boolean[curQuestion.getExpectedNotes().length];
           curFragment = (GeneralFragment) event.getNewValue();
           if (curMode == Mode.NoteGraphPractice) {
-            ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
+            ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
           }
           break;
       }

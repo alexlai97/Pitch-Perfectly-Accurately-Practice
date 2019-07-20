@@ -145,10 +145,10 @@ public class GeneralFragment extends Fragment {
                 switch (controller.getCurMode()) {
                     case NotePractice:
                     case NoteGraphPractice:
-                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOne);
+                        notesPlayer.play(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOne);
                         break;
                     case TriadPractice:
-                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.Together);
+                        notesPlayer.play(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.Together);
                         break;
                     case IntervalPractice:
                         notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
@@ -167,7 +167,7 @@ public class GeneralFragment extends Fragment {
                     case NoteGraphPractice:
                         return false;
                     case TriadPractice:
-                        notesPlayer.play(controller.getCurQuestion().getAnswerNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                        notesPlayer.play(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
                         break;
                     case IntervalPractice:
                         notesPlayer.play(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);

@@ -32,8 +32,8 @@ public abstract class Question {
   /** empty parent Constructor */
   public Question(){};
 
-  /** get answer notes e.g. NoteMode {A3#}, TriadMode {D4, F4#, A4#}*/
-  public abstract Note[] getAnswerNotes();
+  /** notes expected to be sung */
+  public abstract Note[] getExpectedNotes();
 
   /** (debugging) print texts separated by space in stdout */
   public void print_question_texts() {
@@ -43,6 +43,7 @@ public abstract class Question {
     System.out.println();
   }
 
+  /** A strategy to select next note in note pool */
   public enum NextQuestionStrategy {
     Random,
     InOrder,
