@@ -79,7 +79,7 @@ public class Model {
     /**
      * change current fragment given current mode and notify observers
      */
-    public void refreshCurrentFragment() {
+    public void setCurrentFragmentUsingCurrentMode() {
         notifyListeners(this, "currentFragment", this.currentFragment, this.currentFragment = fragmentFactory.create(currentMode));
     }
 

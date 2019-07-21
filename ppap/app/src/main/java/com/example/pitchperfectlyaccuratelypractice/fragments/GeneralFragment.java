@@ -241,8 +241,8 @@ public class GeneralFragment extends Fragment {
         if (controller.getCurMode() == Mode.SongPlaying) {
         } else if (controller.getCurMode() == Mode.SongPractice) {
         } else {
-            controller.next_question();
         }
+        controller.updateQuestionView();
         return view;
     }
 

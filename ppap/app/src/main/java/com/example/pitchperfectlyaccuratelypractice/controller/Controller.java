@@ -1,7 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.controller;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -13,9 +12,6 @@ import android.util.Log;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.SongPlayingFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.SongPracticingFragment;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
@@ -29,8 +25,6 @@ import static org.junit.Assert.assertNotNull;
 
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
-import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
-import com.leff.midi.MidiFile;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -137,7 +131,7 @@ public class Controller implements Observer ,
   /**
    * update views related to question
    */
-  private void updateQuestionView() {
+  public void updateQuestionView() {
     curFragment.updateQuestionTexts(curQuestion.getTexts());
   }
 
@@ -340,7 +334,7 @@ public class Controller implements Observer ,
    * refresh current fragment, since current mode is changed
    */
   private void refreshCurFragment() {
-    model.refreshCurrentFragment();
+    model.setCurrentFragmentUsingCurrentMode();
     mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
     mainActivity.getSupportFragmentManager().executePendingTransactions();
   }
@@ -385,9 +379,9 @@ public class Controller implements Observer ,
 //          if (event.getOldValue().getClass() == SongPlayingFragment.class && event.getNewValue().getClass() == SongPracticingFragment.class) {
 //            return;
 //          }
-          correct_mask = new boolean[curQuestion.getExpectedNotes().length];
+          correct_mask = new boolean[curQuestion.getExpectedNotes().length]; // FIXME move it to somewhere
           curFragment = (GeneralFragment) event.getNewValue();
-          if (curMode == Mode.NoteGraphPractice) {
+          if (curMode == Mode.NoteGraphPractice) { // FIXME remove it to the constructor of the fragment
             ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
           }
           break;
