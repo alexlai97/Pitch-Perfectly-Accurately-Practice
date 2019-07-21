@@ -37,7 +37,7 @@ public class TriadFragment extends GeneralFragment {
      */
     public TriadFragment() {
         resource = R.layout.fragment_triad;
-        background_color = Color.parseColor("#C2DFEE");
+        background_color = Color.parseColor("#c8dfec");
         instruction_string = "Please the notes in any order\n\n" +
                 "Single tap the start_playing button will start_playing the chord\n\n" +
                 "Long press the start_playing button will start_playing notes sequentially then chord\n\n" +

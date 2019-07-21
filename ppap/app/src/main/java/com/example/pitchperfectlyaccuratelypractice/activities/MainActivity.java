@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        model.setCurrentMode(Mode.idToMode(id));
         Log.d(TAG, "onNavigationItemSelected: " + id);
+        model.setCurrentMode(Mode.idToMode(id));
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C2DFEE">
+    android:background="#c8dfec">
 
     <TextView
         android:id="@+id/sopranoNotearrowTextView"
@@ -49,21 +49,26 @@
         android:id="@+id/currentFrequencyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeTextType="uniform"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/currentPitchTextView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/triadSopranoNoteTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.743" />
 
     <TextView
         android:id="@+id/triadBaseNoteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="100sp"
         android:autoSizeMinTextSize="12sp"
@@ -72,16 +77,18 @@
         android:textAlignment="center"
         android:textSize="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/triadMiddleNoteTextView"
-        app:layout_constraintStart_toStartOf="@+id/triadMiddleNoteTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/triadMiddleNoteTextView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.021" />
 
     <TextView
         android:id="@+id/triadMiddleNoteTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="167dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="100sp"
         android:autoSizeMinTextSize="12sp"
@@ -93,13 +100,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58000004" />
+        app:layout_constraintVertical_bias="0.53" />
 
     <TextView
         android:id="@+id/triadSopranoNoteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="100sp"
         android:autoSizeMinTextSize="12sp"
@@ -108,19 +117,18 @@
         android:textAlignment="center"
         android:textSize="90dp"
         app:layout_constraintBottom_toTopOf="@+id/triadBaseNoteTextView"
-        app:layout_constraintEnd_toEndOf="@+id/triadMiddleNoteTextView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/triadMiddleNoteTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.623" />
+        app:layout_constraintVertical_bias="0.588" />
 
     <Button
         android:id="@+id/filterButton"
-        android:layout_width="35dp"
-        android:layout_height="54dp"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/pineapple"
+        android:background="@drawable/gear_chord123"
         android:src="@drawable/pineapple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -149,7 +157,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/baseline_play_circle_filled_black_18dp"
+        android:background="@drawable/wave3_40"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,7 +167,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/baseline_help_outline_black_18dp"
+        android:background="@drawable/ques"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -175,16 +183,18 @@
 
     <TextView
         android:id="@+id/currentPitchTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="65dp"
+        android:layout_height="21dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/filterButton"
+        app:layout_constraintBottom_toTopOf="@+id/triadSopranoNoteTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.606"
         app:layout_constraintStart_toEndOf="@+id/currentFrequencyTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintVertical_bias="0.731" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
