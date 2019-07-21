@@ -48,18 +48,35 @@ public class SummaryActivity extends Activity {
         JSONObject history = historyData.retrieveData();
         Iterator<String> myNotes = history.keys();
         String curNote;
+        try {
+            Log.v(TAG, history.get("12").toString());
+        } catch (Exception e){
+            Log.e(TAG, e.toString());
+        }
+
         while(myNotes.hasNext()){
             curNote = myNotes.next();
-            myNotes.remove();
             try{
+//                Log.v(TAG, history.get("12").toString());
+
                 Log.v(TAG, curNote);
+                if (curNote != "12") Log.e(TAG, curNote);
                 JSONObject current_note = (JSONObject) history.get(curNote);
+                int right = (Integer) current_note.get("correct");
+                int total = (Integer) current_note.get("total");
+
+                Log.v(TAG, "correct: " + Integer.toString(right));
+                Log.v(TAG, "total: " + Integer.toString(total));
 
             } catch (Exception e){
+                Log.e(TAG, e.toString());
                 Log.e(TAG, "Current note cannot be found in JSON");
             }
+            myNotes.remove();
         }
     }
+
+    
 
     /**
      * pass note [] as int [] in intent back to MainActivity

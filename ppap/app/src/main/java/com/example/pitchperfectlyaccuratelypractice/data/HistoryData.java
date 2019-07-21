@@ -50,13 +50,25 @@ public class HistoryData {
             }
         }
 
+
     }
 
     public void addData(int note, boolean correct){
+        increaseData(note, correct);
+        increaseData(-1, correct);
+
+//        File file = new File(currentAct.getFilesDir(), );
+        writeToFile(history.toString(), currentAct, "history.json");
+        Log.e(TAG, "Saved new config");
+
+    }
+
+    private void increaseData(int note, boolean correct){
+        String entry = note < 0 ? "overall" : Integer.toString(note);
         try{
-            JSONObject current_note = (JSONObject) history.get(Integer.toString(note));
+            JSONObject current_note = (JSONObject) history.get(entry);
             int right = (Integer) current_note.get("correct");
-            int total = (Integer) current_note.get("wrong");
+            int total = (Integer) current_note.get("total");
 
             if(correct){
                 right ++;
@@ -64,27 +76,22 @@ public class HistoryData {
             total++;
 
             JSONObject newEntry = new JSONObject();
-            newEntry.put("right", right);
+            newEntry.put("correct", right);
             newEntry.put("total", total);
 
-            history.put(Integer.toString(note), newEntry);
+            history.put(entry, newEntry);
         } catch (Exception e){
             try {
                 JSONObject newEntry = new JSONObject();
-                if (correct) newEntry.put("right", 1);
-                else newEntry.put("right", 0);
+                if (correct) newEntry.put("correct", 1);
+                else newEntry.put("correct", 0);
                 newEntry.put("total", 1);
 
-                history.put(Integer.toString(note), newEntry);
+                history.put(entry, newEntry);
             }catch (Exception p){
                 Log.e(TAG, "Couldn't create new data");
             }
         }
-
-//        File file = new File(currentAct.getFilesDir(), );
-        writeToFile(history.toString(), currentAct, "history.json");
-        Log.e(TAG, "Saved new config");
-
     }
 
     public JSONObject retrieveData(){
@@ -105,6 +112,8 @@ public class HistoryData {
         } catch(Exception s) {
             Log.e(TAG, "forced reset file failed");
         }
+
+        writeToFile(history.toString(), currentAct, "history.json");
     }
 
     public int[] giveSettings(){
