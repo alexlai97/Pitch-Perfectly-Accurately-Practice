@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements
     /** only controller (and main activity) should have access, so no getter */
     private Model model;
 
+    public Model getModel() {
+        return model;
+    }
+
     /** controlling how user voice affects model and update view */
     private Controller controller;
 

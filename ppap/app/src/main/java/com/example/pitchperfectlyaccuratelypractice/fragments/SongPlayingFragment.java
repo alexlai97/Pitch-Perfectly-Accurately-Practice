@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 
@@ -59,6 +61,12 @@ public class SongPlayingFragment extends GeneralFragment {
         stopButton = constraintLayout.findViewById(R.id.stopButton);
 
         switchToPracticeButton = constraintLayout.findViewById(R.id.switchToPracticeModeButton);
+        switchToPracticeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)(getActivity())).getModel().setCurrentMode(Mode.SongPractice);
+            }
+        });
 
         // FIXME tmporary
         final MidiSongPlayer midiSongPlayer = new MidiSongPlayer(this, getActivity() ,((SongQuestion)(controller.getCurQuestion())).getSong().getMidiFile(), notesPlayer);

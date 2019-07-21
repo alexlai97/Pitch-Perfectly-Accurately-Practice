@@ -25,8 +25,11 @@ public class FragmentFactory {
                 Log.d(TAG, "FragmentCreated: notegraph");
                 return new NoteGraphFragment();
             case SongPlaying:
-                Log.d(TAG, "FragmentCreated: songmode");
+                Log.d(TAG, "FragmentCreated: songplaying");
                 return new SongPlayingFragment();
+            case SongPractice:
+                Log.d(TAG, "FragmentCreated: songpracticing");
+                return new SongPracticingFragment();
             default:
                 Log.d(TAG, "FragmentCreated: default");
                 return new NoteFragment();

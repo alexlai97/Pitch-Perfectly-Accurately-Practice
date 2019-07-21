@@ -102,13 +102,13 @@ public class SongPracticingFragment extends GeneralFragment {
     @Override
     public void updateArrowTexts(String[] arrowTexts){
         if(!onCreated) return;
-//        arrowText.setText(arrowTexts[0]);
+        arrowText.setText(arrowTexts[0]);
     }
 
     @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
-//        arrowText.setAnimation(myAnimation);
+        arrowText.setAnimation(myAnimation);
     }
 
 

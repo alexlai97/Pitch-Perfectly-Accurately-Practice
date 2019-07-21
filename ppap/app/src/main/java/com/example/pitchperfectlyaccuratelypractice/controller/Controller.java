@@ -13,6 +13,8 @@ import android.util.Log;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.SongPlayingFragment;
+import com.example.pitchperfectlyaccuratelypractice.fragments.SongPracticingFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
@@ -371,14 +373,18 @@ public class Controller implements Observer ,
           break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
-          if (curMode != Mode.SongPlaying) {
-            model.setCurrentQuestion(questionFactory.create(curMode));
+          // FIXME SongPlaying mode doesn't need question
+          if (curMode == Mode.SongPlaying || curMode == Mode.SongPractice) {
+            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.auld_lang_syne)));
           } else {
-            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.dango_daikazoku)));
+            model.setCurrentQuestion(questionFactory.create(curMode));
           }
           refreshCurFragment();
           break;
         case "currentFragment":
+//          if (event.getOldValue().getClass() == SongPlayingFragment.class && event.getNewValue().getClass() == SongPracticingFragment.class) {
+//            return;
+//          }
           correct_mask = new boolean[curQuestion.getExpectedNotes().length];
           curFragment = (GeneralFragment) event.getNewValue();
           if (curMode == Mode.NoteGraphPractice) {
