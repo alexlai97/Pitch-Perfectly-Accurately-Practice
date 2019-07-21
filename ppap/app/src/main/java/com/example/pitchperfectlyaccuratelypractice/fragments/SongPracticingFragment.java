@@ -1,11 +1,11 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -15,8 +15,8 @@ import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 /**
  * a children of general fragment
  */
-public class SongFragment extends GeneralFragment {
-    private static String TAG = "SongFragment";
+public class SongPracticingFragment extends GeneralFragment {
+    private static String TAG = "SongPracticing";
 
     private TextView prevNoteText;
     private TextView currentNoteText;
@@ -25,18 +25,19 @@ public class SongFragment extends GeneralFragment {
     private TextView arrowText;
     private TextView currentLyricsText;
 
-    private Button libraryButton;
+    private Spinner librarySpinner;
     private Button playOrPauseButton;
     private Button stopButton;
 
-    private int position;
+
+    private Button switchToPlayingButton;
 
     /**
      * constructor of IntervalFragment
      * setup resource (see parent onCreateView for use)
      */
-    public SongFragment() {
-        resource = R.layout.fragment_song;
+    public SongPracticingFragment() {
+        resource = R.layout.fragment_song_practicing;
         background_color = Color.parseColor("#44EA80FC");
         instruction_string = "TODO incomplete";
     }
@@ -54,34 +55,32 @@ public class SongFragment extends GeneralFragment {
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         currentLyricsText = constraintLayout.findViewById(R.id.lyricsTextView);
 
-        libraryButton = constraintLayout.findViewById(R.id.libraryButton);
-        playOrPauseButton = constraintLayout.findViewById(R.id.playOrpauseButton);
-        stopButton = constraintLayout.findViewById(R.id.stopButton);
+        librarySpinner = constraintLayout.findViewById(R.id.librarySpinner);
+//        playOrPauseButton = constraintLayout.findViewById(R.id.playOrpauseButton);
+//        stopButton = constraintLayout.findViewById(R.id.stopButton);
 
+        switchToPlayingButton = constraintLayout.findViewById(R.id.switchToPlayingModeButton);
         // FIXME tmporary
-        final MidiSongPlayer midiSongPlayer = new MidiSongPlayer(controller, this, getActivity() ,((SongQuestion)(controller.getCurQuestion())).getSong().getMidiFile(), notesPlayer);
+//        final MidiSongPlayer midiSongPlayer = new MidiSongPlayer(this, getActivity() ,((SongQuestion)(controller.getCurQuestion())).getSong().getMidiFile(), notesPlayer);
 //        notesPlayer.prepare_song(((SongQuestion)controller.getCurQuestion()).getSong());
-        playOrPauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (midiSongPlayer.isPlaying()) {
-//                    position = m.getCurrentPosition();
-                    playOrPauseButton.setText("Play");
-                    midiSongPlayer.pause();
-                } else {
-                    playOrPauseButton.setText("Pause");
-//                    mediaPlayer.seekTo(position);
-                    midiSongPlayer.start();
-                }
-            }
-        });
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                position =0;
-//                mediaPlayer.pause();
-            }
-        });
+//        playOrPauseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (midiSongPlayer.isPlaying()) {
+//                    playOrPauseButton.setText("Play");
+//                    midiSongPlayer.pause();
+//                } else {
+//                    playOrPauseButton.setText("Pause");
+//                    midiSongPlayer.start();
+//                }
+//            }
+//        });
+//        stopButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                midiSongPlayer.reset();
+//            }
+//        });
     }
 
     /**
@@ -103,13 +102,13 @@ public class SongFragment extends GeneralFragment {
     @Override
     public void updateArrowTexts(String[] arrowTexts){
         if(!onCreated) return;
-        arrowText.setText(arrowTexts[0]);
+//        arrowText.setText(arrowTexts[0]);
     }
 
     @Override
     public void updateArrowAnimation(Animation myAnimation){
         if(!onCreated) return;
-        arrowText.setAnimation(myAnimation);
+//        arrowText.setAnimation(myAnimation);
     }
 
 

@@ -26,6 +26,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
@@ -236,7 +237,10 @@ public class GeneralFragment extends Fragment {
         setupAdditionalView();
 
 
-        controller.next_question();
+        if (controller.getCurMode() == Mode.SongPlaying) {
+        } else {
+            controller.next_question();
+        }
         return view;
     }
 

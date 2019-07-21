@@ -19,9 +19,10 @@ public enum Mode {
    */
   TriadPractice,
   /**
-   * TODO not implmented
+   *
    */
   SongPractice,
+  SongPlaying,
   /**
    * where you can see the real time pitch you are producing
    */
@@ -38,7 +39,7 @@ public enum Mode {
       case R.id.notegraph_mode:
         return NoteGraphPractice;
       case R.id.song_mode:
-        return SongPractice;
+        return SongPlaying;
       default:
         return NotePractice;
     }

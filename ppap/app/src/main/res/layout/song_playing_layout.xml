@@ -14,17 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
         android:layout_marginTop="84dp"
-        android:layout_marginBottom="8dp"
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeTextType="uniform"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/arrowTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/prevNoteTextView"
@@ -100,22 +97,6 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/arrowTextView"
-        android:layout_width="8dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:autoSizeMaxTextSize="40sp"
-        android:autoSizeMinTextSize="30sp"
-        android:autoSizeTextType="uniform"
-        android:text="n"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/lyricsTextView"
         android:layout_width="121dp"
         android:layout_height="46dp"
@@ -175,18 +156,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.152" />
 
-    <Button
-        android:id="@+id/libraryButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/librarySpinner"
+        android:layout_width="231dp"
+        android:layout_height="72dp"
         android:layout_marginTop="8dp"
         android:text="Library"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.653" />
 
     <Button
         android:id="@+id/stopButton"
@@ -196,10 +177,10 @@
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintHorizontal_bias="0.696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <Button
         android:id="@+id/playOrpauseButton"
@@ -209,10 +190,10 @@
         android:text="Play/Pause"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.356"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/songTitleTextView"
@@ -221,11 +202,25 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/arrowTextView"
+        app:layout_constraintBottom_toTopOf="@+id/currentNoteTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826" />
+        app:layout_constraintVertical_bias="0.673" />
+
+    <Button
+        android:id="@+id/switchToPracticeModeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="toPractice"
+        app:layout_constraintBottom_toTopOf="@+id/songTitleTextView"
+        app:layout_constraintEnd_toEndOf="@+id/playSoundButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

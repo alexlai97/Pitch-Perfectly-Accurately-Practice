@@ -371,10 +371,10 @@ public class Controller implements Observer ,
           break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
-          if (curMode != Mode.SongPractice) {
+          if (curMode != Mode.SongPlaying) {
             model.setCurrentQuestion(questionFactory.create(curMode));
           } else {
-            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.london_bridge_is_falling_down)));
+            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.dango_daikazoku)));
           }
           refreshCurFragment();
           break;
