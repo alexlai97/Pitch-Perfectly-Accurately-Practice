@@ -1,6 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.fragments;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,6 +33,8 @@ public class SongPlayingFragment extends GeneralFragment {
     private Button stopButton;
 
     private Button switchToPracticeButton;
+    private Drawable play;
+    private Drawable pause;
 
     /**
      * constructor of IntervalFragment
@@ -49,6 +52,8 @@ public class SongPlayingFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
+        play = getResources().getDrawable(R.drawable.play_button);
+        pause = getResources().getDrawable(R.drawable.pause_button);
         prevNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
         currentNoteText = constraintLayout.findViewById(R.id.currentNoteTextView);
         nextNoteText = constraintLayout.findViewById(R.id.nextNoteTextView);
@@ -75,10 +80,10 @@ public class SongPlayingFragment extends GeneralFragment {
             @Override
             public void onClick(View view) {
                 if (midiSongPlayer.isPlaying()) {
-                    playOrPauseButton.setText("Play");
+                    playOrPauseButton.setBackground(play);
                     midiSongPlayer.pause();
                 } else {
-                    playOrPauseButton.setText("Pause");
+                    playOrPauseButton.setBackground(pause);
                     midiSongPlayer.start();
                 }
             }
