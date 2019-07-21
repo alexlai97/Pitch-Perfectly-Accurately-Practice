@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements
         return microphone;
     }
 
-    public HistoryData historyData;
     /**
      * 1. check for microphone permission
      * 2. set up content view
@@ -94,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements
         created = true;
         Log.e(TAG, "s" + created);
         Log.w(TAG, "ONCREATE");
-        historyData = new HistoryData(this);
-        historyData.addData(1);
         // check microphone permission
         checkMicrophonePermission();
 
