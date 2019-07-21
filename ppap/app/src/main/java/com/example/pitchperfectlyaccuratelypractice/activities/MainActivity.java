@@ -16,6 +16,7 @@ import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
+import com.example.pitchperfectlyaccuratelypractice.activities.SummaryActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -172,6 +173,12 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: " + id);
+        if(id == R.id.summary){
+            Intent summary_intent = new Intent(this, SummaryActivity.class);
+            // let the main activity handle the intent
+            this.startActivityForResult(summary_intent, REQUEST_CODE_FROM_FILTER);
+        }
+
         model.setCurrentMode(Mode.idToMode(id));
 
         // Highlight the selected item has been done by NavigationView
@@ -258,15 +265,20 @@ public class MainActivity extends AppCompatActivity implements
      * handle intents ( currently only handles intents from filter pages )
      */
     void handleIntents() {
-        Intent notes_ints_intent = getIntent();
-        int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-        if (notes_ints != null) {
-            if (notes_ints.length == 0) {
-                controller.setNotePool(Note.getAllNotes());
-            } else {
-                controller.setNotePool(Note.IntsToNotes(notes_ints));
-            }
-        }
+//        if(handledIntent = "Filter"){
+//            Intent notes_ints_intent = getIntent();
+//            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
+//            if (notes_ints != null) {
+//                if (notes_ints.length == 0) {
+//                    controller.setNotePool(Note.getAllNotes());
+//                } else {
+//                    controller.setNotePool(Note.IntsToNotes(notes_ints));
+//                }
+//            }
+//        } else {
+//
+//        }
+
     }
 
 }

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
 
 public class HistoryData {
     JSONObject history;
@@ -22,19 +23,7 @@ public class HistoryData {
     public HistoryData(Activity ac, boolean force){
         currentAct = ac;
         if(force){
-            try{
-//            Log.v(TAG, ac.getAssets().list("history.json"));
-                InputStream is = ac.getAssets().open("history.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                myJson = new String(buffer, "UTF-8");
-                history = new JSONObject(myJson);
-            } catch(Exception s) {
-                Log.e(TAG, "forced reset file failed");
-            }
-            Log.e(TAG, "forced reset file");
+            resetData();
             return;
         }
 
@@ -55,16 +44,9 @@ public class HistoryData {
         } catch (Exception e) {
             Log.e(TAG, "Couldnt find file, using default");
             try{
-//            Log.v(TAG, ac.getAssets().list("history.json"));
-                InputStream is = ac.getAssets().open("history.json");
-                int size = is.available();
-                byte[] buffer = new byte[size];
-                is.read(buffer);
-                is.close();
-                myJson = new String(buffer, "UTF-8");
-                history = new JSONObject(myJson);
+                resetData();
             } catch(Exception s) {
-                Log.e(TAG, "Couldnt find file");
+                Log.e(TAG, "Couldnt use default file");
             }
         }
 
@@ -105,13 +87,24 @@ public class HistoryData {
 
     }
 
-    public int[] retrieveData(){
-        int[] lol = new int[0];
-        return lol;
+    public JSONObject retrieveData(){
+        return history;
     }
 
     public void resetData(){
-
+        Log.e(TAG, "forced reset file");
+        try{
+//            Log.v(TAG, ac.getAssets().list("history.json"));
+            InputStream is = currentAct.getAssets().open("history.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            myJson = new String(buffer, "UTF-8");
+            history = new JSONObject(myJson);
+        } catch(Exception s) {
+            Log.e(TAG, "forced reset file failed");
+        }
     }
 
     public int[] giveSettings(){
