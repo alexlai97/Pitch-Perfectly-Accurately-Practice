@@ -1,7 +1,6 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,7 +19,6 @@ import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotePlayer;
 

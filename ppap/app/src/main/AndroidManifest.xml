@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ppap_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".TabFragment.IntervalModeFilterActivity"></activity>
+        <activity android:name=".FilterPages.FilterActivity"></activity>
         <activity
             android:name=".activities.NoteModeFilterPageActivity"
             android:parentActivityName=".activities.MainActivity">

@@ -183,7 +183,9 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
                 if (fromNote.getIndex() > toNote.getIndex()) {
                     // TODO alert user
                     Log.w(TAG, "ToNote selected smaller than fromNote");
-                    fromSpinner.setSelection(toNote.getIndex());
+                    toSpinner.setSelection(fromNote.getIndex());
+                    fromSpinner.setSelection(fromNote.getIndex());
+                    toNote = fromNote;
                 }
 
                 // FIXME reduce duplicate code
@@ -212,7 +214,9 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
                 if (fromNote.getIndex() > toNote.getIndex()) {
                     // TODO alert user
                     Log.w(TAG, "ToNote selected smaller than fromNote");
-                    toSpinner.setSelection(fromNote.getIndex());
+                    fromSpinner.setSelection(toNote.getIndex());
+                    toSpinner.setSelection(toNote.getIndex());
+                    fromNote = toNote;
                 }
 
                 // set range filter
@@ -290,13 +294,13 @@ public class NoteModeFilterPageActivity extends AppCompatActivity{
         // generate buttons
 
         int num_of_notes = generated_notes.length;
-        int num_of_rows = (num_of_notes - 1) / 3 + 1;
-        int num_of_notes_last_row = (num_of_notes - 1) % 3 + 1;
+        int num_of_rows = (num_of_notes - 1) / 4 + 1;
+        int num_of_notes_last_row = (num_of_notes - 1) % 4 + 1;
         int note_index = 0;
 
         for (int i = 0; i < num_of_rows - 1; i++) {
             TableRow row = (TableRow) layoutInflater.inflate(R.layout.note_table_row, null, false);
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
                 Note this_note = generated_notes[note_index];
                 note_button = updateButton(note_button, this_note);

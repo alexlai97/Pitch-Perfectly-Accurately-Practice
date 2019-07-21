@@ -9,13 +9,15 @@ import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.model.Config;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
@@ -135,6 +137,14 @@ public class Controller implements Observer ,
    */
   public void setNotePool(Note[] notes) {
     model.setNotePool(notes);
+  }
+
+  /**
+   * set note pool in current question in model
+   * @param intervals
+   */
+  public void setIntervalPool(Interval[] intervals) {
+    model.setIntervalPool(intervals);
   }
 
   /**
@@ -280,8 +290,12 @@ public class Controller implements Observer ,
    */
   private void refreshCurFragment() {
     model.refreshCurrentFragment();
-    mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
-    mainActivity.getSupportFragmentManager().executePendingTransactions();
+    FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.flContent, model.getCurrentFragment())
+            .addToBackStack(null)
+            .commit();
+    fragmentManager.executePendingTransactions();
   }
 
   /**

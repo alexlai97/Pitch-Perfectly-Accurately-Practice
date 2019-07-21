@@ -27,7 +27,7 @@ public class Interval {
    * TODO to support more flexible encoding 
    */
   private final static String [] INTERVAL_STRINGS = { 
-    "U", "m2", "M3", "m3", "M3", "P4", "A4", /* 0-6*/
+    "U", "m2", "M2", "m3", "M3", "P4", "A4", /* 0-6*/
     "P5", "m6", "M6", "m7", "M7", "P8"  /*7-12*/
   };
 
@@ -56,6 +56,33 @@ public class Interval {
   }
 
   public int getRelativeIndex()  { return index - 12; }
+
+  public String getTextWithoutSign() {
+    String text = INTERVAL_STRINGS[Math.abs(index-12)];
+    return text;
+  }
+
+
+  /**
+   * notes to ints, for parsing as intent
+   * @param intervals
+   * @return
+   */
+  public static int[] IntervalsToInts(Interval[] intervals) {
+    int [] ints = new int[intervals.length];
+    for (int i =0; i < intervals.length; i++) {
+      ints[i] = intervals[i].getIndex();
+    }
+    return ints;
+  }
+
+  public static Interval[] IntsToIntervals(int[] ints) {
+    Interval [] intervals = new Interval[ints.length];
+    for (int i =0; i < ints.length; i++) {
+      intervals[i] = new Interval(ints[i]);
+    }
+    return intervals;
+  }
 
   /**
    * getter for the text of the interval

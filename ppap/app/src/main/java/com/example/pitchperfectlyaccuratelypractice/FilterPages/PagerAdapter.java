@@ -1,6 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.TabFragment;
-
-import android.view.View;
+package com.example.pitchperfectlyaccuratelypractice.FilterPages;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,8 +7,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    IntervalModeFilterActivity filter;
-    public PagerAdapter(@NonNull FragmentManager fm, int mNumOfTabs, IntervalModeFilterActivity filter) {
+    FilterActivity filter;
+    public PagerAdapter(@NonNull FragmentManager fm, int mNumOfTabs, FilterActivity filter) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mNumOfTabs = mNumOfTabs;
         this.filter = filter;

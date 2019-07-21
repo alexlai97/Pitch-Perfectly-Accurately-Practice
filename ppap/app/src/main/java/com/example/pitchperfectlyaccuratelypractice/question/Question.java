@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
 /**
@@ -30,6 +31,7 @@ public abstract class Question {
    */
   public abstract Note[] getAnswerNotes();
 
+  public void setIntervalPool(Interval[] intervals){}
 
   /**
    * Setter for note pool

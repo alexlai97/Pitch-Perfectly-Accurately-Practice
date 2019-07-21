@@ -1,6 +1,5 @@
-package com.example.pitchperfectlyaccuratelypractice.TabFragment;
+package com.example.pitchperfectlyaccuratelypractice.FilterPages;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,12 +28,8 @@ import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
 public class GeneralTabFragment extends Fragment {
-    private static final String TAG = "NOTE FILTER";
+    private static final String TAG = "GeneralTabFragment";
 
-//    /**
-//     * layout inflater
-//     */
-//    LayoutInflater layoutInflater;
     /**
      * notes table  (dynamically generated notes buttons)
      */
@@ -111,7 +106,7 @@ public class GeneralTabFragment extends Fragment {
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
-    private IntervalModeFilterActivity filterActivity;
+    protected FilterActivity filterActivity;
     /**
      * current from Note
      */
@@ -129,7 +124,7 @@ public class GeneralTabFragment extends Fragment {
      */
     private Note keySigNote = new Note("A");
 
-    public GeneralTabFragment(IntervalModeFilterActivity filter){
+    public GeneralTabFragment(FilterActivity filter){
         filterActivity = filter;
     }
 
@@ -138,16 +133,17 @@ public class GeneralTabFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(resource, container, false);
         view = layout;
-        layoutInflater = LayoutInflater.from(getContext());
         notesTableView = view.findViewById(R.id.note_pool_table);
-        view.findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                filterActivity.returnToMainActivity(tmpData);
-            }
-        });
-        setSpinners();
-
         return layout;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        layoutInflater = LayoutInflater.from(getContext());
+
+        setSpinners();
+        setButtonListener();
     }
 
     /**
@@ -155,23 +151,24 @@ public class GeneralTabFragment extends Fragment {
      */
     private void setSpinners() {
         // Put it declare
-        fromSpinner = view.findViewById(R.id.fromSpinner);
-        toSpinner = view.findViewById(R.id.toSpinner);
-        scaleSpinner = view.findViewById(R.id.scaleSpinner);
+        fromSpinner   = view.findViewById(R.id.fromSpinner);
+        toSpinner     = view.findViewById(R.id.toSpinner);
+        scaleSpinner  = view.findViewById(R.id.scaleSpinner);
         keySigSpinner = view.findViewById(R.id.keySigSpinner);
 
-        ArrayAdapter<String> all_notes_string_adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, notes_strings);
-        ArrayAdapter<String> all_scales_string_adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, scale_strings);
-        ArrayAdapter<String> all_keySig_string_adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, keySig_strings);
+        ArrayAdapter<String> all_notes_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, notes_strings);
+        ArrayAdapter<String> all_scales_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, scale_strings);
+        ArrayAdapter<String> all_keySig_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, keySig_strings);
 
         fromSpinner.setAdapter(all_notes_string_adapter);
         toSpinner.setAdapter(all_notes_string_adapter);
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
-        fromSpinner.setSelection(Note.getIndex("A3"));
-        toSpinner.setSelection(Note.getIndex("A4"));
-        scaleSpinner.setSelection(1); // Major
+        filterActivity.filterPageOption.from = Note.getIndex("A3");
+        filterActivity.filterPageOption.to = Note.getIndex("A4");
+        filterActivity.filterPageOption.scale = 1;
+        filterActivity.filterPageOption.keySignature = 0;
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -182,8 +179,12 @@ public class GeneralTabFragment extends Fragment {
                 if (fromNote.getIndex() > toNote.getIndex()) {
                     // TODO alert user
                     Log.w(TAG, "ToNote selected smaller than fromNote");
-                    fromSpinner.setSelection(toNote.getIndex());
+                    toSpinner.setSelection(fromNote.getIndex());
+                    fromSpinner.setSelection(fromNote.getIndex());
+                    toNote = fromNote;
                 }
+
+                filterActivity.filterPageOption.from = position;
 
                 // FIXME reduce duplicate code
                 // set range filter
@@ -191,7 +192,7 @@ public class GeneralTabFragment extends Fragment {
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                generated_notes = ((NotesBitmap) filterHandler.getResultBitmap()).toNotes();
+                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
                 update_tableview_using_note_pool();
             }
@@ -199,6 +200,122 @@ public class GeneralTabFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Log.i(TAG, "FROM (on nothing) select item ");
+            }
+        });
+
+        toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                toNote = new Note(position);
+                Log.i(TAG, "TO selected " + toNote.getText(position));
+
+                if (fromNote.getIndex() > toNote.getIndex()) {
+                    // TODO alert user
+                    Log.w(TAG, "ToNote selected smaller than fromNote");
+                    fromSpinner.setSelection(toNote.getIndex());
+                    toSpinner.setSelection(toNote.getIndex());
+                    fromNote = toNote;
+                }
+
+                filterActivity.filterPageOption.to = position;
+
+                // set range filter
+                rangeFilter = new NotesRangeFilter(fromNote, toNote);
+                filterHandler.updateFilterAt(0, rangeFilter);
+                filterHandler.applyFilters();
+
+                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+
+                update_tableview_using_note_pool();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.i(TAG, "TO (on nothing) select item ");
+            }
+        });
+
+
+        scaleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                scale = NotesScale.values()[position];
+                Log.i(TAG, "SCALE selected " + scale.toString());
+
+                scaleFilter = new NotesScaleFilter(keySigNote, scale);
+                filterHandler.updateFilterAt(1, scaleFilter);
+                filterHandler.applyFilters();
+                filterActivity.filterPageOption.scale = position;
+
+                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+
+                update_tableview_using_note_pool();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.i(TAG, "SCALE (on nothing) select item ");
+            }
+        });
+
+        keySigSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                keySigNote = new Note(position);
+                Log.i(TAG, "keySig selected " + keySigNote.getText(position));
+
+                scaleFilter = new NotesScaleFilter(keySigNote, scale);
+                filterHandler.updateFilterAt(1, scaleFilter);
+                filterHandler.applyFilters();
+
+                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+                filterActivity.filterPageOption.keySignature = position;
+
+                update_tableview_using_note_pool();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Log.i(TAG, "keySig (on nothing) select item ");
+            }
+        });
+
+        fromSpinner.setSelection(Note.getIndex("A3"));
+        toSpinner.setSelection(Note.getIndex("A4"));
+        scaleSpinner.setSelection(1); // Major
+    }
+
+    protected void setButtonListener(){
+        Button selectButton = view.findViewById(R.id.general_select_all);
+        Button cancelButton = view.findViewById(R.id.general_cancel_all);
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int row = 0; row < notesTableView.getChildCount(); row++) {
+                    TableRow tableRow = (TableRow)notesTableView.getChildAt(row);
+                    for(int col = 0; col < tableRow.getChildCount(); col++){
+                        ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
+                        if(!toggleButton.isChecked()){
+                            toggleButton.setChecked(true);
+                        }
+                    }
+                }
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for(int row = 0; row < notesTableView.getChildCount(); row++) {
+                    TableRow tableRow = (TableRow)notesTableView.getChildAt(row);
+                    for(int col = 0; col < tableRow.getChildCount(); col++){
+                        ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
+                        if(toggleButton.isChecked()){
+                            toggleButton.setChecked(false);
+                        }
+                    }
+                }
             }
         });
     }
@@ -217,13 +334,13 @@ public class GeneralTabFragment extends Fragment {
         // generate buttons
 
         int num_of_notes = generated_notes.length;
-        int num_of_rows = (num_of_notes - 1) / 3 + 1;
-        int num_of_notes_last_row = (num_of_notes - 1) % 3 + 1;
+        int num_of_rows = (num_of_notes - 1) / 4 + 1;
+        int num_of_notes_last_row = (num_of_notes - 1) % 4 + 1;
         int note_index = 0;
 
         for (int i = 0; i < num_of_rows - 1; i++) {
             TableRow row = (TableRow) layoutInflater.inflate(R.layout.note_table_row, null, false);
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 4; j++) {
                 ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
                 Note this_note = generated_notes[note_index];
                 note_button = updateButton(note_button, this_note);
@@ -259,6 +376,8 @@ public class GeneralTabFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 tmpData.toggleNote(note);
+                generated_notes = tmpData.toNotes();
+                filterActivity.filterPageOption.setNotesBitmap(Note.NotesToInts(generated_notes));
             }
         });
         return button;

@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,8 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 
 /**
@@ -37,8 +38,8 @@ public class NoteFragment extends GeneralFragment {
         filterPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), NoteModeFilterPageActivity.class);
-
+                Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
+                filter_intent.putExtra("Mode", new FilterPageOption("note"));
                 // let the main activity handle the intent
                 startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
             }
