@@ -236,12 +236,6 @@ public class GeneralFragment extends Fragment {
         // additional things goes here
         setupAdditionalView();
 
-
-        // FIXME not next_quesition, rather, initialize question
-        if (controller.getCurMode() == Mode.SongPlaying) {
-        } else if (controller.getCurMode() == Mode.SongPractice) {
-        } else {
-        }
         controller.updateQuestionView();
         return view;
     }

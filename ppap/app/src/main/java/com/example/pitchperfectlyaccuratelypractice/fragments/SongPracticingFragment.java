@@ -9,6 +9,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 
@@ -56,31 +58,15 @@ public class SongPracticingFragment extends GeneralFragment {
         currentLyricsText = constraintLayout.findViewById(R.id.lyricsTextView);
 
         librarySpinner = constraintLayout.findViewById(R.id.librarySpinner);
-//        playOrPauseButton = constraintLayout.findViewById(R.id.playOrpauseButton);
-//        stopButton = constraintLayout.findViewById(R.id.stopButton);
 
         switchToPlayingButton = constraintLayout.findViewById(R.id.switchToPlayingModeButton);
+        switchToPlayingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)(getActivity())).getModel().setCurrentMode(Mode.SongPlaying);
+            }
+        });
         // FIXME tmporary
-//        final MidiSongPlayer midiSongPlayer = new MidiSongPlayer(this, getActivity() ,((SongQuestion)(controller.getCurQuestion())).getSong().getMidiFile(), notesPlayer);
-//        notesPlayer.prepare_song(((SongQuestion)controller.getCurQuestion()).getSong());
-//        playOrPauseButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (midiSongPlayer.isPlaying()) {
-//                    playOrPauseButton.setText("Play");
-//                    midiSongPlayer.pause();
-//                } else {
-//                    playOrPauseButton.setText("Pause");
-//                    midiSongPlayer.start();
-//                }
-//            }
-//        });
-//        stopButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                midiSongPlayer.reset();
-//            }
-//        });
     }
 
     /**
