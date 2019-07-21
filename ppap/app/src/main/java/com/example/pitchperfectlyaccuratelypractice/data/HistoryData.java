@@ -1,12 +1,15 @@
 package com.example.pitchperfectlyaccuratelypractice.data;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 
 public class HistoryData {
     JSONObject history;
@@ -20,7 +23,10 @@ public class HistoryData {
         currentAct = ac;
         try{
             directory = ac.getFilesDir();
-            Log.v(TAG, ac.fileList()[0]);
+            for(int i = 0; i < ac.fileList().length; i++){
+                Log.v(TAG, ac.fileList()[i]);
+            }
+
             InputStream is = ac.openFileInput("history.json");
             int size = is.available();
             byte[] buffer = new byte[size];
@@ -28,7 +34,7 @@ public class HistoryData {
             is.close();
             myJson = new String(buffer, "UTF-8");
             history = new JSONObject(myJson);
-
+            Log.v(TAG, history.toString());
         } catch (Exception e) {
             Log.e(TAG, "Couldnt find file, using default");
             try{
@@ -53,7 +59,8 @@ public class HistoryData {
         } catch(Exception e) {
             Log.e(TAG, "Couldnt add data");
         }
-        File file = new File(currentAct.getFilesDir(), "history.json");
+//        File file = new File(currentAct.getFilesDir(), );
+        writeToFile(history.toString(), currentAct, "history.json");
         Log.e(TAG, "Saved new config");
 
     }
@@ -65,6 +72,17 @@ public class HistoryData {
 
     public void resetData(){
 
+    }
+
+    private void writeToFile(String data, Activity context, String fileName) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
 }
