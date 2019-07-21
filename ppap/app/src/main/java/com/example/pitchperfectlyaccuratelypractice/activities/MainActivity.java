@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import org.json.JSONObject;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements
         return microphone;
     }
 
-
+    public HistoryData historyData;
     /**
      * 1. check for microphone permission
      * 2. set up content view
@@ -92,7 +94,8 @@ public class MainActivity extends AppCompatActivity implements
         created = true;
         Log.e(TAG, "s" + created);
         Log.w(TAG, "ONCREATE");
-
+        historyData = new HistoryData(this);
+        historyData.addData(1);
         // check microphone permission
         checkMicrophonePermission();
 
