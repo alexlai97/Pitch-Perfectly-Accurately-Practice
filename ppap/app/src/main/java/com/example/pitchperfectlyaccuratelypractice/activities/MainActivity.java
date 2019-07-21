@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /** a speaker which can start_playing note(s) */
-    private NotesPlayer notesPlayer = new NotesPlayer(this);
+    private NotesPlayer notesPlayer = new NotesPlayer();
 
     /**
      * getter for note player
@@ -177,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Log.d(TAG, "onNavigationItemSelected: " + id);
         model.setCurrentMode(Mode.idToMode(id));
+        Log.d(TAG, "onNavigationItemSelected: " + id);
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);
