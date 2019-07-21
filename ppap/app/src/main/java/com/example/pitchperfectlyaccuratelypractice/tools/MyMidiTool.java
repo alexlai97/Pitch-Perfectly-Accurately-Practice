@@ -31,7 +31,7 @@ public class MyMidiTool {
 //        Log.d(TAG, "do_something: doing something");
 //
 //        MidiProcessor processor = new MidiProcessor(midiFile);
-//        MidiNotesListener midiNotesListener = new MidiNotesListener(this);
+//        MidiSongPlayer midiNotesListener = new MidiSongPlayer(this);
 //        processor.registerEventListener(midiNotesListener, NoteOn.class);
 //
 //        processor.start();

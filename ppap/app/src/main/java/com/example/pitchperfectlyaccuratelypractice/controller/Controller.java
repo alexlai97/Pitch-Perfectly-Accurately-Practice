@@ -374,7 +374,7 @@ public class Controller implements Observer ,
           if (curMode != Mode.SongPractice) {
             model.setCurrentQuestion(questionFactory.create(curMode));
           } else {
-            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.auld_lang_syne)));
+            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.london_bridge_is_falling_down)));
           }
           refreshCurFragment();
           break;

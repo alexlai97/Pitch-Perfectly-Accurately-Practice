@@ -21,7 +21,7 @@ import java.util.List;
 
 public class NotesPlayer {
     private static final String TAG = "NotesPlayer";
-    private Context context;
+//    private Context context;
     private static MediaPlayer mediaPlayer = new MediaPlayer();
     private File notes_midi_file;
 
@@ -33,9 +33,9 @@ public class NotesPlayer {
      * constructor, given a context
      * @param ct
      */
-    public NotesPlayer(Context ct) {
-        context = ct;
-    }
+//    public NotesPlayer(Context ct) {
+//        context = ct;
+//    }
 
     /**
      * how notes can be played
@@ -51,9 +51,7 @@ public class NotesPlayer {
      * start_playing notes given strategy
      */
     public void start_playing(Note[] notes, PlayingStrategy playingStrategy) {
-        create_midi_tmp_file(create_notes_track(notes, playingStrategy));
-        load_tmp_file(notes_midi_file);
-        mediaPlayer.start();
+        playNoteTrack(create_notes_track(notes, playingStrategy));
     }
 
     /**
@@ -61,9 +59,7 @@ public class NotesPlayer {
      * @param note
      */
     public void start_playing(Note note) {
-        create_midi_tmp_file(create_note_track(note));
-        load_tmp_file(notes_midi_file);
-        mediaPlayer.start();
+        playNoteTrack(create_note_track(note));
     }
 
     public void prepare_song(Song song) {
@@ -131,6 +127,11 @@ public class NotesPlayer {
         return noteTrack;
     }
 
+    public void playNoteTrack(MidiTrack noteTrack) {
+        create_midi_tmp_file(noteTrack);
+        load_tmp_file(notes_midi_file);
+        mediaPlayer.start();
+    }
 
     /**
      * create a midi file given MidiTrack (notes track)
