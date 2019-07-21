@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pitchperfectlyaccuratelypractice.fragments.SongFragment">
+    tools:context="com.example.pitchperfectlyaccuratelypractice.fragments.SongPlayingFragment">
 
     <include
-        layout="@layout/song_layout"
+        layout="@layout/song_playing_layout"
         android:id="@+id/layout_to_include"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
