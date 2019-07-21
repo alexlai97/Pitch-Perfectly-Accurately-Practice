@@ -37,7 +37,7 @@ public class SongFragment extends GeneralFragment {
      */
     public SongFragment() {
         resource = R.layout.fragment_song;
-        background_color = Color.parseColor("#44EA80FC");
+        background_color = Color.parseColor("#e8e0f5");
         instruction_string = "TODO incomplete";
     }
 

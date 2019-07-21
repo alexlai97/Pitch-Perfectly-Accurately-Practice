@@ -31,7 +31,7 @@ public class IntervalFragment extends GeneralFragment {
      */
     public IntervalFragment() {
         resource = R.layout.fragment_interval;
-        background_color = Color.parseColor("#BDE8D8");
+        background_color = Color.parseColor("#c1e6da");
         instruction_string = "Please sing the note plus or minus the interval \n\n" +
                 "Single tap the start_playing button will start_playing the base note\n\n" +
                 "Long press the start_playing button will start_playing base note and answer note\n\n" +
