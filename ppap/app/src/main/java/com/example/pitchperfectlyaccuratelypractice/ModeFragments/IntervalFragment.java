@@ -38,7 +38,7 @@ public class IntervalFragment extends GeneralFragment {
      * setup resource (see parent onCreateView for use)
      */
     public IntervalFragment() {
-        resource = R.layout.fragment_interval;
+        resource = R.layout.modefragment_interval;
         background_color = Color.parseColor("#c1e6da");
         instruction_string = "Please sing the note plus or minus the interval \n\n" +
                 "Single tap the start_playing button will start_playing the base note\n\n" +

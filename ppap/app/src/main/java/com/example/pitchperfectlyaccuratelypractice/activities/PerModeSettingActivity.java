@@ -35,7 +35,7 @@ public class PerModeSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interval_mode_filter);
+        setContentView(R.layout.wrapper_tabfragment);
 
         Intent intent = getIntent();
         perModeSetting = (PerModeSetting)intent.getSerializableExtra("Mode");

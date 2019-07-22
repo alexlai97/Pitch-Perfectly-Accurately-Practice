@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements
         checkMicrophonePermission();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navi_wrapper);
+        setContentView(R.layout.wrapper_navigation_menu);
 
         // setup navigation menu listener
         NavigationView navigationView = findViewById(R.id.nav_view);

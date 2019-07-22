@@ -4,17 +4,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.music.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
@@ -39,7 +34,7 @@ public class SongPlayingFragment extends SongGeneralFragment {
      * setup resource (see parent onCreateView for use)
      */
     public SongPlayingFragment() {
-        resource = R.layout.fragment_song_playing;
+        resource = R.layout.modefragment_song_playing;
         background_color = Color.parseColor("#e8e0f5");
         instruction_string = "TODO incomplete";
     }

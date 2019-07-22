@@ -132,7 +132,7 @@ public class NotePoolSelectionTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        resource = R.layout.note_pool_selection_tab_layout;
+        resource = R.layout.tabfragment_note_pool_selection;
         View layout = inflater.inflate(resource, container, false);
         view = layout;
         notesTableView = view.findViewById(R.id.note_pool_table);
@@ -341,9 +341,9 @@ public class NotePoolSelectionTab extends Fragment {
         int note_index = 0;
 
         for (int i = 0; i < num_of_rows - 1; i++) {
-            TableRow row = (TableRow) layoutInflater.inflate(R.layout.note_table_row, null, false);
+            TableRow row = (TableRow) layoutInflater.inflate(R.layout.table_row_note, null, false);
             for (int j = 0; j < 4; j++) {
-                ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
+                ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
                 Note this_note = generated_notes[note_index];
                 note_button = updateButton(note_button, this_note);
                 row.addView(note_button);
@@ -351,9 +351,9 @@ public class NotePoolSelectionTab extends Fragment {
             }
             notesTableView.addView(row);
         }
-        TableRow last_row = (TableRow) layoutInflater.inflate(R.layout.note_table_row, null, false);
+        TableRow last_row = (TableRow) layoutInflater.inflate(R.layout.table_row_note, null, false);
         for (int i = 0; i < num_of_notes_last_row; i++) {
-            ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
+            ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
             Note this_note = generated_notes[note_index];
             note_button = updateButton(note_button, this_note);
             last_row.addView(note_button);

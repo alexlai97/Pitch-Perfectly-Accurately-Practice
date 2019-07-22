@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pitchperfectlyaccuratelypractice.ModeFragments.NoteFragment">
+    tools:context="com.example.pitchperfectlyaccuratelypractice.ModeFragments.SongPracticingFragment">
 
     <include
-        layout="@layout/note_layout"
+        layout="@layout/modelayout_song_practicing"
         android:id="@+id/layout_to_include"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

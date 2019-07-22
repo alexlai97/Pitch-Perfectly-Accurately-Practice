@@ -46,7 +46,7 @@ public class NoteGraphFragment extends GeneralFragment {
      * setup resource (see parent onCreateView for use)
      */
     public NoteGraphFragment() {
-        resource = R.layout.fragment_note_graph;
+        resource = R.layout.modefragment_note_graph;
         background_color = Color.parseColor("#c0ecef");
         instruction_string = "Please sing the note in the center \n\n" +
                 "Single the tap start_playing button will start_playing the answer note.\n\n" +

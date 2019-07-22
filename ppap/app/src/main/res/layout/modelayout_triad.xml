@@ -137,7 +137,7 @@
 
     <include
         android:id="@+id/soprano_include"
-        layout="@layout/single_note_layout"
+        layout="@layout/single_note"
         android:layout_width="190dp"
         android:layout_height="130dp"
         android:layout_marginStart="8dp"
@@ -153,7 +153,7 @@
 
     <include
         android:id="@+id/middle_include"
-        layout="@layout/single_note_layout"
+        layout="@layout/single_note"
         android:layout_width="190dp"
         android:layout_height="130dp"
         android:layout_marginStart="28dp"
@@ -166,7 +166,7 @@
 
     <include
         android:id="@+id/base_include"
-        layout="@layout/single_note_layout"
+        layout="@layout/single_note"
         android:layout_width="190dp"
         android:layout_height="130dp"
         android:layout_marginStart="8dp"

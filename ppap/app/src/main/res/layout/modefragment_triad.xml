@@ -6,7 +6,7 @@
     tools:context=".ModeFragments.TriadFragment">
 
     <include
-        layout="@layout/triad_layout"
+        layout="@layout/modelayout_triad"
         android:id="@+id/layout_to_include"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

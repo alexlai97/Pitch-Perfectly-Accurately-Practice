@@ -58,7 +58,7 @@ public class IntervalPoolSelectionTab extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.interval_pool_selection_tab_layout, container, false);
+        View layout = inflater.inflate(R.layout.tabfragment_interval_pool_selection, container, false);
         view = layout;
         negativeIntervalsTable = view.findViewById(R.id.negativeIntervalsTableLayout);
         positiveIntervalsTable = view.findViewById(R.id.positiveIntervalsTableLayout);
@@ -155,11 +155,11 @@ public class IntervalPoolSelectionTab extends Fragment{
             if (i == 2 || i == 6){
                 buttonNum = 1;
             }
-            TableRow row1 = (TableRow) layoutInflater.inflate(R.layout.note_table_row, null, false);
-            TableRow row2 = (TableRow) layoutInflater.inflate(R.layout.note_table_row, null, false);
+            TableRow row1 = (TableRow) layoutInflater.inflate(R.layout.table_row_note, null, false);
+            TableRow row2 = (TableRow) layoutInflater.inflate(R.layout.table_row_note, null, false);
             for (int j = 0; j < buttonNum; j++) {
-                ToggleButton note_button1 = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
-                ToggleButton note_button2 = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
+                ToggleButton note_button1 = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
+                ToggleButton note_button2 = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
                 Interval left_interval = generated_interval[negative_index];
                 Log.d(TAG, "create_interval_table: " + left_interval.getTextWithoutSign());
                 Interval right_interval = generated_interval[positive_index];
@@ -171,7 +171,7 @@ public class IntervalPoolSelectionTab extends Fragment{
                 positive_index++;
             }
             if(i == 6){
-                ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.note_button, null, false);
+                ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
                 Interval interval = generated_interval[12];
                 note_button = updateButton(note_button, interval);
                 row1.addView(note_button);

@@ -46,7 +46,7 @@ public class TriadFragment extends GeneralFragment {
      * setup resource (see parent onCreateView for use)
      */
     public TriadFragment() {
-        resource = R.layout.fragment_triad;
+        resource = R.layout.modefragment_triad;
         background_color = Color.parseColor("#c8dfec");
         instruction_string = "Please the notes in any order\n\n" +
                 "Single tap the start_playing button will start_playing the chord\n\n" +
