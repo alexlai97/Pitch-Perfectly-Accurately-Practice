@@ -14,12 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activities.NoteModeFilterPageActivity"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"></activity>
+        <activity android:name=".activities.PerModeSettingActivity"></activity>
         <activity android:name=".activities.IntroActivity"
             android:parentActivityName=".activities.MainActivity">
             <intent-filter>
@@ -37,12 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/app_name">
-
-        </activity>
-
     </application>
 
 </manifest>

@@ -1,11 +1,15 @@
 package com.example.pitchperfectlyaccuratelypractice.enums;
 
+import android.util.Log;
+
 import com.example.pitchperfectlyaccuratelypractice.R;
+
+import java.io.Serializable;
 
 /**
  * Different practice modes
  */
-public enum Mode {
+public enum Mode implements Serializable {
   /**
    * where you can practice to sing the note on the screen
    */
@@ -19,9 +23,10 @@ public enum Mode {
    */
   TriadPractice,
   /**
-   * TODO not implmented
+   *
    */
   SongPractice,
+  SongPlaying,
   /**
    * where you can see the real time pitch you are producing
    */
@@ -37,9 +42,10 @@ public enum Mode {
         return TriadPractice;
       case R.id.notegraph_mode:
         return NoteGraphPractice;
-//            case R.id.song_mode:
-//      return SongPractice;
+      case R.id.song_mode:
+        return SongPlaying;
       default:
+        Log.d("here", "idToMode: ");
         return NotePractice;
     }
   }

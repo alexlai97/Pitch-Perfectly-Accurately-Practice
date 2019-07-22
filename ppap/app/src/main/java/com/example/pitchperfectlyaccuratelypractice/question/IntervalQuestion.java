@@ -1,10 +1,8 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
-import java.util.Random;
 
 /**
  * A Question in Interval practice mode
@@ -53,36 +51,54 @@ public class IntervalQuestion extends Question {
     if (this.intervalPool == null)  {
       throw new AssertionError("Interval pool is null");
     }
-    this.generate_random_question();
+    this.next_question(NextQuestionStrategy.Random);
   }
 
 
   /**
    *
    */
-  public Note[] getAnswerNotes() {
-    Note[] notes = new Note[1];
-    notes[0] = answerNote;
-
-    return notes;
+  public Note[] getExpectedNotes() {
+    return new Note[]{answerNote};
   }
 
-  /**
-   * generate random question from note pool and interval pool
-   * <p>
-   * remember to set notes pool and interval pool first
-   */
-  public void generate_random_question() {
-    if (this.intervalPool == null)  {
-      throw new AssertionError("Interval pool is null");
+  public void next_question(NextQuestionStrategy nextQuestionStrategy) {
+    switch (nextQuestionStrategy) {
+      case Random:
+        int rnd = random.nextInt(notePool.length);
+        this.questionNote = notePool[rnd];
+        setup_random_interval_and_answer();
+//        this.texts = new String[] { questionNote.getText()};
+        break;
+      case InOrder:
+        this.questionNote = notePool[inorder_index];
+        setup_random_interval_and_answer();
+//        this.texts = new String[] { questionNote.getText()};
+        inorder_index += 1;
+        if (inorder_index >= notePool.length) {
+          inorder_index = 0;
+        }
+        break;
+      case ReverseOrder:
+        this.questionNote = notePool[reverse_order_index];
+        setup_random_interval_and_answer();
+//        this.texts = new String[] { questionNote.getText()};
+        reverse_order_index -= 1;
+        if (reverse_order_index < 0) {
+          reverse_order_index = notePool.length - 1;
+        }
+        break;
     }
-    int rnd = new Random().nextInt(notePool.length);
-    questionNote = notePool[rnd];
+  }
+
+  public void setup_random_interval_and_answer() {
+//    int rnd = random.nextInt(notePool.length);
+//    questionNote = notePool[rnd];
     boolean validInterval = false;
     int result_index = 0;
     while (!validInterval) {
-      Log.d(TAG, "generate_random_question: " + validInterval + intervalPool.length);
-      rnd = new Random().nextInt(intervalPool.length);
+//      Log.d(TAG, "generate_random_question: " + validInterval + intervalPool.length);
+      int rnd = random.nextInt(intervalPool.length);
       questionInterval = intervalPool[rnd];
       result_index = questionNote.getIndex() + questionInterval.getRelativeIndex();
       if (result_index >= 0) {
@@ -94,7 +110,7 @@ public class IntervalQuestion extends Question {
     this.texts[0] = questionNote.getText();
     this.texts[1] = questionInterval.getText();
 
-    Log.d("IntervalQuestion", "generate_random_question: " + " questionNote" + questionNote.getText() + " questionInterval" + questionInterval.getText() + " answerNote" + answerNote.getText());
+//    Log.d("IntervalQuestion", "generate_random_question: " + " questionNote" + questionNote.getText() + " questionInterval" + questionInterval.getText() + " answerNote" + answerNote.getText());
   }
 
   /**
@@ -103,12 +119,12 @@ public class IntervalQuestion extends Question {
   public static void main(String args[]) {
     IntervalQuestion iq = new IntervalQuestion();
     iq.setNotePool(Note.generateNotesWithRange(24,36));
-    iq.setIntervalPool(Interval.generateIntervalsWithRange(-12,12));
+    iq.setIntervalPool(Interval.generateIntervalsWithRange(0,24));
 
     int some_num = 100;
     System.out.println("Printing " + some_num + " random interval questions");
-    for (int i = 0; i < some_num; i++) {
-      iq.generate_random_question();
+    for (int i = 0; i < some_num * 2; i++) {
+      iq.next_question(NextQuestionStrategy.ReverseOrder);
       iq.print_question_texts();
     }
   }

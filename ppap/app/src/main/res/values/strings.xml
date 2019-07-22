@@ -23,6 +23,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="play">play</string>
+    <string name="cancel_all">Cancel All</string>
 
     <string name="Top10">Top 10 Notes</string>
     <string name="Bot5">5 Notes to Practice</string>
