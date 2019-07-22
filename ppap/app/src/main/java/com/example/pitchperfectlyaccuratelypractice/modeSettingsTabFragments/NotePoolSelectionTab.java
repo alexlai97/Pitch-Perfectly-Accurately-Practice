@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
@@ -27,6 +30,8 @@ import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+
+import static android.app.Activity.RESULT_OK;
 
 public class NotePoolSelectionTab extends Fragment {
     private static final String TAG = "NotePoolSelectionTab";
@@ -385,5 +390,21 @@ public class NotePoolSelectionTab extends Fragment {
         return button;
     }
 
+    /**
+     * pass note [] as int [] in intent back to MainActivity
+     */
+//    void returnToMainActivity(){
+//        Note[] notes_to_return = tmpData.toNotes();
+//        if (notes_to_return.length == 0) {
+//            Toast.makeText(this, "no notes are selected", Toast.LENGTH_LONG).show();
+//        } else {
+//            Note.logNotes(TAG, notes_to_return);
+//            Intent note_pool_intent = new Intent(this, MainActivity.class);
+//            note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
+//            setResult(RESULT_OK, note_pool_intent);
+//            note_pool_intent.putExtra("FilterPageReturn", true);
+//            finish();
+//        }
+//    }
 
 }

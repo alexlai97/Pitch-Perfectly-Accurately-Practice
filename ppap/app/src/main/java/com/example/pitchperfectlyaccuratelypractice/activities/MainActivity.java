@@ -1,6 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -25,9 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.MenuItem;
@@ -77,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements
     /** a microphone which contains a frequency, controller will listen to its current frequency */
     private Microphone microphone = new Microphone(this);
 
+
+    public boolean FilterPageReturn;
     /**
      * getter for microphone
      * @return
@@ -103,9 +101,7 @@ public class MainActivity extends AppCompatActivity implements
         created = true;
         Log.e(TAG, "s" + created);
         Log.w(TAG, "ONCREATE");
-
         // check microphone permission
-        checkMicrophonePermission();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wrapper_navigation_menu);
@@ -116,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements
 
         model = new Model(this);
         controller = new Controller(model, this);
+        handleIntents(FilterPageReturn); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
@@ -198,8 +195,13 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         Log.d(TAG, "onNavigationItemSelected: " + Mode.idToMode(id));
+        if(id == R.id.summary){
+            Intent summary_intent = new Intent(this, SummaryActivity.class);
+            // let the main activity handle the intent
+            this.startActivityForResult(summary_intent, REQUEST_CODE_FROM_FILTER);
+        }
+
         model.setCurrentMode(Mode.idToMode(id));
 
         // Highlight the selected item has been done by NavigationView
@@ -251,33 +253,24 @@ public class MainActivity extends AppCompatActivity implements
         //used to communicate between fragments
     }
 
+
+
     /**
-     * check Microphone Permission and handle it
+     * handle intents ( currently only handles intents from filter pages )
      */
-    void checkMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        MY_PERMISSIONS_REQUEST_AUDIO);
+    void handleIntents(Boolean handledIntent) {
+        if(handledIntent = true){
+            Intent notes_ints_intent = getIntent();
+            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
+            if (notes_ints != null) {
+                if (notes_ints.length == 0) {
+                    controller.setNotePool(Note.getAllNotes());
+                } else {
+                    controller.setNotePool(Note.IntsToNotes(notes_ints));
+                }
             }
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-
         } else {
-            // Permission has already been granted
+
         }
 
     }
