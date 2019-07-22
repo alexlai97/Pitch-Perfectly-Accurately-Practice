@@ -192,6 +192,7 @@ public class GeneralFragment extends Fragment {
         helpButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                controller.mark_incorrect_question();
                 controller.next_question();
                 return false;
             }

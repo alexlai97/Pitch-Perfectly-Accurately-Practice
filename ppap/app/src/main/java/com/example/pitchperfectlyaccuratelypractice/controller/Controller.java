@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
 import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
@@ -70,6 +71,9 @@ public class Controller implements Observer ,
    */
   private Model model;
 
+
+  public HistoryData historyData;
+
   /**
    * a question factory to produce different type of questions
    */
@@ -108,6 +112,8 @@ public class Controller implements Observer ,
     arrowAnimation.setRepeatCount(-1);
     arrowAnimation.setRepeatMode(Animation.REVERSE);
     arrowAnimation.setInterpolator(new LinearInterpolator());
+    historyData = new HistoryData(mainActivity, false);
+//    historyData.addData(1);
   }
 
 
@@ -243,6 +249,10 @@ public class Controller implements Observer ,
   /** how long between the user pass the question and next question */
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
+  public void mark_incorrect_question(){
+    historyData.addData(curQuestion.getAnswerNotes()[0].getIndex(), false);
+  }
+
   /**
    * process a frequency
    *
@@ -290,9 +300,12 @@ public class Controller implements Observer ,
       } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) { // in show correct state
         // do nothing
       } else { // at the end of the show correct state
+          // gets the current answer's first note (No triad yet since we dont know how we want to handle it
+          historyData.addData(curQuestion.getAnswerNotes()[0].getIndex(), answerCorrect);
           curFragment.resetBackgroundColor();
           next_question();
           answerCorrect = false;
+
       }
     } else if (index_of_who_is_in_error_range != -1) { // currently in error range
       t_in = now;
