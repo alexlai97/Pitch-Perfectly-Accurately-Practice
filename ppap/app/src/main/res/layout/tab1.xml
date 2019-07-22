@@ -2,18 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Filter"
+    android:id="@+id/Tab1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCFF90"
-    tools:context=".activities.NoteModeFilterPageActivity">
+    tools:context=".FilterPages.TabFragment1">
 
     <TextView
         android:id="@+id/fromTextView"
         android:layout_width="143dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="16dp"
         android:text="@string/from"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +22,7 @@
         android:id="@+id/fromSpinner"
         android:layout_width="110dp"
         android:layout_height="45dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,38 +92,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scaleTextView" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/baseline_keyboard_backspace_black_18dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
-        android:layout_width="406dp"
-        android:layout_height="221dp"
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/general_cancel_all"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/keySigTextView"
+        app:layout_constraintVertical_bias="0.48000002">
 
         <TableLayout
             android:id="@+id/note_pool_table"
             android:layout_width="337dp"
             android:layout_height="125dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp">
-        </TableLayout>
+            android:layout_marginBottom="8dp"></TableLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/general_select_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@android:string/selectAll"
+        app:layout_constraintBaseline_toBaselineOf="@+id/general_cancel_all"
+        app:layout_constraintEnd_toStartOf="@+id/general_cancel_all"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/general_cancel_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="79dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/cancel_all"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/general_select_all"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

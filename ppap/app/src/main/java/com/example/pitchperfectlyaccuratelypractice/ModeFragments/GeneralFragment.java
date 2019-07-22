@@ -1,7 +1,6 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -24,7 +23,6 @@ import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.activities.NoteModeFilterPageActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
@@ -38,14 +36,12 @@ import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
  * Activities that contain this fragment must implement the
  * {@link TriadFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TriadFragment#newInstance} factory method to
- * create an instance of this fragment.
  * </p>
  */
 
 // This is a factory as it produces the fragment and these are optionally overridden by other classes
 // This factory is used in the MainActivity
-public class GeneralFragment extends Fragment {
+public abstract class GeneralFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,15 +55,23 @@ public class GeneralFragment extends Fragment {
 
     /** request code got from mainactivity */
     // TODO put in Config or ...
-    private static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
+    protected static final int REQUEST_CODE_FROM_FILTER = MainActivity.REQUEST_CODE_FROM_FILTER;
 
     /** stores frequencyTextView */
     TextView frequencyText;
     /** stores currentPitchTextView */
     TextView currentPitchText;
     /** stores the controller got from MainActivity */
-    protected Controller controller;
     /** stores the start_playing sound Button view */
+
+    /**
+     * stores the controller got from MainActivity
+     */
+    protected Controller controller;
+
+    /**
+     * stores the play sound Button view
+     */
     Button playSoundButton;
     /** stores the help Button view */
     Button helpButton;
@@ -144,6 +148,8 @@ public class GeneralFragment extends Fragment {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
+        // FIXME need to generalize
+        listenerSetUp();
 
         playSoundButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,16 +185,6 @@ public class GeneralFragment extends Fragment {
                         break;
                 }
                 return true;
-            }
-        });
-
-        filterPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), NoteModeFilterPageActivity.class);
-
-                // let the main activity handle the intent
-                getActivity().startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
             }
         });
 
@@ -240,29 +236,31 @@ public class GeneralFragment extends Fragment {
         return view;
     }
 
+    public abstract void listenerSetUp();
+
     /**
      * empty public constructor
      */
     public GeneralFragment() { }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     * </p>
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GeneralFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GeneralFragment newInstance(String param1, String param2) {
-        GeneralFragment fragment = new GeneralFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    /**
+//     * Use this factory method to create a new instance of
+//     * this fragment using the provided parameters.
+//     * </p>
+//     *
+//     * @param param1 Parameter 1.
+//     * @param param2 Parameter 2.
+//     * @return A new instance of fragment GeneralFragment.
+//     */
+//    // TODO: Rename and change types and number of parameters
+//    public static GeneralFragment newInstance(String param1, String param2) {
+//        GeneralFragment fragment = new GeneralFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     /**
      * on create for a fragment
@@ -293,9 +291,6 @@ public class GeneralFragment extends Fragment {
         }
     }
 
-    /**
-     * fragment on detach
-     */
     @Override
     public void onDetach() {
         super.onDetach();

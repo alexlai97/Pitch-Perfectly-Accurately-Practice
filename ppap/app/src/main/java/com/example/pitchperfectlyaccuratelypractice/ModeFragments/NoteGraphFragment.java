@@ -1,5 +1,6 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
+import android.content.Intent;
 import android.os.Handler;
 
 import androidx.core.view.GravityCompat;
@@ -12,8 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.jjoe64.graphview.*;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -78,6 +83,19 @@ public class NoteGraphFragment extends GeneralFragment {
     }
 
     @Override
+    public void listenerSetUp() {
+        filterPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
+                filter_intent.putExtra("Mode", new FilterPageOption("noteGraph"));
+
+                // let the main activity handle the intent
+                getActivity().startActivityForResult(filter_intent, MainActivity.REQUEST_CODE_FROM_FILTER); // why this REQUEST_CODE_FROM_FILTER can't be found using getActivity().REQUEST_CODE_FROM_FILTER
+            }
+        });
+    }
+
     public void onResume(){
         super.onResume();
         Button button = getView().findViewById(R.id.naviButton);

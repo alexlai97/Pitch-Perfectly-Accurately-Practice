@@ -4,8 +4,9 @@ import android.content.Context;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.ModeFragments.FragmentFactory;
+import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.music.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
@@ -92,6 +93,16 @@ public class Model {
     public void setNotePool(Note[] notes) {
         Question oldQuestion = currentQuestion;
         currentQuestion.setNotePool(notes);
+        notifyListeners(this, "currentQuestion", oldQuestion, this.currentQuestion);
+    }
+
+    /**
+     * set note pool in current question and notify observers
+     * @param intervals
+     */
+    public void setIntervalPool(Interval[] intervals) {
+        Question oldQuestion = currentQuestion;
+        currentQuestion.setIntervalPool(intervals);
         notifyListeners(this, "currentQuestion", oldQuestion, this.currentQuestion);
     }
 

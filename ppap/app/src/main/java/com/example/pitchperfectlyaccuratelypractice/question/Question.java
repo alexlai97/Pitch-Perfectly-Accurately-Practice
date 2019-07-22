@@ -1,5 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
 import java.util.Random;
@@ -21,6 +22,27 @@ public abstract class Question {
   /** the note pool, which can be generated from the filter page, used to form a question */
   Note[] notePool;
   /** Setter for note pool */
+
+  /**
+   * Constructor
+   */
+//  public Question() {
+//    // note pool initialized by some reasonable notes (where average human can reach)
+//    notePool = Note.getReasonableNotes();
+//    generate_random_question();
+//  }
+//    public Question(){};
+
+  /**
+   * children will implement this
+   */
+//  public abstract Note[] getAnswerNotes();
+
+  public void setIntervalPool(Interval[] intervals){}
+
+  /**
+   * Setter for note pool
+   */
   public void setNotePool(Note[] notes) {
     this.notePool = notes;
     inorder_index = 0;

@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
@@ -27,6 +28,7 @@ public class SongGeneralFragment extends GeneralFragment {
 
     protected MidiSongPlayer midiSongPlayer;
     protected Model model;
+
     @Override
     void setupAdditionalView() {
         prevNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
@@ -42,6 +44,12 @@ public class SongGeneralFragment extends GeneralFragment {
 
 
         setupSongAdditionalView();
+    }
+
+    // FIXME
+    @Override
+    public void listenerSetUp() {
+
     }
 
     void setupSongAdditionalView() {

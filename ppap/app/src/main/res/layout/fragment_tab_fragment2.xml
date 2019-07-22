@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ModeFragments.TriadFragment">
+    tools:context=".FilterPages.TabFragment2">
 
     <include
-        layout="@layout/triad_layout"
-        android:id="@+id/layout_to_include"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        layout="@layout/tab2"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
 </FrameLayout>
