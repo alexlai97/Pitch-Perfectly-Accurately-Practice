@@ -1,14 +1,11 @@
 package com.example.pitchperfectlyaccuratelypractice.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import org.json.JSONObject;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
@@ -16,7 +13,6 @@ import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
-import com.example.pitchperfectlyaccuratelypractice.activities.SummaryActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -25,9 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.MenuItem;
@@ -47,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements
 
     /** only controller (and main activity) should have access, so no getter */
     private Model model = new Model();
-
     /** controlling how user voice affects model and update view */
     private Controller controller;
 
@@ -73,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements
     /** a microphone which contains a frequency, controller will listen to its current frequency */
     private Microphone microphone = new Microphone(this);
 
+
+    public boolean FilterPageReturn;
     /**
      * getter for microphone
      * @return
@@ -95,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements
         Log.e(TAG, "s" + created);
         Log.w(TAG, "ONCREATE");
         // check microphone permission
-        checkMicrophonePermission();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navi_wrapper);
@@ -105,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         controller = new Controller(model, this);
-        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
+        handleIntents(FilterPageReturn); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
@@ -230,54 +223,25 @@ public class MainActivity extends AppCompatActivity implements
         //used to communicate between fragments
     }
 
-    /**
-     * check Microphone Permission and handle it
-     */
-    void checkMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        MY_PERMISSIONS_REQUEST_AUDIO);
-            }
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-
-        } else {
-            // Permission has already been granted
-        }
-
-    }
 
     /**
      * handle intents ( currently only handles intents from filter pages )
      */
-    void handleIntents() {
-//        if(handledIntent = "Filter"){
-//            Intent notes_ints_intent = getIntent();
-//            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-//            if (notes_ints != null) {
-//                if (notes_ints.length == 0) {
-//                    controller.setNotePool(Note.getAllNotes());
-//                } else {
-//                    controller.setNotePool(Note.IntsToNotes(notes_ints));
-//                }
-//            }
-//        } else {
-//
-//        }
+    void handleIntents(Boolean handledIntent) {
+        if(handledIntent = true){
+            Intent notes_ints_intent = getIntent();
+            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
+            if (notes_ints != null) {
+                if (notes_ints.length == 0) {
+                    controller.setNotePool(Note.getAllNotes());
+                } else {
+                    controller.setNotePool(Note.IntsToNotes(notes_ints));
+                }
+            }
+        } else {
+
+        }
 
     }
 
