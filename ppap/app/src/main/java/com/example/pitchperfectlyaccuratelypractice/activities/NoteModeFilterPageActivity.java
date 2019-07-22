@@ -339,6 +339,7 @@ public class NoteModeFilterPageActivity extends Activity {
             Intent note_pool_intent = new Intent(this, MainActivity.class);
             note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
             setResult(RESULT_OK, note_pool_intent);
+            note_pool_intent.putExtra("FilterPageReturn", true);
             finish();
         }
     }
