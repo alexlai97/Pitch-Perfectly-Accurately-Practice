@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -10,14 +10,14 @@ import android.widget.Button;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 
 /**
  * a children of general fragment
  */
-public class SongPlayingFragment extends SongGeneralFragment {
+public class SongPlayingFragment extends SongModeFragment {
     private static String TAG = "SongPlayingFragment";
 
 //    private TextView arrowText;
@@ -30,7 +30,7 @@ public class SongPlayingFragment extends SongGeneralFragment {
     private Drawable pause;
 
     /**
-     * constructor of IntervalFragment
+     * constructor of IntervalModeFragment
      * setup resource (see parent onCreateView for use)
      */
     public SongPlayingFragment() {

@@ -2,7 +2,7 @@ package com.example.pitchperfectlyaccuratelypractice.bitmap;
 
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 
 import java.util.ArrayList;
 

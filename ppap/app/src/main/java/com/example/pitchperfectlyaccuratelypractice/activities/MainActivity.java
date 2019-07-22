@@ -6,16 +6,16 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.google.android.material.navigation.NavigationView;
 
@@ -36,7 +36,7 @@ import android.view.MenuItem;
  * Main Activity which stores model, controller, noteplayer, microphone
  */
 public class MainActivity extends AppCompatActivity implements
-        GeneralFragment.OnFragmentInteractionListener,
+        ModeFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     public static final int REQUEST_CODE_FROM_FILTER = 1;

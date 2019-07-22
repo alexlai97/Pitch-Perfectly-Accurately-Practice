@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.bitmap;
 
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
 import java.util.ArrayList;

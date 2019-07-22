@@ -1,23 +1,18 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
-import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 
-public class SongGeneralFragment extends GeneralFragment {
-    private static String TAG = "SongGeneralFragment";
+public class SongModeFragment extends ModeFragment {
+    private static String TAG = "SongModeFragment";
 
     //private TextView prevNoteText;
     //private TextView currentNoteText;

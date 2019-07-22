@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 import android.util.Log;
 
@@ -10,20 +10,20 @@ import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 public class FragmentFactory {
     private static String TAG = "Factory";
 
-    public GeneralFragment create(Mode mode){
+    public ModeFragment create(Mode mode){
         switch(mode){
             case NotePractice:
                 Log.d(TAG, "FragmentCreated: notemode");
-                return new NoteFragment();
+                return new NoteModeFragment();
             case IntervalPractice:
                 Log.d(TAG, "FragmentCreated: intervalmode");
-                return new IntervalFragment();
+                return new IntervalModeFragment();
             case TriadPractice:
                 Log.d(TAG, "FragmentCreated: chordmode");
                 return new TriadFragment();
             case NoteGraphPractice:
                 Log.d(TAG, "FragmentCreated: notegraph");
-                return new NoteGraphFragment();
+                return new NoteGraphModeFragment();
             case SongPlaying:
                 Log.d(TAG, "FragmentCreated: songplaying");
                 return new SongPlayingFragment();
@@ -32,7 +32,7 @@ public class FragmentFactory {
                 return new SongPracticingFragment();
             default:
                 Log.d(TAG, "FragmentCreated: default");
-                return new NoteFragment();
+                return new NoteModeFragment();
         }
     }
 }

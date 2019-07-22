@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -25,8 +25,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import android.graphics.Color;
 
-public class NoteGraphFragment extends GeneralFragment {
-    private static String TAG = "NoteGraphFragment";
+public class NoteGraphModeFragment extends ModeFragment {
+    private static String TAG = "NoteGraphModeFragment";
     private Runnable mTimer;
     private Long lastFreq;
     private GraphView graph;
@@ -42,10 +42,10 @@ public class NoteGraphFragment extends GeneralFragment {
     private TextView arrowText;
 
     /**
-     * constructor of IntervalFragment
+     * constructor of IntervalModeFragment
      * setup resource (see parent onCreateView for use)
      */
-    public NoteGraphFragment() {
+    public NoteGraphModeFragment() {
         resource = R.layout.modefragment_note_graph;
         background_color = Color.parseColor("#c0ecef");
         instruction_string = "Please sing the note in the center \n\n" +

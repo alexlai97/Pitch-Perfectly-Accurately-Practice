@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +26,7 @@ import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
 import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 public class NotePoolSelectionTab extends Fragment {
     private static final String TAG = "NotePoolSelectionTab";

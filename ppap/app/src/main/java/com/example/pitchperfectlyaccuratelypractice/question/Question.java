@@ -1,7 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 import java.util.Random;
 

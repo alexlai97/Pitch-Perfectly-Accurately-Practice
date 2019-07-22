@@ -1,11 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.model;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
-import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
-import com.leff.midi.MidiFile;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class SongList {

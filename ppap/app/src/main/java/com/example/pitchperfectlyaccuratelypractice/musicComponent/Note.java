@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.music;
+package com.example.pitchperfectlyaccuratelypractice.musicComponent;
 import com.example.pitchperfectlyaccuratelypractice.model.Config;
 
 

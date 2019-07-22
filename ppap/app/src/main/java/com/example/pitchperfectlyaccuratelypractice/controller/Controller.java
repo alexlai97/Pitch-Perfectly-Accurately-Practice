@@ -9,23 +9,21 @@ import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.NoteGraphFragment;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.NoteGraphModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.model.Config;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -52,7 +50,7 @@ public class Controller implements Observer ,
   /** microphone owned by main activity , can set listener to it */
   private Microphone microphone;
   /**  current fragment (will change if model's current question is changed) */
-  private GeneralFragment curFragment;
+  private ModeFragment curFragment;
   /**  current question (will change if model's current question is changed) */
   private Question curQuestion;
   /**  current config (will change if model's current question is changed) */
@@ -138,7 +136,7 @@ public class Controller implements Observer ,
     correct_mask = new boolean[curQuestion.getExpectedNotes().length];
     Log.d(TAG, "next_question: current length " + curQuestion.getExpectedNotes().length);
     if (curMode == Mode.NoteGraphPractice) {
-      ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
+      ((NoteGraphModeFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
     }
   }
 
@@ -399,9 +397,9 @@ public class Controller implements Observer ,
 //            return;
 //          }
           correct_mask = new boolean[curQuestion.getExpectedNotes().length]; // FIXME move it to somewhere
-          curFragment = (GeneralFragment) event.getNewValue();
+          curFragment = (ModeFragment) event.getNewValue();
           if (curMode == Mode.NoteGraphPractice) { // FIXME remove it to the constructor of the fragment
-            ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
+            ((NoteGraphModeFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
           }
           break;
       }

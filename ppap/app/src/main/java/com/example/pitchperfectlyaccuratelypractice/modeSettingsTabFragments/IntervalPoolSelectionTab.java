@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments;
 
 
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import android.widget.ToggleButton;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 
 /**
  * A simple {@link Fragment} subclass.

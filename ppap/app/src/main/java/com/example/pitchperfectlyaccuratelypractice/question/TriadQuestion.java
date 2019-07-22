@@ -1,6 +1,6 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
-import com.example.pitchperfectlyaccuratelypractice.music.Triad;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Triad;
 
 
 /**

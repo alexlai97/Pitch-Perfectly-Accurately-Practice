@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments.IntervalPoolSelectionTab;
-import com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments.NotePoolSelectionTab;
+import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.IntervalPoolSelectionTab;
+import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.NotePoolSelectionTab;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {

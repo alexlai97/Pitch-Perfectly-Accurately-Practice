@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.music;
+package com.example.pitchperfectlyaccuratelypractice.musicComponent;
 
 import java.util.Random;
 

@@ -4,11 +4,11 @@ import android.content.Context;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.FragmentFactory;
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.FragmentFactory;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -32,7 +32,7 @@ public class Model {
     /**  stores current current mode */
     private Mode currentMode;
     /**  stores current fragment */
-    private GeneralFragment currentFragment;
+    private ModeFragment currentFragment;
 
     private SongList songList;
     /**  factory to produce different fragments */
@@ -75,7 +75,7 @@ public class Model {
      * getter for current fragment
      * @return
      */
-    public GeneralFragment getCurrentFragment() {
+    public ModeFragment getCurrentFragment() {
         return currentFragment;
     }
 

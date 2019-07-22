@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -24,9 +24,7 @@ import android.widget.TextView;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
-import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
@@ -41,7 +39,7 @@ import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 // This is a factory as it produces the fragment and these are optionally overridden by other classes
 // This factory is used in the MainActivity
-public abstract class GeneralFragment extends Fragment {
+public abstract class ModeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -241,7 +239,7 @@ public abstract class GeneralFragment extends Fragment {
     /**
      * empty public constructor
      */
-    public GeneralFragment() { }
+    public ModeFragment() { }
 
 //    /**
 //     * Use this factory method to create a new instance of
@@ -250,11 +248,11 @@ public abstract class GeneralFragment extends Fragment {
 //     *
 //     * @param param1 Parameter 1.
 //     * @param param2 Parameter 2.
-//     * @return A new instance of fragment GeneralFragment.
+//     * @return A new instance of fragment ModeFragment.
 //     */
 //    // TODO: Rename and change types and number of parameters
-//    public static GeneralFragment newInstance(String param1, String param2) {
-//        GeneralFragment fragment = new GeneralFragment();
+//    public static ModeFragment newInstance(String param1, String param2) {
+//        ModeFragment fragment = new ModeFragment();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);

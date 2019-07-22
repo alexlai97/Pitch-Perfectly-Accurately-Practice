@@ -1,13 +1,12 @@
 package com.example.pitchperfectlyaccuratelypractice.tools;
 
-import android.app.Activity;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.ModeFragments.SongPlayingFragment;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.SongPlayingFragment;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.leff.midi.MidiFile;
 import com.leff.midi.MidiTrack;

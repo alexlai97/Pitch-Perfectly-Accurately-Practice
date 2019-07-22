@@ -2,7 +2,7 @@ package com.example.pitchperfectlyaccuratelypractice.filter;
 
 import com.example.pitchperfectlyaccuratelypractice.bitmap.Bitmap;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
 /**

@@ -1,12 +1,11 @@
 package com.example.pitchperfectlyaccuratelypractice.tools;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 import com.leff.midi.MidiFile;
 import com.leff.midi.MidiTrack;
 import com.leff.midi.event.meta.Tempo;

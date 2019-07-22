@@ -3,12 +3,10 @@ package com.example.pitchperfectlyaccuratelypractice.tools;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.leff.midi.MidiFile;
 import com.leff.midi.event.MidiEvent;
 import com.leff.midi.event.NoteOn;
-import com.leff.midi.util.MidiProcessor;
 
 import java.io.InputStream;
 import java.util.ArrayList;

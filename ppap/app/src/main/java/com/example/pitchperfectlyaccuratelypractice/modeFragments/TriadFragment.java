@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
+package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
  * a children of general fragment
  * it has a three question note view, (base, middle, soprano note)
  */
-public class TriadFragment extends GeneralFragment {
+public class TriadFragment extends ModeFragment {
     private static String TAG = "TriadFragment";
 
     /**

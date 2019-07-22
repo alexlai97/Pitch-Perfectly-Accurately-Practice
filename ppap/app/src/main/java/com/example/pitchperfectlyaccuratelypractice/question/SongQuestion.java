@@ -1,10 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
-import com.example.pitchperfectlyaccuratelypractice.music.Song;
-
-import java.io.File;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 
 public class SongQuestion extends Question {
 
