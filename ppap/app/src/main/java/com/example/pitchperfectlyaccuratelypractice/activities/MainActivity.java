@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements
 
         model = new Model(this);
         controller = new Controller(model, this);
-        handleIntents(FilterPageReturn); // intents from NotePracticeFilterPage which contains the note pool
+        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
@@ -258,9 +258,9 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * handle intents ( currently only handles intents from filter pages )
      */
-    void handleIntents(Boolean handledIntent) {
-        if(handledIntent = true){
-            Intent notes_ints_intent = getIntent();
+    void handleIntents() {
+        Intent notes_ints_intent = getIntent();
+        if(notes_ints_intent != null) {
             int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
             if (notes_ints != null) {
                 if (notes_ints.length == 0) {
@@ -269,10 +269,7 @@ public class MainActivity extends AppCompatActivity implements
                     controller.setNotePool(Note.IntsToNotes(notes_ints));
                 }
             }
-        } else {
-
         }
-
     }
 
 }
