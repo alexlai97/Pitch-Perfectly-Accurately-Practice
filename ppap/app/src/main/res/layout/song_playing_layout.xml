@@ -173,14 +173,14 @@
 
     <Button
         android:id="@+id/stopButton"
-        android:layout_width="43dp"
-        android:layout_height="43dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="180dp"
+        android:layout_marginBottom="184dp"
         android:background="@drawable/stop_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.687"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView"
         app:layout_constraintVertical_bias="0.37" />
