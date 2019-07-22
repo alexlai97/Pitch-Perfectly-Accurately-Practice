@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FilterPages.NotePoolSelectionTab">
+    tools:context=".ModeSettingsTabFragments.NotePoolSelectionTab">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,7 +11,7 @@
         android:id="@+id/Tab1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FilterPages.NotePoolSelectionTab"
+        tools:context=".ModeSettingsTabFragments.NotePoolSelectionTab"
         android:background="#c1e6da">
 
         <TextView

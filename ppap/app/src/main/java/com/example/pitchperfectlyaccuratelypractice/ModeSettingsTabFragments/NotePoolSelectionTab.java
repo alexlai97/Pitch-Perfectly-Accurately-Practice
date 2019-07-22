@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.FilterPages;
+package com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
@@ -106,7 +107,7 @@ public class NotePoolSelectionTab extends Fragment {
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
-    protected FilterActivity filterActivity;
+    protected PerModeSettingActivity perModeSettingActivity;
     /**
      * current from Note
      */
@@ -124,8 +125,8 @@ public class NotePoolSelectionTab extends Fragment {
      */
     private Note keySigNote = new Note("A");
 
-    public NotePoolSelectionTab(FilterActivity filter){
-        filterActivity = filter;
+    public NotePoolSelectionTab(PerModeSettingActivity filter){
+        perModeSettingActivity = filter;
     }
 
     @Nullable
@@ -166,10 +167,10 @@ public class NotePoolSelectionTab extends Fragment {
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
-        filterActivity.perModeSetting.from = Note.getIndex("A3");
-        filterActivity.perModeSetting.to = Note.getIndex("A4");
-        filterActivity.perModeSetting.scale = 1;
-        filterActivity.perModeSetting.keySignature = 0;
+        perModeSettingActivity.perModeSetting.from = Note.getIndex("A3");
+        perModeSettingActivity.perModeSetting.to = Note.getIndex("A4");
+        perModeSettingActivity.perModeSetting.scale = 1;
+        perModeSettingActivity.perModeSetting.keySignature = 0;
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -185,7 +186,7 @@ public class NotePoolSelectionTab extends Fragment {
                     toNote = fromNote;
                 }
 
-                filterActivity.perModeSetting.from = position;
+                perModeSettingActivity.perModeSetting.from = position;
 
                 // FIXME reduce duplicate code
                 // set range filter
@@ -218,7 +219,7 @@ public class NotePoolSelectionTab extends Fragment {
                     fromNote = toNote;
                 }
 
-                filterActivity.perModeSetting.to = position;
+                perModeSettingActivity.perModeSetting.to = position;
 
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
@@ -246,7 +247,7 @@ public class NotePoolSelectionTab extends Fragment {
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
-                filterActivity.perModeSetting.scale = position;
+                perModeSettingActivity.perModeSetting.scale = position;
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
@@ -270,7 +271,7 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.applyFilters();
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
-                filterActivity.perModeSetting.keySignature = position;
+                perModeSettingActivity.perModeSetting.keySignature = position;
 
                 update_tableview_using_note_pool();
 
@@ -378,7 +379,7 @@ public class NotePoolSelectionTab extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 tmpData.toggleNote(note);
                 generated_notes = tmpData.toNotes();
-                filterActivity.perModeSetting.setNotesBitmap(Note.NotesToInts(generated_notes));
+                perModeSettingActivity.perModeSetting.setNotesBitmap(Note.NotesToInts(generated_notes));
             }
         });
         return button;

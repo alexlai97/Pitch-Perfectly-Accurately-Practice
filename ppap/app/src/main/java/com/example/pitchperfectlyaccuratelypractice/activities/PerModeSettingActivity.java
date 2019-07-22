@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.FilterPages;
+package com.example.pitchperfectlyaccuratelypractice.activities;
 
 
 import android.content.Intent;
@@ -10,14 +10,16 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.tools.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 
 /**
  * filter page activity for note practice mode
  */
-public class FilterActivity extends AppCompatActivity {
+public class PerModeSettingActivity extends AppCompatActivity {
 
     private static final String TAG = "IntervalModeFilterAc";
 
@@ -72,8 +74,8 @@ public class FilterActivity extends AppCompatActivity {
         // Use PagerAdapter to manage page views in fragments.
         // Each page is represented by its own fragment.
         final ViewPager viewPager = findViewById(R.id.pager);
-        final com.example.pitchperfectlyaccuratelypractice.FilterPages.PagerAdapter adapter = new
-                com.example.pitchperfectlyaccuratelypractice.FilterPages.PagerAdapter(
+        final PagerAdapter adapter = new
+                PagerAdapter(
                 getSupportFragmentManager(), tabLayout.getTabCount(), this);
 
         viewPager.setAdapter(adapter);

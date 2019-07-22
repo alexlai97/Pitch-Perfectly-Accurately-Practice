@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.FilterPages;
+package com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments;
 
 
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.TableRow;
 import android.widget.ToggleButton;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
 import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 
@@ -27,7 +28,7 @@ import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 public class IntervalPoolSelectionTab extends Fragment{
 
     private static final String TAG="IntervalPoolSelectionTab";
-    private FilterActivity filter;
+    private PerModeSettingActivity filter;
     public View view;
 
     Interval[] generated_interval;
@@ -39,14 +40,14 @@ public class IntervalPoolSelectionTab extends Fragment{
 
     LayoutInflater layoutInflater;
 
-    public IntervalPoolSelectionTab(FilterActivity filter) {
+    public IntervalPoolSelectionTab(PerModeSettingActivity filter) {
         this.filter = filter;
         tmpData = IntervalsBitmap.getAllTrueIntervalsBitmap();
         generated_interval = tmpData.toInterval();
         // Required empty public constructor
     }
 
-    public IntervalPoolSelectionTab(FilterActivity filter, IntervalsBitmap intervalsBitmap) {
+    public IntervalPoolSelectionTab(PerModeSettingActivity filter, IntervalsBitmap intervalsBitmap) {
         this.filter = filter;
         this.tmpData = intervalsBitmap;
         tmpData = IntervalsBitmap.getAllTrueIntervalsBitmap();

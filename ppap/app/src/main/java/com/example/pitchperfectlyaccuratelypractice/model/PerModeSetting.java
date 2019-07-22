@@ -1,22 +1,15 @@
-package com.example.pitchperfectlyaccuratelypractice.FilterPages;
-
-import android.os.Bundle;
-
-import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
-import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.music.Interval;
+package com.example.pitchperfectlyaccuratelypractice.model;
 
 import java.io.Serializable;
 
 public class PerModeSetting implements Serializable {
-    String mode;
-    int[] notesBitmap;
-    int[] intervalsBitmap;
-    int from;
-    int to;
-    int scale;
-    int keySignature;
+    public String mode;
+    public int[] notesBitmap;
+    public int[] intervalsBitmap;
+    public int from;
+    public int to;
+    public int scale;
+    public int keySignature;
 
     public PerModeSetting(String mode){
         this.mode = mode;
@@ -41,7 +34,7 @@ public class PerModeSetting implements Serializable {
         return intervalsBitmap;
     }
 
-    int getFilterPageNum(){
+    public int getFilterPageNum(){
         switch (mode){
             case "note":
                 return 1;

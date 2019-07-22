@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
+import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
@@ -49,7 +49,7 @@ public class NoteFragment extends GeneralFragment {
         filterPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
+                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
                 filter_intent.putExtra("Mode", new PerModeSetting("note"));
                 // let the main activity handle the intent
                 startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);

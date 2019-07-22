@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 
 /**
@@ -51,7 +51,7 @@ public class IntervalFragment extends GeneralFragment {
         filterPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
+                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
                 filter_intent.putExtra("Mode", new PerModeSetting("interval"));
 
                 // let the main activity handle the intent

@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;

@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
+import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
@@ -88,7 +88,7 @@ public class NoteGraphFragment extends GeneralFragment {
         filterPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
+                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
                 filter_intent.putExtra("Mode", new PerModeSetting("noteGraph"));
 
                 // let the main activity handle the intent

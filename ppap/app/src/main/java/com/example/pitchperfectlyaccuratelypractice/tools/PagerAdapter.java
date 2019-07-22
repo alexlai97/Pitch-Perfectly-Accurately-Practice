@@ -1,14 +1,18 @@
-package com.example.pitchperfectlyaccuratelypractice.FilterPages;
+package com.example.pitchperfectlyaccuratelypractice.tools;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments.IntervalPoolSelectionTab;
+import com.example.pitchperfectlyaccuratelypractice.ModeSettingsTabFragments.NotePoolSelectionTab;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
+
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    FilterActivity filter;
-    public PagerAdapter(@NonNull FragmentManager fm, int mNumOfTabs, FilterActivity filter) {
+    PerModeSettingActivity filter;
+    public PagerAdapter(@NonNull FragmentManager fm, int mNumOfTabs, PerModeSettingActivity filter) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mNumOfTabs = mNumOfTabs;
         this.filter = filter;
