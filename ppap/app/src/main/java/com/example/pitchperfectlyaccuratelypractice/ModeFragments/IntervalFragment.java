@@ -7,6 +7,8 @@ import android.view.animation.Animation;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
@@ -24,11 +26,12 @@ public class IntervalFragment extends GeneralFragment {
     /**
      * question note on top of question interval
      */
-    private TextView questionNoteText;
+    //private TextView questionNoteText;
     /**
      * question interval on botton of question note
      */
     private TextView questionIntervalText;
+    private ConstraintLayout noteLayout;
 
     private TextView arrowText;
 
@@ -65,13 +68,14 @@ public class IntervalFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
-        if (questionNoteText == null) {
-            throw new AssertionError("questionNoteText is null");
-        }
+        //questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
+        //if (questionNoteText == null) {
+            //throw new AssertionError("questionNoteText is null");
+        //}
         questionIntervalText = constraintLayout.findViewById(R.id.questionIntervalTextView);
         if (questionIntervalText == null) { throw new AssertionError("questionIntervalText is null"); }
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
+        noteLayout = constraintLayout.findViewById(R.id.interval_include);
     }
     /**
      * update questions, question text + interval text
@@ -79,11 +83,23 @@ public class IntervalFragment extends GeneralFragment {
      * @param texts
      */
     @Override
-    public void updateQuestionTexts(String [] texts){
-        if(!onCreated) return;
-        if (texts.length != 2) { throw new AssertionError("expecting texts' length is 2"); }
-        questionNoteText.setText(texts[0]);
-        questionIntervalText.setText(texts[1]);
+    public void updateQuestionTexts(String [] texts) {
+        if (!onCreated) return;
+        if (texts.length != 2) {
+            throw new AssertionError("expecting texts' length is 2");
+        }
+        char[] charArray = texts[0].toCharArray();
+        for (int i = 0; i < charArray.length; ++i) {
+            if (i == 0) {
+                ((TextView) noteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
+            } else if (i == 1) {
+                ((TextView) noteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
+            } else if (i == 2) {
+                ((TextView) noteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
+            }
+        }
+            questionIntervalText.setText(texts[1]);
+
     }
 
     /**

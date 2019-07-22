@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="124dp"
         android:autoSizeMaxTextSize="20sp"
         android:autoSizeMinTextSize="12sp"
         android:autoSizeTextType="uniform"
@@ -23,67 +23,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/prevNoteTextView"
-        android:layout_width="72dp"
-        android:layout_height="73dp"
+    <include
+        android:id="@+id/previous_note_include"
+        layout="@layout/single_note_small_layout"
+        android:layout_width="110dp"
+        android:layout_height="81dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="100sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeTextType="uniform"
-        android:text="A4#"
-        android:textAlignment="center"
-        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintHorizontal_bias="0.094"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433" />
+        app:layout_constraintVertical_bias="0.474" />
 
-    <TextView
-        android:id="@+id/currentNoteTextView"
-        android:layout_width="156dp"
-        android:layout_height="115dp"
+    <include
+        android:id="@+id/current_note_include"
+        layout="@layout/single_note_layout"
+        android:layout_width="178dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="100sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeTextType="uniform"
-        android:text="A4#"
-        android:textAlignment="center"
-        android:textSize="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+        app:layout_constraintVertical_bias="0.452" />
 
-    <TextView
-        android:id="@+id/nextNoteTextView"
-        android:layout_width="99dp"
-        android:layout_height="76dp"
+    <include
+        android:id="@+id/next_note_include"
+        layout="@layout/single_note_small_layout"
+        android:layout_width="112dp"
+        android:layout_height="84dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:autoSizeMaxTextSize="100sp"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeTextType="uniform"
-        android:text="A4#"
-        android:textAlignment="center"
-        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.474" />
+
 
     <Button
         android:id="@+id/filterButton"
@@ -110,7 +97,8 @@
         app:layout_constraintBottom_toTopOf="@+id/playOrpauseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.405" />
 
     <Button
         android:id="@+id/playSoundButton"
@@ -154,7 +142,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/currentFrequencyTextView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.195" />
 
     <Button
         android:id="@+id/libraryButton"
@@ -162,10 +150,11 @@
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="184dp"
         android:background="@drawable/list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.327"
+        app:layout_constraintHorizontal_bias="0.319"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView"
         app:layout_constraintVertical_bias="0.376" />
@@ -174,17 +163,20 @@
         android:id="@+id/librarySpinner"
         android:layout_width="231dp"
         android:layout_height="72dp"
-        app:layout_constraintEnd_toStartOf="@+id/playOrpauseButton"
-        app:layout_constraintHorizontal_bias="0.744"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="108dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView"
-        app:layout_constraintVertical_bias="0.233" />
+        app:layout_constraintTop_toBottomOf="@+id/currentNoteTextView" />
 
     <Button
         android:id="@+id/stopButton"
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/stop_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -198,6 +190,7 @@
         android:layout_width="37dp"
         android:layout_height="43dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="184dp"
         android:background="@drawable/play_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -209,7 +202,7 @@
         android:id="@+id/songTitleTextView"
         android:layout_width="215dp"
         android:layout_height="42dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="196dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/currentNoteTextView"

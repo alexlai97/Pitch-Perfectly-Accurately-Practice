@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
 import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -23,18 +25,21 @@ public class TriadFragment extends GeneralFragment {
     /**
      * question Note on the bottom
      */
-    private TextView questionTriadBaseNoteText;
+    //private TextView questionTriadBaseNoteText;
     private TextView baseNoteArrowText;
+    private ConstraintLayout baseNoteLayout;
     /**
      * question Note in the middle
      */
-    private TextView questionTriadMiddleNoteText;
+    //private TextView questionTriadMiddleNoteText;
     private TextView middleNoteArrowText;
+    private ConstraintLayout middleNoteLayout;
     /**
      * question Note on top of three
      */
-    private TextView questionTriadSopranoNoteText;
+    //private TextView questionTriadSopranoNoteText;
     private TextView sopranoNoteArrowText;
+    private ConstraintLayout sopranoNoteLayout;
 
     /**
      * constructor of TriadFragment
@@ -69,16 +74,16 @@ public class TriadFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        questionTriadBaseNoteText = constraintLayout.findViewById(R.id.triadBaseNoteTextView);
-        questionTriadMiddleNoteText = constraintLayout.findViewById(R.id.triadMiddleNoteTextView);
-        questionTriadSopranoNoteText = constraintLayout.findViewById(R.id.triadSopranoNoteTextView);
+        baseNoteLayout = constraintLayout.findViewById(R.id.base_include);
+        middleNoteLayout = constraintLayout.findViewById(R.id.middle_include);
+        sopranoNoteLayout = constraintLayout.findViewById(R.id.soprano_include);
         baseNoteArrowText = constraintLayout.findViewById(R.id.baseNotearrowTextView);
         middleNoteArrowText = constraintLayout.findViewById(R.id.middleNotearrowTextView);
         sopranoNoteArrowText = constraintLayout.findViewById(R.id.sopranoNotearrowTextView);
 
-        if (questionTriadBaseNoteText == null || questionTriadMiddleNoteText == null||questionTriadSopranoNoteText == null) {
-            throw new AssertionError("triadFragment some view  is null");
-        }
+        //if (questionTriadBaseNoteText == null || questionTriadMiddleNoteText == null||questionTriadSopranoNoteText == null) {
+            //throw new AssertionError("triadFragment some view  is null");
+        //}
     }
 
     /**
@@ -101,9 +106,40 @@ public class TriadFragment extends GeneralFragment {
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
         if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
-        questionTriadBaseNoteText.setText(texts[0]);
-        questionTriadMiddleNoteText.setText(texts[1]);
-        questionTriadSopranoNoteText.setText(texts[2]);
+        char[] charArray = texts[0].toCharArray();
+        for (int i = 0; i < charArray.length; ++i) {
+            if (i == 0) {
+                ((TextView) baseNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
+            } else if (i == 1) {
+                ((TextView) baseNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
+            } else if (i == 2) {
+                ((TextView) baseNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
+            }
+        }
+        char[] charArray1 = texts[1].toCharArray();
+        for (int i = 0; i < charArray.length; ++i) {
+            if (i == 0) {
+                ((TextView) middleNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray1[i]);
+            } else if (i == 1) {
+                ((TextView) middleNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray1[i]);
+            } else if (i == 2) {
+                ((TextView) middleNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray1[i]);
+            }
+        }
+        char[] charArray2 = texts[2].toCharArray();
+        for (int i = 0; i < charArray.length; ++i) {
+            if (i == 0) {
+                ((TextView) sopranoNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray2[i]);
+            } else if (i == 1) {
+                ((TextView) sopranoNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray2[i]);
+            } else if (i == 2) {
+                ((TextView) sopranoNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray2[i]);
+            }
+        }
+
+       // questionTriadBaseNoteText.setText(texts[0]);
+        //questionTriadMiddleNoteText.setText(texts[1]);
+        //questionTriadSopranoNoteText.setText(texts[2]);
     }
 
     @Override

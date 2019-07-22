@@ -5,7 +5,8 @@
     android:id="@+id/Tab2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FilterPages.TabFragment2">
+    tools:context=".FilterPages.TabFragment2"
+    android:background="#c1e6da">
 
     <ImageView
         android:id="@+id/imageView"

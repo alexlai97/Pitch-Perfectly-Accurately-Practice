@@ -3,6 +3,7 @@ package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 import android.content.Intent;
 import android.os.Handler;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -37,7 +38,8 @@ public class NoteGraphFragment extends GeneralFragment {
     private double graphLastXValue = 5d;
     private double questionFreq;
 
-    private TextView questionNoteText;
+    //private TextView questionNoteText;
+    private ConstraintLayout noteLayout;
     private TextView arrowText;
 
     /**
@@ -56,8 +58,8 @@ public class NoteGraphFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
-        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+        noteLayout = constraintLayout.findViewById(R.id.note_include);
+       // if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
 
         graph = (GraphView) constraintLayout.findViewById(R.id.graph);
@@ -143,7 +145,16 @@ public class NoteGraphFragment extends GeneralFragment {
     @Override
     public void updateQuestionTexts(String[] texts){
         if(!onCreated) return;
-        questionNoteText.setText(texts[0]);
+        char[] charArray = texts[0].toCharArray();
+        for (int i = 0; i < charArray.length; ++i) {
+            if (i == 0) {
+                ((TextView) noteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
+            } else if (i == 1) {
+                ((TextView) noteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
+            } else if (i == 2) {
+                ((TextView) noteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
+            }
+        }
     }
 
     /**
