@@ -27,4 +27,18 @@ public class SongList {
         }
         return null;
     }
+
+    public String[] getSongTitles() {
+        int len = songs_arr.size();
+        String[] titles = new String[len];
+        for (int i = 0; i < len; i++) {
+            titles[i] = songs_arr.get(i).getTitle();
+        }
+        return titles;
+    }
+
+    public Song getSongAt(int i) {
+       return songs_arr.get(i);
+    }
+
 }

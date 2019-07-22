@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.util.Log;
 
 //import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.fragments.SongPlayingFragment;
+import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.leff.midi.MidiFile;
 import com.leff.midi.MidiTrack;
 import com.leff.midi.event.MidiEvent;
@@ -37,25 +40,37 @@ public class MidiSongPlayer implements MidiEventListener {
 
     SongPlayingFragment songPlayingFragment;
 
-    Activity activity;
+    MainActivity mainActivity;
 
 //    Controller controller;
 
+    Model model;
+
     Note[] notes;
-    public MidiSongPlayer(SongPlayingFragment songPlayingFragment, Activity ac, MidiFile midi, NotesPlayer notesPlayer) {
-        activity = ac;
-        midiFile = midi;
-        midiProcessor = new MidiProcessor(midi);
-        midiProcessor.registerEventListener(this, MidiEvent.class);
-//        midiProcessor.registerEventListener(this, NoteOn.class);
-        this.notesPlayer = notesPlayer;
-        midiTracks = parseMidiFileToNoteTracks(midiFile);
-        this.songPlayingFragment = songPlayingFragment;
-//        this.controller = controller;
-        notes = MyMidiTool.parseMidiToNotes(midiFile);
+    public MidiSongPlayer(MainActivity ac) {
+        mainActivity = ac;
+        model = mainActivity.getModel();
+        this.notesPlayer = mainActivity.getNotesPlayer();
+        this.songPlayingFragment = (SongPlayingFragment) model.getCurrentFragment();
+
+        setMidiFileUsingCurrentQuestion();
     }
 
+    public void setMidiFileUsingCurrentQuestion() {
+        setMidiFile(((SongQuestion)(model.getCurrentQuestion())).getSong().getMidiFile());
+        midiProcessor.stop();
+        flag = true;
+        midiTracks_index = 0;
+        current_note_index = 0;
+    }
 
+    public void setMidiFile(MidiFile mfile) {
+        midiFile = mfile;
+        midiProcessor = new MidiProcessor(mfile);
+        midiProcessor.registerEventListener(this, MidiEvent.class);
+        midiTracks = parseMidiFileToNoteTracks(midiFile);
+        notes = MyMidiTool.parseMidiToNotes(midiFile);
+    }
 
     private ArrayList<MidiTrack> parseMidiFileToNoteTracks(MidiFile midifile) {
         ArrayList<MidiTrack> midiTracks = new ArrayList<MidiTrack>();
@@ -99,8 +114,10 @@ public class MidiSongPlayer implements MidiEventListener {
     public void pause() {
         midiProcessor.stop();
     }
+
     public void reset() {
-//        midiProcessor.reset();
+        setMidiFileUsingCurrentQuestion();
+        songPlayingFragment.updateQuestionTexts(getNotesTexts());
     }
 
     @Override
@@ -143,7 +160,7 @@ public class MidiSongPlayer implements MidiEventListener {
             if (flag) {
                 notesPlayer.playNoteTrack(midiTracks.get(midiTracks_index));
                 midiTracks_index++;
-                activity.runOnUiThread(new Runnable() {
+                mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         songPlayingFragment.updateQuestionTexts(getNotesTexts());
@@ -155,7 +172,7 @@ public class MidiSongPlayer implements MidiEventListener {
             flag = !flag;
         } else if (event.getClass() == NoteOff.class) {
         } else if (event.getClass() == Lyrics.class) {
-            activity.runOnUiThread(new Runnable() {
+            mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     songPlayingFragment.updateLyricsView(((Lyrics)event).getLyric());

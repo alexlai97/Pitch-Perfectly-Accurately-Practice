@@ -135,6 +135,7 @@ public class Controller implements Observer ,
     curFragment.updateQuestionTexts(curQuestion.getTexts());
   }
 
+
   /**
    * what to do when in correct state
    * now it changes background colour
