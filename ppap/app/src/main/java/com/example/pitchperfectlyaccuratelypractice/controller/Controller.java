@@ -249,6 +249,10 @@ public class Controller implements Observer ,
   /** how long between the user pass the question and next question */
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
+  public void mark_incorrect_question(){
+    historyData.addData(curQuestion.getAnswerNotes()[0].getIndex(), false);
+  }
+
   /**
    * process a frequency
    *

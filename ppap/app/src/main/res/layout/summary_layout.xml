@@ -17,7 +17,7 @@
         android:layout_marginBottom="72dp"
         android:text="@string/Summary"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/graph2"
+        app:layout_constraintBottom_toTopOf="@+id/graph_top10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,45 +27,43 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/Top10"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/graph2"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintBottom_toTopOf="@+id/graph_top10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph"
-        android:layout_width="0dp"
+        android:id="@+id/graph_bot5"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.704"
-        app:seriesColor="#ee0000"
-        app:seriesType="bar" />
+        app:layout_constraintVertical_bias="0.714" />
 
     <com.jjoe64.graphview.GraphView
-        android:id="@+id/graph2"
-        android:layout_width="0dp"
+        android:id="@+id/graph_top10"
+        android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.233"
-        app:seriesColor="#ee0000"
-        app:seriesType="bar" />
+        app:layout_constraintVertical_bias="0.237" />
 
     <Button
         android:id="@+id/backButton"
@@ -84,11 +82,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/Bot5"
         android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/graph"
-        app:layout_constraintTop_toBottomOf="@+id/graph2"
-        tools:layout_editor_absoluteX="9dp" />
+        app:layout_constraintBottom_toTopOf="@+id/graph_bot5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graph_top10" />
 </androidx.constraintlayout.widget.ConstraintLayout>
