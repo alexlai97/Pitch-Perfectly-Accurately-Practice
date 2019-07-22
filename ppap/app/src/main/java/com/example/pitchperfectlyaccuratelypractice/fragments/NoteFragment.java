@@ -18,8 +18,11 @@ public class NoteFragment extends GeneralFragment {
     /**
      * a question note in the middle of the screen
      */
-    private TextView questionNoteText;
+    //private TextView questionNoteText;
     private TextView arrowText;
+    private TextView questionNote;
+    private TextView questonScale;
+    private TextView questionSig;
 
     /**
      * constructor of NoteFragment
@@ -39,8 +42,11 @@ public class NoteFragment extends GeneralFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
-        if (questionNoteText == null) { throw new AssertionError("questionNoteText is null"); }
+        //questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
+        questionNote = constraintLayout.findViewById(R.id.NoteTextView);
+        questonScale = constraintLayout.findViewById(R.id.NoteScaleTextView);
+        questionSig = constraintLayout.findViewById(R.id.NoteSigView);
+        if (questionNote == null) { throw new AssertionError("questionNoteText is null"); }
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
     }
 
@@ -51,7 +57,14 @@ public class NoteFragment extends GeneralFragment {
     @Override
     public void updateQuestionTexts(String[] texts){
         if(!onCreated) return;
-        questionNoteText.setText(texts[0]);
+        char[] charArray = texts[0].toCharArray();
+        for(int i = 0; i < charArray.length; ++i){
+            if (i == 0) questionNote.setText(""+charArray[i]);
+            else if (i == 1) questonScale.setText(""+charArray[i]);
+            else if (i == 2) questionSig.setText(""+charArray[i]);
+        }
+
+        //questionNote.setText(texts[0]);
     }
 
     /**
