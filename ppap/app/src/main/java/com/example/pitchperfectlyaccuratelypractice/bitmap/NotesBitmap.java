@@ -91,7 +91,7 @@ public class NotesBitmap extends Bitmap {
   /**
    * print bitmap to stdout  (debugging)
    */
-  void printBitmap() {
+  public void printBitmap() {
     for (int i = 0; i < this.size; i++) {
       System.out.println((new Note(i)).getText() + " " + (this.bitmap[i]? "1":"0") + " ");
     }
@@ -171,7 +171,7 @@ public class NotesBitmap extends Bitmap {
    * convert bitmap to array of notes that are true (1) in bitmap, return the array, useful for implementing the buttons in NotesFilterPage
    */
   public Note[] toNotes() {
-    ArrayList<Note> notes_arr = new ArrayList<Note>();
+    ArrayList<Note> notes_arr = new ArrayList<>();
 
     for (int i = 0; i < this.size; i ++) {
       if (this.bitmap[i]) notes_arr.add(new Note(i));

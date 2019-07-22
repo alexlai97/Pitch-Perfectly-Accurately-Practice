@@ -1,4 +1,4 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -22,18 +22,11 @@ import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 /**
  * a children of general fragment
  */
-public class SongPlayingFragment extends GeneralFragment {
+public class SongPlayingFragment extends SongGeneralFragment {
     private static String TAG = "SongPlayingFragment";
 
-    private TextView prevNoteText;
-    private TextView currentNoteText;
-    private TextView nextNoteText;
-
 //    private TextView arrowText;
-    private TextView currentLyricsText;
-    private TextView songTitleText;
 
-    private Spinner librarySpinner;
     private Button playOrPauseButton;
     private Button stopButton;
 
@@ -41,7 +34,6 @@ public class SongPlayingFragment extends GeneralFragment {
     private Drawable play;
     private Drawable pause;
 
-    private MidiSongPlayer midiSongPlayer;
     /**
      * constructor of IntervalFragment
      * setup resource (see parent onCreateView for use)
@@ -56,24 +48,16 @@ public class SongPlayingFragment extends GeneralFragment {
      * set up views of questionNoteText and questionIntervalText
      */
     @Override
-    void setupAdditionalView() {
+    void setupSongAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
         play = getResources().getDrawable(R.drawable.play_button);
         pause = getResources().getDrawable(R.drawable.pause_button);
-        prevNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
-        currentNoteText = constraintLayout.findViewById(R.id.currentNoteTextView);
-        nextNoteText = constraintLayout.findViewById(R.id.nextNoteTextView);
 
 //        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
-        currentLyricsText = constraintLayout.findViewById(R.id.lyricsTextView);
 
-        librarySpinner = constraintLayout.findViewById(R.id.librarySpinner);
         playOrPauseButton = constraintLayout.findViewById(R.id.playOrpauseButton);
         stopButton = constraintLayout.findViewById(R.id.stopButton);
-        final Model model = ((MainActivity)(getActivity())).getModel();
         switchToPracticeButton = constraintLayout.findViewById(R.id.switchToPracticeModeButton);
-
-        songTitleText = constraintLayout.findViewById(R.id.songTitleTextView);
 
         switchToPracticeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +90,6 @@ public class SongPlayingFragment extends GeneralFragment {
             }
         });
 
-        ArrayAdapter<String> all_songs_adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, model.getSongList().getSongTitles());
-        librarySpinner.setAdapter(all_songs_adapter);
         librarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -128,40 +110,4 @@ public class SongPlayingFragment extends GeneralFragment {
         });
 
     }
-
-    /**
-     * @param texts
-     */
-    @Override
-    public void updateQuestionTexts(String [] texts){
-        if(!onCreated) return;
-        if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
-        prevNoteText.setText(texts[0]);
-        currentNoteText.setText(texts[1]);
-        nextNoteText.setText(texts[2]);
-    }
-
-    /**
-     * update arrow text views
-//     * @param arrowTexts
-     */
-//    @Override
-//    public void updateArrowTexts(String[] arrowTexts){
-//        if(!onCreated) return;
-////        arrowText.setText(arrowTexts[0]);
-//    }
-
-//    @Override
-//    public void updateArrowAnimation(Animation myAnimation){
-//        if(!onCreated) return;
-////        arrowText.setAnimation(myAnimation);
-//    }
-
-
-    public void updateLyricsView(String str) {
-        if (str == null) throw new AssertionError("str is null when updating lyrics");
-        currentLyricsText.setText(str);
-    }
-
-
 }

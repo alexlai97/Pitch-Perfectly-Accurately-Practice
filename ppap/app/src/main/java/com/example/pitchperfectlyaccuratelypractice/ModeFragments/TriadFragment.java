@@ -1,12 +1,17 @@
-package com.example.pitchperfectlyaccuratelypractice.fragments;
+package com.example.pitchperfectlyaccuratelypractice.ModeFragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.animation.Animation;
+import android.view.View;
 import android.widget.TextView;
 
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 
 /**
  * a children of general fragment
@@ -42,6 +47,20 @@ public class TriadFragment extends GeneralFragment {
                 "Single tap the start_playing button will start_playing the chord\n\n" +
                 "Long press the start_playing button will start_playing notes sequentially then chord\n\n" +
                 "You can select note pool and interval pool in Filter Page (pineapple button)";
+    }
+
+    @Override
+    public void listenerSetUp() {
+        filterPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
+                filter_intent.putExtra("Mode", new FilterPageOption("triad"));
+
+                // let the main activity handle the intent
+                getActivity().startActivityForResult(filter_intent, MainActivity.REQUEST_CODE_FROM_FILTER); // why this REQUEST_CODE_FROM_FILTER can't be found using getActivity().REQUEST_CODE_FROM_FILTER
+            }
+        });
     }
 
     /**

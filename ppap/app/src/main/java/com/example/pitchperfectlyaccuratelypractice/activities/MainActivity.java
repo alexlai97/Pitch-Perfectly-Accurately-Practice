@@ -6,12 +6,15 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
+import com.example.pitchperfectlyaccuratelypractice.ModeFragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
@@ -36,7 +39,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity implements
         GeneralFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "MAIN";
+    private static final String TAG = "MainActivity";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
@@ -114,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements
 
         model = new Model(this);
         controller = new Controller(model, this);
-        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
@@ -131,10 +133,26 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onActivityResult: get intent back from filter page");
         if (requestCode == REQUEST_CODE_FROM_FILTER) {
             if (resultCode == RESULT_OK) {
-                Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
-                Note.logNotes("back to main activity", result_notes);
-                controller.setNotePool(result_notes);
-                controller.next_question();
+                FilterPageOption filterPageOption = (FilterPageOption) data.getSerializableExtra("Mode");
+                Interval[] result_interval;
+                Note[] result_notes;
+                if(filterPageOption.getIntervalsBitmap() != null){
+                    result_interval = Interval.IntsToIntervals(filterPageOption.getIntervalsBitmap());
+                    // pass the notes generated from filter to controller, start next question(generated from note pool)
+                    controller.setIntervalPool(result_interval);
+
+                    controller.next_question();
+                }
+                if(filterPageOption.getNotesBitmap() != null){
+                    result_notes = Note.IntsToNotes(filterPageOption.getNotesBitmap());
+                    Note.logNotes("back to main activity", result_notes);
+                    // pass the notes generated from filter to controller, start next question(generated from note pool)
+                    controller.setNotePool(result_notes);
+
+                    controller.next_question();
+                }
+
+                // handle no question to generate
             } else if (resultCode == RESULT_CANCELED){
 
             } else {
@@ -182,8 +200,9 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        Log.d(TAG, "onNavigationItemSelected: " + id);
+        Log.d(TAG, "onNavigationItemSelected: " + Mode.idToMode(id));
         model.setCurrentMode(Mode.idToMode(id));
+
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);
         // Set action bar title
@@ -262,21 +281,6 @@ public class MainActivity extends AppCompatActivity implements
             // Permission has already been granted
         }
 
-    }
-
-    /**
-     * handle intents ( currently only handles intents from filter pages )
-     */
-    void handleIntents() {
-        Intent notes_ints_intent = getIntent();
-        int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-        if (notes_ints != null) {
-            if (notes_ints.length == 0) {
-                controller.setNotePool(Note.getAllNotes());
-            } else {
-                controller.setNotePool(Note.IntsToNotes(notes_ints));
-            }
-        }
     }
 
 }

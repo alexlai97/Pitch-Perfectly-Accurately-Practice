@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ppap_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".FilterPages.FilterActivity"></activity>
         <activity
             android:name=".activities.NoteModeFilterPageActivity"
             android:parentActivityName=".activities.MainActivity">
@@ -23,14 +24,12 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name">
-            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

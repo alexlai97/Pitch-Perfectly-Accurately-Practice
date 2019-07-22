@@ -397,7 +397,7 @@ public class Note {
     for (String s: strings) {
       text += s + ",";
     }
-    Log.i(tag, text);
+    Log.d(tag, text);
   }
 
   /**

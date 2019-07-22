@@ -8,7 +8,7 @@ public abstract class Bitmap {
   /**
    * A boolean array
    */
-  boolean[] bitmap; 
+  public boolean[] bitmap;
   
   /**
    * the size of boolean array
@@ -25,10 +25,11 @@ public abstract class Bitmap {
   /**
    * print bitmap to stdout  (debugging)
    */
-  void printBitmap() {
+  public void printBitmap() {
   }
 
   public static void main() {
   }
+
 
 }

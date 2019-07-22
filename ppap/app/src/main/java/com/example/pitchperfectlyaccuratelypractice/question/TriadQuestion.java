@@ -15,6 +15,7 @@ public class TriadQuestion extends Question{
 
   Note root;
 
+
   public TriadQuestion() {
     notePool = Note.getReasonableNotes();
     next_question(NextQuestionStrategy.Random);
