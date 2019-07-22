@@ -27,8 +27,8 @@ import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.music.Note;
 
-public class GeneralTabFragment extends Fragment {
-    private static final String TAG = "GeneralTabFragment";
+public class NotePoolSelectionTab extends Fragment {
+    private static final String TAG = "NotePoolSelectionTab";
 
     /**
      * notes table  (dynamically generated notes buttons)
@@ -124,13 +124,14 @@ public class GeneralTabFragment extends Fragment {
      */
     private Note keySigNote = new Note("A");
 
-    public GeneralTabFragment(FilterActivity filter){
+    public NotePoolSelectionTab(FilterActivity filter){
         filterActivity = filter;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        resource = R.layout.note_pool_selection_tab_layout;
         View layout = inflater.inflate(resource, container, false);
         view = layout;
         notesTableView = view.findViewById(R.id.note_pool_table);
@@ -165,10 +166,10 @@ public class GeneralTabFragment extends Fragment {
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
-        filterActivity.filterPageOption.from = Note.getIndex("A3");
-        filterActivity.filterPageOption.to = Note.getIndex("A4");
-        filterActivity.filterPageOption.scale = 1;
-        filterActivity.filterPageOption.keySignature = 0;
+        filterActivity.perModeSetting.from = Note.getIndex("A3");
+        filterActivity.perModeSetting.to = Note.getIndex("A4");
+        filterActivity.perModeSetting.scale = 1;
+        filterActivity.perModeSetting.keySignature = 0;
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -184,7 +185,7 @@ public class GeneralTabFragment extends Fragment {
                     toNote = fromNote;
                 }
 
-                filterActivity.filterPageOption.from = position;
+                filterActivity.perModeSetting.from = position;
 
                 // FIXME reduce duplicate code
                 // set range filter
@@ -217,7 +218,7 @@ public class GeneralTabFragment extends Fragment {
                     fromNote = toNote;
                 }
 
-                filterActivity.filterPageOption.to = position;
+                filterActivity.perModeSetting.to = position;
 
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
@@ -245,7 +246,7 @@ public class GeneralTabFragment extends Fragment {
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
-                filterActivity.filterPageOption.scale = position;
+                filterActivity.perModeSetting.scale = position;
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
 
@@ -269,7 +270,7 @@ public class GeneralTabFragment extends Fragment {
                 filterHandler.applyFilters();
 
                 generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
-                filterActivity.filterPageOption.keySignature = position;
+                filterActivity.perModeSetting.keySignature = position;
 
                 update_tableview_using_note_pool();
 
@@ -377,7 +378,7 @@ public class GeneralTabFragment extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 tmpData.toggleNote(note);
                 generated_notes = tmpData.toNotes();
-                filterActivity.filterPageOption.setNotesBitmap(Note.NotesToInts(generated_notes));
+                filterActivity.perModeSetting.setNotesBitmap(Note.NotesToInts(generated_notes));
             }
         });
         return button;

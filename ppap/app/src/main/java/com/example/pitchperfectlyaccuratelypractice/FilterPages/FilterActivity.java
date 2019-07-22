@@ -4,24 +4,13 @@ package com.example.pitchperfectlyaccuratelypractice.FilterPages;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TableLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
-import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
-import com.example.pitchperfectlyaccuratelypractice.filter.Filter;
-import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
-import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
-import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -32,96 +21,8 @@ public class FilterActivity extends AppCompatActivity {
 
     private static final String TAG = "IntervalModeFilterAc";
 
-    /**
-     * layout inflater
-     */
-    LayoutInflater layoutInflater;
-    /**
-     * notes table  (dynamically generated notes buttons)
-     */
-    TableLayout notesTableView;
 
-    /**
-     * currently generated notes
-     */
-    Note[] generated_notes;
-
-    /**
-     * fromSpinner
-     */
-    Spinner fromSpinner  ;
-    /**
-     * toSpinner
-     */
-    Spinner toSpinner    ;
-    /**
-     * scaleSpinner
-     */
-    Spinner scaleSpinner ;
-    /**
-     * key signature spinner
-     */
-    Spinner keySigSpinner;
-
-    /**
-     * strings to put in from and to spinner
-     */
-    static String[] notes_strings;
-    /**
-     * strings to put in scale spinner
-     */
-    static String[] scale_strings;
-    /**
-     * strings to put in the key signature spinner
-     */
-    static String[] keySig_strings;
-
-    /**
-     * current rangefilter
-     */
-    static NotesRangeFilter rangeFilter = new NotesRangeFilter(Note.getLowestNote(), Note.getHighestNote());
-    /**
-     * current scalefilter
-     */
-    static NotesScaleFilter scaleFilter = new NotesScaleFilter(new Note('A'), NotesScale.Major);
-    /**
-     * current filter handler (see filterHandler class for detail)
-     */
-    static FilterHandler filterHandler;
-
-    // set them up at statically
-    static {
-        Note [] notes = Note.getAllNotes();
-        notes_strings = Note.getStringsFromNotes(notes);
-        scale_strings = NotesScale.getAllNotesScales();
-        keySig_strings = Note.getAllKeySignatures();
-        filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
-    }
-
-    private IntervalsBitmap intervalsBitmap;
-    private NotesBitmap notesBitmap;
-
-    public FilterPageOption filterPageOption;
-
-
-    /**
-     * current from Note
-     */
-    private Note fromNote = Note.getLowestNote();
-    /**
-     * current to Note
-     */
-    private Note toNote = Note.getHighestNote();
-    /**
-     * current scale
-     */
-    private NotesScale scale = NotesScale.Major;
-    /**
-     * current key signature
-     */
-    private Note keySigNote = new Note("A");
-
-    private String mode;
+    public PerModeSetting perModeSetting;
 
     private int pageNum;
     /**
@@ -135,8 +36,8 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_interval_mode_filter);
 
         Intent intent = getIntent();
-        filterPageOption = (FilterPageOption)intent.getSerializableExtra("Mode");
-        pageNum = filterPageOption.getFilterPageNum();
+        perModeSetting = (PerModeSetting)intent.getSerializableExtra("Mode");
+        pageNum = perModeSetting.getFilterPageNum();
         CreateTabFragments();
 
         setBackButtonListener();
@@ -204,7 +105,7 @@ public class FilterActivity extends AppCompatActivity {
     void returnToMainActivity(){
 //        Note.logNotes(TAG, notes_to_return);
         Intent intent = new Intent();
-        intent.putExtra("Mode", filterPageOption);
+        intent.putExtra("Mode", perModeSetting);
         setResult(RESULT_OK, intent);
         finish();
     }

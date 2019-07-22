@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterActivity;
-import com.example.pitchperfectlyaccuratelypractice.FilterPages.FilterPageOption;
+import com.example.pitchperfectlyaccuratelypractice.FilterPages.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 
@@ -60,7 +60,7 @@ public class TriadFragment extends GeneralFragment {
             @Override
             public void onClick(View view) {
                 Intent filter_intent = new Intent(getActivity(), FilterActivity.class);
-                filter_intent.putExtra("Mode", new FilterPageOption("triad"));
+                filter_intent.putExtra("Mode", new PerModeSetting("triad"));
 
                 // let the main activity handle the intent
                 getActivity().startActivityForResult(filter_intent, MainActivity.REQUEST_CODE_FROM_FILTER); // why this REQUEST_CODE_FROM_FILTER can't be found using getActivity().REQUEST_CODE_FROM_FILTER

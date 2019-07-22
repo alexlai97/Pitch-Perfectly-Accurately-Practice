@@ -9,7 +9,7 @@ import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 
 import java.io.Serializable;
 
-public class FilterPageOption implements Serializable {
+public class PerModeSetting implements Serializable {
     String mode;
     int[] notesBitmap;
     int[] intervalsBitmap;
@@ -18,7 +18,7 @@ public class FilterPageOption implements Serializable {
     int scale;
     int keySignature;
 
-    public FilterPageOption(String mode){
+    public PerModeSetting(String mode){
         this.mode = mode;
         notesBitmap = null;
         intervalsBitmap = null;

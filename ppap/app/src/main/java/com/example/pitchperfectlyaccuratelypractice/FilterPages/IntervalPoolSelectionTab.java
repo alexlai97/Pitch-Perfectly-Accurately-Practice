@@ -19,15 +19,14 @@ import android.widget.ToggleButton;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.music.Interval;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabFragment2 extends Fragment{
+public class IntervalPoolSelectionTab extends Fragment{
 
-    private static final String TAG="TabFragment2";
+    private static final String TAG="IntervalPoolSelectionTab";
     private FilterActivity filter;
     public View view;
 
@@ -35,19 +34,19 @@ public class TabFragment2 extends Fragment{
 
     private IntervalsBitmap tmpData;
 
-    TableLayout notesTableView1;
-    TableLayout notesTableView2;
+    TableLayout negativeIntervalsTable;
+    TableLayout positiveIntervalsTable;
 
     LayoutInflater layoutInflater;
 
-    public TabFragment2(FilterActivity filter) {
+    public IntervalPoolSelectionTab(FilterActivity filter) {
         this.filter = filter;
         tmpData = IntervalsBitmap.getAllTrueIntervalsBitmap();
         generated_interval = tmpData.toInterval();
         // Required empty public constructor
     }
 
-    public TabFragment2(FilterActivity filter, IntervalsBitmap intervalsBitmap) {
+    public IntervalPoolSelectionTab(FilterActivity filter, IntervalsBitmap intervalsBitmap) {
         this.filter = filter;
         this.tmpData = intervalsBitmap;
         tmpData = IntervalsBitmap.getAllTrueIntervalsBitmap();
@@ -58,10 +57,10 @@ public class TabFragment2 extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
+        View layout = inflater.inflate(R.layout.interval_pool_selection_tab_layout, container, false);
         view = layout;
-        notesTableView1 = view.findViewById(R.id.tableLayout1);
-        notesTableView2 = view.findViewById(R.id.tableLayout2);
+        negativeIntervalsTable = view.findViewById(R.id.negativeIntervalsTableLayout);
+        positiveIntervalsTable = view.findViewById(R.id.positiveIntervalsTableLayout);
         Log.d(TAG, "onCreateView: ");
         return view;
     }
@@ -82,8 +81,8 @@ public class TabFragment2 extends Fragment{
 
 //    private void restoreButtonState(IntervalsBitmap tmpData){
 //        int index = 11;
-//        for(int row = 0; row < notesTableView1.getChildCount(); row++) {
-//            TableRow tableRow = (TableRow)notesTableView1.getChildAt(row);
+//        for(int row = 0; row < negativeIntervalsTable.getChildCount(); row++) {
+//            TableRow tableRow = (TableRow)negativeIntervalsTable.getChildAt(row);
 //            for(int col = 0; col < tableRow.getChildCount(); col++){
 //                ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
 //                if()
@@ -97,8 +96,8 @@ public class TabFragment2 extends Fragment{
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int row = 0; row < notesTableView1.getChildCount(); row++) {
-                    TableRow tableRow = (TableRow)notesTableView1.getChildAt(row);
+                for(int row = 0; row < negativeIntervalsTable.getChildCount(); row++) {
+                    TableRow tableRow = (TableRow) negativeIntervalsTable.getChildAt(row);
                     for(int col = 0; col < tableRow.getChildCount(); col++){
                         ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
                         if(!toggleButton.isChecked()){
@@ -106,8 +105,8 @@ public class TabFragment2 extends Fragment{
                         }
                     }
                 }
-                for(int row = 0; row < notesTableView2.getChildCount(); row++) {
-                    TableRow tableRow = (TableRow)notesTableView2.getChildAt(row);
+                for(int row = 0; row < positiveIntervalsTable.getChildCount(); row++) {
+                    TableRow tableRow = (TableRow) positiveIntervalsTable.getChildAt(row);
                     for(int col = 0; col < tableRow.getChildCount(); col++){
                         ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
                         if(!toggleButton.isChecked()){
@@ -121,8 +120,8 @@ public class TabFragment2 extends Fragment{
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int row = 0; row < notesTableView1.getChildCount(); row++) {
-                    TableRow tableRow = (TableRow)notesTableView1.getChildAt(row);
+                for(int row = 0; row < negativeIntervalsTable.getChildCount(); row++) {
+                    TableRow tableRow = (TableRow) negativeIntervalsTable.getChildAt(row);
                     for(int col = 0; col < tableRow.getChildCount(); col++){
                         ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
                         if(toggleButton.isChecked()){
@@ -131,8 +130,8 @@ public class TabFragment2 extends Fragment{
                     }
                 }
 
-                for(int row = 0; row < notesTableView2.getChildCount(); row++) {
-                    TableRow tableRow = (TableRow)notesTableView2.getChildAt(row);
+                for(int row = 0; row < positiveIntervalsTable.getChildCount(); row++) {
+                    TableRow tableRow = (TableRow) positiveIntervalsTable.getChildAt(row);
                     for(int col = 0; col < tableRow.getChildCount(); col++){
                         ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
                         if(toggleButton.isChecked()){
@@ -176,8 +175,8 @@ public class TabFragment2 extends Fragment{
                 note_button = updateButton(note_button, interval);
                 row1.addView(note_button);
             }
-            notesTableView1.addView(row1);
-            notesTableView2.addView(row2);
+            negativeIntervalsTable.addView(row1);
+            positiveIntervalsTable.addView(row2);
         }
 
     }
@@ -203,7 +202,7 @@ public class TabFragment2 extends Fragment{
                 tmpData.toggleNote(interval);
 
                 generated_interval = tmpData.toInterval();
-                filter.filterPageOption.setIntervalsBitmap(Interval.IntervalsToInts(generated_interval));
+                filter.perModeSetting.setIntervalsBitmap(Interval.IntervalsToInts(generated_interval));
             }
         });
         return button;

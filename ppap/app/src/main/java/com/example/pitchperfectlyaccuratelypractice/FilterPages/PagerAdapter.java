@@ -18,8 +18,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0: return new TabFragment1(filter);
-            case 1: return new TabFragment2(filter);
+            case 0: return new NotePoolSelectionTab(filter);
+            case 1: return new IntervalPoolSelectionTab(filter);
             default: return null;
         }
     }
