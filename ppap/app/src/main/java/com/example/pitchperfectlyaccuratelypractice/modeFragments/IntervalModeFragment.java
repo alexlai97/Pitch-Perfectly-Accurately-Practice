@@ -86,18 +86,8 @@ public class IntervalModeFragment extends ModeFragment {
         if (texts.length != 2) {
             throw new AssertionError("expecting texts' length is 2");
         }
-        char[] charArray = texts[0].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) noteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
-            } else if (i == 1) {
-                ((TextView) noteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
-            } else if (i == 2) {
-                ((TextView) noteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
-            }
-        }
-            questionIntervalText.setText(texts[1]);
-
+        updateSingleNoteText(noteLayout, texts[0]);
+        questionIntervalText.setText(texts[1]);
     }
 
     /**

@@ -13,27 +13,9 @@ import java.util.ArrayList;
 
 public class MyMidiTool {
     private static final String TAG = "MyMidiTool";
-//    static Context context;
     public MyMidiTool() {
-//        context = ct;
     }
 
-//    public void do_something() {
-//        InputStream inputStream = context.getResources().openRawResource(R.raw.auld_lang_syne);
-//        MidiFile midiFile = new MidiFile();
-//        try {
-//            midiFile = new MidiFile(inputStream);
-//        } catch (Exception e) {
-//            Log.d(TAG, "MyMidiTool: " + e);
-//        }
-//        Log.d(TAG, "do_something: doing something");
-//
-//        MidiProcessor processor = new MidiProcessor(midiFile);
-//        MidiSongPlayer midiNotesListener = new MidiSongPlayer(this);
-//        processor.registerEventListener(midiNotesListener, NoteOn.class);
-//
-//        processor.start();
-//    }
 
     public static MidiFile getMidiFileFromId(Context context, int id) {
         if (context == null) {
@@ -67,12 +49,4 @@ public class MyMidiTool {
 
         return Note.ArrayListToNotes(notes_arr);
     }
-
-//    public void updateNotes(Note[] notes) {
-//        Note.logNotes(TAG, notes);
-//    }
-
-//    public static void main(String args[]) {
-//        MyMidiTool myMidiTool = new MyMidiTool();
-//    }
 }

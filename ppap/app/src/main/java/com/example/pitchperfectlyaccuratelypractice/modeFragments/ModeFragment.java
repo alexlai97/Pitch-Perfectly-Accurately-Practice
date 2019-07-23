@@ -387,4 +387,26 @@ public abstract class ModeFragment extends Fragment {
     public String getPopupText(){
         return instruction_string;
     }
+
+
+    protected void updateSingleNoteText(ConstraintLayout layout, String note_text) {
+        TextView notesymbol = ((TextView) layout.findViewById(R.id.NoteTextView));
+        TextView noteScale = ((TextView) layout.findViewById(R.id.NoteScaleTextView));
+        TextView noteSignal = ((TextView) layout.findViewById(R.id.NoteSigView));
+        if (note_text.length() == 0) {
+            notesymbol.setText("");
+            noteScale.setText("");
+            noteSignal.setText("");
+        } else if (note_text.length() == 2) {
+            notesymbol.setText("" + note_text.charAt(0));
+            noteScale.setText("" + note_text.charAt(1));
+            noteSignal.setText("");
+        } else if (note_text.length() == 3) {
+            notesymbol.setText("" + note_text.charAt(0));
+            noteScale.setText("" + note_text.charAt(1));
+            noteSignal.setText("" + note_text.charAt(2));
+        } else {
+            throw new AssertionError("Unexpecte note text length");
+        }
+    }
 }

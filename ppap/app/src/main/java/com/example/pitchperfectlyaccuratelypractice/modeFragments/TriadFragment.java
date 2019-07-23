@@ -106,40 +106,9 @@ public class TriadFragment extends ModeFragment {
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
         if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
-        char[] charArray = texts[0].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) baseNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
-            } else if (i == 1) {
-                ((TextView) baseNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
-            } else if (i == 2) {
-                ((TextView) baseNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
-            }
-        }
-        char[] charArray1 = texts[1].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) middleNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray1[i]);
-            } else if (i == 1) {
-                ((TextView) middleNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray1[i]);
-            } else if (i == 2) {
-                ((TextView) middleNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray1[i]);
-            }
-        }
-        char[] charArray2 = texts[2].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) sopranoNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray2[i]);
-            } else if (i == 1) {
-                ((TextView) sopranoNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray2[i]);
-            } else if (i == 2) {
-                ((TextView) sopranoNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray2[i]);
-            }
-        }
-
-       // questionTriadBaseNoteText.setText(texts[0]);
-        //questionTriadMiddleNoteText.setText(texts[1]);
-        //questionTriadSopranoNoteText.setText(texts[2]);
+        updateSingleNoteText(baseNoteLayout, texts[0]);
+        updateSingleNoteText(middleNoteLayout, texts[1]);
+        updateSingleNoteText(sopranoNoteLayout, texts[2]);
     }
 
     @Override

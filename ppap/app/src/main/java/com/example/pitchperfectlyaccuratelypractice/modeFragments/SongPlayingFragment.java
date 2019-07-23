@@ -48,8 +48,6 @@ public class SongPlayingFragment extends SongModeFragment {
         play = getResources().getDrawable(R.drawable.play_button);
         pause = getResources().getDrawable(R.drawable.pause_button);
 
-//        arrowText = constraintLayout.findViewById(R.id.arrowTextView);
-
         playOrPauseButton = constraintLayout.findViewById(R.id.playOrpauseButton);
         stopButton = constraintLayout.findViewById(R.id.stopButton);
         switchToPracticeButton = constraintLayout.findViewById(R.id.switchToPracticeModeButton);

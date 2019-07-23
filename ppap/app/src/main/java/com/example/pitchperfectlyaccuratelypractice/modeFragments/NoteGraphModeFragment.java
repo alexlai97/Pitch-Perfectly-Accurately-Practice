@@ -144,16 +144,7 @@ public class NoteGraphModeFragment extends ModeFragment {
     @Override
     public void updateQuestionTexts(String[] texts){
         if(!onCreated) return;
-        char[] charArray = texts[0].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) noteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
-            } else if (i == 1) {
-                ((TextView) noteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
-            } else if (i == 2) {
-                ((TextView) noteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
-            }
-        }
+        updateSingleNoteText(noteLayout, texts[0]);
     }
 
     /**

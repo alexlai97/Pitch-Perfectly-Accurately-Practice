@@ -61,36 +61,9 @@ public class SongModeFragment extends ModeFragment {
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
         if (texts.length != 3) { throw new AssertionError("expecting texts' length is 3"); }
-        char[] charArray = texts[0].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) prevNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray[i]);
-            } else if (i == 1) {
-                ((TextView) prevNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray[i]);
-            } else if (i == 2) {
-                ((TextView) prevNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray[i]);
-            }
-        }
-        char[] charArray1 = texts[1].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) currentNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray1[i]);
-            } else if (i == 1) {
-                ((TextView) currentNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray1[i]);
-            } else if (i == 2) {
-                ((TextView) currentNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray1[i]);
-            }
-        }
-        char[] charArray2 = texts[2].toCharArray();
-        for (int i = 0; i < charArray.length; ++i) {
-            if (i == 0) {
-                ((TextView) nextNoteLayout.findViewById(R.id.NoteTextView)).setText("" + charArray2[i]);
-            } else if (i == 1) {
-                ((TextView) nextNoteLayout.findViewById(R.id.NoteScaleTextView)).setText("" + charArray2[i]);
-            } else if (i == 2) {
-                ((TextView) nextNoteLayout.findViewById(R.id.NoteSigView)).setText("" + charArray2[i]);
-            }
-        }
+        updateSingleNoteText(prevNoteLayout, texts[0]);
+        updateSingleNoteText(currentNoteLayout, texts[1]);
+        updateSingleNoteText(nextNoteLayout, texts[2]);
     }
 
     public void updateLyricsView(String str) {

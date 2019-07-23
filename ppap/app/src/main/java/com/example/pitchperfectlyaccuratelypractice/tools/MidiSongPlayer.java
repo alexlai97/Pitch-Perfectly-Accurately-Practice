@@ -22,30 +22,22 @@ import java.util.ArrayList;
 public class MidiSongPlayer implements MidiEventListener {
     private final static String TAG = "MidiSongPlayer";
 
-    MidiProcessor midiProcessor;
+    private MidiProcessor midiProcessor;
 
-//    private static MediaPlayer mediaPlayer = new MediaPlayer();
     private NotesPlayer notesPlayer;
-    ArrayList<Note> notes_arr = new ArrayList<>();
 
-    int last_note_index = 0;
+    private MidiFile midiFile;
 
-    MyMidiTool myMidiTool;
+    private ArrayList<MidiTrack> midiTracks;
 
-    MidiFile midiFile;
+    private SongPlayingFragment songPlayingFragment;
 
-    ArrayList<MidiTrack> midiTracks;
+    private MainActivity mainActivity;
 
+    private Model model;
 
-    SongPlayingFragment songPlayingFragment;
+    private Note[] notes_from_midiFile;
 
-    MainActivity mainActivity;
-
-//    Controller controller;
-
-    Model model;
-
-    Note[] notes;
     public MidiSongPlayer(MainActivity ac) {
         mainActivity = ac;
         model = mainActivity.getModel();
@@ -57,7 +49,7 @@ public class MidiSongPlayer implements MidiEventListener {
 
     public void setMidiFileUsingCurrentQuestion() {
         setMidiFile(((SongQuestion)(model.getCurrentQuestion())).getSong().getMidiFile());
-        midiProcessor.stop();
+        midiProcessor.reset();
         flag = true;
         midiTracks_index = 0;
         current_note_index = 0;
@@ -68,7 +60,7 @@ public class MidiSongPlayer implements MidiEventListener {
         midiProcessor = new MidiProcessor(mfile);
         midiProcessor.registerEventListener(this, MidiEvent.class);
         midiTracks = parseMidiFileToNoteTracks(midiFile);
-        notes = MyMidiTool.parseMidiToNotes(midiFile);
+        notes_from_midiFile = MyMidiTool.parseMidiToNotes(midiFile);
     }
 
     private ArrayList<MidiTrack> parseMidiFileToNoteTracks(MidiFile midifile) {
@@ -138,16 +130,16 @@ public class MidiSongPlayer implements MidiEventListener {
         String[] texts = new String[3];
         if (current_note_index == 0) {
             texts[0] = "";
-            texts[1] = Note.getText(notes[current_note_index]);
-            texts[2] = Note.getText(notes[current_note_index + 1]);
-        } else if (current_note_index == notes.length - 1) {
-            texts[0] = Note.getText(notes[current_note_index-1]);
-            texts[1] = Note.getText(notes[current_note_index]);
+            texts[1] = Note.getText(notes_from_midiFile[current_note_index]);
+            texts[2] = Note.getText(notes_from_midiFile[current_note_index + 1]);
+        } else if (current_note_index == notes_from_midiFile.length - 1) {
+            texts[0] = Note.getText(notes_from_midiFile[current_note_index-1]);
+            texts[1] = Note.getText(notes_from_midiFile[current_note_index]);
             texts[2] = "";
         } else {
-            texts[0] = Note.getText(notes[current_note_index-1]);
-            texts[1] = Note.getText(notes[current_note_index]);
-            texts[2] = Note.getText(notes[current_note_index + 1]);
+            texts[0] = Note.getText(notes_from_midiFile[current_note_index-1]);
+            texts[1] = Note.getText(notes_from_midiFile[current_note_index]);
+            texts[2] = Note.getText(notes_from_midiFile[current_note_index + 1]);
         }
         return texts;
     }
