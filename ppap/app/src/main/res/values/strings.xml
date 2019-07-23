@@ -24,7 +24,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="play">play</string>
 
-    <string name="Top10">Top 10 Notes</string>
-    <string name="Bot5">5 Notes to Practice</string>
+    <string name="AllNoteGraph">Notes Summary (ALL)</string>
     <string name="Summary">Summary Page</string>
 </resources>
