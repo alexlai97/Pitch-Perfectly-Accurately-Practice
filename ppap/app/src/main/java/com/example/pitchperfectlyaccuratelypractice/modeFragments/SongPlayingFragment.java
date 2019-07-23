@@ -13,6 +13,7 @@ import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
 /**
  * a children of general fragment
@@ -59,8 +60,8 @@ public class SongPlayingFragment extends SongModeFragment {
             }
         });
 
+        // FIXME put it in constructor
         midiSongPlayer = new MidiSongPlayer((MainActivity)getActivity());
-        // FIXME tmporary
         playOrPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,9 +78,17 @@ public class SongPlayingFragment extends SongModeFragment {
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (midiSongPlayer.isPlaying()) {
-                    midiSongPlayer.reset();
-                }
+                midiSongPlayer.reset();
+                midiSongPlayer.setMidiFileUsingCurrentQuestion();
+                midiSongPlayer.updateQuestionTexts();
+                playOrPauseButton.setBackground(play);
+            }
+        });
+
+        playSoundButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notesPlayer.start_playing(midiSongPlayer.getCurrentPlayingNote());
             }
         });
 
@@ -93,6 +102,7 @@ public class SongPlayingFragment extends SongModeFragment {
                 songTitleText.setText(selected_song.getTitle());
                 model.setCurrentQuestion(new SongQuestion(selected_song));
                 // FIXME maybe observer pattern
+                midiSongPlayer = new MidiSongPlayer((MainActivity)getActivity());
                 midiSongPlayer.setMidiFileUsingCurrentQuestion();
                 controller.updateQuestionView();
             }
