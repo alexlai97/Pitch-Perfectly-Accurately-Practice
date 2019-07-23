@@ -10,8 +10,11 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -21,12 +24,18 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class PerModeSettingActivity extends AppCompatActivity {
 
-    private static final String TAG = "IntervalModeFilterAc";
+    private static final String TAG = "PerModeSettingActivity";
 
 
     public PerModeSetting perModeSetting;
 
+    public Mode mode;
     private int pageNum;
+
+    public Interval[] generated_interval;
+
+    public IntervalsBitmap tmpData;
+
     /**
      * setup views
      * @param savedInstanceState
@@ -40,6 +49,7 @@ public class PerModeSettingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         perModeSetting = (PerModeSetting)intent.getSerializableExtra("Mode");
         pageNum = perModeSetting.getFilterPageNum();
+        mode = perModeSetting.mode;
         CreateTabFragments();
 
         setBackButtonListener();

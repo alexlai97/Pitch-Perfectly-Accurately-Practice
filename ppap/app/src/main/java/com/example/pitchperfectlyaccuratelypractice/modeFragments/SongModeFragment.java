@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 
@@ -30,6 +31,10 @@ public class SongModeFragment extends ModeFragment {
     protected MidiSongPlayer midiSongPlayer;
     protected Model model;
 
+
+    SongModeFragment(){
+        mode = Mode.SongPractice;
+    }
     @Override
     void setupAdditionalView() {
         prevNoteLayout = constraintLayout.findViewById(R.id.previous_note_include);
@@ -47,11 +52,6 @@ public class SongModeFragment extends ModeFragment {
         setupSongAdditionalView();
     }
 
-    // FIXME
-    @Override
-    public void listenerSetUp() {
-
-    }
 
     void setupSongAdditionalView() {
 

@@ -1,6 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
-import android.content.Intent;
 import android.os.Handler;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,11 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
-import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.jjoe64.graphview.*;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -46,6 +43,7 @@ public class NoteGraphModeFragment extends ModeFragment {
      * setup resource (see parent onCreateView for use)
      */
     public NoteGraphModeFragment() {
+        mode= Mode.NoteGraphPractice;
         resource = R.layout.modefragment_note_graph;
         background_color = Color.parseColor("#c0ecef");
         instruction_string = "Please sing the note in the center \n\n" +
@@ -81,20 +79,6 @@ public class NoteGraphModeFragment extends ModeFragment {
         graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.HORIZONTAL);
         graph.addSeries(series);
         graph.addSeries(series2);
-    }
-
-    @Override
-    public void listenerSetUp() {
-        filterPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
-                filter_intent.putExtra("Mode", new PerModeSetting("noteGraph"));
-
-                // let the main activity handle the intent
-                getActivity().startActivityForResult(filter_intent, MainActivity.REQUEST_CODE_FROM_FILTER); // why this REQUEST_CODE_FROM_FILTER can't be found using getActivity().REQUEST_CODE_FROM_FILTER
-            }
-        });
     }
 
     public void onResume(){

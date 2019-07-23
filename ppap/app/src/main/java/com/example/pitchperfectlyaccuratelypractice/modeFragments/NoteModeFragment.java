@@ -1,16 +1,13 @@
 package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.animation.Animation;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
-import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.R;
 
 /**
@@ -21,7 +18,6 @@ public class NoteModeFragment extends ModeFragment {
 
     private static String TAG = "NoteModeFragment";
 
-    private final int REQUEST_CODE= 1;
     /**
      * a question note in the middle of the screen
      */
@@ -37,25 +33,12 @@ public class NoteModeFragment extends ModeFragment {
      * setup resource (see parent onCreateView for use)
      */
     public NoteModeFragment() {
+        mode = Mode.NotePractice;
         resource = R.layout.modefragment_note;
         background_color = Color.parseColor("#E6FBBA");
         instruction_string = "Please sing the note in the center \n\n" +
                 "Single the tap start_playing button will start_playing the answer note.\n\n" +
                 "You can select note pool in Filter Page (pineapple button)";
-    }
-
-    @Override
-    public void listenerSetUp() {
-        filterPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
-                filter_intent.putExtra("Mode", new PerModeSetting("note"));
-                // let the main activity handle the intent
-                startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
-            }
-        });
-
     }
 
     /**

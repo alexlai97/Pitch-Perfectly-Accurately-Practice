@@ -12,6 +12,7 @@ import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.modeFragments.NoteGraphModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -57,6 +58,11 @@ public class Controller implements Observer ,
   private Config curConfig;
   /**  current mode (will change if model's current question is changed) */
   private Mode curMode = Mode.NotePractice; // Don't need it probably
+
+
+  /**  current PerModeSetting (will change if filtered result is changed) */
+  private PerModeSetting curFiltered = new PerModeSetting(); // Don't need it probably
+
   /** model owned by main activity */
   private Model model;
 
@@ -91,6 +97,8 @@ public class Controller implements Observer ,
   public Controller(Model a_model, Activity activity) {
     mainActivity = (MainActivity)activity;
     model = a_model;
+
+    model.setFilteredResult();
     // generate NoteQuestion
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
@@ -117,6 +125,10 @@ public class Controller implements Observer ,
 
   public Mode getCurMode() {
     return curMode;
+  }
+
+  public PerModeSetting getCurFiltered() {
+    return curFiltered;
   }
 
   /**
@@ -395,6 +407,12 @@ public class Controller implements Observer ,
           break;
         case "currentQuestion":
           curQuestion = (Question) event.getNewValue();
+          break;
+        case "filteredResult":
+          curFiltered = (PerModeSetting) event.getNewValue();
+          /* add code here to response filtered result change:
+           for example call ModeFragment method to update view or generate next question*/
+
           break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
