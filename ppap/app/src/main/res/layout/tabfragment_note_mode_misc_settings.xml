@@ -10,35 +10,30 @@
     tools:context=".modeSettingsTabFragments.NotePoolSelectionTab"
     android:background="#E6FBBA">
 
-    <TextView
-        android:id="@+id/fromTextView"
-        android:layout_width="221dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="136dp"
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="378dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="68dp"
         android:text="@string/autoPlayback"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ToggleButton
-        android:id="@+id/fromSpinner"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="132dp"
-        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/toTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/toSpinner"
         android:layout_width="110dp"
         android:layout_height="45dp"
-        android:layout_marginTop="84dp"
         android:layout_marginEnd="20dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromSpinner" />
+        tools:layout_editor_absoluteY="261dp" />
 
     <EditText
         android:id="@+id/scaleSpinner"
@@ -55,20 +50,22 @@
         android:layout_width="110dp"
         android:layout_height="44dp"
         android:layout_marginTop="84dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scaleSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/scaleSpinner"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/toTextView"
         android:layout_width="262dp"
         android:layout_height="47dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="84dp"
         android:text="@string/errorAllowance"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromTextView" />
+        tools:layout_editor_absoluteY="261dp" />
 
     <TextView
         android:id="@+id/scaleTextView"
@@ -85,11 +82,14 @@
         android:id="@+id/keySigTextView"
         android:layout_width="262dp"
         android:layout_height="47dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="84dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/correctTimeText"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scaleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/scaleTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
