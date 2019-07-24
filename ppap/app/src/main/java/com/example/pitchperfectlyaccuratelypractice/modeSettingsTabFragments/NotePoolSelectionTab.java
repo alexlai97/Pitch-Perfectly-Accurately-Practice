@@ -41,6 +41,8 @@ public class NotePoolSelectionTab extends Fragment {
      */
     TableLayout notesTableView;
 
+    boolean selected = false;
+
 
     View view;
 
@@ -286,17 +288,35 @@ public class NotePoolSelectionTab extends Fragment {
     }
 
     protected void setButtonListener(){
-        Button selectButton = view.findViewById(R.id.general_select_all);
-        Button cancelButton = view.findViewById(R.id.general_cancel_all);
+
+        final Button selectButton = view.findViewById(R.id.general_select_all);
+        final Button cancelButton = view.findViewById(R.id.general_cancel_all);
+
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int row = 0; row < notesTableView.getChildCount(); row++) {
-                    TableRow tableRow = (TableRow)notesTableView.getChildAt(row);
-                    for(int col = 0; col < tableRow.getChildCount(); col++){
-                        ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
-                        if(!toggleButton.isChecked()){
-                            toggleButton.setChecked(true);
+                if (selected == false) {
+                    selected = true;
+                    selectButton.setText("UNSELECT ALL");
+                    for (int row = 0; row < notesTableView.getChildCount(); row++) {
+                        TableRow tableRow = (TableRow) notesTableView.getChildAt(row);
+                        for (int col = 0; col < tableRow.getChildCount(); col++) {
+                            ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
+                            if (!toggleButton.isChecked()) {
+                                toggleButton.setChecked(true);
+                            }
+                        }
+                    }
+                }else{
+                    selected = false;
+                    selectButton.setText("SELECT ALL");
+                    for (int row = 0; row < notesTableView.getChildCount(); row++) {
+                        TableRow tableRow = (TableRow) notesTableView.getChildAt(row);
+                        for (int col = 0; col < tableRow.getChildCount(); col++) {
+                            ToggleButton toggleButton = (ToggleButton) tableRow.getChildAt(col);
+                            if (toggleButton.isChecked()) {
+                                toggleButton.setChecked(false);
+                            }
                         }
                     }
                 }
