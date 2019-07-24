@@ -102,6 +102,7 @@ public class Controller implements Observer ,
     arrowAnimation.setRepeatCount(-1);
     arrowAnimation.setRepeatMode(Animation.REVERSE);
     arrowAnimation.setInterpolator(new LinearInterpolator());
+    // Forcing data to reset each time
     historyData = new HistoryData(mainActivity, false);
 //    historyData.addData(1);
   }

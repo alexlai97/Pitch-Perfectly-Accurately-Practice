@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -35,11 +37,13 @@ public class SummaryActivity extends Activity {
     JSONObject top10 = new JSONObject();
     JSONObject bot5 = new JSONObject();
 
-    private GraphView graphTop10;
-    private GraphView graphBot5;
+    private GraphView graph;
+    private final Note[] notes = Note.getAllNotes();
 
     float bestOfBot = 1;
     float worstOfTop = 0;
+
+    private int numOfNotesOnScreen = 17;
 
     float overallPercentage = 0;
 
@@ -51,6 +55,7 @@ public class SummaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.summary_layout);
 
+
         historyData = new HistoryData(this, true);
 
         findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
@@ -60,21 +65,13 @@ public class SummaryActivity extends Activity {
         });
 
         layoutInflater = LayoutInflater.from(this);
-        graphTop10 = (GraphView) findViewById(R.id.graph_top10);
-        graphTop10.getViewport().setMinY(0);
-        graphTop10.getViewport().setMaxY(1);
-        graphTop10.getViewport().setMinX(0);
-        graphTop10.getViewport().setMaxX(21);
-        graphTop10.getViewport().setYAxisBoundsManual(true);
-        graphTop10.getViewport().setXAxisBoundsManual(true);
-
-        graphBot5 = (GraphView) findViewById(R.id.graph_bot5);
-        graphBot5.getViewport().setMinY(0);
-        graphBot5.getViewport().setMaxY(1);
-        graphBot5.getViewport().setMinX(0);
-        graphBot5.getViewport().setMaxX(11);
-        graphBot5.getViewport().setYAxisBoundsManual(true);
-        graphBot5.getViewport().setXAxisBoundsManual(true);
+        graph = (GraphView) findViewById(R.id.graph);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(1);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(numOfNotesOnScreen);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setXAxisBoundsManual(true);
 
         getAllData();
     }
@@ -113,8 +110,7 @@ public class SummaryActivity extends Activity {
             }
             myNotes.remove();
         }
-        graphTop10();
-        graphBot5();
+        graphNotes();
     }
 
 
@@ -138,80 +134,54 @@ public class SummaryActivity extends Activity {
 //        }
     }
 
-    private void graphTop10(){
-        Iterator<String> it = top10.keys();
+    private void graphNotes(){
+        int it = notes.length + 1;
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
-        int cur = 1;
-        String[] formatter = new String[11];
-        for(int i = 0; i < 11; i++){
-            formatter[i] = " ";
-        }
 
 //        series.appendData(new DataPoint(0, 0), true, 10);
-        Log.v(TAG, "hi");
-        while (it.hasNext()) {
-            Log.v(TAG, "hi" + cur);
-            String currentString = it.next();
+        Log.v(TAG, Integer.toString(it));
+       for(int i = 1; i < it; i++) {
+            Log.v(TAG, "hi" + i);
+
             double pair = 0.;
             try {
-                pair= (double) top10.get(currentString);
+                pair= (double) top10.get(Integer.toString(i));
                 Log.e(TAG, Double.toString(pair));
             } catch (Exception e){
+//                pair= 1;
                 Log.e(TAG, e.toString());
             }
-            series.appendData(new DataPoint(cur*2, pair) , true, 10);
-            formatter[cur-1] = currentString;
-            it.remove(); // avoids a ConcurrentModificationException
-            cur++;
-            if(cur == 11) break;
+            series.appendData(new DataPoint(i, pair) , true, 74);
         }
 //        series.setAnimated(true);
-        series.setSpacing(50);
+        series.setSpacing(40);
+//        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+//        staticLabelsFormatter.setHorizontalLabels(formatter);
 
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphTop10);
-        staticLabelsFormatter.setHorizontalLabels(formatter);
-        graphTop10.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-        graphTop10.addSeries(series);
+
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+            @Override
+            public String formatLabel(double value, boolean isValueX){
+                if(isValueX) {
+                    int index = Math.round((float)value);
+                    if(index > 72) return "";
+                    return notes[index].getText();
+                }
+                return super.formatLabel(value, isValueX);
+            }
+        });
+
+        graph.getGridLabelRenderer().setNumHorizontalLabels(numOfNotesOnScreen);
+        graph.getGridLabelRenderer().setLabelVerticalWidth(200);
+//        series.setDataWidth(00);
+
+        graph.addSeries(series);
+        graph.getViewport().setScrollable(true);
 
 //        graphTop10
     }
 
-    private void graphBot5(){
-        Iterator<String> it = bot5.keys();
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
-        int cur = 1;
-        String[] formatter = new String[6];
-        for(int i = 0; i < 6; i++){
-            formatter[i] = " ";
-        }
-
-//        series.appendData(new DataPoint(0, 0), true, 5);
-        Log.v(TAG, "hi");
-        while (it.hasNext()) {
-            Log.v(TAG, "hi" + cur);
-            String currentString = it.next();
-            double pair = 0.;
-            try {
-                 pair= (double) bot5.get(currentString);
-            } catch (Exception e){
-                Log.e(TAG, e.toString());
-            }
-            series.appendData(new DataPoint(cur*2, pair) , true, 5);
-            formatter[cur-1] = currentString;
-            it.remove(); // avoids a ConcurrentModificationException
-            cur++;
-            if(cur == 6) break;
-        }
-//        series.setAnimated(true);
-        series.setSpacing(50);
-
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphBot5);
-        staticLabelsFormatter.setHorizontalLabels(formatter);
-        graphBot5.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-
-        graphBot5.addSeries(series);
-    }
     /**
      * pass note [] as int [] in intent back to MainActivity
      */

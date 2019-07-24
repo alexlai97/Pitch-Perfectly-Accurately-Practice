@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
 
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+
 public class HistoryData {
     JSONObject history;
     String myJson;
@@ -114,11 +116,6 @@ public class HistoryData {
         }
 
         writeToFile(history.toString(), currentAct, "history.json");
-    }
-
-    public int[] giveSettings(){
-        int[] lol = new int[0];
-        return lol;
     }
 
     private void writeToFile(String data, Activity context, String fileName) {

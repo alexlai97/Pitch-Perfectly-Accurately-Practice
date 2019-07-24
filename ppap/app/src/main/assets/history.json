@@ -1,41 +1,41 @@
 {
-	"A3":{
+	"3":{
 		"correct": 15,
 		"total": 16
 	}, 
-	"B2":{
+	"5":{
 		"correct" : 13,
 		"total": 32
 	},	
-	"D4":{
+	"8":{
 		"correct" : 123,
 		"total": 322
 	},	
-	"G1":{
+	"2":{
 		"correct" : 133,
 		"total": 232
 	},	
-	"A3#":{
+	"12":{
 		"correct" : 233,
 		"total": 242
 	},	
-	"B1":{
+	"51":{
 		"correct" : 233,
 		"total": 242
 	},	
-	"G5":{
+	"32":{
 		"correct" : 233,
 		"total": 242
 	},
-	"G2":{
+	"35":{
 		"correct" : 233,
 		"total": 242
 	},
-	"F3":{
+	"23":{
 		"correct" : 233,
 		"total": 242
 	},	
-	"F3#":{
+	"72":{
 		"correct" : 233,
 		"total": 242
 	},
