@@ -56,7 +56,7 @@ public class SummaryActivity extends Activity {
         setContentView(R.layout.summary_layout);
 
 
-        historyData = new HistoryData(this, false);
+        historyData = new HistoryData(this, true);
 
         findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -139,8 +139,8 @@ public class SummaryActivity extends Activity {
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
 
 //        series.appendData(new DataPoint(0, 0), true, 10);
-        Log.v(TAG, "hi");
-       for(int i = 0; i < it; i++) {
+        Log.v(TAG, Integer.toString(it));
+       for(int i = 1; i < it; i++) {
             Log.v(TAG, "hi" + i);
 
             double pair = 0.;
@@ -151,10 +151,10 @@ public class SummaryActivity extends Activity {
 //                pair= 1;
                 Log.e(TAG, e.toString());
             }
-            series.appendData(new DataPoint(i*2, pair) , true, 75);
+            series.appendData(new DataPoint(i, pair) , true, 74);
         }
 //        series.setAnimated(true);
-//        series.setSpacing(40);
+        series.setSpacing(40);
 //        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
 //        staticLabelsFormatter.setHorizontalLabels(formatter);
 
@@ -165,6 +165,7 @@ public class SummaryActivity extends Activity {
             public String formatLabel(double value, boolean isValueX){
                 if(isValueX) {
                     int index = Math.round((float)value);
+                    if(index > 72) return "";
                     return notes[index].getText();
                 }
                 return super.formatLabel(value, isValueX);
