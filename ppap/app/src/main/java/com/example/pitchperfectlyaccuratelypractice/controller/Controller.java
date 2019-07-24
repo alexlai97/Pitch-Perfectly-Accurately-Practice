@@ -417,8 +417,9 @@ public class Controller implements Observer ,
         case "currentMode":
           curMode = (Mode) event.getNewValue();
           // FIXME SongPlaying mode doesn't need question
-          if (curMode == Mode.SongPlaying || curMode == Mode.SongPractice) {
+          if (curMode == Mode.SongPlaying) {
             model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.auld_lang_syne)));
+          } else if  (curMode == Mode.SongPractice){
           } else {
             model.setCurrentQuestion(questionFactory.create(curMode));
           }

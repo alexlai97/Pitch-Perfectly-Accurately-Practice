@@ -13,6 +13,7 @@ import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /** a speaker which can start_playing note(s) */
     private NotesPlayer notesPlayer = new NotesPlayer();
+
 
     /**
      * getter for note player

@@ -177,6 +177,8 @@ public abstract class ModeFragment extends Fragment {
                     case IntervalPractice:
                         notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
                         break;
+                    case SongPlaying:
+                        break;
                 }
             }
         });
@@ -187,6 +189,7 @@ public abstract class ModeFragment extends Fragment {
                     case NotePractice:
                     case NoteGraphPractice:
                     case SongPractice:
+                    case SongPlaying:
                         return false;
                     case TriadPractice:
                         notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
