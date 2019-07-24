@@ -12,11 +12,17 @@ import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 
+/**
+ * General Song Mode Fragment, it has two children, SongPlayingFragment, SongPracticingFragment
+ */
 public class SongModeFragment extends ModeFragment {
     private static String TAG = "SongModeFragment";
 
+    /** prev note constraint layout */
     private ConstraintLayout prevNoteLayout;
+    /** current note constraint layout */
     private ConstraintLayout currentNoteLayout;
+    /** next note constraint layout */
     private ConstraintLayout nextNoteLayout;
 
     private TextView currentLyricsText;

@@ -34,13 +34,6 @@ public class NotesPlayer {
     private static String notes_pathname = Environment.getExternalStorageDirectory() + "/playing_notes.mid";
     private static String song_pathname = Environment.getExternalStorageDirectory() + "/playing_song.mid";
 
-    /**
-     * constructor, given a context
-     * @param ct
-     */
-//    public NotesPlayer(Context ct) {
-//        context = ct;
-//    }
 
     /**
      * how notes can be played
@@ -132,6 +125,10 @@ public class NotesPlayer {
         return noteTrack;
     }
 
+    /**
+     * use play a NoteTrack using mediaPlayer
+     * @param noteTrack
+     */
     public void playNoteTrack(MidiTrack noteTrack) {
         create_midi_tmp_file(noteTrack);
         load_tmp_file(notes_midi_file);
@@ -165,6 +162,12 @@ public class NotesPlayer {
         notes_midi_file = midi_write_to_file(midi, notes_pathname);
     }
 
+    /**
+     * create a File given midiFile and pathname
+     * @param midiFile
+     * @param pathname
+     * @return
+     */
     private File midi_write_to_file(MidiFile midiFile, String pathname) {
         File a_file = new File(pathname);
         try {

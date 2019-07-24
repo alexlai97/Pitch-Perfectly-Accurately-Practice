@@ -19,25 +19,37 @@ import com.leff.midi.util.MidiProcessor;
 
 import java.util.ArrayList;
 
+/**
+ * MidiSongPlayer can play a song
+ */
 public class MidiSongPlayer implements MidiEventListener {
     private final static String TAG = "MidiSongPlayer";
 
+    /** stores a a midi File processor */
     private MidiProcessor midiProcessor;
 
+    /** a notesPlayer */
     private NotesPlayer notesPlayer;
 
+    /** midi processor processes this MidiFile */
     private MidiFile midiFile;
 
-    private ArrayList<MidiTrack> midiTracks;
+    /** an array of noteTrack */
+    private ArrayList<MidiTrack> notesTracks;
 
+    /** have access to songPlaying Fragment */
     private SongPlayingFragment songPlayingFragment;
 
+    /** have access to MainActivity public getter methods */
     private MainActivity mainActivity;
 
+    /** have access to the model */
     private Model model;
 
+    /** an array of notes from the midi file */
     private Note[] notes_from_midiFile;
 
+    /** constructor of a MidiSongPlayer given MainActivity*/
     public MidiSongPlayer(MainActivity ac) {
         mainActivity = ac;
         model = mainActivity.getModel();
@@ -47,27 +59,31 @@ public class MidiSongPlayer implements MidiEventListener {
 //        setMidiFileUsingCurrentQuestion();
     }
 
+    /** get current question from model, and get the current song, and set midi file */
     public void setMidiFileUsingCurrentQuestion() {
         setMidiFile(((SongQuestion)(model.getCurrentQuestion())).getSong().getMidiFile());
         midiProcessor.reset();
         flag = true;
-        midiTracks_index = 0;
+        noteTracks_index = 0;
         current_note_index = 0;
     }
 
+    /** change midifile to a new midifile, and related logic  */
     public void setMidiFile(MidiFile mfile) {
         midiFile = mfile;
         midiProcessor = new MidiProcessor(mfile);
         midiProcessor.registerEventListener(this, MidiEvent.class);
-        midiTracks = MyMidiTool.parseMidiFileToNoteTracks(midiFile);
+        notesTracks = MyMidiTool.parseMidiFileToNoteTracks(midiFile);
         notes_from_midiFile = MyMidiTool.parseMidiToNotes(midiFile);
     }
 
 
+    /** start processing */
     public void start() {
         midiProcessor.start();
     }
 
+    /** is midiprocessor running */
     public boolean isPlaying() {
         if (midiProcessor == null) {
             return false;
@@ -76,14 +92,17 @@ public class MidiSongPlayer implements MidiEventListener {
     }
 
 
+    /** pause the midiprocessor */
     public void pause() {
         midiProcessor.stop();
     }
 
+    /** reset the midiprocessor */
     public void reset() {
         midiProcessor.reset();
     }
 
+    /** update the note texts in songfragment */
     public void updateQuestionTexts() {
         songPlayingFragment.updateQuestionTexts(getCurrentNotesTexts());
     }
@@ -98,15 +117,21 @@ public class MidiSongPlayer implements MidiEventListener {
         }
     }
 
+    /** flag to indicate if it the first NoteOn event or the second NoteOn event */
     private boolean flag = true;
-    private int midiTracks_index = 0;
 
+    /** index to indicate current noteTrack */
+    private int noteTracks_index = 0;
+
+    /** index to indicate current playing note */
     private int current_note_index = 0;
 
+    /** get the note that is current playing */
     public Note getCurrentPlayingNote() {
         return notes_from_midiFile[current_note_index];
     }
 
+    /** get the prev notes, current notes, next note texts*/
     private String[] getCurrentNotesTexts() {
         String[] texts = new String[3];
         if (current_note_index == 0) {
@@ -130,8 +155,8 @@ public class MidiSongPlayer implements MidiEventListener {
         Log.d(TAG, "event: " + event);
         if (event.getClass() == NoteOn.class) {
             if (flag) {
-                notesPlayer.playNoteTrack(midiTracks.get(midiTracks_index));
-                midiTracks_index++;
+                notesPlayer.playNoteTrack(notesTracks.get(noteTracks_index));
+                noteTracks_index++;
                 mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
