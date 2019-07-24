@@ -42,22 +42,5 @@ public class PerModeSetting implements Serializable {
         return intervalsBitmap;
     }
 
-    public int getFilterPageNum(){
-        switch (mode){
-            case NotePractice:
-                return 1;
-            case IntervalPractice:
-                return 2;
-            case TriadPractice:
-                return 1;
-            case NoteGraphPractice:
-                return 1;
-            case SongPractice:
-                return 1;
-            default:
-                return 1;
-        }
-    }
-
 
 }

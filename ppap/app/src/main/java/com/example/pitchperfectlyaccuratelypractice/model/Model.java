@@ -10,6 +10,7 @@ import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -76,7 +77,7 @@ public class Model {
         songList.add(new Song(id, title, MyMidiTool.getMidiFileFromId(context, id)));
     }
 
-    public void setupPerModeSetting(PerModeSetting p){
+    public void setPerModeSetting(PerModeSetting p){
         switch (p.mode){
             case NotePractice:
                 perModeSettings[0] = p;
@@ -146,8 +147,11 @@ public class Model {
      * @param intervals
      */
     public void setIntervalPool(Interval[] intervals) {
+        if (currentMode != Mode.IntervalPractice) {
+            throw new AssertionError("Please set interval pool when you are practicing interval");
+        }
         Question oldQuestion = currentQuestion;
-        currentQuestion.setIntervalPool(intervals);
+        ((IntervalQuestion)currentQuestion).setIntervalPool(intervals);
         notifyListeners(this, "currentQuestion", oldQuestion, this.currentQuestion);
     }
 

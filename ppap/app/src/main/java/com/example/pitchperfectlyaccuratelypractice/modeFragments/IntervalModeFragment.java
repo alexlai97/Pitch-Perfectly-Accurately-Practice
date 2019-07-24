@@ -59,6 +59,7 @@ public class IntervalModeFragment extends ModeFragment {
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
         noteLayout = constraintLayout.findViewById(R.id.interval_include);
     }
+
     /**
      * update questions, question text + interval text
      *

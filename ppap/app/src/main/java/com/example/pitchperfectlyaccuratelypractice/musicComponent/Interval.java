@@ -1,5 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.musicComponent;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -109,6 +111,28 @@ public class Interval implements Serializable {
 
   public static Interval[] getAllTrueIntervals() {
     return generateIntervalsWithRange(Interval.INDEX_LOWER_BOUND, Interval.INDEX_UPPER_BOUND);
+  }
+
+  public static String[] getStringsFromIntervals(Interval[] intervals) {
+    String[] strings = new String[intervals.length];
+     for (int i =0 ; i < intervals.length; i++ ) {
+         strings[i] = intervals[i].getText();
+     }
+     return strings;
+  }
+
+  /**
+   * log the notes
+   * @param tag
+   * @param intervals
+   */
+  public static void logIntervals(String tag, Interval[] intervals) {
+    String[] strings = getStringsFromIntervals(intervals);
+    String text = "";
+    for (String s: strings) {
+      text += s + ",";
+    }
+    Log.d(tag, text);
   }
 
   /**

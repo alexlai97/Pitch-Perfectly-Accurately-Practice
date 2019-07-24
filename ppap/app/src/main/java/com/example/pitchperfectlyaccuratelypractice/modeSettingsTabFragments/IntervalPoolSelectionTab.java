@@ -20,7 +20,6 @@ import android.widget.ToggleButton;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 
 /**
@@ -29,7 +28,7 @@ import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 public class IntervalPoolSelectionTab extends Fragment {
 
     private static final String TAG="IntervalTab";
-    private PerModeSettingActivity filter;
+    private PerModeSettingActivity perModeSettingActivity;
     public View view;
 
 
@@ -37,13 +36,13 @@ public class IntervalPoolSelectionTab extends Fragment {
     TableLayout positiveIntervalsTable;
 
     LayoutInflater layoutInflater;
-    Interval[] allTrueIntervalArray;
+    private static Interval[] allTrueIntervalArray = IntervalsBitmap.getAllTrueIntervalsBitmap().toIntervals();
 
-    public IntervalPoolSelectionTab(PerModeSettingActivity filter) {
-        this.filter = filter;
-        allTrueIntervalArray = IntervalsBitmap.getAllTrueIntervalsBitmap().toInterval();
+    public IntervalPoolSelectionTab(PerModeSettingActivity pma) {
+        this.perModeSettingActivity = pma;
 
-        filter.generated_interval = IntervalsBitmap.getAllTrueIntervalsBitmap();
+        // ??
+        perModeSettingActivity.generated_interval_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
         // Required empty public constructor
     }
 
@@ -52,7 +51,7 @@ public class IntervalPoolSelectionTab extends Fragment {
 //        this.generated_bitmap = intervalsBitmap;
 //        perModeSetting = filter.perModeSetting;
 //        generated_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
-//        generated_interval = generated_bitmap.toInterval();
+//        generated_interval = generated_bitmap.toIntervals();
 //        // Required empty public constructor
 //    }
 
@@ -196,12 +195,12 @@ public class IntervalPoolSelectionTab extends Fragment {
         button.setText(interval_text);
         button.setTextOff(interval_text);
         button.setTextOn(interval_text);
-        button.setChecked(false);
+        button.setChecked(true);
         Log.v(TAG, "updateButton: " + interval_text);
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                filter.generated_interval.toggleNote(interval);
+                perModeSettingActivity.generated_interval_bitmap.toggleNote(interval);
             }
         });
         return button;
