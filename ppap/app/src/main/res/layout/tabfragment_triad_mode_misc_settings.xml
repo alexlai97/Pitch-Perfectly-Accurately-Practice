@@ -104,17 +104,18 @@
     <include
         android:id="@+id/toggle_group"
         layout="@layout/triad_scale_misc_settings_page_toggle_button_group"
-        android:layout_width="313dp"
-        android:layout_height="238dp"
+        android:layout_width="303dp"
+        android:layout_height="182dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274" />
+        app:layout_constraintVertical_bias="0.238" />
 
 
 
