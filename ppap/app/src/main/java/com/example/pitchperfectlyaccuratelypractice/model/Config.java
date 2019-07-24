@@ -80,6 +80,9 @@ public class Config {
   public boolean get_flag_auto_playback_answer() {
       return flag_auto_playback;
   }
+  public void set_flag_auto_playback_answer(boolean f) {
+    flag_auto_playback = f;
+  }
 
   /**
    * test (please ignore)

@@ -78,6 +78,10 @@ public class Model {
     }
 
     public void setPerModeSetting(PerModeSetting p){
+//        currentConfig.set_error_allowance_rate();
+//        currentConfig.set_least_stable_time_in_milliseconds();
+//        currentConfig.set_milli_seconds_to_show_correct();
+//        currentConfig.set_flag_auto_playback_answer();
         switch (p.mode){
             case NotePractice:
                 perModeSettings[0] = p;
