@@ -18,13 +18,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * NotesPlayer any combination of notes, all of these are achieved by creating midi on the fly and play it
+ */
 public class NotesPlayer {
     private static final String TAG = "NotesPlayer";
-//    private Context context;
+    /** store a MediaPlayer */
     private static MediaPlayer mediaPlayer = new MediaPlayer();
+
+    /** the midi file that contains any combination of notes */
     private File notes_midi_file;
 
     /** * a temp file, media player will start_playing this file */
+    // TODO use cache
     private static String notes_pathname = Environment.getExternalStorageDirectory() + "/playing_notes.mid";
     private static String song_pathname = Environment.getExternalStorageDirectory() + "/playing_song.mid";
 

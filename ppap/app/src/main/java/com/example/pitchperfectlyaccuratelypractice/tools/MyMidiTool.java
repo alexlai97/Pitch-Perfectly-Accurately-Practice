@@ -13,11 +13,18 @@ import com.leff.midi.event.NoteOn;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+/**
+ * MyMidiTool has a set of useful methods (e.g. convert MidiFile to array of notes)
+ */
 public class MyMidiTool {
+
     private static final String TAG = "MyMidiTool";
+
+    /** empty constructor */
     public MyMidiTool() {
     }
 
+    /** MidiFile to array of MidiTrack where each MidiTrack contains only a note */
     public static ArrayList<MidiTrack> parseMidiFileToNoteTracks(MidiFile midifile) {
         ArrayList<MidiTrack> midiTracks = new ArrayList<MidiTrack>();
         boolean note_pair_first = true;
@@ -48,11 +55,12 @@ public class MyMidiTool {
         return midiTracks;
     }
 
-    public static MidiFile getMidiFileFromId(Context context, int id) {
+    /** get midi file provided a context and resource id */
+    public static MidiFile getMidiFileFromId(Context context, int resource_id) {
         if (context == null) {
             throw new AssertionError("getMidiFromID context is null");
         }
-        InputStream inputStream = context.getResources().openRawResource(id);
+        InputStream inputStream = context.getResources().openRawResource(resource_id);
         MidiFile midiFile = null;
         try {
             midiFile = new MidiFile(inputStream);
@@ -62,6 +70,8 @@ public class MyMidiTool {
         return midiFile;
     }
 
+
+    /** get an array of notes from MidiFile */
     public static Note[] parseMidiToNotes(MidiFile midiFile) {
         if (midiFile == null) {
             throw new AssertionError("parseMidiToNotes midifile is null");

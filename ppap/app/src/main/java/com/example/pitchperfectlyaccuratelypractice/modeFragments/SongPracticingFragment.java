@@ -1,6 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
@@ -50,9 +51,12 @@ public class SongPracticingFragment extends SongModeFragment {
         });
 
 
+        Log.d(TAG, "setupSongAdditionalView: song is " + ((SongQuestion)model.getCurrentQuestion()).getSong().getTitle());
+
         librarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "setupSongAdditionalView: song is " + ((SongQuestion)model.getCurrentQuestion()).getSong().getTitle());
                 Song selected_song = model.getSongList().getSongAt(i);
                 if (selected_song == null ) {
                     throw new AssertionError("selected song is null");
