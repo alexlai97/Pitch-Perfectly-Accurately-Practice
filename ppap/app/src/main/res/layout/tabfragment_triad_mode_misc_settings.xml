@@ -11,7 +11,7 @@
         android:id="@+id/fromTextView"
         android:layout_width="221dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/autoPlayback"
         android:textSize="30sp"
@@ -33,6 +33,7 @@
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
+        android:inputType="numberDecimal"
         android:spinnerMode="dropdown"
         app:layout_constraintBaseline_toBaselineOf="@+id/toTextView"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -42,7 +43,8 @@
         android:layout_width="110dp"
         android:layout_height="46dp"
         android:layout_marginEnd="16dp"
-        android:textAlignment="textEnd"
+        android:inputType="numberSigned"
+        android:textAlignment="textStart"
         app:layout_constraintBaseline_toBaselineOf="@+id/scaleTextView"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -51,6 +53,7 @@
         android:layout_width="110dp"
         android:layout_height="44dp"
         android:layout_marginEnd="16dp"
+        android:inputType="numberSigned"
         app:layout_constraintBaseline_toBaselineOf="@+id/keySigTextView"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -92,7 +95,7 @@
         android:layout_width="171dp"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:text="Triad Scale"
         android:textSize="30sp"

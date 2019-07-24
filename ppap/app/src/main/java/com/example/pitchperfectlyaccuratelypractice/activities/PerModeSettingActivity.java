@@ -95,7 +95,7 @@ public class PerModeSettingActivity extends AppCompatActivity {
                 tabLayout.addTab(tabLayout.newTab().setText("Misc"));
                 break;
             case SongPlaying:
-//                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
+                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
                 break;
             default:
         }
