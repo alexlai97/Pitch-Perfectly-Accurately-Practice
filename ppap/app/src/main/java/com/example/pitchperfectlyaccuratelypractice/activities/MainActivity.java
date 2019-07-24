@@ -5,8 +5,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -15,7 +13,6 @@ import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -30,9 +27,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.util.Log;
 import android.view.MenuItem;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 /**
  * Main Activity which stores model, controller, noteplayer, microphone
@@ -137,24 +131,22 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onActivityResult: get intent back from filter page");
 
         if (resultCode == RESULT_OK) {
-            Log.d(TAG, "onActivityResult: here");
             PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
-            controller.setPerModeSetting(perModeSetting);
-            Log.d(TAG, "onActivityResult: here1");
+            model.setPerModeSetting(perModeSetting);
             Interval[] result_intervals;
             Note[] result_notes;
             if(perModeSetting.getIntervalsBitmap() != null){
-                result_intervals = perModeSetting.getIntervalsBitmap().toInterval();
+                result_intervals = perModeSetting.getIntervalsBitmap().toIntervals();
+                Interval.logIntervals("Result interval: ", result_intervals);
                 // pass the notes generated from filter to controller, start next question(generated from note pool)
-                controller.setIntervalPool(result_intervals);
+                model.setIntervalPool(result_intervals);
             }
             if(perModeSetting.getNotesBitmap() != null){
                 result_notes = perModeSetting.getNotesBitmap().toNotes();
-                Note.logNotes("back to main activity", result_notes);
+                Note.logNotes("result notes", result_notes);
                 // pass the notes generated from filter to controller, start next question(generated from note pool)
-                controller.setNotePool(result_notes);
+                model.setNotePool(result_notes);
             }
-            Log.d(TAG, "onActivityResult: here4");
             controller.next_question();
             // handle no question to generate
         } else if (resultCode == RESULT_CANCELED){
@@ -257,25 +249,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(Uri uri) {
         //used to communicate between fragments
-    }
-
-
-
-    /**
-     * handle intents ( currently only handles intents from filter pages )
-     */
-    void handleIntents() {
-        Intent notes_ints_intent = getIntent();
-        if(notes_ints_intent != null) {
-            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-            if (notes_ints != null) {
-                if (notes_ints.length == 0) {
-                    controller.setNotePool(Note.getAllNotes());
-                } else {
-                    controller.setNotePool(Note.IntsToNotes(notes_ints));
-                }
-            }
-        }
     }
 
 }

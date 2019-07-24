@@ -1,6 +1,5 @@
 package com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -21,7 +19,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
@@ -30,8 +27,6 @@ import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
-
-import static android.app.Activity.RESULT_OK;
 
 public class NotePoolSelectionTab extends Fragment {
     private static final String TAG = "NotePoolSelectionTab";
@@ -192,7 +187,7 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
+                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -224,7 +219,7 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
+                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -247,7 +242,7 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.applyFilters();
                 filter.perModeSetting.scale = position;
 
-                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
+                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -268,7 +263,7 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
+                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
                 filter.perModeSetting.keySignature = position;
 
                 update_tableview_using_note_pool();
@@ -348,7 +343,7 @@ public class NotePoolSelectionTab extends Fragment {
         notesTableView.removeAllViews();
 
         // generate buttons
-        Note[] noteArray =filter.generated_note.toNotes();
+        Note[] noteArray =filter.generated_note_bitmap.toNotes();
 
         int num_of_notes = noteArray.length;
         int num_of_rows = (num_of_notes - 1) / 4 + 1;
@@ -392,7 +387,7 @@ public class NotePoolSelectionTab extends Fragment {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                filter.generated_note.toggleNote(note);
+                filter.generated_note_bitmap.toggleNote(note);
             }
         });
         return button;

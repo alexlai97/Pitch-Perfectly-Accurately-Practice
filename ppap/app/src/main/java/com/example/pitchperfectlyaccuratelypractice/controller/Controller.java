@@ -17,7 +17,6 @@ import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
@@ -61,7 +60,7 @@ public class Controller implements Observer ,
 
 
   /**  current PerModeSetting (will change if filtered result is changed) */
-  private PerModeSetting curFiltered = new PerModeSetting(); // Don't need it probably
+  private PerModeSetting permodeSetting = new PerModeSetting(); // Don't need it probably
 
   /** model owned by main activity */
   private Model model;
@@ -74,25 +73,8 @@ public class Controller implements Observer ,
    */
   private QuestionFactory questionFactory = new QuestionFactory();
 
-  /**
-   * set note pool in current question in model
-   * @param notes
-   */
-  public void setNotePool(Note[] notes) {
-    model.setNotePool(notes);
-  }
 
-  public void setPerModeSetting(PerModeSetting perModeSetting){
-    model.setupPerModeSetting(perModeSetting);
-  }
 
-  /**
-   * set intervals pool in current question in model
-   * @param intervals
-   */
-  public void setIntervalPool(Interval[] intervals) {
-    model.setIntervalPool(intervals);
-  }
 
   /**
    *
@@ -120,6 +102,7 @@ public class Controller implements Observer ,
     arrowAnimation.setRepeatCount(-1);
     arrowAnimation.setRepeatMode(Animation.REVERSE);
     arrowAnimation.setInterpolator(new LinearInterpolator());
+    // Forcing data to reset each time
     historyData = new HistoryData(mainActivity, false);
 //    historyData.addData(1);
   }
@@ -129,9 +112,6 @@ public class Controller implements Observer ,
     return curMode;
   }
 
-  public PerModeSetting getCurFiltered() {
-    return curFiltered;
-  }
 
   /**
    * get answer frequencies from current question stored in model
@@ -411,7 +391,7 @@ public class Controller implements Observer ,
           curQuestion = (Question) event.getNewValue();
           break;
         case "filteredResult":
-          curFiltered = (PerModeSetting) event.getNewValue();
+          permodeSetting = (PerModeSetting) event.getNewValue();
           /* add code here to response filtered result change:
            for example call ModeFragment method to update view or generate next question*/
 

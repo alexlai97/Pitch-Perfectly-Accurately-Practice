@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 
 /**
@@ -18,11 +16,11 @@ import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingAct
  */
 public class GeneralMiscSettingTab extends Fragment {
 
-    PerModeSettingActivity filter;
+    PerModeSettingActivity permodeSettingActivity;
     int resource;
     View view;
-    public GeneralMiscSettingTab(PerModeSettingActivity filter) {
-        this.filter = filter;
+    public GeneralMiscSettingTab(PerModeSettingActivity permodeSettingActivity) {
+        this.permodeSettingActivity = permodeSettingActivity;
         // Required empty public constructor
     }
 

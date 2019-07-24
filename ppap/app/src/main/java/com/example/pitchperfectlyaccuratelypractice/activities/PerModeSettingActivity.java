@@ -13,9 +13,9 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -31,11 +31,10 @@ public class PerModeSettingActivity extends AppCompatActivity {
     public PerModeSetting perModeSetting;
 
     public Mode mode;
-    private int pageNum;
 
-    public IntervalsBitmap generated_interval;
+    public IntervalsBitmap generated_interval_bitmap;
 
-    public NotesBitmap generated_note;
+    public NotesBitmap generated_note_bitmap;
 
     /**
      * setup views
@@ -54,9 +53,8 @@ public class PerModeSettingActivity extends AppCompatActivity {
             throw new AssertionError("perMose");
         }
         mode = perModeSetting.mode;
-        generated_interval = perModeSetting.getIntervalsBitmap();
-        generated_note = perModeSetting.getNotesBitmap();
-        pageNum = perModeSetting.getFilterPageNum();
+        generated_interval_bitmap = perModeSetting.getIntervalsBitmap();
+        generated_note_bitmap = perModeSetting.getNotesBitmap();
         CreateTabFragments();
 
         setBackButtonListener();
@@ -140,14 +138,13 @@ public class PerModeSettingActivity extends AppCompatActivity {
      */
     void returnToMainActivity(){
 //        Note.logNotes(TAG, notes_to_return);
-        perModeSetting.setIntervalsBitmap(generated_interval);
-        perModeSetting.setNotesBitmap(generated_note);
+        perModeSetting.setIntervalsBitmap(generated_interval_bitmap);
+        perModeSetting.setNotesBitmap(generated_note_bitmap);
         Intent intent = new Intent();
         intent.putExtra("Mode", perModeSetting);
         setResult(RESULT_OK, intent);
         finish();
     }
-
 }
 
 

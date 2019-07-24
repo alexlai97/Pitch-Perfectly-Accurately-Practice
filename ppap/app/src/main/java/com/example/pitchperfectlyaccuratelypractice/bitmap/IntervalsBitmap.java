@@ -3,7 +3,6 @@ package com.example.pitchperfectlyaccuratelypractice.bitmap;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
-import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 import java.util.ArrayList;
 
@@ -100,9 +99,9 @@ public class IntervalsBitmap extends Bitmap {
   }
 
   /**
-   * convert bitmap to array of notes that are true (1) in bitmap, return the array, useful for implementing the buttons in NotesFilterPage
+   * convert bitmap to array of intervals that are true in bitmap, return the array
    */
-  public Interval[] toInterval() {
+  public Interval[] toIntervals() {
     ArrayList<Interval> intervals_arr = new ArrayList<>();
 
     for (int i = 0; i < size; i ++) {
@@ -110,17 +109,13 @@ public class IntervalsBitmap extends Bitmap {
     }
 
     int length = intervals_arr.size();
-    Log.d(TAG, "toInterval: " + length);
+//    Log.d(TAG, "toIntervals: " + length);
     Interval[] intervals = new Interval[length];
     for (int i = 0; i < length; i++) {
       intervals[i] = intervals_arr.get(i);
     }
 
     return intervals;
-  }
-
-  public int[] toIntArray(){
-    return Interval.IntervalsToInts(this.toInterval());
   }
 
   /**
@@ -142,5 +137,8 @@ public class IntervalsBitmap extends Bitmap {
     IntervalsBitmap m1 = getIntervalsBitmapFromRange(new Interval(Interval.INDEX_LOWER_BOUND+1),new Interval(Interval.INDEX_UPPER_BOUND-1));
     System.out.println("Printing m1");
     m1.printBitmap();
+    for (Interval i: m1.toIntervals()) {
+      System.out.println(i.getText());
+    }
   }
 }

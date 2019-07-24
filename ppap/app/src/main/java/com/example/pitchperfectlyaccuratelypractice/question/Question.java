@@ -38,7 +38,7 @@ public abstract class Question {
    */
 //  public abstract Note[] getAnswerNotes();
 
-  public void setIntervalPool(Interval[] intervals){}
+//  public void setIntervalPool(Interval[] intervals){}
 
   /**
    * Setter for note pool
