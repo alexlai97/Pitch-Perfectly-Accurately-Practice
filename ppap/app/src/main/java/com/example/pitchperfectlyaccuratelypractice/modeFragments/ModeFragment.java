@@ -185,19 +185,7 @@ public abstract class ModeFragment extends Fragment {
         playSoundButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                switch (controller.getCurMode()) {
-                    case NotePractice:
-                    case NoteGraphPractice:
-                    case SongPractice:
-                    case SongPlaying:
-                        return false;
-                    case TriadPractice:
-                        notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
-                        break;
-                    case IntervalPractice:
-                        notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
-                        break;
-                }
+                play_answer();
                 return true;
             }
         });
@@ -433,6 +421,23 @@ public abstract class ModeFragment extends Fragment {
             noteSignal.setText("" + note_text.charAt(2));
         } else {
             throw new AssertionError("Unexpecte note text length");
+        }
+    }
+
+    public void play_answer() {
+        switch (controller.getCurMode()) {
+            case NotePractice:
+            case NoteGraphPractice:
+            case SongPractice:
+            case SongPlaying:
+                notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOne);
+                break;
+            case TriadPractice:
+                notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                break;
+            case IntervalPractice:
+                notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionAndAnserNote(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
+                break;
         }
     }
 }

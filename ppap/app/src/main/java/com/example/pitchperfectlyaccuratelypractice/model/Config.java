@@ -64,6 +64,23 @@ public class Config {
     return (double)least_stable_time_in_milliseconds/1000;
   }
 
+  /** how long between the user pass the question and next question */
+  private long milliseconds_to_show_correct = 2000;
+
+  public long get_milli_seconds_to_show_correct() {
+    return milliseconds_to_show_correct;
+  }
+  public void set_milli_seconds_to_show_correct(long ms) {
+    milliseconds_to_show_correct = ms;
+  }
+
+
+  private boolean flag_auto_playback = true;
+
+  public boolean get_flag_auto_playback_answer() {
+      return flag_auto_playback;
+  }
+
   /**
    * test (please ignore)
    */
