@@ -1,6 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -23,7 +24,10 @@ import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 
@@ -40,6 +44,7 @@ import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 // This is a factory as it produces the fragment and these are optionally overridden by other classes
 // This factory is used in the MainActivity
 public abstract class ModeFragment extends Fragment {
+    private static final String TAG = "ModeFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,6 +98,15 @@ public abstract class ModeFragment extends Fragment {
     /** constraint layout */
     ConstraintLayout constraintLayout;
 
+    Mode mode;
+
+    // MainActivity attached to this fragment
+    MainActivity mainActivity;
+    /**
+     * empty public constructor
+     */
+    public ModeFragment() { }
+
     /**
      * additional things to set up in onCreateView
      * <p>
@@ -122,9 +136,9 @@ public abstract class ModeFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.v("PEPE", "" + this.getClass() + "Fragment onCreateView!");
 
-        controller = ((MainActivity)(getActivity())).getController(); // FIXME temporary here
-        notesPlayer = ((MainActivity)(getActivity())).getNotesPlayer(); // FIXME temporary here
-
+        mainActivity = (MainActivity)getActivity();
+        controller = mainActivity.getController();
+        notesPlayer = mainActivity.getNotesPlayer();
         onCreated = true;
         final View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.layout_to_include);
@@ -146,7 +160,6 @@ public abstract class ModeFragment extends Fragment {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
-        // FIXME need to generalize
         listenerSetUp();
 
         playSoundButton.setOnClickListener(new View.OnClickListener() {
@@ -164,6 +177,8 @@ public abstract class ModeFragment extends Fragment {
                     case IntervalPractice:
                         notesPlayer.start_playing(((IntervalQuestion)controller.getCurQuestion()).getQuestionNote());
                         break;
+                    case SongPlaying:
+                        break;
                 }
             }
         });
@@ -174,6 +189,7 @@ public abstract class ModeFragment extends Fragment {
                     case NotePractice:
                     case NoteGraphPractice:
                     case SongPractice:
+                    case SongPlaying:
                         return false;
                     case TriadPractice:
                         notesPlayer.start_playing(controller.getCurQuestion().getExpectedNotes(), NotesPlayer.PlayingStrategy.OneByOneThenTogether);
@@ -235,12 +251,22 @@ public abstract class ModeFragment extends Fragment {
         return view;
     }
 
-    public abstract void listenerSetUp();
 
-    /**
-     * empty public constructor
-     */
-    public ModeFragment() { }
+    public void listenerSetUp() {
+        filterPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
+                PerModeSetting perModeSetting = controller.getCurFiltered();
+                perModeSetting.mode = mode;
+                filter_intent.putExtra("Mode", perModeSetting);
+                // let the main activity handle the intent
+                Log.d(TAG, "onClick: " + REQUEST_CODE_FROM_FILTER);
+                startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
+            }
+        });
+
+    }
 
 //    /**
 //     * Use this factory method to create a new instance of

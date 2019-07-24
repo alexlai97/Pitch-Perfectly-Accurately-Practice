@@ -6,13 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
-import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /** a speaker which can start_playing note(s) */
     private NotesPlayer notesPlayer = new NotesPlayer();
+
 
     /**
      * getter for note player
@@ -126,36 +128,36 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d(TAG, "onActivityResult: get intent back from filter page");
-        if (requestCode == REQUEST_CODE_FROM_FILTER) {
-            if (resultCode == RESULT_OK) {
-                PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
-                Interval[] result_interval;
-                Note[] result_notes;
-                if(perModeSetting.getIntervalsBitmap() != null){
-                    result_interval = Interval.IntsToIntervals(perModeSetting.getIntervalsBitmap());
-                    // pass the notes generated from filter to controller, start next question(generated from note pool)
-                    controller.setIntervalPool(result_interval);
-
-                    controller.next_question();
-                }
-                if(perModeSetting.getNotesBitmap() != null){
-                    result_notes = Note.IntsToNotes(perModeSetting.getNotesBitmap());
-                    Note.logNotes("back to main activity", result_notes);
-                    // pass the notes generated from filter to controller, start next question(generated from note pool)
-                    controller.setNotePool(result_notes);
-
-                    controller.next_question();
-                }
-
-                // handle no question to generate
-            } else if (resultCode == RESULT_CANCELED){
-
-            } else {
-
-            }
-        }
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: get intent back from filter page");
+
+        if (resultCode == RESULT_OK) {
+            Log.d(TAG, "onActivityResult: here");
+            PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
+            Log.d(TAG, "onActivityResult: here1");
+            Interval[] result_interval;
+            Note[] result_notes;
+            if(perModeSetting.getIntervalsBitmap() != null){
+                Log.d(TAG, "onActivityResult: here2");
+                result_interval = Interval.IntsToIntervals(perModeSetting.getIntervalsBitmap());
+                // pass the notes generated from filter to controller, start next question(generated from note pool)
+                controller.setIntervalPool(result_interval);
+            }
+            if(perModeSetting.getNotesBitmap() != null){
+                Log.d(TAG, "onActivityResult: here3");
+                result_notes = Note.IntsToNotes(perModeSetting.getNotesBitmap());
+                Note.logNotes("back to main activity", result_notes);
+                // pass the notes generated from filter to controller, start next question(generated from note pool)
+                controller.setNotePool(result_notes);
+            }
+            Log.d(TAG, "onActivityResult: here4");
+            controller.next_question();
+            // handle no question to generate
+        } else if (resultCode == RESULT_CANCELED){
+
+        } else {
+
+        }
     }
 
 

@@ -1,20 +1,20 @@
-package com.example.pitchperfectlyaccuratelypractice.model;
+package com.example.pitchperfectlyaccuratelypractice.perModeSetting;
+
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 import java.io.Serializable;
 
 public class PerModeSetting implements Serializable {
-    public String mode;
-    public int[] notesBitmap;
-    public int[] intervalsBitmap;
-    public int from;
-    public int to;
-    public int scale;
-    public int keySignature;
+    public Mode mode;
+    private int[] notesBitmap = null;
+    private int[] intervalsBitmap = null;
+    public int from = Note.getIndex("A3");
+    public int to = Note.getIndex("A4");
+    public int scale = 1;
+    public int keySignature = 0;
 
-    public PerModeSetting(String mode){
-        this.mode = mode;
-        notesBitmap = null;
-        intervalsBitmap = null;
+    public PerModeSetting(){
     }
 
 
@@ -36,13 +36,15 @@ public class PerModeSetting implements Serializable {
 
     public int getFilterPageNum(){
         switch (mode){
-            case "note":
+            case NotePractice:
                 return 1;
-            case "interval":
+            case IntervalPractice:
                 return 2;
-            case "triad":
+            case TriadPractice:
                 return 1;
-            case "noteGraph":
+            case NoteGraphPractice:
+                return 1;
+            case SongPractice:
                 return 1;
             default:
                 return 1;

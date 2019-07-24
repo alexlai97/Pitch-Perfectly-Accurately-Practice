@@ -44,7 +44,7 @@ public class MidiSongPlayer implements MidiEventListener {
         this.notesPlayer = mainActivity.getNotesPlayer();
         this.songPlayingFragment = (SongPlayingFragment) model.getCurrentFragment();
 
-        setMidiFileUsingCurrentQuestion();
+//        setMidiFileUsingCurrentQuestion();
     }
 
     public void setMidiFileUsingCurrentQuestion() {
@@ -59,45 +59,19 @@ public class MidiSongPlayer implements MidiEventListener {
         midiFile = mfile;
         midiProcessor = new MidiProcessor(mfile);
         midiProcessor.registerEventListener(this, MidiEvent.class);
-        midiTracks = parseMidiFileToNoteTracks(midiFile);
+        midiTracks = MyMidiTool.parseMidiFileToNoteTracks(midiFile);
         notes_from_midiFile = MyMidiTool.parseMidiToNotes(midiFile);
     }
 
-    private ArrayList<MidiTrack> parseMidiFileToNoteTracks(MidiFile midifile) {
-        ArrayList<MidiTrack> midiTracks = new ArrayList<MidiTrack>();
-        boolean note_pair_first = true;
-        long first_note_tick = 0;
-        int first_note_velocity = 0;
-        int first_note_value = 0;
-        MidiTrack noteTrack = new MidiTrack();
-        for (MidiEvent event: midifile.getTracks().get(1).getEvents()) {
-            if (event.getClass() == NoteOn.class) {
-                NoteOn noteOnEvent = (NoteOn) event;
-//                Log.d(TAG, "NoteOnEvent: " + new Note(-33+((NoteOn)event).getNoteValue()).getText() + " tick: " + noteOnEvent.getTick() + " velocity: " + noteOnEvent.getVelocity());
-                if (note_pair_first) {
-                    noteTrack = new MidiTrack();
-                    first_note_tick = noteOnEvent.getTick();
-                    first_note_velocity = noteOnEvent.getVelocity();
-                    first_note_value = noteOnEvent.getNoteValue();
-                } else {
-                    noteTrack.insertEvent(noteOnEvent);
-//                    Log.d(TAG, "onEvent: playthis note");
-                    noteTrack.insertNote(noteOnEvent.getChannel(), first_note_value, first_note_velocity, 0, noteOnEvent.getTick() - first_note_tick);
-//                    notesPlayer.playNoteTrack(noteTrack);
-                    midiTracks.add(noteTrack);
-                }
-                note_pair_first = !note_pair_first;
-            } else if (event.getClass() == NoteOff.class) {
-            }
-        }
-        return midiTracks;
-    }
 
     public void start() {
         midiProcessor.start();
     }
 
     public boolean isPlaying() {
+        if (midiProcessor == null) {
+            return false;
+        }
         return midiProcessor.isRunning();
     }
 
@@ -107,8 +81,11 @@ public class MidiSongPlayer implements MidiEventListener {
     }
 
     public void reset() {
-        setMidiFileUsingCurrentQuestion();
-        songPlayingFragment.updateQuestionTexts(getNotesTexts());
+        midiProcessor.reset();
+    }
+
+    public void updateQuestionTexts() {
+        songPlayingFragment.updateQuestionTexts(getCurrentNotesTexts());
     }
 
     @Override
@@ -126,7 +103,11 @@ public class MidiSongPlayer implements MidiEventListener {
 
     private int current_note_index = 0;
 
-    private String[] getNotesTexts() {
+    public Note getCurrentPlayingNote() {
+        return notes_from_midiFile[current_note_index];
+    }
+
+    private String[] getCurrentNotesTexts() {
         String[] texts = new String[3];
         if (current_note_index == 0) {
             texts[0] = "";
@@ -154,7 +135,8 @@ public class MidiSongPlayer implements MidiEventListener {
                 mainActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        songPlayingFragment.updateQuestionTexts(getNotesTexts());
+//                        songPlayingFragment.updateQuestionTexts(getCurrentNotesTexts());
+                        updateQuestionTexts();
                         current_note_index++;
                     }
                 });
