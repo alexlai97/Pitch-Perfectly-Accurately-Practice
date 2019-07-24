@@ -17,10 +17,10 @@ import com.example.pitchperfectlyaccuratelypractice.R;
  */
 public class TriadModeMiscSettingTab extends GeneralMiscSettingTab {
 
-//
-//    public TriadModeMiscSettingTab() {
-//        resource = R.layout.
-//        // Required empty public constructor
-//    }
+
+    public TriadModeMiscSettingTab() {
+        resource = R.layout.triad_scale_misc_settings_page_toggle_button_group;
+        // Required empty public constructor
+    }
 
 }
