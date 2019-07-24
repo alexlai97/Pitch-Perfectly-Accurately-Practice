@@ -40,8 +40,8 @@ public class GeneralMiscSettingTab extends Fragment {
         View layout = inflater.inflate(resource, container, false);
         this.view = layout;
 
-        autoPlayback_switch = layout.findViewById(R.id.autoPlayBackSwitch);
-        error_allowance_editText = layout.findViewById(R.id.errorAllowance);
+//        autoPlayback_switch = layout.findViewById(R.id.autoPlayBackSwitch);
+//        error_allowance_editText = layout.findViewById(R.id.errorAllowance);
 //        least_stable_time_editText;
 //        show_correct_time_editText;
 
