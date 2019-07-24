@@ -21,14 +21,21 @@ import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
 public class SongPlayingFragment extends SongModeFragment {
     private static String TAG = "SongPlayingFragment";
 
-//    private TextView arrowText;
 
+    /** the button that can play or pause */
     private Button playOrPauseButton;
+    /** the button that can stop the current playing song and back to start */
     private Button stopButton;
 
+    /** a button to switchh to song practicing mode */
     private Button switchToPracticeButton;
+    /** image of play button */
     private Drawable play;
+    /** image of pause button */
     private Drawable pause;
+
+    /** have access to a midiSongPlayer */
+    private MidiSongPlayer midiSongPlayer;
 
     /**
      * constructor of IntervalModeFragment

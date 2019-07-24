@@ -25,18 +25,22 @@ public class SongModeFragment extends ModeFragment {
     /** next note constraint layout */
     private ConstraintLayout nextNoteLayout;
 
+    /** the lyrics textview */
     private TextView currentLyricsText;
+    /** the song title textview*/
     protected TextView songTitleText;
 
+    /** FIXME a temporary spinner to select song */
     protected Spinner librarySpinner;
 
-    protected MidiSongPlayer midiSongPlayer;
+    /** have access to model */
     protected Model model;
 
-
+    /** constructor */
     SongModeFragment(){
         mode = Mode.SongPractice;
     }
+
     @Override
     void setupAdditionalView() {
         prevNoteLayout = constraintLayout.findViewById(R.id.previous_note_include);
@@ -55,10 +59,12 @@ public class SongModeFragment extends ModeFragment {
     }
 
 
+    /** setup additional view for song modes */
     void setupSongAdditionalView() {
 
     }
 
+    /** update the question texts view */
     @Override
     public void updateQuestionTexts(String [] texts){
         if(!onCreated) return;
@@ -68,6 +74,7 @@ public class SongModeFragment extends ModeFragment {
         updateSingleNoteText(nextNoteLayout, texts[2]);
     }
 
+    /** update the lyrics view */
     public void updateLyricsView(String str) {
         if (str == null) throw new AssertionError("str is null when updating lyrics");
         currentLyricsText.setText(str);
