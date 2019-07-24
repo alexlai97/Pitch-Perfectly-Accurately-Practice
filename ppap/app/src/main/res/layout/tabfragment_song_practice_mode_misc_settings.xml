@@ -8,7 +8,7 @@
     android:background="#e8e0f5">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/autoPlayBackSwitch"
         android:layout_width="375dp"
         android:layout_height="52dp"
         android:layout_marginStart="8dp"
@@ -22,7 +22,7 @@
 
 
     <EditText
-        android:id="@+id/toSpinner"
+        android:id="@+id/errorAllowance_EditText"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="@+id/toTextView" />
 
     <EditText
-        android:id="@+id/scaleSpinner"
+        android:id="@+id/leastStableTimeEditText"
         android:layout_width="110dp"
         android:layout_height="46dp"
         android:layout_marginEnd="16dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="@+id/scaleTextView" />
 
     <EditText
-        android:id="@+id/keySigSpinner"
+        android:id="@+id/showCorrectTimeEditText"
         android:layout_width="110dp"
         android:layout_height="44dp"
         android:layout_marginEnd="16dp"
@@ -59,7 +59,7 @@
         android:text="@string/errorAllowance"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/autoPlayBackSwitch" />
 
     <TextView
         android:id="@+id/scaleTextView"
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/scaleTextView" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/ocataveAdjustionSpinner"
         android:layout_width="149dp"
         android:layout_height="56dp"
         android:layout_marginEnd="16dp"
@@ -103,7 +103,7 @@
         android:layout_marginEnd="8dp"
         android:text="Adjust Octave"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintEnd_toStartOf="@+id/ocataveAdjustionSpinner"
         app:layout_constraintHorizontal_bias="0.705"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

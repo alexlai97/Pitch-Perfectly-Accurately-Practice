@@ -19,8 +19,8 @@ import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingAct
 public class SongModeMiscSettingTab extends GeneralMiscSettingTab {
 
 
-    public SongModeMiscSettingTab(PerModeSettingActivity filter) {
-        super(filter);
+    public SongModeMiscSettingTab(PerModeSettingActivity perModeSettingActivity) {
+        super(perModeSettingActivity);
         resource = R.layout.tabfragment_song_practice_mode_misc_settings;
     }
 

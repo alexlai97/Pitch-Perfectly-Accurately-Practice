@@ -102,7 +102,7 @@ public class NotePoolSelectionTab extends Fragment {
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
-    protected PerModeSettingActivity filter;
+    protected PerModeSettingActivity permodeSettingActivity;
     /**
      * current from Note
      */
@@ -120,8 +120,8 @@ public class NotePoolSelectionTab extends Fragment {
      */
     private Note keySigNote = new Note("A");
 
-    public NotePoolSelectionTab(PerModeSettingActivity filter){
-        this.filter = filter;
+    public NotePoolSelectionTab(PerModeSettingActivity permodeSettingActivity){
+        this.permodeSettingActivity = permodeSettingActivity;
     }
 
     @Nullable
@@ -149,9 +149,9 @@ public class NotePoolSelectionTab extends Fragment {
     private void setSpinners() {
         // Put it declare
         fromSpinner   = view.findViewById(R.id.fromSpinner);
-        toSpinner     = view.findViewById(R.id.toSpinner);
-        scaleSpinner  = view.findViewById(R.id.scaleSpinner);
-        keySigSpinner = view.findViewById(R.id.keySigSpinner);
+        toSpinner     = view.findViewById(R.id.errorAllowance_EditText);
+        scaleSpinner  = view.findViewById(R.id.leastStableTimeEditText);
+        keySigSpinner = view.findViewById(R.id.showCorrectTimeEditText);
 
         ArrayAdapter<String> all_notes_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, notes_strings);
         ArrayAdapter<String> all_scales_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, scale_strings);
@@ -162,10 +162,7 @@ public class NotePoolSelectionTab extends Fragment {
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
-//        filter.perModeSetting.from = Note.getIndex("A3");
-//        filter.perModeSetting.to = Note.getIndex("A4");
-//        filter.perModeSetting.scale = 1;
-//        filter.perModeSetting.keySignature = 0;
+
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -181,13 +178,13 @@ public class NotePoolSelectionTab extends Fragment {
                     toNote = fromNote;
                 }
 
-                filter.perModeSetting.from = position;
+                permodeSettingActivity.perModeSetting.setFromNote(new Note(position));
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -212,14 +209,14 @@ public class NotePoolSelectionTab extends Fragment {
                     fromNote = toNote;
                 }
 
-                filter.perModeSetting.to = position;
+                permodeSettingActivity.perModeSetting.setToNote(new Note(position));
 
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -240,9 +237,9 @@ public class NotePoolSelectionTab extends Fragment {
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
-                filter.perModeSetting.scale = position;
+                permodeSettingActivity.perModeSetting.setNoteScale(NotesScale.values()[position]);
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -263,8 +260,8 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
-                filter.perModeSetting.keySignature = position;
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setKeySigNote(new Note(position));
 
                 update_tableview_using_note_pool();
 
@@ -343,7 +340,7 @@ public class NotePoolSelectionTab extends Fragment {
         notesTableView.removeAllViews();
 
         // generate buttons
-        Note[] noteArray =filter.generated_note_bitmap.toNotes();
+        Note[] noteArray = permodeSettingActivity.perModeSetting.getNotesBitmap().toNotes();
 
         int num_of_notes = noteArray.length;
         int num_of_rows = (num_of_notes - 1) / 4 + 1;
@@ -387,7 +384,9 @@ public class NotePoolSelectionTab extends Fragment {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                filter.generated_note_bitmap.toggleNote(note);
+                NotesBitmap notesBitmap = permodeSettingActivity.perModeSetting.getNotesBitmap();
+                notesBitmap.toggleNote(note);
+                permodeSettingActivity.perModeSetting.setNotesBitmap(notesBitmap);
             }
         });
         return button;

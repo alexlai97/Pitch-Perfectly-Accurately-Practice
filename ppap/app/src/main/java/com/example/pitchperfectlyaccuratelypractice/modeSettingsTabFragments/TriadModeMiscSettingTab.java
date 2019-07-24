@@ -19,8 +19,8 @@ import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingAct
 public class TriadModeMiscSettingTab extends GeneralMiscSettingTab {
 
 
-    public TriadModeMiscSettingTab(PerModeSettingActivity filter) {
-        super(filter);
+    public TriadModeMiscSettingTab(PerModeSettingActivity perModeSettingActivity) {
+        super(perModeSettingActivity);
         resource = R.layout.tabfragment_triad_mode_misc_settings;
         // Required empty public constructor
     }

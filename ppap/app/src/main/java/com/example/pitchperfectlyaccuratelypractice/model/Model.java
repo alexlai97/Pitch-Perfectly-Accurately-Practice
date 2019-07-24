@@ -9,8 +9,14 @@ import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.IntervalModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteGraphModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.SongModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.TriadModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
+import com.example.pitchperfectlyaccuratelypractice.question.NoteQuestion;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -46,7 +52,7 @@ public class Model {
 
     private Context context;
 
-    private PerModeSetting perModeSettings[];
+    private static PerModeSetting perModeSettings[];
 
     /**
      *
@@ -58,7 +64,7 @@ public class Model {
         currentQuestion = questionFactory.create(currentMode);
         currentFragment = fragmentFactory.create(currentMode);
         songList = new SongList();
-        perModeSettings = new PerModeSetting[5];
+        perModeSettings = new PerModeSetting[]{ new NoteModeSetting(), new NoteGraphModeSetting(), new IntervalModeSetting(), new TriadModeSetting(), new SongModeSetting() };
         setupSongs();
     }
 
@@ -78,6 +84,10 @@ public class Model {
     }
 
     public void setPerModeSetting(PerModeSetting p){
+//        currentConfig.set_error_allowance_rate();
+//        currentConfig.set_least_stable_time_in_milliseconds();
+//        currentConfig.set_milli_seconds_to_show_correct();
+//        currentConfig.set_flag_auto_playback_answer();
         switch (p.mode){
             case NotePractice:
                 perModeSettings[0] = p;
@@ -100,7 +110,7 @@ public class Model {
     }
 
 
-    public PerModeSetting getPerModeSettingWithMode(Mode mode){
+    public static PerModeSetting getPerModeSettingWithMode(Mode mode){
         switch (mode) {
             case NotePractice:
                 return perModeSettings[0];

@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/toSpinner"
+            android:id="@+id/errorAllowance_EditText"
             android:layout_width="110dp"
             android:layout_height="45dp"
             android:layout_marginTop="16dp"
@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/fromSpinner" />
 
         <Spinner
-            android:id="@+id/scaleSpinner"
+            android:id="@+id/leastStableTimeEditText"
             android:layout_width="173dp"
             android:layout_height="42dp"
             android:layout_marginTop="16dp"
@@ -54,17 +54,17 @@
             android:spinnerMode="dropdown"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toSpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/errorAllowance_EditText" />
 
         <Spinner
-            android:id="@+id/keySigSpinner"
+            android:id="@+id/showCorrectTimeEditText"
             android:layout_width="110dp"
             android:layout_height="44dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scaleSpinner" />
+            app:layout_constraintTop_toBottomOf="@+id/leastStableTimeEditText" />
 
         <TextView
             android:id="@+id/toTextView"

@@ -11,7 +11,7 @@
     android:background="#E6FBBA">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/autoPlayBackSwitch"
         android:layout_width="378dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/toSpinner"
+        android:id="@+id/errorAllowance_EditText"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="@+id/toTextView" />
 
     <EditText
-        android:id="@+id/scaleSpinner"
+        android:id="@+id/leastStableTimeEditText"
         android:layout_width="110dp"
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.014" />
 
     <EditText
-        android:id="@+id/keySigSpinner"
+        android:id="@+id/showCorrectTimeEditText"
         android:layout_width="110dp"
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/autoPlayBackSwitch" />
 
     <TextView
         android:id="@+id/scaleTextView"
@@ -91,7 +91,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/leastStableTime"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/scaleSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/leastStableTimeEditText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toTextView" />

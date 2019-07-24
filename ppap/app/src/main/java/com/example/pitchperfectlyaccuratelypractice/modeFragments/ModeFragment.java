@@ -27,6 +27,7 @@ import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.IntervalQuestion;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
@@ -81,7 +82,7 @@ public abstract class ModeFragment extends Fragment {
     /** stores the navi menu button view (FIXME do we need it) */
     Button naviMenuButton;
     /** stores the filter page button view */
-    Button filterPageButton;
+    Button perModeSettingPageButton;
 
     boolean onCreated = false;
 
@@ -124,6 +125,8 @@ public abstract class ModeFragment extends Fragment {
         constraintLayout.setBackgroundColor(background_color);
     }
 
+    private Model model;
+
     /**
      * setup views and listeners
      * @param inflater
@@ -139,6 +142,8 @@ public abstract class ModeFragment extends Fragment {
         mainActivity = (MainActivity)getActivity();
         controller = mainActivity.getController();
         notesPlayer = mainActivity.getNotesPlayer();
+
+        model = mainActivity.getModel();
         onCreated = true;
         final View view = inflater.inflate(resource, container, false);
         constraintLayout = view.findViewById(R.id.layout_to_include);
@@ -152,11 +157,11 @@ public abstract class ModeFragment extends Fragment {
         playSoundButton = constraintLayout.findViewById(R.id.playSoundButton);
         helpButton = constraintLayout.findViewById(R.id.helpButton);
         naviMenuButton = constraintLayout.findViewById(R.id.naviButton);
-        filterPageButton = constraintLayout.findViewById(R.id.filterButton);
+        perModeSettingPageButton = constraintLayout.findViewById(R.id.filterButton);
 
         if (constraintLayout == null || frequencyText == null
         || currentPitchText == null || playSoundButton == null || helpButton == null
-        || naviMenuButton == null || filterPageButton == null) {
+        || naviMenuButton == null || perModeSettingPageButton == null) {
             throw new AssertionError("Fragment onCreatView, some view is null");
         }
 
@@ -241,16 +246,16 @@ public abstract class ModeFragment extends Fragment {
 
 
     public void listenerSetUp() {
-        filterPageButton.setOnClickListener(new View.OnClickListener() {
+        perModeSettingPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
+                Intent setting_intent = new Intent(getActivity(), PerModeSettingActivity.class);
 //                PerModeSetting perModeSetting = controller.getCurFiltered();
 //                perModeSetting.mode = mode;
-                filter_intent.putExtra("Mode", new PerModeSetting(mode));
+                setting_intent.putExtra("perModeSetting", model.getPerModeSettingWithMode(mode));
                 // let the main activity handle the intent
                 Log.d(TAG, "onClick: " + REQUEST_CODE_FROM_FILTER);
-                startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);
+                startActivityForResult(setting_intent, REQUEST_CODE_FROM_FILTER);
             }
         });
 

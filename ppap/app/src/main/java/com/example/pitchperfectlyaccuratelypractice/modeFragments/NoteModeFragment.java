@@ -21,12 +21,8 @@ public class NoteModeFragment extends ModeFragment {
     /**
      * a question note in the middle of the screen
      */
-    //private TextView questionNoteText;
     private TextView arrowText;
     private ConstraintLayout noteLayout;
-    //private TextView questionNote;
-    // TextView questonScale;
-    //private TextView questionSig;
 
     /**
      * constructor of NoteModeFragment
@@ -47,13 +43,7 @@ public class NoteModeFragment extends ModeFragment {
     @Override
     void setupAdditionalView() {
         Log.d(TAG, "setupAdditionalView: ");
-        //questionNoteText = constraintLayout.findViewById(R.id.prevNoteTextView);
-        //questionNote = constraintLayout.findViewById(R.id.NoteTextView);
-        //questonScale = constraintLayout.findViewById(R.id.NoteScaleTextView);
-        //questionSig = constraintLayout.findViewById(R.id.NoteSigView);
         noteLayout = constraintLayout.findViewById(R.id.note_mode_include);
-        //if (questionNote == null) { throw new AssertionError("questionNoteText is null"); }
-
         arrowText = constraintLayout.findViewById(R.id.arrowTextView);
     }
 

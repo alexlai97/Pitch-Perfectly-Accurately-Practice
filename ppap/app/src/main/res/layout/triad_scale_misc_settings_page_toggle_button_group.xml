@@ -9,7 +9,7 @@
     >
 
     <ToggleButton
-        android:id="@+id/toggleButton2"
+        android:id="@+id/MajorScaleToggleButton"
         android:layout_width="116dp"
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
@@ -19,15 +19,15 @@
         android:text="majorT"
         android:textOff="Major"
         android:textOn="Major"
-        app:layout_constraintBottom_toTopOf="@+id/toggleButton4"
-        app:layout_constraintEnd_toStartOf="@+id/toggleButton3"
+        app:layout_constraintBottom_toTopOf="@+id/melodicMinorScaleToggleButton"
+        app:layout_constraintEnd_toStartOf="@+id/harmonicMinorScaleToggleButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ToggleButton
-        android:id="@+id/toggleButton3"
+        android:id="@+id/harmonicMinorScaleToggleButton"
         android:layout_width="119dp"
         android:layout_height="62dp"
         android:layout_marginTop="8dp"
@@ -36,13 +36,13 @@
         android:text="harmonicT"
         android:textOff="Harmonic Minor"
         android:textOn="Harmonic Minor"
-        app:layout_constraintBottom_toTopOf="@+id/toggleButton5"
+        app:layout_constraintBottom_toTopOf="@+id/naturalMinorScaleToggleButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ToggleButton
-        android:id="@+id/toggleButton4"
+        android:id="@+id/melodicMinorScaleToggleButton"
         android:layout_width="117dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -52,12 +52,12 @@
         android:textOff="Melodic Minor"
         android:textOn="Melodic Minor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/toggleButton5"
+        app:layout_constraintEnd_toStartOf="@+id/naturalMinorScaleToggleButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ToggleButton
-        android:id="@+id/toggleButton5"
+        android:id="@+id/naturalMinorScaleToggleButton"
         android:layout_width="118dp"
         android:layout_height="60dp"
         android:layout_marginEnd="4dp"

@@ -21,6 +21,7 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.IntervalModeSetting;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +43,7 @@ public class IntervalPoolSelectionTab extends Fragment {
         this.perModeSettingActivity = pma;
 
         // ??
-        perModeSettingActivity.generated_interval_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
+        ((IntervalModeSetting)this.perModeSettingActivity.perModeSetting).intervalsBitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
         // Required empty public constructor
     }
 
@@ -200,7 +201,7 @@ public class IntervalPoolSelectionTab extends Fragment {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                perModeSettingActivity.generated_interval_bitmap.toggleNote(interval);
+                ((IntervalModeSetting)perModeSettingActivity.perModeSetting).intervalsBitmap.toggleNote(interval);
             }
         });
         return button;

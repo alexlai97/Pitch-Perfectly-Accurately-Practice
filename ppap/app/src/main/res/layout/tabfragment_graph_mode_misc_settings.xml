@@ -18,13 +18,13 @@
         android:layout_marginEnd="8dp"
         android:text="@string/showFreqNote"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/toSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/errorAllowance_EditText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/refreshRate" />
 
     <Spinner
-        android:id="@+id/toSpinner"
+        android:id="@+id/errorAllowance_EditText"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginEnd="12dp"
@@ -43,10 +43,10 @@
         android:layout_marginEnd="8dp"
         android:text="@string/errorAllowance"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/errorAlow"
+        app:layout_constraintEnd_toStartOf="@+id/errorAllowanceEditText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/autoPlayBackSwitch" />
 
     <TextView
         android:id="@+id/leastStableTime"
@@ -68,7 +68,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/refreshRate"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/refreshInput"
+        app:layout_constraintEnd_toStartOf="@+id/refreshRateEditText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -88,7 +88,7 @@
         app:layout_constraintVertical_bias="0.108" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/autoPlayBackSwitch"
         android:layout_width="378dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -102,7 +102,7 @@
         app:layout_constraintTop_toBottomOf="@+id/showFreqNote" />
 
     <EditText
-        android:id="@+id/refreshInput"
+        android:id="@+id/refreshRateEditText"
         android:layout_width="106dp"
         android:layout_height="48dp"
         android:layout_marginEnd="16dp"
@@ -115,7 +115,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/errorAlow"
+        android:id="@+id/errorAllowanceEditText"
         android:layout_width="106dp"
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
@@ -125,7 +125,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/leastStabletime"
+        android:id="@+id/leastStableTimeEditText"
         android:layout_width="114dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
@@ -138,7 +138,7 @@
         app:layout_constraintStart_toEndOf="@+id/leastStableTime" />
 
     <EditText
-        android:id="@+id/showCorrectTime"
+        android:id="@+id/showCorrectTimeEditText"
         android:layout_width="125dp"
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
