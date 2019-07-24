@@ -27,7 +27,6 @@ import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
-import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
 
 public class NotePoolSelectionTab extends Fragment {
     private static final String TAG = "NotePoolSelectionTab";
@@ -150,9 +149,9 @@ public class NotePoolSelectionTab extends Fragment {
     private void setSpinners() {
         // Put it declare
         fromSpinner   = view.findViewById(R.id.fromSpinner);
-        toSpinner     = view.findViewById(R.id.toSpinner);
-        scaleSpinner  = view.findViewById(R.id.scaleSpinner);
-        keySigSpinner = view.findViewById(R.id.keySigSpinner);
+        toSpinner     = view.findViewById(R.id.errorAllowance_EditText);
+        scaleSpinner  = view.findViewById(R.id.leastStableTimeEditText);
+        keySigSpinner = view.findViewById(R.id.showCorrectTimeEditText);
 
         ArrayAdapter<String> all_notes_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, notes_strings);
         ArrayAdapter<String> all_scales_string_adapter= new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, scale_strings);
@@ -163,10 +162,7 @@ public class NotePoolSelectionTab extends Fragment {
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
-//        filter.perModeSetting.from = Note.getIndex("A3");
-//        filter.perModeSetting.to = Note.getIndex("A4");
-//        filter.perModeSetting.scale = 1;
-//        filter.perModeSetting.keySignature = 0;
+
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

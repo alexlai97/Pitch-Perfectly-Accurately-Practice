@@ -18,8 +18,8 @@ import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingAct
 public class GraphModeMiscSettingTab extends GeneralMiscSettingTab {
 
 
-    public GraphModeMiscSettingTab(PerModeSettingActivity filter) {
-        super(filter);
+    public GraphModeMiscSettingTab(PerModeSettingActivity perModeSettingActivity) {
+        super(perModeSettingActivity);
         this.resource = R.layout.tabfragment_graph_mode_misc_settings;
     }
 
