@@ -14,11 +14,11 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NoteModeMiscSettingTab extends GeneralMiscSettingTab {
+public class GraphModeMiscSettingTab extends GeneralMiscSettingTab {
 
 
-    public NoteModeMiscSettingTab() {
-        this.resource = R.layout.tabfragment_note_mode_misc_settings;
+    public GraphModeMiscSettingTab() {
+        this.resource = R.layout.tabfragment_graph_mode_misc_settings;
     }
 
 

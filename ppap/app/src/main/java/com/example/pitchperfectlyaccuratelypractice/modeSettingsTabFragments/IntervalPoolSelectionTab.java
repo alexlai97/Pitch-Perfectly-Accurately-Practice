@@ -26,7 +26,7 @@ import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IntervalPoolSelectionTab extends Fragment{
+public class IntervalPoolSelectionTab extends Fragment {
 
     private static final String TAG="IntervalTab";
     private PerModeSettingActivity filter;
