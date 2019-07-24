@@ -21,7 +21,7 @@ public class TriadModeMiscSettingTab extends GeneralMiscSettingTab {
 
     public TriadModeMiscSettingTab(PerModeSettingActivity filter) {
         super(filter);
-        resource = R.layout.triad_scale_misc_settings_page_toggle_button_group;
+        resource = R.layout.tabfragment_triad_mode_misc_settings;
         // Required empty public constructor
     }
 
