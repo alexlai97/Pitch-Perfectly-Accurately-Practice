@@ -10,6 +10,12 @@
     <string name="chordMode">Triad Practice</string>
     <string name="songMode">Song Practice</string>
     <string name="notegraph_mode">Note Beginner Mode</string>
+    <string name="showFreqNote">Show Frequency</string>
+    <string name="errorAllowance">Error Allowance</string>
+    <string name="leastStableTime">Least Stable Time</string>
+    <string name="refreshRate">Refresh Rate</string>
+    <string name="correctTimeText">Show Correct Time</string>
+    <string name="autoPlayback">Auto Playback</string>
 
     <string name="note_mode">Note</string>
     <string name="interval_mode">Interval</string>
