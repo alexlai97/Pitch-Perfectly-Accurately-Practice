@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +18,8 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 public class NoteModeMiscSettingTab extends GeneralMiscSettingTab {
 
 
-    public NoteModeMiscSettingTab() {
+    public NoteModeMiscSettingTab(PerModeSettingActivity filter) {
+        super(filter);
         this.resource = R.layout.tabfragment_note_mode_misc_settings;
     }
 

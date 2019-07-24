@@ -6,9 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.GraphModeMiscSettingTab;
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.IntervalPoolSelectionTab;
+import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.NoteModeMiscSettingTab;
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.NotePoolSelectionTab;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
+import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.TriadModeMiscSettingTab;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
@@ -24,11 +27,42 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0: return new NotePoolSelectionTab(filter);
-            case 1: return new IntervalPoolSelectionTab(filter);
-            default: return null;
+        switch (mode){
+            case NotePractice:
+                switch (position){
+                    case 0: return new NotePoolSelectionTab(filter);
+                    case 1: return new NoteModeMiscSettingTab(filter);
+                    default: return null;
+                }
+            case IntervalPractice:
+                switch (position){
+                    case 0: return new NotePoolSelectionTab(filter);
+                    case 1: return new IntervalPoolSelectionTab(filter);
+                    case 2: return new NoteModeMiscSettingTab(filter);
+                    default: return null;
+                }
+            case TriadPractice:
+                switch (position){
+                    case 0: return new NotePoolSelectionTab(filter);
+                    case 1: return new TriadModeMiscSettingTab(filter);
+                    default: return null;
+                }
+            case NoteGraphPractice:
+                switch (position){
+                    case 0: return new NotePoolSelectionTab(filter);
+                    case 1: return new GraphModeMiscSettingTab(filter);
+                    default: return null;
+                }
+            case SongPlaying:
+//                switch (position){
+//                    case 0: return new Songm(filter);
+//                    default: return null;
+//                }
+                break;
+            default:
+                break;
         }
+        return null;
     }
 
     @Override

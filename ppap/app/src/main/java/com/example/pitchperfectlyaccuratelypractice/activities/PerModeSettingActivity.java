@@ -78,11 +78,28 @@ public class PerModeSettingActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
         // Set the text for each tab.
-        if(pageNum == 1){
-            tabLayout.addTab(tabLayout.newTab().setText("Note"));
-        } else if(pageNum == 2){
-            tabLayout.addTab(tabLayout.newTab().setText("Note"));
-            tabLayout.addTab(tabLayout.newTab().setText("Interval"));
+        switch (mode){
+            case NotePractice:
+                tabLayout.addTab(tabLayout.newTab().setText("Note"));
+                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
+                break;
+            case IntervalPractice:
+                tabLayout.addTab(tabLayout.newTab().setText("Note"));
+                tabLayout.addTab(tabLayout.newTab().setText("Interval"));
+                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
+                break;
+            case TriadPractice:
+                tabLayout.addTab(tabLayout.newTab().setText("Note"));
+                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
+                break;
+            case NoteGraphPractice:
+                tabLayout.addTab(tabLayout.newTab().setText("Note"));
+                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
+                break;
+            case SongPlaying:
+//                tabLayout.addTab(tabLayout.newTab().setText("Misc"));
+                break;
+            default:
         }
 
         // Set the tabs to fill the entire layout.

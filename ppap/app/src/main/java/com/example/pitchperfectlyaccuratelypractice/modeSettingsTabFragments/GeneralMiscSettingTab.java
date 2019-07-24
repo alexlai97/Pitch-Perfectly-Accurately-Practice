@@ -11,15 +11,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GeneralMiscSettingTab extends Fragment {
 
+    PerModeSettingActivity filter;
     int resource;
     View view;
-    public GeneralMiscSettingTab() {
+    public GeneralMiscSettingTab(PerModeSettingActivity filter) {
+        this.filter = filter;
         // Required empty public constructor
     }
 
