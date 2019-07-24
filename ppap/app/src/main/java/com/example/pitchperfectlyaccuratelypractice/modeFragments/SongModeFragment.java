@@ -15,10 +15,6 @@ import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 public class SongModeFragment extends ModeFragment {
     private static String TAG = "SongModeFragment";
 
-    //private TextView prevNoteText;
-    //private TextView currentNoteText;
-    //private TextView nextNoteText;
-
     private ConstraintLayout prevNoteLayout;
     private ConstraintLayout currentNoteLayout;
     private ConstraintLayout nextNoteLayout;
