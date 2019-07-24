@@ -20,6 +20,7 @@ import android.widget.ToggleButton;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 
 /**
@@ -27,13 +28,13 @@ import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
  */
 public class IntervalPoolSelectionTab extends Fragment{
 
-    private static final String TAG="IntervalPoolSelectionTab";
+    private static final String TAG="IntervalTab";
     private PerModeSettingActivity filter;
     public View view;
 
-    Interval[] generated_interval;
-
-    private IntervalsBitmap tmpData;
+    private Interval[] generated_interval;
+    private IntervalsBitmap generated_bitmap;
+    private PerModeSetting perModeSetting;
 
     TableLayout negativeIntervalsTable;
     TableLayout positiveIntervalsTable;
@@ -42,16 +43,19 @@ public class IntervalPoolSelectionTab extends Fragment{
 
     public IntervalPoolSelectionTab(PerModeSettingActivity filter) {
         this.filter = filter;
-        tmpData = IntervalsBitmap.getAllTrueIntervalsBitmap();
-        generated_interval = tmpData.toInterval();
+        perModeSetting =filter.perModeSetting;
+        generated_interval =filter.generated_interval;
+        generated_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
+        generated_interval = generated_bitmap.toInterval();
         // Required empty public constructor
     }
 
     public IntervalPoolSelectionTab(PerModeSettingActivity filter, IntervalsBitmap intervalsBitmap) {
         this.filter = filter;
-        this.tmpData = intervalsBitmap;
-        tmpData = IntervalsBitmap.getAllTrueIntervalsBitmap();
-        generated_interval = tmpData.toInterval();
+        this.generated_bitmap = intervalsBitmap;
+        perModeSetting = filter.perModeSetting;
+        generated_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
+        generated_interval = generated_bitmap.toInterval();
         // Required empty public constructor
     }
 
@@ -200,9 +204,9 @@ public class IntervalPoolSelectionTab extends Fragment{
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                tmpData.toggleNote(interval);
+                generated_bitmap.toggleNote(interval);
 
-                generated_interval = tmpData.toInterval();
+                generated_interval = generated_bitmap.toInterval();
                 filter.perModeSetting.setIntervalsBitmap(Interval.IntervalsToInts(generated_interval));
             }
         });

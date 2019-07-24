@@ -34,6 +34,7 @@ public class SongPlayingFragment extends SongModeFragment {
      * setup resource (see parent onCreateView for use)
      */
     public SongPlayingFragment() {
+        mode = Mode.SongPlaying;
         resource = R.layout.modefragment_song_playing;
         background_color = Color.parseColor("#e8e0f5");
         instruction_string = "TODO incomplete";

@@ -1,19 +1,15 @@
 package com.example.pitchperfectlyaccuratelypractice.modeFragments;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.animation.Animation;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
-import com.example.pitchperfectlyaccuratelypractice.model.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 
 /**
  * a children of general fragment
@@ -46,26 +42,13 @@ public class TriadFragment extends ModeFragment {
      * setup resource (see parent onCreateView for use)
      */
     public TriadFragment() {
+        mode = Mode.TriadPractice;
         resource = R.layout.modefragment_triad;
         background_color = Color.parseColor("#c8dfec");
         instruction_string = "Please the notes in any order\n\n" +
                 "Single tap the start_playing button will start_playing the chord\n\n" +
                 "Long press the start_playing button will start_playing notes sequentially then chord\n\n" +
                 "You can select note pool and interval pool in Filter Page (pineapple button)";
-    }
-
-    @Override
-    public void listenerSetUp() {
-        filterPageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
-                filter_intent.putExtra("Mode", new PerModeSetting("triad"));
-
-                // let the main activity handle the intent
-                getActivity().startActivityForResult(filter_intent, MainActivity.REQUEST_CODE_FROM_FILTER); // why this REQUEST_CODE_FROM_FILTER can't be found using getActivity().REQUEST_CODE_FROM_FILTER
-            }
-        });
     }
 
     /**

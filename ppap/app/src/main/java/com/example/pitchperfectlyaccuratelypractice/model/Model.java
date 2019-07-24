@@ -9,6 +9,7 @@ import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
@@ -44,6 +45,8 @@ public class Model {
 
     private Context context;
 
+    private PerModeSetting[] perModeSetting;
+
     /**
      *
      */
@@ -54,8 +57,10 @@ public class Model {
         currentQuestion = questionFactory.create(currentMode);
         currentFragment = fragmentFactory.create(currentMode);
         songList = new SongList();
+        perModeSetting = new PerModeSetting[5];
         setupSongs();
     }
+
 
     private void setupSongs() {
         addASong(R.raw.auld_lang_syne, "Auld Lang Syne");
@@ -69,6 +74,10 @@ public class Model {
 
     private void addASong(int id, String title) {
         songList.add(new Song(id, title, MyMidiTool.getMidiFileFromId(context, id)));
+    }
+
+    public void setupPerModeSetting(){
+
     }
 
     /**
@@ -111,6 +120,14 @@ public class Model {
      */
     public void setCurrentQuestion(Question q) {
         notifyListeners(this, "currentQuestion", this.currentQuestion, this.currentQuestion = q);
+    }
+
+    public void setFilteredResult(PerModeSetting p){
+        notifyListeners(this, "filteredResult", this.perModeSetting, this.perModeSetting = p);
+    }
+
+    public PerModeSetting getFilteredResult(){
+        return perModeSetting;
     }
     /**
      * getter for current question
