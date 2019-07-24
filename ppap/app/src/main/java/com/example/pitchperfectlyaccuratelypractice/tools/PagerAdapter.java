@@ -11,6 +11,7 @@ import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.Int
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.NoteModeMiscSettingTab;
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.NotePoolSelectionTab;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
+import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.SongModeMiscSettingTab;
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.TriadModeMiscSettingTab;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -54,11 +55,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                     default: return null;
                 }
             case SongPlaying:
-//                switch (position){
-//                    case 0: return new Songm(filter);
-//                    default: return null;
-//                }
-                break;
+                switch (position){
+                    case 0: return new SongModeMiscSettingTab(filter);
+                    default: return null;
+                }
             default:
                 break;
         }
