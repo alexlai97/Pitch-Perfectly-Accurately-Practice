@@ -56,6 +56,7 @@ public class SongPlayingFragment extends SongModeFragment {
         switchToPracticeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                midiSongPlayer.reset();
                 model.setCurrentMode(Mode.SongPractice);
             }
         });
@@ -95,6 +96,7 @@ public class SongPlayingFragment extends SongModeFragment {
         librarySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 Song selected_song = model.getSongList().getSongAt(i);
                 if (selected_song == null ) {
                     throw new AssertionError("selected song is null");
@@ -102,7 +104,10 @@ public class SongPlayingFragment extends SongModeFragment {
                 songTitleText.setText(selected_song.getTitle());
                 model.setCurrentQuestion(new SongQuestion(selected_song));
                 // FIXME maybe observer pattern
-                midiSongPlayer = new MidiSongPlayer((MainActivity)getActivity());
+                if (midiSongPlayer.isPlaying()) {
+                    midiSongPlayer.reset();
+                    playOrPauseButton.setBackground(play);
+                }
                 midiSongPlayer.setMidiFileUsingCurrentQuestion();
                 controller.updateQuestionView();
             }

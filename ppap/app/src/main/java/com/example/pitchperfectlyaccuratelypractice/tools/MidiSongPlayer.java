@@ -69,6 +69,9 @@ public class MidiSongPlayer implements MidiEventListener {
     }
 
     public boolean isPlaying() {
+        if (midiProcessor == null) {
+            return false;
+        }
         return midiProcessor.isRunning();
     }
 

@@ -59,8 +59,6 @@ public class SongPracticingFragment extends SongModeFragment {
                 }
                 songTitleText.setText(selected_song.getTitle());
                 model.setCurrentQuestion(new SongQuestion(selected_song));
-                // FIXME maybe observer pattern
-//                midiSongPlayer.setMidiFileUsingCurrentQuestion();
                 controller.updateQuestionView();
             }
 
