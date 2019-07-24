@@ -7,19 +7,24 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.util.Log;
 
-//import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
 
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.NoteGraphModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.OffTrackLevel;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
 import com.example.pitchperfectlyaccuratelypractice.model.Config;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -41,34 +46,24 @@ public class Controller implements Observer ,
   private static final String TAG = "CONTROLLER";
 
 
-  /**
-   * access to MainActivity public methods
-   */
+  /** access to MainActivity public methods */
   private MainActivity mainActivity;
-  /**
-   * microphone owned by main activity
-   * can set listener to it
-   */
+  /** microphone owned by main activity , can set listener to it */
   private Microphone microphone;
-  /**
-   *  current fragment (will change if model's current question is changed)
-   */
-  private GeneralFragment curFragment;
-  /**
-   *  current question (will change if model's current question is changed)
-   */
+  /**  current fragment (will change if model's current question is changed) */
+  private ModeFragment curFragment;
+  /**  current question (will change if model's current question is changed) */
   private Question curQuestion;
-  /**
-   *  current config (will change if model's current question is changed)
-   */
+  /**  current config (will change if model's current question is changed) */
   private Config curConfig;
-  /**
-   *  current mode (will change if model's current question is changed)
-   */
+  /**  current mode (will change if model's current question is changed) */
   private Mode curMode = Mode.NotePractice; // Don't need it probably
-  /**
-   * model owned by main activity
-   */
+
+
+  /**  current PerModeSetting (will change if filtered result is changed) */
+  private PerModeSetting curFiltered = new PerModeSetting(); // Don't need it probably
+
+  /** model owned by main activity */
   private Model model;
 
 
@@ -87,12 +82,25 @@ public class Controller implements Observer ,
     model.setNotePool(notes);
   }
 
+  public void setPerModeSetting(PerModeSetting perModeSetting){
+    model.setupPerModeSetting(perModeSetting);
+  }
+
+  /**
+   * set intervals pool in current question in model
+   * @param intervals
+   */
+  public void setIntervalPool(Interval[] intervals) {
+    model.setIntervalPool(intervals);
+  }
+
   /**
    *
    */
   public Controller(Model a_model, Activity activity) {
     mainActivity = (MainActivity)activity;
     model = a_model;
+
     // generate NoteQuestion
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
@@ -122,11 +130,15 @@ public class Controller implements Observer ,
     return curMode;
   }
 
+  public PerModeSetting getCurFiltered() {
+    return curFiltered;
+  }
+
   /**
    * get answer frequencies from current question stored in model
    */
   public double[] getExpectedFrequencies() {
-    return Note.toFrequencies(curQuestion.getAnswerNotes());
+    return Note.toFrequencies(curQuestion.getExpectedNotes());
   }
 
   public Question getCurQuestion() {
@@ -137,28 +149,33 @@ public class Controller implements Observer ,
    * generate a random question, update questionTextView
    */
   public void next_question() {
-    curQuestion.generate_random_question();
+    if (curMode == Mode.SongPractice) {
+      curQuestion.next_question(Question.NextQuestionStrategy.InOrder);
+    } else {
+      curQuestion.next_question(Question.NextQuestionStrategy.Random);
+    }
     updateQuestionView();
-    correct_mask = new boolean[curQuestion.getAnswerNotes().length];
-    Log.d(TAG, "next_question: current length " + curQuestion.getAnswerNotes().length);
+    correct_mask = new boolean[curQuestion.getExpectedNotes().length];
+    Log.d(TAG, "next_question: current length " + curQuestion.getExpectedNotes().length);
     if (curMode == Mode.NoteGraphPractice) {
-      ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
+      ((NoteGraphModeFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
     }
   }
 
   /**
    * update views related to question
    */
-  private void updateQuestionView() {
+  public void updateQuestionView() {
     curFragment.updateQuestionTexts(curQuestion.getTexts());
   }
+
 
   /**
    * what to do when in correct state
    * now it changes background colour
    * // FIXME different mode different colour
    */
-  void show_correct() {
+  private void show_correct() {
     curFragment.setBackgroundColor(Color.GREEN);
   }
 
@@ -251,7 +268,7 @@ public class Controller implements Observer ,
   private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
   public void mark_incorrect_question(){
-    historyData.addData(curQuestion.getAnswerNotes()[0].getIndex(), false);
+    historyData.addData(curQuestion.getExpectedNotes()[0].getIndex(), false);
   }
 
   /**
@@ -302,7 +319,7 @@ public class Controller implements Observer ,
         // do nothing
       } else { // at the end of the show correct state
           // gets the current answer's first note (No triad yet since we dont know how we want to handle it
-          historyData.addData(curQuestion.getAnswerNotes()[0].getIndex(), answerCorrect);
+          historyData.addData(curQuestion.getExpectedNotes()[0].getIndex(), answerCorrect);
           curFragment.resetBackgroundColor();
           next_question();
           answerCorrect = false;
@@ -359,9 +376,13 @@ public class Controller implements Observer ,
    * refresh current fragment, since current mode is changed
    */
   private void refreshCurFragment() {
-    model.refreshCurrentFragment();
-    mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.flContent, model.getCurrentFragment()).commit();
-    mainActivity.getSupportFragmentManager().executePendingTransactions();
+    model.setCurrentFragmentUsingCurrentMode();
+    FragmentManager fragmentManager = mainActivity.getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    fragmentTransaction.replace(R.id.flContent, model.getCurrentFragment())
+            .addToBackStack(null)
+            .commit();
+    fragmentManager.executePendingTransactions();
   }
 
   /**
@@ -375,7 +396,7 @@ public class Controller implements Observer ,
   }
 
   /**
-   * updates from model
+   * updates from model, this is called when notified by model change
    * @param event
    */
   @Override
@@ -390,16 +411,31 @@ public class Controller implements Observer ,
         case "currentQuestion":
           curQuestion = (Question) event.getNewValue();
           break;
+        case "filteredResult":
+          curFiltered = (PerModeSetting) event.getNewValue();
+          /* add code here to response filtered result change:
+           for example call ModeFragment method to update view or generate next question*/
+
+          break;
         case "currentMode":
           curMode = (Mode) event.getNewValue();
-          model.setCurrentQuestion(questionFactory.create(curMode));
+          // FIXME SongPlaying mode doesn't need question
+          if (curMode == Mode.SongPlaying) {
+            model.setCurrentQuestion(new SongQuestion(model.getSongList().getSong(R.raw.auld_lang_syne)));
+          } else if  (curMode == Mode.SongPractice){
+          } else {
+            model.setCurrentQuestion(questionFactory.create(curMode));
+          }
           refreshCurFragment();
           break;
         case "currentFragment":
-          correct_mask = new boolean[curQuestion.getAnswerNotes().length];
-          curFragment = (GeneralFragment) event.getNewValue();
-          if (curMode == Mode.NoteGraphPractice) {
-            ((NoteGraphFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getAnswerNotes()[0].getFrequency());
+//          if (event.getOldValue().getClass() == SongPlayingFragment.class && event.getNewValue().getClass() == SongPracticingFragment.class) {
+//            return;
+//          }
+          correct_mask = new boolean[curQuestion.getExpectedNotes().length]; // FIXME move it to somewhere
+          curFragment = (ModeFragment) event.getNewValue();
+          if (curMode == Mode.NoteGraphPractice) { // FIXME remove it to the constructor of the fragment
+            ((NoteGraphModeFragment) curFragment).setCurrentExpectedFrequency(curQuestion.getExpectedNotes()[0].getFrequency());
           }
           break;
       }

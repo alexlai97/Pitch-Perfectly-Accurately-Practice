@@ -1,11 +1,18 @@
 package com.example.pitchperfectlyaccuratelypractice.model;
 
+import android.content.Context;
+
+import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.fragments.FragmentFactory;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.FragmentFactory;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Song;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.Question;
 import com.example.pitchperfectlyaccuratelypractice.question.QuestionFactory;
+import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -19,57 +26,108 @@ import java.util.List;
 public class Model {
     private static final String TAG  = "Model";
 
-    /**
-     * stores current config
-     */
+    /**  stores current config */
     private Config currentConfig = new Config();
-    /**
-     * stores current question
-     */
+    /**  stores current question */
     private Question currentQuestion;
-    /**
-     * stores current current mode
-     */
+    /**  stores current current mode */
     private Mode currentMode;
-    /**
-     * stores current fragment
-     */
-    private GeneralFragment currentFragment;
-    /**
-     * factory to produce different fragments
-     */
+    /**  stores current fragment */
+    private ModeFragment currentFragment;
+
+    private SongList songList;
+    /**  factory to produce different fragments */
     private FragmentFactory fragmentFactory = new FragmentFactory();
-    /**
-     * factory to produce different questions
-     */
+    /**  factory to produce different questions */
     private QuestionFactory questionFactory = new QuestionFactory();
-    /**
-     * observers (to observe data change of this model)
-     */
+    /**  observers (to observe data change of this model) */
     private List<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
+
+    private Context context;
+
+    private PerModeSetting perModeSettings[];
 
     /**
      *
      */
-    public Model() {
+    public Model(Context ct) {
+        context = ct;
         currentConfig = new Config();
         currentMode = Mode.NotePractice;
         currentQuestion = questionFactory.create(currentMode);
         currentFragment = fragmentFactory.create(currentMode);
+        songList = new SongList();
+        perModeSettings = new PerModeSetting[5];
+        setupSongs();
+    }
+
+
+    private void setupSongs() {
+        addASong(R.raw.auld_lang_syne, "Auld Lang Syne");
+        addASong(R.raw.london_bridge_is_falling_down, "London Bridge is Falling Down");
+        addASong(R.raw.twinkle_twinkle_little_star, "Twinkle Twinkle Little Star");
+        addASong(R.raw.carrying_you, "Carring You");
+        addASong(R.raw.dango_daikazoku, "団子大家族");
+    }
+
+
+
+    private void addASong(int id, String title) {
+        songList.add(new Song(id, title, MyMidiTool.getMidiFileFromId(context, id)));
+    }
+
+    public void setupPerModeSetting(PerModeSetting p){
+        switch (p.mode){
+            case NotePractice:
+                perModeSettings[0] = p;
+                break;
+            case NoteGraphPractice:
+                perModeSettings[1] = p;
+                break;
+            case IntervalPractice:
+                perModeSettings[2] = p;
+                break;
+            case TriadPractice:
+                perModeSettings[3] = p;
+                break;
+            case SongPlaying:
+                perModeSettings[4] = p;
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    public PerModeSetting getPerModeSettingWithMode(Mode mode){
+        switch (mode) {
+            case NotePractice:
+                return perModeSettings[0];
+            case NoteGraphPractice:
+                return perModeSettings[1];
+            case IntervalPractice:
+                return perModeSettings[2];
+            case TriadPractice:
+                return perModeSettings[3];
+            case SongPlaying:
+                return perModeSettings[4];
+            default:
+                throw new AssertionError("access PerModeSetting out of boundary");
+        }
     }
 
     /**
      * getter for current fragment
      * @return
      */
-    public GeneralFragment getCurrentFragment() {
+    public ModeFragment getCurrentFragment() {
         return currentFragment;
     }
 
     /**
      * change current fragment given current mode and notify observers
      */
-    public void refreshCurrentFragment() {
+    public void setCurrentFragmentUsingCurrentMode() {
         notifyListeners(this, "currentFragment", this.currentFragment, this.currentFragment = fragmentFactory.create(currentMode));
     }
 
@@ -84,11 +142,22 @@ public class Model {
     }
 
     /**
+     * set note pool in current question and notify observers
+     * @param intervals
+     */
+    public void setIntervalPool(Interval[] intervals) {
+        Question oldQuestion = currentQuestion;
+        currentQuestion.setIntervalPool(intervals);
+        notifyListeners(this, "currentQuestion", oldQuestion, this.currentQuestion);
+    }
+
+    /**
      * set current question and notify observers
      */
     public void setCurrentQuestion(Question q) {
         notifyListeners(this, "currentQuestion", this.currentQuestion, this.currentQuestion = q);
     }
+
     /**
      * getter for current question
      */
@@ -145,5 +214,9 @@ public class Model {
         for (PropertyChangeListener listener: listeners) {
             listener.propertyChange(new PropertyChangeEvent(this, property, oldValue, newValue));
         }
+    }
+
+    public SongList getSongList() {
+        return songList;
     }
 }

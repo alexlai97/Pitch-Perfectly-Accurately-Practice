@@ -1,22 +1,24 @@
 package com.example.pitchperfectlyaccuratelypractice.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import org.json.JSONObject;
 
+import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
+import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.data.HistoryData;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.tools.MidiSongPlayer;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
-import com.example.pitchperfectlyaccuratelypractice.activities.SummaryActivity;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -26,19 +28,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * Main Activity which stores model, controller, noteplayer, microphone
  */
 public class MainActivity extends AppCompatActivity implements
-        GeneralFragment.OnFragmentInteractionListener,
+        ModeFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "MAIN";
+    private static final String TAG = "MainActivity";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
@@ -46,7 +48,11 @@ public class MainActivity extends AppCompatActivity implements
     private boolean created = false;
 
     /** only controller (and main activity) should have access, so no getter */
-    private Model model = new Model();
+    private Model model;
+
+    public Model getModel() {
+        return model;
+    }
 
     /** controlling how user voice affects model and update view */
     private Controller controller;
@@ -59,8 +65,9 @@ public class MainActivity extends AppCompatActivity implements
         return controller;
     }
 
-    /** a speaker which can play note(s) */
-    private NotesPlayer notesPlayer = new NotesPlayer(this);
+    /** a speaker which can start_playing note(s) */
+    private NotesPlayer notesPlayer = new NotesPlayer();
+
 
     /**
      * getter for note player
@@ -73,12 +80,19 @@ public class MainActivity extends AppCompatActivity implements
     /** a microphone which contains a frequency, controller will listen to its current frequency */
     private Microphone microphone = new Microphone(this);
 
+
+    public boolean FilterPageReturn;
     /**
      * getter for microphone
      * @return
      */
     public Microphone getMicrophone() {
         return microphone;
+    }
+
+    private MyMidiTool myMidiTool = new MyMidiTool();
+    public MyMidiTool getMyMidiTool() {
+        return myMidiTool;
     }
 
     /**
@@ -95,17 +109,17 @@ public class MainActivity extends AppCompatActivity implements
         Log.e(TAG, "s" + created);
         Log.w(TAG, "ONCREATE");
         // check microphone permission
-        checkMicrophonePermission();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navi_wrapper);
+        setContentView(R.layout.wrapper_navigation_menu);
 
         // setup navigation menu listener
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        model = new Model(this);
         controller = new Controller(model, this);
-        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
+       // handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
@@ -119,20 +133,35 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d(TAG, "onActivityResult: get intent back from filter page");
-        if (requestCode == REQUEST_CODE_FROM_FILTER) {
-            if (resultCode == RESULT_OK) {
-                Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
-                Note.logNotes("back to main activity", result_notes);
-                controller.setNotePool(result_notes);
-                controller.next_question();
-            } else if (resultCode == RESULT_CANCELED){
-
-            } else {
-
-            }
-        }
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: get intent back from filter page");
+
+        if (resultCode == RESULT_OK) {
+            Log.d(TAG, "onActivityResult: here");
+            PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
+            controller.setPerModeSetting(perModeSetting);
+            Log.d(TAG, "onActivityResult: here1");
+            Interval[] result_intervals;
+            Note[] result_notes;
+            if(perModeSetting.getIntervalsBitmap() != null){
+                result_intervals = perModeSetting.getIntervalsBitmap().toInterval();
+                // pass the notes generated from filter to controller, start next question(generated from note pool)
+                controller.setIntervalPool(result_intervals);
+            }
+            if(perModeSetting.getNotesBitmap() != null){
+                result_notes = perModeSetting.getNotesBitmap().toNotes();
+                Note.logNotes("back to main activity", result_notes);
+                // pass the notes generated from filter to controller, start next question(generated from note pool)
+                controller.setNotePool(result_notes);
+            }
+            Log.d(TAG, "onActivityResult: here4");
+            controller.next_question();
+            // handle no question to generate
+        } else if (resultCode == RESULT_CANCELED){
+
+        } else {
+
+        }
     }
 
 
@@ -172,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Log.d(TAG, "onNavigationItemSelected: " + id);
+        Log.d(TAG, "onNavigationItemSelected: " + Mode.idToMode(id));
         if(id == R.id.summary){
             Intent summary_intent = new Intent(this, SummaryActivity.class);
             // let the main activity handle the intent
@@ -230,55 +259,23 @@ public class MainActivity extends AppCompatActivity implements
         //used to communicate between fragments
     }
 
-    /**
-     * check Microphone Permission and handle it
-     */
-    void checkMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        MY_PERMISSIONS_REQUEST_AUDIO);
-            }
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-
-        } else {
-            // Permission has already been granted
-        }
-
-    }
 
     /**
      * handle intents ( currently only handles intents from filter pages )
      */
     void handleIntents() {
-//        if(handledIntent = "Filter"){
-//            Intent notes_ints_intent = getIntent();
-//            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-//            if (notes_ints != null) {
-//                if (notes_ints.length == 0) {
-//                    controller.setNotePool(Note.getAllNotes());
-//                } else {
-//                    controller.setNotePool(Note.IntsToNotes(notes_ints));
-//                }
-//            }
-//        } else {
-//
-//        }
-
+        Intent notes_ints_intent = getIntent();
+        if(notes_ints_intent != null) {
+            int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
+            if (notes_ints != null) {
+                if (notes_ints.length == 0) {
+                    controller.setNotePool(Note.getAllNotes());
+                } else {
+                    controller.setNotePool(Note.IntsToNotes(notes_ints));
+                }
+            }
+        }
     }
 
 }

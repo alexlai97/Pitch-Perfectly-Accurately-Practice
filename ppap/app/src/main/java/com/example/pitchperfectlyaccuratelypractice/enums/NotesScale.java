@@ -1,8 +1,11 @@
 package com.example.pitchperfectlyaccuratelypractice.enums;
+
+import java.io.Serializable;
+
 /**
  * The scale options in filter page when selecting 'scale'
  */
-public enum NotesScale {
+public enum NotesScale implements Serializable {
   /**
    * no scale. all notes
    */

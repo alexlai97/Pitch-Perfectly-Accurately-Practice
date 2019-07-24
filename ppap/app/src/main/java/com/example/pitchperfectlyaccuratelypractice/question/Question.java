@@ -1,19 +1,27 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
 
-import com.example.pitchperfectlyaccuratelypractice.music.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+
+import java.util.Random;
 
 /**
  * an abstract class of Question
  */
 public abstract class Question {
-  /**
-   * an array of texts that constitute the question
-   */
+  /** an array of texts that constitute the question */
   String[] texts;
-  /**
-   * the note pool, which can be generated from the filter page, used to form a question
-   */
+  /**  getter of the text of the question */
+  public String[] getTexts() {
+    return this.texts;
+  }
+  /** index in note pool (for inorder next question) */
+  int inorder_index;
+  /** index in note pool (for reverseorder next question) */
+  int reverse_order_index;
+  /** the note pool, which can be generated from the filter page, used to form a question */
   Note[] notePool;
+  /** Setter for note pool */
 
   /**
    * Constructor
@@ -23,40 +31,47 @@ public abstract class Question {
 //    notePool = Note.getReasonableNotes();
 //    generate_random_question();
 //  }
-    public Question(){};
+//    public Question(){};
 
   /**
-   * children will implment this
+   * children will implement this
    */
-  public abstract Note[] getAnswerNotes();
+//  public abstract Note[] getAnswerNotes();
 
+  public void setIntervalPool(Interval[] intervals){}
 
   /**
    * Setter for note pool
    */
   public void setNotePool(Note[] notes) {
     this.notePool = notes;
+    inorder_index = 0;
+    reverse_order_index = notes.length -1;
   }
 
-  /**
-   * getter of the text of the question
-   */
-  public String[] getTexts() {
-    return this.texts;
-  }
+  protected Random random = new Random();
 
-  /**
-   * print texts separated by space in stdout
-   */
-  void print_question_texts() {
+  /** empty parent Constructor */
+  public Question(){};
+
+  /** notes expected to be sung */
+  public abstract Note[] getExpectedNotes();
+
+  /** (debugging) print texts separated by space in stdout */
+  public void print_question_texts() {
     for (String t : this.getTexts()) {
       System.out.print(t + " ");
     }
     System.out.println();
   }
 
-  /**
-   * abstract function to generate random question given current fields
-   */
-  public abstract void generate_random_question();
+  /** A strategy to select next note in note pool */
+  public enum NextQuestionStrategy {
+    Random,
+    InOrder,
+    ReverseOrder
+  }
+
+  /** next key note based on nextquestion strategy, other things random */
+  public abstract void next_question(NextQuestionStrategy nextQuestionStrategy);
 }
