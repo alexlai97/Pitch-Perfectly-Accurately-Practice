@@ -90,7 +90,7 @@ public class Model {
             case TriadPractice:
                 perModeSettings[3] = p;
                 break;
-            case SongPractice:
+            case SongPlaying:
                 perModeSettings[4] = p;
                 break;
             default:
@@ -109,7 +109,7 @@ public class Model {
                 return perModeSettings[2];
             case TriadPractice:
                 return perModeSettings[3];
-            case SongPractice:
+            case SongPlaying:
                 return perModeSettings[4];
             default:
                 throw new AssertionError("access PerModeSetting out of boundary");

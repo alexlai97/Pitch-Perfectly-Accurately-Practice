@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +19,8 @@ import com.example.pitchperfectlyaccuratelypractice.R;
 public class TriadModeMiscSettingTab extends GeneralMiscSettingTab {
 
 
-    public TriadModeMiscSettingTab() {
+    public TriadModeMiscSettingTab(PerModeSettingActivity filter) {
+        super(filter);
         resource = R.layout.triad_scale_misc_settings_page_toggle_button_group;
         // Required empty public constructor
     }
