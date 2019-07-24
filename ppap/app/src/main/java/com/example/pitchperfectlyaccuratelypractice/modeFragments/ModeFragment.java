@@ -254,9 +254,9 @@ public abstract class ModeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent filter_intent = new Intent(getActivity(), PerModeSettingActivity.class);
-                PerModeSetting perModeSetting = controller.getCurFiltered();
-                perModeSetting.mode = mode;
-                filter_intent.putExtra("Mode", perModeSetting);
+//                PerModeSetting perModeSetting = controller.getCurFiltered();
+//                perModeSetting.mode = mode;
+                filter_intent.putExtra("Mode", new PerModeSetting(mode));
                 // let the main activity handle the intent
                 Log.d(TAG, "onClick: " + REQUEST_CODE_FROM_FILTER);
                 startActivityForResult(filter_intent, REQUEST_CODE_FROM_FILTER);

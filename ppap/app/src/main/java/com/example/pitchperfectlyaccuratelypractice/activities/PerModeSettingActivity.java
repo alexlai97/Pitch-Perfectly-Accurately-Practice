@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
+import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -32,9 +33,9 @@ public class PerModeSettingActivity extends AppCompatActivity {
     public Mode mode;
     private int pageNum;
 
-    public Interval[] generated_interval;
+    public IntervalsBitmap generated_interval;
 
-    public IntervalsBitmap tmpData;
+    public NotesBitmap generated_note;
 
     /**
      * setup views
@@ -48,6 +49,12 @@ public class PerModeSettingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         perModeSetting = (PerModeSetting)intent.getSerializableExtra("Mode");
+        if(perModeSetting == null){
+            Log.d(TAG, "onCreate: perModeSetting is null ");
+            throw new AssertionError("perMose");
+        }
+        generated_interval = perModeSetting.getIntervalsBitmap();
+        generated_note = perModeSetting.getNotesBitmap();
         pageNum = perModeSetting.getFilterPageNum();
         mode = perModeSetting.mode;
         CreateTabFragments();
@@ -116,6 +123,8 @@ public class PerModeSettingActivity extends AppCompatActivity {
      */
     void returnToMainActivity(){
 //        Note.logNotes(TAG, notes_to_return);
+        perModeSetting.setIntervalsBitmap(generated_interval);
+        perModeSetting.setNotesBitmap(generated_note);
         Intent intent = new Intent();
         intent.putExtra("Mode", perModeSetting);
         setResult(RESULT_OK, intent);

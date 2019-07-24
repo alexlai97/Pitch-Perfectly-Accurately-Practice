@@ -98,7 +98,6 @@ public class Controller implements Observer ,
     mainActivity = (MainActivity)activity;
     model = a_model;
 
-    model.setFilteredResult();
     // generate NoteQuestion
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();

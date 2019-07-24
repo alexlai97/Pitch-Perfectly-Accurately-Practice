@@ -2,6 +2,8 @@ package com.example.pitchperfectlyaccuratelypractice.enums;
 
 import com.example.pitchperfectlyaccuratelypractice.model.Config;
 
+import java.io.Serializable;
+
 /**
  * shows how close is the expected frequency and the current frequency
  * <p>
@@ -14,7 +16,7 @@ import com.example.pitchperfectlyaccuratelypractice.model.Config;
  * second error range is [lb2, ub2] = [c * a * 2^(-Ɛ/12), c * a * 2^(Ɛ/12)]
  */
 
-public enum OffTrackLevel {
+public enum OffTrackLevel implements Serializable {
   InErrorRange, LittleHigh, TooHigh, LittleLow, TooLow, NoSound;
 
   /**

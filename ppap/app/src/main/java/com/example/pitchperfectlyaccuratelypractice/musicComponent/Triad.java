@@ -1,11 +1,12 @@
 package com.example.pitchperfectlyaccuratelypractice.musicComponent;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Triad is a subset of Chord, it has 3 notes, 4 type of scales
  */
-public class Triad {
+public class Triad implements Serializable {
   /**
    * A static Random
    */

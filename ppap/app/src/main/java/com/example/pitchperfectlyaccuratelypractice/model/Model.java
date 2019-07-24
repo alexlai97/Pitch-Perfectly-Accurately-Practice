@@ -45,7 +45,7 @@ public class Model {
 
     private Context context;
 
-    private PerModeSetting[] perModeSetting;
+    private PerModeSetting perModeSetting;
 
     /**
      *
@@ -57,7 +57,7 @@ public class Model {
         currentQuestion = questionFactory.create(currentMode);
         currentFragment = fragmentFactory.create(currentMode);
         songList = new SongList();
-        perModeSetting = new PerModeSetting[5];
+        perModeSetting = new PerModeSetting();
         setupSongs();
     }
 

@@ -4,6 +4,7 @@ import com.example.pitchperfectlyaccuratelypractice.model.Config;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,7 @@ import java.util.ArrayList;
  * </table>
  */
 
-public class Note {
+public class Note implements Serializable {
 
 
   /**
@@ -409,7 +410,7 @@ public class Note {
    * get reasonable Notes (set in construtor of Question)
    * Please change it... or put it in config, currently is like male range
    */
-  public static Note[] getReasonableNotes(){ return generateNotesWithRange(Note.getIndex("A2"), Note.getIndex("A4")); }
+  public static Note[] getReasonableNotes(){ return generateNotesWithRange(Note.getIndex("A2"), Note.getIndex("A3")); }
 
   /**
    * A way to use this class, will print a table of notes

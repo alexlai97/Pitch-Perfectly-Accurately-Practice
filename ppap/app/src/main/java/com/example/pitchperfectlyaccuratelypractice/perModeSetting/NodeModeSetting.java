@@ -14,8 +14,8 @@ public class NodeModeSetting extends PerModeSetting {
     public int scale = 1;
     public int keySignature = 0;
 
-    NodeModeSetting(){
-        nodeBitmap = 
-    }
+//    NodeModeSetting(){
+//        nodeBitmap =
+//    }
 
 }
