@@ -53,10 +53,10 @@ public class PerModeSettingActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate: perModeSetting is null ");
             throw new AssertionError("perMose");
         }
+        mode = perModeSetting.mode;
         generated_interval = perModeSetting.getIntervalsBitmap();
         generated_note = perModeSetting.getNotesBitmap();
         pageNum = perModeSetting.getFilterPageNum();
-        mode = perModeSetting.mode;
         CreateTabFragments();
 
         setBackButtonListener();

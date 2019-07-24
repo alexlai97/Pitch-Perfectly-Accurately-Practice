@@ -137,13 +137,14 @@ public class MainActivity extends AppCompatActivity implements
         if (resultCode == RESULT_OK) {
             Log.d(TAG, "onActivityResult: here");
             PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
+            controller.setPerModeSetting(perModeSetting);
             Log.d(TAG, "onActivityResult: here1");
-            Interval[] result_interval;
+            Interval[] result_intervals;
             Note[] result_notes;
             if(perModeSetting.getIntervalsBitmap() != null){
-                result_interval = perModeSetting.getIntervalsBitmap().toInterval();
+                result_intervals = perModeSetting.getIntervalsBitmap().toInterval();
                 // pass the notes generated from filter to controller, start next question(generated from note pool)
-                controller.setIntervalPool(result_interval);
+                controller.setIntervalPool(result_intervals);
             }
             if(perModeSetting.getNotesBitmap() != null){
                 result_notes = perModeSetting.getNotesBitmap().toNotes();
