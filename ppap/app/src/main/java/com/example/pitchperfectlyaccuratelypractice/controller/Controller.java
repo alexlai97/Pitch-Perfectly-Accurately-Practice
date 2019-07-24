@@ -156,6 +156,7 @@ public class Controller implements Observer ,
    */
   private void show_correct() {
     curFragment.setBackgroundColor(Color.GREEN);
+    curFragment.play_answer();
   }
 
 
@@ -243,8 +244,6 @@ public class Controller implements Observer ,
   /** currentAnimeSpeed */
   private int currentAnimeSpeed;
 
-  /** how long between the user pass the question and next question */
-  private final long MILLISECONDS_TO_SHOW_CORRECT = 2000;
 
   public void mark_incorrect_question(){
     historyData.addData(curQuestion.getExpectedNotes()[0].getIndex(), false);
@@ -294,7 +293,7 @@ public class Controller implements Observer ,
           curFragment.updateArrowTexts(apply_mask_to_arrow_texts(arrows));
           show_correct();
          hasShownCorrect = true;
-      } else if (now - t_correct < MILLISECONDS_TO_SHOW_CORRECT) { // in show correct state
+      } else if (now - t_correct < curConfig.get_milli_seconds_to_show_correct()) { // in show correct state
         // do nothing
       } else { // at the end of the show correct state
           // gets the current answer's first note (No triad yet since we dont know how we want to handle it

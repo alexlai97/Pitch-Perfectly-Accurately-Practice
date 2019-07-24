@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -137,7 +138,23 @@ public class PerModeSettingActivity extends AppCompatActivity {
      * pass note [] as int [] in intent back to MainActivity
      */
     void returnToMainActivity(){
-//        Note.logNotes(TAG, notes_to_return);
+        switch (mode) {
+            case IntervalPractice:
+                if (generated_interval_bitmap.isAllFalse()) {
+                    Toast.makeText(this, "Interval Pool is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            case NotePractice:
+            case NoteGraphPractice:
+            case TriadPractice:
+                if (generated_note_bitmap.isAllFalse()) {
+                    Toast.makeText(this, "Note Pool is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            case SongPlaying:
+            case SongPractice:
+                break;
+        }
         perModeSetting.setIntervalsBitmap(generated_interval_bitmap);
         perModeSetting.setNotesBitmap(generated_note_bitmap);
         Intent intent = new Intent();

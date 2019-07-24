@@ -20,6 +20,12 @@ public abstract class Bitmap implements Serializable {
   private int size=-1;
 
 
+  public boolean isAllFalse() {
+    for (boolean b: bitmap) {
+      if (b) return false;
+    }
+    return true;
+  }
 
   /**
    * abstract method, bit wise 'and' operation on two bitmap and return the result Bitmap
