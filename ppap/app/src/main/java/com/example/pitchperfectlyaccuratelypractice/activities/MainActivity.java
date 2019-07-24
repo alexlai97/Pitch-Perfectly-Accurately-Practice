@@ -6,15 +6,17 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.IntervalModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteGraphModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.TriadModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.model.Model;
 import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
 import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
-import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.google.android.material.navigation.NavigationView;
 
@@ -131,24 +133,35 @@ public class MainActivity extends AppCompatActivity implements
         Log.d(TAG, "onActivityResult: get intent back from filter page");
 
         if (resultCode == RESULT_OK) {
-            PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
+            PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("perModeSetting");
             model.setPerModeSetting(perModeSetting);
-            Interval[] result_intervals;
-            Note[] result_notes;
-            if(perModeSetting.getIntervalsBitmap() != null){
-                result_intervals = perModeSetting.getIntervalsBitmap().toIntervals();
-                Interval.logIntervals("Result interval: ", result_intervals);
-                // pass the notes generated from filter to controller, start next question(generated from note pool)
-                model.setIntervalPool(result_intervals);
+
+            switch (perModeSetting.mode) {
+                case IntervalPractice:
+                    IntervalModeSetting intervalModeSetting = (IntervalModeSetting)perModeSetting;
+                    model.setIntervalPool(intervalModeSetting.intervalsBitmap.toIntervals());
+                    model.setNotePool(intervalModeSetting.notesBitmap.toNotes());
+                    break;
+                case NotePractice:
+                    NoteModeSetting noteModeSetting = (NoteModeSetting) perModeSetting;
+                    model.setNotePool(noteModeSetting.notesBitmap.toNotes());
+                    break;
+                case NoteGraphPractice:
+                    NoteGraphModeSetting noteGraphModeSetting = (NoteGraphModeSetting) perModeSetting;
+                    model.setNotePool(noteGraphModeSetting.notesBitmap.toNotes());
+                    break;
+                case TriadPractice:
+                    TriadModeSetting triadModeSetting = (TriadModeSetting) perModeSetting;
+                    model.setNotePool(triadModeSetting.notesBitmap.toNotes());
+                    break;
+                case SongPlaying:
+                    /** TODO */
+                case SongPractice:
+                    /** TODO */
+                    break;
             }
-            if(perModeSetting.getNotesBitmap() != null){
-                result_notes = perModeSetting.getNotesBitmap().toNotes();
-                Note.logNotes("result notes", result_notes);
-                // pass the notes generated from filter to controller, start next question(generated from note pool)
-                model.setNotePool(result_notes);
-            }
+
             controller.next_question();
-            // handle no question to generate
         } else if (resultCode == RESULT_CANCELED){
 
         } else {

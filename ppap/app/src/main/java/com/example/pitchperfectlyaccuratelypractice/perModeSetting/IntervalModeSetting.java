@@ -6,8 +6,9 @@ import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
-public class TriadModeSetting extends PerModeSetting {
+public class IntervalModeSetting extends PerModeSetting {
     public NotesBitmap notesBitmap;
+    public IntervalsBitmap intervalsBitmap;
     public boolean autoPlayBack;
     public double errorAllowance;
     public long leastStableTime;
@@ -16,10 +17,17 @@ public class TriadModeSetting extends PerModeSetting {
     public Note to_note ;
     public NotesScale scale;
     public Note keySigNote;
-    /**
-     * TODO
-     */
-    public TriadModeSetting () {
-        mode = Mode.TriadPractice;
+
+    public IntervalModeSetting () {
+        mode = Mode.IntervalPractice;
+        intervalsBitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
+        autoPlayBack = true;
+        errorAllowance = 0.5;
+        leastStableTime = 1000;
+        showCorrectTime = 1000;
+        from_note = new Note("C3");
+        to_note = new Note("C5");
+        scale = NotesScale.Major;
+        keySigNote = new Note("C");
     }
 }

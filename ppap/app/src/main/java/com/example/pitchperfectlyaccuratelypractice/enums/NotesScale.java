@@ -27,6 +27,7 @@ public enum NotesScale implements Serializable {
    */
   MelodicMinor;
 
+
   /**
    * get all NotesScales, which is {"None", "Major", "NaturalMinor", "HarmonicMinor", "MelodicMinor"}
    * @return

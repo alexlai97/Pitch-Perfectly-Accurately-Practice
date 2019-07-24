@@ -11,14 +11,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
-import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
-import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
-import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.tools.PagerAdapter;
 import com.google.android.material.tabs.TabLayout;
+
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.*;
 
 
 /**
@@ -31,12 +29,6 @@ public class PerModeSettingActivity extends AppCompatActivity {
 
     public PerModeSetting perModeSetting;
 
-    public Mode mode;
-
-    public IntervalsBitmap generated_interval_bitmap;
-
-    public NotesBitmap generated_note_bitmap;
-
     /**
      * setup views
      * @param savedInstanceState
@@ -48,18 +40,14 @@ public class PerModeSettingActivity extends AppCompatActivity {
         setContentView(R.layout.wrapper_tabfragment);
 
         Intent intent = getIntent();
-        perModeSetting = (PerModeSetting)intent.getSerializableExtra("Mode");
+        perModeSetting = (PerModeSetting)intent.getSerializableExtra("perModeSetting");
         if(perModeSetting == null){
             Log.d(TAG, "onCreate: perModeSetting is null ");
             throw new AssertionError("perMose");
         }
-        mode = perModeSetting.mode;
-        generated_interval_bitmap = perModeSetting.getIntervalsBitmap();
-        generated_note_bitmap = perModeSetting.getNotesBitmap();
         CreateTabFragments();
 
         setBackButtonListener();
-
     }
 
     public void setBackButtonListener(){
@@ -77,7 +65,7 @@ public class PerModeSettingActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
 
         // Set the text for each tab.
-        switch (mode){
+        switch (perModeSetting.mode){
             case NotePractice:
                 tabLayout.addTab(tabLayout.newTab().setText("Note"));
                 tabLayout.addTab(tabLayout.newTab().setText("Misc"));
@@ -134,31 +122,54 @@ public class PerModeSettingActivity extends AppCompatActivity {
     }
 
 
+
     /**
      * pass note [] as int [] in intent back to MainActivity
      */
     void returnToMainActivity(){
-        switch (mode) {
+        /* check result and warn user */
+        switch (perModeSetting.mode) {
             case IntervalPractice:
-                if (generated_interval_bitmap.isAllFalse()) {
+                IntervalModeSetting intervalModeSetting = (IntervalModeSetting)perModeSetting;
+                if (intervalModeSetting.intervalsBitmap.isAllFalse()) {
                     Toast.makeText(this, "Interval Pool is empty.", Toast.LENGTH_SHORT).show();
                     return;
-                }
-            case NotePractice:
-            case NoteGraphPractice:
-            case TriadPractice:
-                if (generated_note_bitmap.isAllFalse()) {
+                } else if (intervalModeSetting.notesBitmap.isAllFalse()) {
                     Toast.makeText(this, "Note Pool is empty.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                break;
+            case NotePractice:
+                NoteModeSetting noteModeSetting = (NoteModeSetting) perModeSetting;
+                if (noteModeSetting.notesBitmap.isAllFalse()) {
+                    Toast.makeText(this, "Note Pool is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                break;
+            case NoteGraphPractice:
+                NoteGraphModeSetting noteGraphModeSetting = (NoteGraphModeSetting) perModeSetting;
+                if (noteGraphModeSetting.notesBitmap.isAllFalse()) {
+                    Toast.makeText(this, "Note Pool is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                break;
+            case TriadPractice:
+                TriadModeSetting triadModeSetting = (TriadModeSetting) perModeSetting;
+                if (triadModeSetting.notesBitmap.isAllFalse()) {
+                    Toast.makeText(this, "Note Pool is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                break;
             case SongPlaying:
+                /** TODO */
             case SongPractice:
+                /** TODO */
                 break;
         }
-        perModeSetting.setIntervalsBitmap(generated_interval_bitmap);
-        perModeSetting.setNotesBitmap(generated_note_bitmap);
+
         Intent intent = new Intent();
-        intent.putExtra("Mode", perModeSetting);
+        intent.putExtra("perModeSetting", perModeSetting);
         setResult(RESULT_OK, intent);
         finish();
     }

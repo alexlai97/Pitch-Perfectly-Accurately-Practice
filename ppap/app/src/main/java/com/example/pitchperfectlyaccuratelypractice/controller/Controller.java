@@ -12,6 +12,7 @@ import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.modeFragments.NoteGraphModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.R;
 import com.example.pitchperfectlyaccuratelypractice.activities.MainActivity;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 import androidx.fragment.app.FragmentManager;
@@ -59,8 +60,6 @@ public class Controller implements Observer ,
   private Mode curMode = Mode.NotePractice; // Don't need it probably
 
 
-  /**  current PerModeSetting (will change if filtered result is changed) */
-  private PerModeSetting permodeSetting = new PerModeSetting(); // Don't need it probably
 
   /** model owned by main activity */
   private Model model;
@@ -390,7 +389,6 @@ public class Controller implements Observer ,
           curQuestion = (Question) event.getNewValue();
           break;
         case "filteredResult":
-          permodeSetting = (PerModeSetting) event.getNewValue();
           /* add code here to response filtered result change:
            for example call ModeFragment method to update view or generate next question*/
 

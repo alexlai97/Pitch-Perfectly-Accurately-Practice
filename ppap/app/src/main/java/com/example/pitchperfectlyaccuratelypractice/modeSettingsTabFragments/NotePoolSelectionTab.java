@@ -27,6 +27,7 @@ import com.example.pitchperfectlyaccuratelypractice.filter.FilterHandler;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesRangeFilter;
 import com.example.pitchperfectlyaccuratelypractice.filter.NotesScaleFilter;
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
 
 public class NotePoolSelectionTab extends Fragment {
     private static final String TAG = "NotePoolSelectionTab";
@@ -102,7 +103,7 @@ public class NotePoolSelectionTab extends Fragment {
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
-    protected PerModeSettingActivity filter;
+    protected PerModeSettingActivity permodeSettingActivity;
     /**
      * current from Note
      */
@@ -120,8 +121,8 @@ public class NotePoolSelectionTab extends Fragment {
      */
     private Note keySigNote = new Note("A");
 
-    public NotePoolSelectionTab(PerModeSettingActivity filter){
-        this.filter = filter;
+    public NotePoolSelectionTab(PerModeSettingActivity permodeSettingActivity){
+        this.permodeSettingActivity = permodeSettingActivity;
     }
 
     @Nullable
@@ -181,13 +182,13 @@ public class NotePoolSelectionTab extends Fragment {
                     toNote = fromNote;
                 }
 
-                filter.perModeSetting.from = position;
+                permodeSettingActivity.perModeSetting.setFromNote(new Note(position));
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -212,14 +213,14 @@ public class NotePoolSelectionTab extends Fragment {
                     fromNote = toNote;
                 }
 
-                filter.perModeSetting.to = position;
+                permodeSettingActivity.perModeSetting.setToNote(new Note(position));
 
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -240,9 +241,9 @@ public class NotePoolSelectionTab extends Fragment {
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
-                filter.perModeSetting.scale = position;
+                permodeSettingActivity.perModeSetting.setNoteScale(NotesScale.values()[position]);
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -263,8 +264,8 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
 
-                filter.generated_note_bitmap = ((NotesBitmap)filterHandler.getResultBitmap());
-                filter.perModeSetting.keySignature = position;
+                permodeSettingActivity.perModeSetting.setNotesBitmap((NotesBitmap)filterHandler.getResultBitmap());
+                permodeSettingActivity.perModeSetting.setKeySigNote(new Note(position));
 
                 update_tableview_using_note_pool();
 
@@ -343,7 +344,7 @@ public class NotePoolSelectionTab extends Fragment {
         notesTableView.removeAllViews();
 
         // generate buttons
-        Note[] noteArray =filter.generated_note_bitmap.toNotes();
+        Note[] noteArray = permodeSettingActivity.perModeSetting.getNotesBitmap().toNotes();
 
         int num_of_notes = noteArray.length;
         int num_of_rows = (num_of_notes - 1) / 4 + 1;
@@ -387,7 +388,9 @@ public class NotePoolSelectionTab extends Fragment {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                filter.generated_note_bitmap.toggleNote(note);
+                NotesBitmap notesBitmap = permodeSettingActivity.perModeSetting.getNotesBitmap();
+                notesBitmap.toggleNote(note);
+                permodeSettingActivity.perModeSetting.setNotesBitmap(notesBitmap);
             }
         });
         return button;
