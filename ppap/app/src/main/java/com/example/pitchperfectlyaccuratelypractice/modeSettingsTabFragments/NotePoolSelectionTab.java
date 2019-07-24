@@ -49,14 +49,7 @@ public class NotePoolSelectionTab extends Fragment {
      */
     LayoutInflater layoutInflater;
 
-    /**
-     * currently generated notes
-     */
-    Note[] generated_notes;
-    /**
-     * generated bitmap data from generated notes
-     */
-    NotesBitmap tmpData = NotesBitmap.getAllTrueNotesBitmap();
+
     /**
      * fromSpinner
      */
@@ -112,7 +105,7 @@ public class NotePoolSelectionTab extends Fragment {
         filterHandler = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     }
 
-    protected PerModeSettingActivity perModeSettingActivity;
+    protected PerModeSettingActivity filter;
     /**
      * current from Note
      */
@@ -131,7 +124,7 @@ public class NotePoolSelectionTab extends Fragment {
     private Note keySigNote = new Note("A");
 
     public NotePoolSelectionTab(PerModeSettingActivity filter){
-        perModeSettingActivity = filter;
+        this.filter = filter;
     }
 
     @Nullable
@@ -172,10 +165,10 @@ public class NotePoolSelectionTab extends Fragment {
         scaleSpinner.setAdapter(all_scales_string_adapter);
         keySigSpinner.setAdapter(all_keySig_string_adapter);
 
-        perModeSettingActivity.perModeSetting.from = Note.getIndex("A3");
-        perModeSettingActivity.perModeSetting.to = Note.getIndex("A4");
-        perModeSettingActivity.perModeSetting.scale = 1;
-        perModeSettingActivity.perModeSetting.keySignature = 0;
+//        filter.perModeSetting.from = Note.getIndex("A3");
+//        filter.perModeSetting.to = Note.getIndex("A4");
+//        filter.perModeSetting.scale = 1;
+//        filter.perModeSetting.keySignature = 0;
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -191,15 +184,13 @@ public class NotePoolSelectionTab extends Fragment {
                     toNote = fromNote;
                 }
 
-                perModeSettingActivity.perModeSetting.from = position;
-
-                // FIXME reduce duplicate code
+                filter.perModeSetting.from = position;
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -224,14 +215,14 @@ public class NotePoolSelectionTab extends Fragment {
                     fromNote = toNote;
                 }
 
-                perModeSettingActivity.perModeSetting.to = position;
+                filter.perModeSetting.to = position;
 
                 // set range filter
                 rangeFilter = new NotesRangeFilter(fromNote, toNote);
                 filterHandler.updateFilterAt(0, rangeFilter);
                 filterHandler.applyFilters();
 
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -252,9 +243,9 @@ public class NotePoolSelectionTab extends Fragment {
                 scaleFilter = new NotesScaleFilter(keySigNote, scale);
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
-                perModeSettingActivity.perModeSetting.scale = position;
+                filter.perModeSetting.scale = position;
 
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
+                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
 
                 update_tableview_using_note_pool();
             }
@@ -275,8 +266,8 @@ public class NotePoolSelectionTab extends Fragment {
                 filterHandler.updateFilterAt(1, scaleFilter);
                 filterHandler.applyFilters();
 
-                generated_notes = ((NotesBitmap)filterHandler.getResultBitmap()).toNotes();
-                perModeSettingActivity.perModeSetting.keySignature = position;
+                filter.generated_note = ((NotesBitmap)filterHandler.getResultBitmap());
+                filter.perModeSetting.keySignature = position;
 
                 update_tableview_using_note_pool();
 
@@ -291,6 +282,7 @@ public class NotePoolSelectionTab extends Fragment {
         fromSpinner.setSelection(Note.getIndex("A3"));
         toSpinner.setSelection(Note.getIndex("A4"));
         scaleSpinner.setSelection(1); // Major
+        keySigSpinner.setSelection(0);
     }
 
     protected void setButtonListener(){
@@ -331,16 +323,14 @@ public class NotePoolSelectionTab extends Fragment {
      * update tableview using the generated notes
      */
     void update_tableview_using_note_pool() {
-        // Log
-        Note.logNotes(TAG, generated_notes);
 
         // reset
         notesTableView.removeAllViews();
-        tmpData = new NotesBitmap(generated_notes);
 
         // generate buttons
+        Note[] noteArray =filter.generated_note.toNotes();
 
-        int num_of_notes = generated_notes.length;
+        int num_of_notes = noteArray.length;
         int num_of_rows = (num_of_notes - 1) / 4 + 1;
         int num_of_notes_last_row = (num_of_notes - 1) % 4 + 1;
         int note_index = 0;
@@ -349,7 +339,7 @@ public class NotePoolSelectionTab extends Fragment {
             TableRow row = (TableRow) layoutInflater.inflate(R.layout.table_row_note, null, false);
             for (int j = 0; j < 4; j++) {
                 ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
-                Note this_note = generated_notes[note_index];
+                Note this_note = noteArray[note_index];
                 note_button = updateButton(note_button, this_note);
                 row.addView(note_button);
                 note_index++;
@@ -359,7 +349,7 @@ public class NotePoolSelectionTab extends Fragment {
         TableRow last_row = (TableRow) layoutInflater.inflate(R.layout.table_row_note, null, false);
         for (int i = 0; i < num_of_notes_last_row; i++) {
             ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
-            Note this_note = generated_notes[note_index];
+            Note this_note = noteArray[note_index];
             note_button = updateButton(note_button, this_note);
             last_row.addView(note_button);
             note_index++;
@@ -382,29 +372,10 @@ public class NotePoolSelectionTab extends Fragment {
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                tmpData.toggleNote(note);
-                generated_notes = tmpData.toNotes();
-                perModeSettingActivity.perModeSetting.setNotesBitmap(Note.NotesToInts(generated_notes));
+                filter.generated_note.toggleNote(note);
             }
         });
         return button;
     }
-
-    /**
-     * pass note [] as int [] in intent back to MainActivity
-     */
-//    void returnToMainActivity(){
-//        Note[] notes_to_return = tmpData.toNotes();
-//        if (notes_to_return.length == 0) {
-//            Toast.makeText(this, "no notes are selected", Toast.LENGTH_LONG).show();
-//        } else {
-//            Note.logNotes(TAG, notes_to_return);
-//            Intent note_pool_intent = new Intent(this, MainActivity.class);
-//            note_pool_intent.putExtra("notePool", Note.NotesToInts(notes_to_return));
-//            setResult(RESULT_OK, note_pool_intent);
-//            note_pool_intent.putExtra("FilterPageReturn", true);
-//            finish();
-//        }
-//    }
 
 }

@@ -26,38 +26,35 @@ import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IntervalPoolSelectionTab extends Fragment{
+public class IntervalPoolSelectionTab extends Fragment {
 
     private static final String TAG="IntervalTab";
     private PerModeSettingActivity filter;
     public View view;
 
-    private Interval[] generated_interval;
-    private IntervalsBitmap generated_bitmap;
-    private PerModeSetting perModeSetting;
 
     TableLayout negativeIntervalsTable;
     TableLayout positiveIntervalsTable;
 
     LayoutInflater layoutInflater;
+    Interval[] allTrueIntervalArray;
 
     public IntervalPoolSelectionTab(PerModeSettingActivity filter) {
         this.filter = filter;
-        perModeSetting =filter.perModeSetting;
-        generated_interval =filter.generated_interval;
-        generated_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
-        generated_interval = generated_bitmap.toInterval();
+        allTrueIntervalArray = IntervalsBitmap.getAllTrueIntervalsBitmap().toInterval();
+
+        filter.generated_interval = IntervalsBitmap.getAllTrueIntervalsBitmap();
         // Required empty public constructor
     }
 
-    public IntervalPoolSelectionTab(PerModeSettingActivity filter, IntervalsBitmap intervalsBitmap) {
-        this.filter = filter;
-        this.generated_bitmap = intervalsBitmap;
-        perModeSetting = filter.perModeSetting;
-        generated_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
-        generated_interval = generated_bitmap.toInterval();
-        // Required empty public constructor
-    }
+//    public IntervalPoolSelectionTab(PerModeSettingActivity filter, IntervalsBitmap intervalsBitmap) {
+//        this.filter = filter;
+//        this.generated_bitmap = intervalsBitmap;
+//        perModeSetting = filter.perModeSetting;
+//        generated_bitmap = IntervalsBitmap.getAllTrueIntervalsBitmap();
+//        generated_interval = generated_bitmap.toInterval();
+//        // Required empty public constructor
+//    }
 
     @Nullable
     @Override
@@ -164,9 +161,9 @@ public class IntervalPoolSelectionTab extends Fragment{
             for (int j = 0; j < buttonNum; j++) {
                 ToggleButton note_button1 = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
                 ToggleButton note_button2 = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
-                Interval left_interval = generated_interval[negative_index];
+                Interval left_interval = allTrueIntervalArray[negative_index];
                 Log.d(TAG, "create_interval_table: " + left_interval.getTextWithoutSign());
-                Interval right_interval = generated_interval[positive_index];
+                Interval right_interval = allTrueIntervalArray[positive_index];
                 note_button1 = updateButton(note_button1, left_interval);
                 note_button2 = updateButton(note_button2, right_interval);
                 row1.addView(note_button1);
@@ -176,7 +173,7 @@ public class IntervalPoolSelectionTab extends Fragment{
             }
             if(i == 6){
                 ToggleButton note_button = (ToggleButton) layoutInflater.inflate(R.layout.togglebutton_single_note, null, false);
-                Interval interval = generated_interval[12];
+                Interval interval = allTrueIntervalArray[12];
                 note_button = updateButton(note_button, interval);
                 row1.addView(note_button);
             }
@@ -204,10 +201,7 @@ public class IntervalPoolSelectionTab extends Fragment{
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                generated_bitmap.toggleNote(interval);
-
-                generated_interval = generated_bitmap.toInterval();
-                filter.perModeSetting.setIntervalsBitmap(Interval.IntervalsToInts(generated_interval));
+                filter.generated_interval.toggleNote(interval);
             }
         });
         return button;

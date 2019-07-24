@@ -1,4 +1,7 @@
 package com.example.pitchperfectlyaccuratelypractice.musicComponent;
+
+import java.io.Serializable;
+
 /**
  * A Interval can represent an interval (in String and interval index)
  * <p>
@@ -7,7 +10,7 @@ package com.example.pitchperfectlyaccuratelypractice.musicComponent;
  *  range from -Octave (0) to Octave (24)
  * <p>
  */
-public class Interval {
+public class Interval implements Serializable {
   /**
    * internal index where actual range is [0, 24]
    */

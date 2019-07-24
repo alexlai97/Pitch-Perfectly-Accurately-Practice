@@ -3,6 +3,7 @@ package com.example.pitchperfectlyaccuratelypractice.bitmap;
 import android.util.Log;
 
 import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,18 @@ public class IntervalsBitmap extends Bitmap {
   public IntervalsBitmap() {
     this.bitmap = new boolean[this.size]; // primitive type default to be false
 
+  }
+
+  public IntervalsBitmap(int[] arr) {
+    assert(arr.length == size);
+    this.bitmap = new boolean[this.size];
+    for(int i = 0; i < size; ++i){
+      if(arr[i] == 1){
+        bitmap[i] = true;
+      } else {
+        bitmap[i] = false;
+      }
+    }
   }
 
   /**
@@ -57,6 +70,8 @@ public class IntervalsBitmap extends Bitmap {
     }
     return ibm;
   }
+
+
 
   /**
    * toggle interval in the bitmap
@@ -103,6 +118,11 @@ public class IntervalsBitmap extends Bitmap {
 
     return intervals;
   }
+
+  public int[] toIntArray(){
+    return Interval.IntervalsToInts(this.toInterval());
+  }
+
   /**
    * bit wise 'and' operation on two Intervalsbitmap and return the result IntervalsBitmap
    */

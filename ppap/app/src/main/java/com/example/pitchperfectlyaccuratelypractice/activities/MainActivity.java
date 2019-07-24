@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.pitchperfectlyaccuratelypractice.bitmap.IntervalsBitmap;
+import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
 import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
@@ -28,6 +30,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.util.Log;
 import android.view.MenuItem;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 /**
  * Main Activity which stores model, controller, noteplayer, microphone
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements
 
         model = new Model(this);
         controller = new Controller(model, this);
-        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
+       // handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
@@ -134,18 +139,17 @@ public class MainActivity extends AppCompatActivity implements
         if (resultCode == RESULT_OK) {
             Log.d(TAG, "onActivityResult: here");
             PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("Mode");
+            controller.setPerModeSetting(perModeSetting);
             Log.d(TAG, "onActivityResult: here1");
-            Interval[] result_interval;
+            Interval[] result_intervals;
             Note[] result_notes;
             if(perModeSetting.getIntervalsBitmap() != null){
-                Log.d(TAG, "onActivityResult: here2");
-                result_interval = Interval.IntsToIntervals(perModeSetting.getIntervalsBitmap());
+                result_intervals = perModeSetting.getIntervalsBitmap().toInterval();
                 // pass the notes generated from filter to controller, start next question(generated from note pool)
-                controller.setIntervalPool(result_interval);
+                controller.setIntervalPool(result_intervals);
             }
             if(perModeSetting.getNotesBitmap() != null){
-                Log.d(TAG, "onActivityResult: here3");
-                result_notes = Note.IntsToNotes(perModeSetting.getNotesBitmap());
+                result_notes = perModeSetting.getNotesBitmap().toNotes();
                 Note.logNotes("back to main activity", result_notes);
                 // pass the notes generated from filter to controller, start next question(generated from note pool)
                 controller.setNotePool(result_notes);

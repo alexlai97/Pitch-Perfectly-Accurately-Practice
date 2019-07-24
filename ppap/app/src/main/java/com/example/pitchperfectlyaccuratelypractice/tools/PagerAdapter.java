@@ -5,17 +5,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.IntervalPoolSelectionTab;
 import com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments.NotePoolSelectionTab;
 import com.example.pitchperfectlyaccuratelypractice.activities.PerModeSettingActivity;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
+    Mode mode;
     PerModeSettingActivity filter;
     public PagerAdapter(@NonNull FragmentManager fm, int mNumOfTabs, PerModeSettingActivity filter) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.mNumOfTabs = mNumOfTabs;
         this.filter = filter;
+        mode = filter.perModeSetting.mode;
     }
 
     @NonNull

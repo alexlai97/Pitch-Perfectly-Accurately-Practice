@@ -45,7 +45,7 @@ public class Model {
 
     private Context context;
 
-    private PerModeSetting[] perModeSetting;
+    private PerModeSetting perModeSettings[];
 
     /**
      *
@@ -57,7 +57,7 @@ public class Model {
         currentQuestion = questionFactory.create(currentMode);
         currentFragment = fragmentFactory.create(currentMode);
         songList = new SongList();
-        perModeSetting = new PerModeSetting[5];
+        perModeSettings = new PerModeSetting[5];
         setupSongs();
     }
 
@@ -76,8 +76,44 @@ public class Model {
         songList.add(new Song(id, title, MyMidiTool.getMidiFileFromId(context, id)));
     }
 
-    public void setupPerModeSetting(){
+    public void setupPerModeSetting(PerModeSetting p){
+        switch (p.mode){
+            case NotePractice:
+                perModeSettings[0] = p;
+                break;
+            case NoteGraphPractice:
+                perModeSettings[1] = p;
+                break;
+            case IntervalPractice:
+                perModeSettings[2] = p;
+                break;
+            case TriadPractice:
+                perModeSettings[3] = p;
+                break;
+            case SongPractice:
+                perModeSettings[4] = p;
+                break;
+            default:
+                break;
+        }
+    }
 
+
+    public PerModeSetting getPerModeSettingWithMode(Mode mode){
+        switch (mode) {
+            case NotePractice:
+                return perModeSettings[0];
+            case NoteGraphPractice:
+                return perModeSettings[1];
+            case IntervalPractice:
+                return perModeSettings[2];
+            case TriadPractice:
+                return perModeSettings[3];
+            case SongPractice:
+                return perModeSettings[4];
+            default:
+                throw new AssertionError("access PerModeSetting out of boundary");
+        }
     }
 
     /**
@@ -122,13 +158,6 @@ public class Model {
         notifyListeners(this, "currentQuestion", this.currentQuestion, this.currentQuestion = q);
     }
 
-    public void setFilteredResult(PerModeSetting p){
-        notifyListeners(this, "filteredResult", this.perModeSetting, this.perModeSetting = p);
-    }
-
-    public PerModeSetting getFilteredResult(){
-        return perModeSetting;
-    }
     /**
      * getter for current question
      */

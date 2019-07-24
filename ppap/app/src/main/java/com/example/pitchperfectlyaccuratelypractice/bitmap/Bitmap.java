@@ -1,10 +1,14 @@
 package com.example.pitchperfectlyaccuratelypractice.bitmap;
 
 
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Interval;
+
+import java.io.Serializable;
+
 /**
  * An abstract class, its children are: NotesBitmap, IntervalsBitmap
  */
-public abstract class Bitmap {
+public abstract class Bitmap implements Serializable {
   /**
    * A boolean array
    */

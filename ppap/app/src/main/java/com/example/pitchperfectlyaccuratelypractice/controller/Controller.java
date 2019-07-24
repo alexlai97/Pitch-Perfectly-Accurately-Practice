@@ -82,9 +82,12 @@ public class Controller implements Observer ,
     model.setNotePool(notes);
   }
 
+  public void setPerModeSetting(PerModeSetting perModeSetting){
+    model.setupPerModeSetting(perModeSetting);
+  }
 
   /**
-   * set note pool in current question in model
+   * set intervals pool in current question in model
    * @param intervals
    */
   public void setIntervalPool(Interval[] intervals) {
@@ -98,7 +101,6 @@ public class Controller implements Observer ,
     mainActivity = (MainActivity)activity;
     model = a_model;
 
-    model.setFilteredResult();
     // generate NoteQuestion
     model.setCurrentQuestion(questionFactory.create(model.getCurrentMode()));
     curQuestion = model.getCurrentQuestion();
