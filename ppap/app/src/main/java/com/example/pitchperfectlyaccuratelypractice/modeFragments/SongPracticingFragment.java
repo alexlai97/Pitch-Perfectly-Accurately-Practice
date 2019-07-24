@@ -20,8 +20,10 @@ import com.example.pitchperfectlyaccuratelypractice.question.SongQuestion;
 public class SongPracticingFragment extends SongModeFragment {
     private static String TAG = "SongPracticing";
 
+    /** the arrow textview*/
     private TextView arrowText;
 
+    /** a button to switch back to song playing mode */
     private Button switchToPlayingButton;
 
     /**
@@ -35,7 +37,7 @@ public class SongPracticingFragment extends SongModeFragment {
     }
 
     /**
-     * set up views of questionNoteText and questionIntervalText
+     * set up additional views
      */
     @Override
     void setupSongAdditionalView() {
