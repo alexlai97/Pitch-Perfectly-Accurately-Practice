@@ -72,7 +72,7 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="design_and_architecture.html"><strong aria-hidden="true">2.</strong> Design and architecture</a></li><li><ol class="section"><li><a href="design_and_architecture/filter_and_pipe_architecture.html"><strong aria-hidden="true">2.1.</strong> filter &amp; pipe architecture</a></li><li><a href="design_and_architecture/classes.html"><strong aria-hidden="true">2.2.</strong> classes</a></li></ol></li><li><a href="TODO.html"><strong aria-hidden="true">3.</strong> PLAN, TODO and progress</a></li><li><a href="pages.html"><strong aria-hidden="true">4.</strong> Pages</a></li><li><ol class="section"><li><a href="pages/help_page.html"><strong aria-hidden="true">4.1.</strong> Help Pages</a></li><li><a href="pages/faq_page.html"><strong aria-hidden="true">4.2.</strong> FAQ Pages</a></li></ol></li><li><a href="Deliverables.html"><strong aria-hidden="true">5.</strong> Deliverables</a></li><li><a href="songs.html"><strong aria-hidden="true">6.</strong> Song list</a></li><li><a href="links.html"><strong aria-hidden="true">7.</strong> Useful links</a></li></ol>
+            <ol class="chapter"><li><a href="quicklinks.html"><strong aria-hidden="true">1.</strong> quicklinks</a></li><li><a href="design_and_architecture.html"><strong aria-hidden="true">2.</strong> Design and architecture</a></li><li><ol class="section"><li><a href="design_and_architecture/filter_and_pipe_architecture.html"><strong aria-hidden="true">2.1.</strong> filter &amp; pipe architecture</a></li><li><a href="design_and_architecture/classes.html"><strong aria-hidden="true">2.2.</strong> classes</a></li></ol></li><li><a href="TODO.html"><strong aria-hidden="true">3.</strong> PLAN, TODO and progress</a></li><li><ol class="section"><li><a href="milestone/milestone-07-25-19.html"><strong aria-hidden="true">3.1.</strong> milestone July 25 2019</a></li></ol></li><li><a href="pages.html"><strong aria-hidden="true">4.</strong> Pages</a></li><li><ol class="section"><li><a href="pages/help_page.html"><strong aria-hidden="true">4.1.</strong> Help Pages</a></li><li><a href="pages/faq_page.html"><strong aria-hidden="true">4.2.</strong> FAQ Pages</a></li></ol></li><li><a href="Deliverables.html"><strong aria-hidden="true">5.</strong> Deliverables</a></li><li><a href="songs.html"><strong aria-hidden="true">6.</strong> Song list</a></li><li><a href="links.html"><strong aria-hidden="true">7.</strong> Useful links</a></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -154,7 +154,6 @@
 <a class="header" href="#classes" id="classes"><h1>classes</h1></a>
 <a class="header" href="#to-fix" id="to-fix"><h1>TO FIX</h1></a>
 <ul>
-<li>ask for permission for microphone</li>
 <li>fix arrow jumping rate</li>
 </ul>
 <a class="header" href="#todo-functionality" id="todo-functionality"><h1>TODO (functionality)</h1></a>
@@ -175,7 +174,7 @@
 <li>song practice mode
 <ul>
 <li>Library page</li>
-<li>user can play and import midi</li>
+<li>user can import midi</li>
 </ul>
 </li>
 <li>store history of played notes
@@ -207,7 +206,6 @@
 <li>about us page</li>
 <li>user-guide
 <ul>
-<li>first launch tutorial</li>
 <li>user-guide group (on github)</li>
 <li>in app user-guide book</li>
 </ul>
@@ -223,7 +221,6 @@
 <ul>
 <li>better icon, UI
 <ul>
-<li>button</li>
 <li>icon for app</li>
 <li>colour</li>
 <li>font, text colour</li>
@@ -238,6 +235,68 @@
 </ul>
 </li>
 <li>random generate button icon (pineapple, penpinapple, applepen, ppap)</li>
+</ul>
+<a class="header" href="#milestone-july-25-2019-dev---master" id="milestone-july-25-2019-dev---master"><h1>Milestone July 25 2019 (dev -&gt; master)</h1></a>
+<p>Lots of changes</p>
+<ul>
+<li>
+<p>Architecture overhaul</p>
+<ul>
+<li>split model and controller, model view controller architecture is much clearer</li>
+<li>proper observer pattern between controllers and Model</li>
+<li>factory design pattern for creating questions and mode fragments</li>
+</ul>
+</li>
+<li>
+<p>Features and practice modes</p>
+<ul>
+<li>Note, Interval Filter tab fragment for note, interval, triad, graph mode</li>
+<li>Note Graph, Interval, Triad, Song Practice modes working</li>
+<li>Summary Page getting started</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="#bugs-and-todo" id="bugs-and-todo"><h2>BUGS and TODO:</h2></a>
+<a class="header" href="#song-practice-mode" id="song-practice-mode"><h3>Song Practice Mode</h3></a>
+<ul>
+<li>(bug) Stop Midi processor when switching mode by clicking on items in navigation menu</li>
+<li>(improve) Song library to select songs (replace current spinner)</li>
+<li>(improve) Make song practice mode and song playing mode synchronous, i.e. switching from song playing mode to song practicing mode, the user is on the note that was in song playing mode, and vice versa</li>
+<li>(improve) Allow user to import their own midi</li>
+<li>(improve) use local storage or cache for tmp files like playing.mid</li>
+</ul>
+<a class="header" href="#note-graph-mode" id="note-graph-mode"><h3>Note Graph mode</h3></a>
+<ul>
+<li>(improve) can display notes in y axis (as an option)</li>
+</ul>
+<a class="header" href="#summary-page" id="summary-page"><h3>Summary page</h3></a>
+<ul>
+<li>(todo) notes user should practice more often and notes that user did well</li>
+<li>(fixme) graph in summary page should reflex accuracy and stability of a given note</li>
+</ul>
+<a class="header" href="#permodesetting" id="permodesetting"><h3>PerModeSetting</h3></a>
+<ul>
+<li>(fixme) it's a bit messy right now, can probably simply some complexity in the code</li>
+</ul>
+<a class="header" href="#general" id="general"><h3>General</h3></a>
+<ul>
+<li>(fixme) arrow jumping animation, can behave better when slowing down</li>
+<li>(improve) consider adding three arrows for offtrack level</li>
+<li>(todo) misc page for every mode, and their working properly</li>
+<li>(todo) global setting page</li>
+<li>(todo) more page</li>
+<li>(todo) music theory page</li>
+<li>(todo) faq page, ....</li>
+<li>(improve) add a hidden box, or using gesture to next/prev question</li>
+<li>(todo) colour theme</li>
+</ul>
+<a class="header" href="#user-experience-improvement-1" id="user-experience-improvement-1"><h3>User experience improvement</h3></a>
+<ul>
+<li>(todo) add comment text box, which will show random encouraging sentences</li>
+<li>(fixme) proper help message for each mode</li>
+<li>(improve) per mode setting page and navigation menu color should be according to each mode</li>
+<li>(improve) app intro page improvement</li>
+<li>(fixme) for phones of small resolution, can display proper text size, and graph, etc.</li>
 </ul>
 <a class="header" href="#pages" id="pages"><h1>Pages</h1></a>
 <a class="header" href="#help-pages" id="help-pages"><h1>Help Pages</h1></a>
@@ -273,6 +332,7 @@
 <li>D2 Peer to Peer (<a href="./deliverables/D2/Deliverable_2_peer_to_peer.pdf">D2 pdf</a>) (<a href="./deliverables/D2/P2P_on_446_website.pdf">modified P2P pdf on course website</a>)</li>
 <li>D3 Demo (<a href="./deliverables/D3/Deliverable_3_Demo.pdf">D3 pdf</a>)</li>
 <li>D5 (<a href="./deliverables/D5/Deliverable_5(final).pdf">D5 pdf</a>)</li>
+<li>D6 (<a href="./deliverables/D6/Deliverable_6.pdf">D6 pdf</a>)</li>
 </ul>
 <a class="header" href="#song-added" id="song-added"><h1>Song added</h1></a>
 <ul>
