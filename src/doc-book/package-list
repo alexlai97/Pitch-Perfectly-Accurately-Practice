@@ -1,0 +1,13 @@
+com.example.pitchperfectlyaccuratelypractice.activities
+com.example.pitchperfectlyaccuratelypractice.bitmap
+com.example.pitchperfectlyaccuratelypractice.controller
+com.example.pitchperfectlyaccuratelypractice.data
+com.example.pitchperfectlyaccuratelypractice.enums
+com.example.pitchperfectlyaccuratelypractice.filter
+com.example.pitchperfectlyaccuratelypractice.modeFragments
+com.example.pitchperfectlyaccuratelypractice.modeSettingsTabFragments
+com.example.pitchperfectlyaccuratelypractice.model
+com.example.pitchperfectlyaccuratelypractice.musicComponent
+com.example.pitchperfectlyaccuratelypractice.perModeSetting
+com.example.pitchperfectlyaccuratelypractice.question
+com.example.pitchperfectlyaccuratelypractice.tools
