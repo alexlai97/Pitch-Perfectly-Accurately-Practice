@@ -5,6 +5,7 @@ workspace
 ppap
 PerfectPitchAccuratePractice
 .DS_Store
+/doc-book
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
