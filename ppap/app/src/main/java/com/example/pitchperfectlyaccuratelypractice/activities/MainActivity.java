@@ -1,166 +1,178 @@
 package com.example.pitchperfectlyaccuratelypractice.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.example.pitchperfectlyaccuratelypractice.modeFragments.ModeFragment;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.IntervalModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteGraphModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
-import com.example.pitchperfectlyaccuratelypractice.common.Config;
-import com.example.pitchperfectlyaccuratelypractice.common.Mode;
-import com.example.pitchperfectlyaccuratelypractice.common.ModelController;
-import com.example.pitchperfectlyaccuratelypractice.fragments.GeneralFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.IntervalFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.NoteGraphFragment;
-import com.example.pitchperfectlyaccuratelypractice.fragments.TriadFragment;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.TriadModeSetting;
+import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
+import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
+import com.example.pitchperfectlyaccuratelypractice.model.Model;
+import com.example.pitchperfectlyaccuratelypractice.controller.Controller;
+import com.example.pitchperfectlyaccuratelypractice.tools.NotesPlayer;
+import com.example.pitchperfectlyaccuratelypractice.tools.MyMidiTool;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-
 import android.util.Log;
-
-import android.view.Menu;
-import android.view.View;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.widget.TextView;
-import android.widget.Button;
 
 /**
- * NotePracticeMode Activity
+ * Main Activity which stores model, controller, noteplayer, microphone
  */
 public class MainActivity extends AppCompatActivity implements
-        GeneralFragment.OnFragmentInteractionListener,
-//        NavigationDrawerFragment.NavigationDrawerCallbacks,
+        ModeFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "MAIN";
+    private static final String TAG = "MainActivity";
     public static final int REQUEST_CODE_FROM_FILTER = 1;
-    private static NotePlayer notePlayer = new NotePlayer();
-    private TextView arrow;
-
     private static final int MY_PERMISSIONS_REQUEST_AUDIO = 1;
 
-    private ModelController modelController;
+    /** indicate onCreate has been called */
     private boolean created = false;
 
-    private ActionBarDrawerToggle drawerToggle;
-    private NavigationView navigationView;
+    /** only controller (and main activity) should have access, so no getter */
+    private Model model;
 
-    private Mode curMode = Mode.NotePractice;
-    private GeneralFragment curFragment;
+    public Model getModel() {
+        return model;
+    }
 
-    public GeneralFragment getCurFragment() {
-        return curFragment;
+    /** controlling how user voice affects model and update view */
+    private Controller controller;
+
+    /**
+     * return the Controller (currently used by fragments)
+     * @return
+     */
+    public Controller getController() {
+        return controller;
+    }
+
+    /** a speaker which can start_playing note(s) */
+    private NotesPlayer notesPlayer = new NotesPlayer();
+
+
+    /**
+     * getter for note player
+     * @return
+     */
+    public NotesPlayer getNotesPlayer() {
+        return notesPlayer;
+    }
+
+    /** a microphone which contains a frequency, controller will listen to its current frequency */
+    private Microphone microphone = new Microphone(this);
+
+
+    public boolean FilterPageReturn;
+    /**
+     * getter for microphone
+     * @return
+     */
+    public Microphone getMicrophone() {
+        return microphone;
+    }
+
+    private MyMidiTool myMidiTool = new MyMidiTool();
+    public MyMidiTool getMyMidiTool() {
+        return myMidiTool;
     }
 
     /**
-     * currently it does the following
-     * 1. check mirochphone permission and handles it
-     * 2. set navi wrapper
-     * 3. setup fragment and begin note fragment
-     * 4. set up modelcontroller
-     * 5. handle intents (from filter page)
-     * 6. set up voice listener
+     * 1. check for microphone permission
+     * 2. set up content view
+     * 3. setup navigation manu listener
+     * 4. setup controller
+     * 5. handle potential intents
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-         Log.e(TAG, "s" + created);
-
-        checkMicrophonePermission();
-        super.onCreate(savedInstanceState);
-
         created = true;
+        Log.e(TAG, "s" + created);
+        Log.w(TAG, "ONCREATE");
+        // check microphone permission
 
-        setContentView(R.layout.navi_wrapper);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.wrapper_navigation_menu);
 
-
+        // setup navigation menu listener
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Start Note Fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        curFragment = new NoteFragment();
-        if( curFragment.getView() == null ){ Log.w(TAG, "athings"); }
-
-        fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
-        fragmentManager.executePendingTransactions();
-
-        modelController = new  ModelController(new Config(), this);
-        handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
-        modelController.next_question();
-
-        setupVoiceListener();
-
-        Log.w(TAG, "ONCREATE");
+        model = new Model(this);
+        controller = new Controller(model, this);
+       // handleIntents(); // intents from NotePracticeFilterPage which contains the note pool
     }
 
 
     /**
-     * currently only get notes from filter page
+     * currently
+     * TODO will hand back intervals as well (for interval filter page)
+     * filter page hand back result notes (to be put in question note pool)
      * @param requestCode
      * @param resultCode
      * @param data
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Log.d(TAG, "onActivityResult: get intent back from filter page");
-        if (requestCode == REQUEST_CODE_FROM_FILTER) {
-            if (resultCode == RESULT_OK) {
-                Note [] result_notes = Note.IntsToNotes(data.getIntArrayExtra("notePool"));
-                Note.logNotes("back to main activity", result_notes);
-                modelController.setNotePool(result_notes);
-                modelController.next_question();
-            } else if (resultCode == RESULT_CANCELED){
-
-            } else {
-
-            }
-        }
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: get intent back from filter page");
+
+        if (resultCode == RESULT_OK) {
+            PerModeSetting perModeSetting = (PerModeSetting) data.getSerializableExtra("perModeSetting");
+            model.setPerModeSetting(perModeSetting);
+
+            switch (perModeSetting.mode) {
+                case IntervalPractice:
+                    IntervalModeSetting intervalModeSetting = (IntervalModeSetting)perModeSetting;
+                    model.setIntervalPool(intervalModeSetting.intervalsBitmap.toIntervals());
+                    model.setNotePool(intervalModeSetting.notesBitmap.toNotes());
+                    break;
+                case NotePractice:
+                    NoteModeSetting noteModeSetting = (NoteModeSetting) perModeSetting;
+                    model.setNotePool(noteModeSetting.notesBitmap.toNotes());
+                    break;
+                case NoteGraphPractice:
+                    NoteGraphModeSetting noteGraphModeSetting = (NoteGraphModeSetting) perModeSetting;
+                    model.setNotePool(noteGraphModeSetting.notesBitmap.toNotes());
+                    break;
+                case TriadPractice:
+                    TriadModeSetting triadModeSetting = (TriadModeSetting) perModeSetting;
+                    model.setNotePool(triadModeSetting.notesBitmap.toNotes());
+                    break;
+                case SongPlaying:
+                    /** TODO */
+                case SongPractice:
+                    /** TODO */
+                    break;
+            }
+
+            controller.next_question();
+        } else if (resultCode == RESULT_CANCELED){
+
+        } else {
+
+        }
     }
 
 
-    /**
-     * set up voice listener and start listening
-     */
-    void setupVoiceListener() {
-        VoiceListener voicelistener = new VoiceListener(modelController);
-        voicelistener.startListening();
-    }
-
 
     /**
-     * return the ModelController (currently used by fragments)
-     * @return
-     */
-    public ModelController getModelController() {
-        return modelController;
-    }
-
-    /**
-     * return the current notePlayer (currently used by fragments)
-     * @return
-     */
-    public NotePlayer getNotePlayer() {
-        return notePlayer;
-    }
-
-    /**
-     * restart, doesn't do anything for now
+     *
      */
     protected void onRestart() {
         super.onRestart();
@@ -169,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * handle when back button, FIXME
+     * handle when back button is pressed
      */
     @Override
     public void onBackPressed() {
@@ -186,55 +198,22 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * handle events when navigation bar's menu item is selected
      * <p>
-     * it handles changing fragment and change mode logic
+     * it change mode in model, which will notify controller, which will change current fragment in model, etc.
      * </p>
      * @param item
      * @return
      */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        curFragment = null;
-
         int id = item.getItemId();
-        Log.d(TAG, "onNavigationItemSelected: " + id);
-        switch(id){
-            case R.id.note_mode:
-                Log.d(TAG, "onNavigationItemSelected: notemode");
-                curFragment = new NoteFragment();
-                curMode = Mode.NotePractice;
-                break;
-            case R.id.interval_mode:
-                Log.d(TAG, "onNavigationItemSelected: intervalmode");
-                curFragment = new IntervalFragment();
-                curMode = Mode.IntervalPractice;
-                break;
-            case R.id.triad_mode:
-                Log.d(TAG, "onNavigationItemSelected: chordmode");
-                curFragment = new TriadFragment();
-                curMode = Mode.TriadPractice;
-                break;
-            case R.id.notegraph_mode:
-                Log.d(TAG, "onNavigationItemSelected: notegraph");
-                curFragment = new NoteGraphFragment();
-                curMode = Mode.NoteGraphPractice;
-                break;
-//            case R.id.song_mode:
-//                break;
-            default:
-                Log.d(TAG, "onNavigationItemSelected: default");
-                curFragment = new NoteFragment();
-                curMode = Mode.NotePractice;
-
+        Log.d(TAG, "onNavigationItemSelected: " + Mode.idToMode(id));
+        if(id == R.id.summary){
+            Intent summary_intent = new Intent(this, SummaryActivity.class);
+            // let the main activity handle the intent
+            this.startActivityForResult(summary_intent, REQUEST_CODE_FROM_FILTER);
         }
 
-        modelController.changeCurrentMode(curMode);
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, curFragment).commit();
-        fragmentManager.executePendingTransactions();
-
+        model.setCurrentMode(Mode.idToMode(id));
 
         // Highlight the selected item has been done by NavigationView
         item.setChecked(true);
@@ -248,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * for check microphone permission
+     * handle permission result
      * @param requestCode
      * @param permissions
      * @param grantResults
@@ -277,58 +256,12 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * do nothing, might have potential use for future
+     * potential use
      * @param uri
      */
     @Override
     public void onFragmentInteraction(Uri uri) {
         //used to communicate between fragments
-    }
-
-    /**
-     * check Microphone Permission and handle it
-     */
-    void checkMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.RECORD_AUDIO)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
-                        MY_PERMISSIONS_REQUEST_AUDIO);
-            }
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-
-        } else {
-            // Permission has already been granted
-        }
-
-    }
-
-    /**
-     * handle intents ( currently only handles intents from filter page )
-     */
-    void handleIntents() {
-        Intent notes_ints_intent = getIntent();
-        int[] notes_ints = notes_ints_intent.getIntArrayExtra("notePool");
-        if (notes_ints != null) {
-            if (notes_ints.length == 0) {
-                modelController.setNotePool(Note.getAllNotes());
-            } else {
-                modelController.setNotePool(Note.IntsToNotes(notes_ints));
-            }
-        }
     }
 
 }

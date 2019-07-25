@@ -11,6 +11,11 @@
             android:icon="@drawable/icons8_music_50"
             android:title="@string/note_mode" />
         <item
+            android:id="@+id/notegraph_mode"
+            android:icon="@drawable/graph"
+            android:title="Graph"
+            />
+        <item
             android:id="@+id/interval_mode"
             android:icon="@drawable/trans_interval"
             android:title="@string/interval_mode" />
@@ -19,20 +24,21 @@
             android:icon="@drawable/chord"
             android:title="@string/chord_mode" />
         <item
-            android:id="@+id/notegraph_mode"
-            android:icon="@drawable/graph"
-            android:title="@string/notegraph_mode"
+            android:id="@+id/song_mode"
+            android:icon="@drawable/microphone"
+            android:title="Song"
             />
     </group>
-
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/summary"
-                android:title="@string/summary" />
-            <item
-                android:id="@+id/contact"
-                android:title="@string/contact" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/summary"
+                    android:title="@string/summary" />
+                <item
+                    android:id="@+id/contact"
+                    android:title="@string/contact" />
+            </group>
         </menu>
     </item>
 

@@ -1,7 +1,9 @@
 package com.example.pitchperfectlyaccuratelypractice.bitmap;
 
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.note.NotesScale;
+import android.util.Log;
+
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
 import java.util.ArrayList;
 
@@ -66,6 +68,19 @@ public class NotesBitmap extends Bitmap {
     this.bitmap = bitmap;
   }
 
+  public NotesBitmap(int[] arr) {
+    assert(arr.length == size);
+    Log.d("intsToNoteBitmap", "NotesBitmap: " + arr.length);
+    this.bitmap = new boolean[this.size];
+    for(int i = 0; i < size; ++i){
+      if(arr[i] == 1){
+        bitmap[i] = true;
+      } else {
+        bitmap[i] = false;
+      }
+    }
+  }
+
   /**
    * construct NotesBitmap given notes
    * @param notes
@@ -91,7 +106,7 @@ public class NotesBitmap extends Bitmap {
   /**
    * print bitmap to stdout  (debugging)
    */
-  void printBitmap() {
+  public void printBitmap() {
     for (int i = 0; i < this.size; i++) {
       System.out.println((new Note(i)).getText() + " " + (this.bitmap[i]? "1":"0") + " ");
     }
@@ -110,6 +125,7 @@ public class NotesBitmap extends Bitmap {
     }
     return nbm;
   }
+
 
   /**
    * return a NotesBitmap of all 1
@@ -167,23 +183,20 @@ public class NotesBitmap extends Bitmap {
     return new NotesBitmap(result_bitmap);
   }
 
+  public int[] toIntArray(){
+    return Note.NotesToInts(this.toNotes());
+  }
+
   /**
    * convert bitmap to array of notes that are true (1) in bitmap, return the array, useful for implementing the buttons in NotesFilterPage
    */
   public Note[] toNotes() {
-    ArrayList<Note> notes_arr = new ArrayList<Note>();
-
+    ArrayList<Note> notes_arr = new ArrayList<>();
     for (int i = 0; i < this.size; i ++) {
       if (this.bitmap[i]) notes_arr.add(new Note(i));
     }
 
-    int length = notes_arr.size();
-    Note[] notes = new Note[length];
-    for (int i = 0; i < length; i++) {
-       notes[i] = notes_arr.get(i);
-    }
-
-    return notes;
+    return Note.ArrayListToNotes(notes_arr);
   }
 
   /**

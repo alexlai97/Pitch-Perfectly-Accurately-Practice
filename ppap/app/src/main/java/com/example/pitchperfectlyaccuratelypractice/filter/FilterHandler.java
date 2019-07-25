@@ -2,8 +2,8 @@ package com.example.pitchperfectlyaccuratelypractice.filter;
 
 import com.example.pitchperfectlyaccuratelypractice.bitmap.Bitmap;
 import com.example.pitchperfectlyaccuratelypractice.bitmap.NotesBitmap;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
-import com.example.pitchperfectlyaccuratelypractice.note.NotesScale;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
+import com.example.pitchperfectlyaccuratelypractice.enums.NotesScale;
 
 /**
  * A convenience class to handle filters
@@ -111,8 +111,8 @@ public class FilterHandler {
 
     // test
     System.out.println("testing");
-    NotesRangeFilter rangeFilter = new NotesRangeFilter(new Note("A1"), new Note("A2"));
-    NotesScaleFilter scaleFilter = new NotesScaleFilter(new Note("C"), NotesScale.Major);
+    NotesRangeFilter rangeFilter = new NotesRangeFilter(new Note("A1"), new Note("A6"));
+    NotesScaleFilter scaleFilter = new NotesScaleFilter(new Note("C"), NotesScale.HarmonicMinor);
 //    scaleFilter.bitmap.printBitmap();
     fh = new FilterHandler(NotesBitmap.getAllTrueNotesBitmap(), new Filter[] { rangeFilter, scaleFilter } );
     filters = new Filter[]{rangeFilter, scaleFilter};

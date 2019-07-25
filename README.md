@@ -12,6 +12,6 @@ An Android app that cultivates user to have perfect earworm.
 # Different pratice modes
 - note practice mode
 - interval practice mode
-- chord practice mode
+- triad practice mode
 - (song practice mode) if time allowed
 

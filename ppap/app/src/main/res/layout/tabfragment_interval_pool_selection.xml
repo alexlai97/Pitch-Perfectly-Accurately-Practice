@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modeSettingsTabFragments.IntervalPoolSelectionTab">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/Tab2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".modeSettingsTabFragments.IntervalPoolSelectionTab"
+        android:background="#c1e6da">
+
+        <ImageView
+            android:id="@+id/minusSign"
+            android:layout_width="51dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/minus"
+            app:layout_constraintBottom_toTopOf="@+id/negativeIntervalsTableLayout"
+            app:layout_constraintEnd_toEndOf="@+id/negativeIntervalsTableLayout"
+            app:layout_constraintStart_toStartOf="@+id/negativeIntervalsTableLayout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/plusSign"
+            android:layout_width="42dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/plus"
+            app:layout_constraintBottom_toTopOf="@+id/positiveIntervalsTableLayout"
+            app:layout_constraintEnd_toEndOf="@+id/positiveIntervalsTableLayout"
+            app:layout_constraintStart_toStartOf="@+id/positiveIntervalsTableLayout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TableLayout
+            android:id="@+id/negativeIntervalsTableLayout"
+            android:layout_width="0dp"
+            android:layout_height="360dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/positiveIntervalsTableLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/minusSign">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+
+        <TableLayout
+            android:id="@+id/positiveIntervalsTableLayout"
+            android:layout_width="0dp"
+            android:layout_height="360dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/negativeIntervalsTableLayout"
+            app:layout_constraintTop_toBottomOf="@+id/plusSign">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+
+        <Button
+            android:id="@+id/select_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@android:string/selectAll"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/positiveIntervalsTableLayout"
+            app:layout_constraintStart_toStartOf="@+id/negativeIntervalsTableLayout"
+            app:layout_constraintTop_toBottomOf="@+id/negativeIntervalsTableLayout"
+            app:layout_constraintVertical_bias="0.07999998" />
+
+        <Button
+            android:id="@+id/cancel_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_all"
+            app:layout_constraintBaseline_toBaselineOf="@+id/select_all"
+            app:layout_constraintEnd_toEndOf="@+id/positiveIntervalsTableLayout"
+            app:layout_constraintStart_toStartOf="@+id/positiveIntervalsTableLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

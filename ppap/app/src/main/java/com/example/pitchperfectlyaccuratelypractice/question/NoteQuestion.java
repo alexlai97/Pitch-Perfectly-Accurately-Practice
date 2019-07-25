@@ -1,35 +1,53 @@
 package com.example.pitchperfectlyaccuratelypractice.question;
-import com.example.pitchperfectlyaccuratelypractice.note.Note;
+import com.example.pitchperfectlyaccuratelypractice.musicComponent.Note;
 
-import java.util.Random;
 
 /**
  * A Question in Note practice mode
  */
 public class NoteQuestion extends Question {
+
   /**
    * The note that will be questioned 
    */
   private Note questionNote;
 
-  /**
-   * generate question from note pool, remember to set note pool first
-    */
-  public void generate_random_question() {
-    int rnd = new Random().nextInt(notePool.length);
-    this.questionNote = notePool[rnd];
-    this.texts = new String[1];
-    this.texts[0] = questionNote.getText();
+  public NoteQuestion() {
+    notePool = Note.getReasonableNotes();
+    next_question(NextQuestionStrategy.Random);
+  }
+
+  public void next_question(NextQuestionStrategy nextQuestionStrategy) {
+    switch (nextQuestionStrategy) {
+      case Random:
+        int rnd = random.nextInt(notePool.length);
+        this.questionNote = notePool[rnd];
+        this.texts = new String[] { questionNote.getText()};
+        break;
+      case InOrder:
+        this.questionNote = notePool[inorder_index];
+        this.texts = new String[] { questionNote.getText()};
+        inorder_index += 1;
+        if (inorder_index >= notePool.length) {
+          inorder_index = 0;
+        }
+        break;
+      case ReverseOrder:
+        this.questionNote = notePool[reverse_order_index];
+        this.texts = new String[] { questionNote.getText()};
+        reverse_order_index -= 1;
+        if (reverse_order_index < 0) {
+          reverse_order_index = notePool.length - 1;
+        }
+        break;
+    }
   }
 
   /**
    *
    */
-  public Note[] getAnswerNotes() {
-    Note[] notes = new Note[1];
-    notes[0] = questionNote;
-
-    return notes;
+  public Note[] getExpectedNotes() {
+    return new Note[]{questionNote};
   }
 
   /**
@@ -39,8 +57,8 @@ public class NoteQuestion extends Question {
     NoteQuestion nq = new NoteQuestion();
     Note [] notes = Note.generateNotesWithRange(0,72);
     nq.setNotePool(notes);
-    for (int i =0; i < notes.length; i++) {
-      nq.generate_random_question();
+    for (int i =0; i < notes.length * 2; i++) {
+      nq.next_question(NextQuestionStrategy.ReverseOrder);
       nq.print_question_texts();
     }
   }
