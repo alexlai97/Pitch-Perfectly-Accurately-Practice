@@ -8,6 +8,7 @@
 
 # TODO
 - [PLAN, TODO and progress](./TODO.md)
+  - [milestone July 25 2019](./milestone/milestone-07-25-19.md)
 
 # Pages
 - [Pages](./pages.md)

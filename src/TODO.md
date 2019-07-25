@@ -1,5 +1,4 @@
 # TO FIX
-- ask for permission for microphone
 - fix arrow jumping rate
 
 # TODO (functionality)
@@ -15,7 +14,7 @@
 - save settings when closed the app, reload it when open the app
 - song practice mode
   - Library page
-  - user can play and import midi 
+  - user can import midi 
 - store history of played notes
   - database of notes
   - SUMMARY page
@@ -31,7 +30,6 @@
     - how to create a song and put it in app
 - about us page
 - user-guide
-  - first launch tutorial
   - user-guide group (on github)
   - in app user-guide book
 - gestures
@@ -40,7 +38,6 @@
 
 # User Interface improvement
 - better icon, UI
-  - button
   - icon for app
   - colour
   - font, text colour
