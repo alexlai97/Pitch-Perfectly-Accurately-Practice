@@ -5,6 +5,7 @@ workspace
 /.idea
 doc-book
 /PerfectPitchAccuratePractice/
+/src/
 
 # dev-book branch
 book
