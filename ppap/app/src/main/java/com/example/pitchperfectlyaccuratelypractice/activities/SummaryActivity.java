@@ -56,7 +56,7 @@ public class SummaryActivity extends Activity {
         setContentView(R.layout.summary_layout);
 
 
-        historyData = new HistoryData(this, true);
+        historyData = new HistoryData(this, false);
 
         findViewById(R.id.backButton).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {

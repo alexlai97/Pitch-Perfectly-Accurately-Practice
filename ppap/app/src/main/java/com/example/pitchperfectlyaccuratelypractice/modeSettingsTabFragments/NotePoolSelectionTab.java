@@ -149,7 +149,7 @@ public class NotePoolSelectionTab extends Fragment {
     private void setSpinners() {
         // Put it declare
         fromSpinner   = view.findViewById(R.id.fromSpinner);
-        toSpinner     = view.findViewById(R.id.errorAllowance_EditText);
+        toSpinner     = view.findViewById(R.id.showFrequencySpinner);
         scaleSpinner  = view.findViewById(R.id.leastStableTimeEditText);
         keySigSpinner = view.findViewById(R.id.showCorrectTimeEditText);
 

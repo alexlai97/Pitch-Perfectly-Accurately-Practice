@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/errorAllowance_EditText"
+            android:id="@+id/showFrequencySpinner"
             android:layout_width="110dp"
             android:layout_height="45dp"
             android:layout_marginTop="16dp"
@@ -54,7 +54,7 @@
             android:spinnerMode="dropdown"
             android:textAlignment="textEnd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/errorAllowance_EditText" />
+            app:layout_constraintTop_toBottomOf="@+id/showFrequencySpinner" />
 
         <Spinner
             android:id="@+id/showCorrectTimeEditText"

@@ -94,8 +94,6 @@ public class HistoryData {
                 Log.e(TAG, "Couldn't create new data");
             }
         }
-
-        writeToFile(history.toString(), currentAct, "history.json");
     }
 
     public JSONObject retrieveData(){

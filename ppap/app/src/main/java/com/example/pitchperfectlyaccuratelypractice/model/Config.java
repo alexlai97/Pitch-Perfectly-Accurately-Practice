@@ -65,7 +65,7 @@ public class Config {
   }
 
   /** how long between the user pass the question and next question */
-  private long milliseconds_to_show_correct = 2000;
+  private long milliseconds_to_show_correct = 500;
 
   public long get_milli_seconds_to_show_correct() {
     return milliseconds_to_show_correct;

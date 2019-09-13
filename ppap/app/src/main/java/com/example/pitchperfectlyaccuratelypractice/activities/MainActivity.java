@@ -11,6 +11,7 @@ import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteGraphMode
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.NoteModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.PerModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.R;
+import com.example.pitchperfectlyaccuratelypractice.perModeSetting.SongModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.perModeSetting.TriadModeSetting;
 import com.example.pitchperfectlyaccuratelypractice.tools.Microphone;
 import com.example.pitchperfectlyaccuratelypractice.enums.Mode;
@@ -155,9 +156,10 @@ public class MainActivity extends AppCompatActivity implements
                     model.setNotePool(triadModeSetting.notesBitmap.toNotes());
                     break;
                 case SongPlaying:
-                    /** TODO */
+                    SongModeSetting songModeSetting= (SongModeSetting) perModeSetting;
+                    break;
                 case SongPractice:
-                    /** TODO */
+                    songModeSetting= (SongModeSetting) perModeSetting;
                     break;
             }
 

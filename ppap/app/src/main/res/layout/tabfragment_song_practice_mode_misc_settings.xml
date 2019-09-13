@@ -22,7 +22,7 @@
 
 
     <EditText
-        android:id="@+id/errorAllowance_EditText"
+        android:id="@+id/showFrequencySpinner"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
