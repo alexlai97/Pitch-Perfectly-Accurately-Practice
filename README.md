@@ -1,7 +1,9 @@
 # Pitch-Perfectly-Accurately-Practice (PPAP)
-An Android app that gets your pitch perfectly accurately practiced. ([Youtube Demo video](https://youtu.be/JqUM81U_XtY))
+An Android app that gets your pitch perfectly accurately practiced. 
 
-Disclaimer: It doesn't not practice your perfect pitch, but your pitch memory.
+[![Youtube Demo video](https://img.youtube.com/vi/JqUM81U_XtY/maxresdefault.jpg)](https://youtu.be/JqUM81U_XtY)
+
+Disclaimer: It doesn't not practice your perfect pitch, but your pitch memory. However, no guarantee.
 
 - [Dev book](https://alexlai97.github.io/Pitch-Perfectly-Accurately-Practice/) (blueprint, todo, progress, etc.)
 - [Doc book](https://alexlai97.github.io/Pitch-Perfectly-Accurately-Practice/doc-book/index.html) (java classes documentation)
